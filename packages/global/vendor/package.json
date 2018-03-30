@@ -2,8 +2,8 @@
   "name": "@kammy/vendor",
   "version": "0.0.1",
   "description": "Vendor Bundle",
-  "main": "dist/vendpr.min.js",
-  "esnext": "src/vendpr.js",
+  "main": "dist/vendor.min.js",
+  "src": "src/vendpr.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

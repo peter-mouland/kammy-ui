@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const BoltColors = () => (
+const Colors = () => (
   <div className='storybook-app storybook-app--container-full'>
     <div className='xs-row'>
       <div className='storybook-app__desc xs-2'>
@@ -39,5 +39,6 @@ const BoltColors = () => (
       </div>
     </div>
   </div>
-)
-export default BoltColors
+);
+
+export default Colors;

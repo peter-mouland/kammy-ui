@@ -49,6 +49,6 @@
     "function-paren-newline": 0,
     "no-unused-vars": ["error", { "varsIgnorePattern": "^log" }],
     "id-length": [2, {"exceptions": ["e", "i"]}],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["*.story.jsx"] }]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["*.story.jsx", "*.spec.jsx", "*.spec.js"] }]
   }
 }

@@ -1,4 +1,3 @@
-/tests/*
 /node_modules/*
 src/**/*.spec.js
 src/**/*-copy.js

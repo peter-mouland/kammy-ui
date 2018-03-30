@@ -1,0 +1,21 @@
+{
+  "name": "@kammy/node-fetch",
+  "version": "0.0.1",
+  "description": "Kammy UI Helper: Fetch",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": ["kammy"],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13"
+  }
+}

@@ -8,7 +8,7 @@
     "start": "start-storybook -s ./tests/fixtures -p 9001",
     "--------- LINTING ------------------": "",
     "lint": "yarn lint:js ",
-    "lint:js": "eslint 'packages/*/src/**/*.jsx' 'packages/*/src/**/*.js' 'tests/*/src/**/*.js'",
+    "lint:js": "eslint 'packages/*/*/src/**/*.jsx' 'packages/*/*/src/**/*.js' 'tests/*/src/**/*.js'",
     "lint:css": "stylelint 'packages/*/src/**/*.scss'",
     "--------- TESTS:UNIT ---------------": "",
     "test": "jest --coverage --config jest.json",
@@ -43,7 +43,6 @@
   },
   "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
   "dependencies": {
-    "jest-enzyme": "^6.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
   },
@@ -78,6 +77,8 @@
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "husky": "^0.14.3",
+    "jest": "^22.4.3",
+    "jest-enzyme": "^6.0.0",
     "lerna": "^2.9.1",
     "nightwatch": "^0.9.20",
     "node-sass": "^4.8.3",
