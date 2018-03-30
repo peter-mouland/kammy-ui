@@ -1,0 +1,18 @@
+{
+  "name": "@kammy/vendor",
+  "version": "0.0.1",
+  "description": "Vendor Bundle",
+  "main": "dist/vendpr.min.js",
+  "esnext": "src/vendpr.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.3.0",
+    "react-dom": "16.3.0"
+  }
+}

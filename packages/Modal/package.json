@@ -1,0 +1,25 @@
+{
+  "name": "@kammy/Modal",
+  "version": "0.0.1",
+  "description": "Kammy UI Component: Modal",
+  "main": "dist/Modal.min.js",
+  "esnext": "esnext/Modal.jsx",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "react",
+    "ui-components"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "@kammy/bootstrap": "^0.0.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0"
+  }
+}

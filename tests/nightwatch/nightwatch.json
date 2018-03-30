@@ -1,0 +1,116 @@
+{
+  "src_folders" : ["packages/"],
+  "exclude" : "node_modules",
+  "test_workers": {
+    "enabled": false,
+    "workers": "auto"
+  },
+  "selenium" : {
+    "start_process" : false,
+    "server_path" : "node_modules/selenium-standalone/.selenium/selenium-server/3.4.0-server.jar",
+    "cli_args" : {
+      "webdriver.chrome.driver" : "node_modules/selenium-standalone/.selenium/chromedriver/2.33-x64-chromedriver"
+    }
+  },
+  "live_output" : true,
+  "custom_commands_path" : "./tests/nightwatch/commands",
+  "globals_path": "./tests/nightwatch/globals.js",
+  "test_settings" : {
+    "default" : {
+      "exclude" : "node_modules",
+      "filter" : "**/esnext/*.regression.js",
+      "launch_url" : "http://hub.browserstack.com",
+      "selenium_port"  : 80,
+      "selenium_host"  : "hub.browserstack.com",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : true,
+        "path" : "tests/regression/screenshots/errors"
+      },
+      "desiredCapabilities": {
+        "project": "ui-components",
+        "build": "build ",
+        "browserName": "chrome",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "browserstack.local" : true,
+        "browserstack.debug": false,
+        "autoDismissAlerts" : true,
+        "locationServicesAuthorized": false,
+        "recordVideo": false,
+        "recordScreenshots": false,
+        "resolution": "1024x768",
+        "screenResolution": "1024x768"
+      }
+    },
+    "local": {
+      "launch_url" : "http://localhost",
+      "selenium_port"  : 4444,
+      "selenium_host"  : "127.0.0.1",
+      "selenium" : {
+        "start_process": true
+      },
+      "screenshots" : {
+        "enabled" : true,
+        "on_failure" : true,
+        "on_error" : true,
+        "path" : "tests/regression/tests_screenshots"
+      },
+      "desiredCapabilities": {
+        "build": "build local",
+        "browserName": "chrome",
+        "browserstack.local" : false
+      }
+    },
+    "chrome_win" : {
+      "desiredCapabilities": {
+        "os": "Windows",
+        "os_version": "7",
+        "browserName": "chrome"
+      }
+    },
+    "safari_osx" : {
+      "desiredCapabilities": {
+        "os": "OS X",
+        "os_version": "Sierra",
+        "browserName": "safari"
+      }
+    },
+    "chrome_osx" : {
+      "desiredCapabilities": {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browserName": "chrome"
+      }
+    },
+    "firefox_win" : {
+      "desiredCapabilities": {
+        "os": "Windows",
+        "os_version": "7",
+        "browserName": "firefox"
+      }
+    },
+    "firefox_osx" : {
+      "desiredCapabilities": {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browserName": "firefox"
+      }
+    },
+    "ie11" : {
+      "desiredCapabilities": {
+        "os": "Windows",
+        "os_version": "8.1",
+        "browserName": "IE",
+        "browser_version": "11.0"
+      }
+    },
+    "edge": {
+      "desiredCapabilities": {
+        "browserName": "Edge",
+        "os": "Windows",
+        "os_version": "10"
+      }
+    }
+  }
+}

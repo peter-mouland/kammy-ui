@@ -1,0 +1,58 @@
+@import '../abstracts/breakpoints';
+@import '../abstracts/variables';
+
+a, select, button {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link {
+  color: $color-blue-cobalt;
+  text-decoration: underline;
+
+  &:hover {
+    color: $color-cerulean-light;
+  }
+}
+
+
+.sr-only {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+
+  &--focusable:active,
+  &--focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+  }
+}
+
+.xs-sr-only {
+  @include breakpoint(xs-only) {
+    clip: rect(1px, 1px, 1px, 1px)!important;
+    position: absolute!important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.valign-center {
+  align-self: center;
+}

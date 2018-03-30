@@ -1,0 +1,33 @@
+{
+  "coverageThreshold": {
+    "global": {
+      "statements": 75,
+      "branches": 75,
+      "functions": 75,
+      "lines": 75
+    }
+  },
+  "rootDir": "packages",
+  "coverageDirectory": "<rootDir>/../coverage",
+  "moduleFileExtensions": [
+    "js",
+    "jsx",
+    "json"
+  ],
+  "moduleDirectories": [
+    "node_modules"
+  ],
+  "transformIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "setupTestFrameworkScriptFile": "<rootDir>/../node_modules/jest-enzyme/lib/index.js",
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../tests/jest/__mocks__/fileMock.js",
+    "\\.(css|scss)$": "<rootDir>/../tests/jest/__mocks__/styleMock.js"
+  },
+  "testRegex": "(/__tests__/.*(^scenarios)|(\\.|/)(test|spec))\\.jsx?$",
+  "setupFiles": [
+    "<rootDir>/../tests/jest/reactShim.js",
+    "<rootDir>/../tests/jest/enzymeSetup.js"
+  ]
+}
