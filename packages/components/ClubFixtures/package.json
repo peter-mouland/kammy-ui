@@ -1,9 +1,9 @@
 {
-  "name": "@kammy/nav-bar",
+  "name": "@kammy/club-fixtures",
   "version": "0.0.1",
-  "description": "Kammy UI Component: NavBar",
-  "main": "dist/NavBar.min.js",
-  "src": "src/NavBar.jsx",
+  "description": "Kammy UI Component: ClubFixtures",
+  "main": "dist/ClubFixtures.min.js",
+  "src": "src/ClubFixtures.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -13,9 +13,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy/bootstrap": "^0.0.1",
-    "@kammy/named-link": "^0.0.1",
-    "@kammy/bem": "^0.0.1"
+    "@kammy/bem": "^0.0.1",
+    "@kammy/bootstrap": "^0.0.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

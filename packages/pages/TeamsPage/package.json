@@ -1,9 +1,9 @@
 {
-  "name": "@kammy/nav-bar",
+  "name": "@kammy/teams-page",
   "version": "0.0.1",
-  "description": "Kammy UI Component: NavBar",
-  "main": "dist/NavBar.min.js",
-  "src": "src/NavBar.jsx",
+  "description": "Kammy UI Component: TeamsPage",
+  "main": "dist/TeamsPage.min.js",
+  "src": "src/TeamsPage.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -14,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "@kammy/bootstrap": "^0.0.1",
-    "@kammy/named-link": "^0.0.1",
     "@kammy/bem": "^0.0.1"
   },
   "peerDependencies": {
@@ -23,6 +22,7 @@
   },
   "devDependencies": {
     "chance": "^1.0.13",
-    "enzyme": "^3.3.0"
+    "enzyme": "^3.3.0",
+    "react-router-dom": "^4.2.2"
   }
 }

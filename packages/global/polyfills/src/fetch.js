@@ -1,3 +1,3 @@
 /* eslint-disable */
 // for ie
-require('whatwg-fetch')
+require('whatwg-fetch');

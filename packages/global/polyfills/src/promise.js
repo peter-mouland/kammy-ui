@@ -1,4 +1,3 @@
-
 // for ie
 const Promise = require('promise-polyfill');
 

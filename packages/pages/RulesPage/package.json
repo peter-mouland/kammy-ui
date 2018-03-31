@@ -14,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "@kammy/bootstrap": "^0.0.1",
-    "@kammy/nav-bar": "^0.0.1",
     "@kammy/bem": "^0.0.1"
   },
   "peerDependencies": {
