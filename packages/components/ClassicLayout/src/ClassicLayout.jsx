@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy/bem';
-import NavBar from '@kammy/nav-bar';
 
 import './classic-layout.scss';
 
 const bem = bemHelper({ block: 'layout' });
 
-const MainLayout = ({ children, isUserAuthenticated, name }) => (
+const MainLayout = ({ children, NavBar }) => (
   <div className={bem(null, 'main')}>
     <div className={bem('nav')}>
-      <NavBar isUserAuthenticated={isUserAuthenticated} isAdmin={true} name={name }/>
+      {NavBar}
     </div>
     <main className={bem('content')}>
       { children}
@@ -24,13 +23,7 @@ const MainLayout = ({ children, isUserAuthenticated, name }) => (
 
 MainLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  isUserAuthenticated: PropTypes.bool,
-  name: PropTypes.string,
-};
-
-MainLayout.defaultProps = {
-  isUserAuthenticated: false,
-  name: '',
+  NavBar: PropTypes.node.isRequired,
 };
 
 export default MainLayout;

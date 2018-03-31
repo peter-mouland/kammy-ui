@@ -34,3 +34,9 @@
     border-color: $brand;
   }
 }
+
+.nav__my-account {
+  text-align: right;
+  flex-grow: 1;
+  margin: 0 1em;
+}

@@ -3,32 +3,45 @@ import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy/bem';
 import NamedLink from '@kammy/named-link';
-import MyAccountNavItem from '@kammy/my-account-nav-item';
 
 import './nav-bar.scss';
 
 const bem = bemHelper({ block: 'nav' });
+const linkClass = bem('link');
 
-const NavBar = ({ isUserAuthenticated, isAdmin }) => (
+const NavBar = ({ isUserAuthenticated, isAdmin, name }) => (
   <nav className={bem()}>
     <span className={bem('header')}>FF</span>
-    <NamedLink to="teams" className={bem('link')} />
-    <NamedLink to="myTeam" className={bem('link')} />
-    <NamedLink to="divisions" className={bem('link')} />
-    <NamedLink to="rules" className={bem('link')} />
-    { isAdmin ? <NamedLink to="admin" className={bem('link')} /> : null }
-    <MyAccountNavItem isUserAuthenticated={ isUserAuthenticated } />
+    <NamedLink to="teams" className={linkClass} />
+    <NamedLink to="myTeam" className={linkClass} />
+    <NamedLink to="divisions" className={linkClass} />
+    <NamedLink to="rules" className={linkClass} />
+    { isAdmin ? <NamedLink to="admin" className={linkClass} /> : null }
+    <NamedLink to="rules" className={linkClass} />
+    <span className={bem('my-account')} >
+      { isUserAuthenticated
+        ? (
+          <span>
+            Hey <NamedLink to="profile" className={linkClass}>{name}</NamedLink>;
+            <NamedLink to="logout" className={linkClass} />
+          </span>
+        )
+        : <NamedLink to="login" className={linkClass} />
+      }
+    </span>
   </nav>
 );
 
 NavBar.propTypes = {
   isUserAuthenticated: PropTypes.bool,
   isAdmin: PropTypes.bool,
+  name: PropTypes.string,
 };
 
 NavBar.defaultProps = {
   isUserAuthenticated: false,
   isAdmin: false,
+  string: null,
 };
 
 export default NavBar;

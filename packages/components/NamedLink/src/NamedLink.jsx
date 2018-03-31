@@ -5,7 +5,7 @@ import Link from 'react-router-dom/Link';
 
 import bemHelper from '@kammy/bem';
 
-const bem = bemHelper({ name: 'link' });
+const bem = bemHelper({ block: 'named-link' });
 const baseMetaData = {
   title: 'Fantasy Football',
   description: '',
@@ -117,14 +117,14 @@ const routesConfig = [
 
 const findRoute = (to) => routesConfig.find((rt) => rt.name === to);
 
-const NamedLink = ({ to }) => {
+const NamedLink = ({ className, to }) => {
   const route = findRoute(to);
   if (!route) throw new Error(`Route to '${to}' not found`);
   const { path, label } = route;
   return (
     <Route path={ path }>
       {({ match }) => (
-        <Link to={ path } className={ bem(null, { active: match }) }>
+        <Link to={ path } className={ bem(null, { active: match }, className) }>
           { label }
         </Link>
       )}
@@ -134,6 +134,7 @@ const NamedLink = ({ to }) => {
 
 NamedLink.propTypes = {
   to: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default NamedLink;

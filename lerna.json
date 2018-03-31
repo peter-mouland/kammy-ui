@@ -4,7 +4,8 @@
   "packages": [
     "packages/components/*",
     "packages/helpers/*",
-    "packages/global/*"
+    "packages/global/*",
+    "packages/pages/*"
   ],
   "version": "independent"
 }
