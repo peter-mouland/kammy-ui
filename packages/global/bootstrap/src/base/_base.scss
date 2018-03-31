@@ -1,7 +1,9 @@
 @import '../abstracts/breakpoints';
 @import '../abstracts/variables';
 
-a, select, button {
+a,
+select,
+button {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
@@ -15,7 +17,6 @@ a, select, button {
     color: $color-cerulean-light;
   }
 }
-
 
 .sr-only {
   clip: rect(1px, 1px, 1px, 1px);
@@ -37,8 +38,8 @@ a, select, button {
 
 .xs-sr-only {
   @include breakpoint(xs-only) {
-    clip: rect(1px, 1px, 1px, 1px)!important;
-    position: absolute!important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    position: absolute !important;
     height: 1px;
     width: 1px;
     overflow: hidden;

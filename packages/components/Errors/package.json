@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Kammy UI Component: Errors",
   "main": "dist/Errors.min.js",
-  "src": "src/errors.jsx",
+  "src": "src/Errors.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -17,5 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "@kammy/bem": "^0.0.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13",
+    "enzyme": "^3.3.0"
   }
 }

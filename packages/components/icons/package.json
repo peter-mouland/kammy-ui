@@ -1,0 +1,17 @@
+{
+  "name": "@kammy/icons",
+  "version": "0.0.1",
+  "description": "Kammy UI Component: Icons",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": ["kammy"],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0"
+  }
+}

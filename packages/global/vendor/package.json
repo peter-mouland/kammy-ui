@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Vendor Bundle",
   "main": "dist/vendor.min.js",
-  "src": "src/vendpr.js",
+  "src": "src/vendor.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

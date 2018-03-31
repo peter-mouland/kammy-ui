@@ -6,7 +6,6 @@ import fieldSorter from './sort-columns';
 const sandbox = sinon.sandbox.create();
 
 describe('field-sorter', () => {
-
   afterEach(() => {
     sandbox.restore();
   });

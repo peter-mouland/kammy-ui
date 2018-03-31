@@ -1,0 +1,28 @@
+{
+  "name": "@kammy/my-account-nav-item",
+  "version": "0.0.1",
+  "description": "Kammy UI Component: MyAccountNavItem",
+  "main": "dist/MyAccountNavItem.min.js",
+  "src": "src/MyAccountNavItem.jsx",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": ["kammy"],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "@kammy/bem": "^0.0.1",
+    "@kammy/bootstrap": "^0.0.1",
+    "@kammy/named-link": "^0.0.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13",
+    "enzyme": "^3.3.0"
+  }
+}

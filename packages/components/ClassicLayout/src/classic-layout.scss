@@ -1,0 +1,37 @@
+@import '~@kammy/bootstrap/src/abstracts/variables';
+
+$nav-height: 3.75em;
+$footer-height: 2em;
+$content-height: calc(100vh - #{$nav-height + $footer-height});
+$col1-width: 33% !default;
+$col2-width: 66% !default;
+
+.layout {
+  width: 100%;
+}
+
+.layout__nav {
+  padding: 0 2.25%;
+  min-height: $nav-height;
+  display: flex;
+  align-items: center;
+  background: $darker;
+}
+
+.layout__content {
+  min-height: $content-height;
+  padding: 0 2.25%;
+
+  &::before,
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.layout__footer {
+  padding: 0 2.25%;
+  height: $footer-height;
+  line-height: 2em;
+}

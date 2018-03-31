@@ -6,32 +6,31 @@
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
     "start": "start-storybook -s ./tests/fixtures -p 9001",
+    "start:test-server": "node  tests/regression/start-test-server.js",
+    "build": "build-storybook -o public",
     "--------- LINTING ------------------": "",
-    "lint": "yarn lint:js ",
+    "lint": "yarn lint:js && yarn lint:css",
     "lint:js": "eslint 'packages/*/*/src/**/*.jsx' 'packages/*/*/src/**/*.js' 'tests/*/src/**/*.js'",
-    "lint:css": "stylelint 'packages/*/src/**/*.scss'",
+    "lint:css": "stylelint 'packages/*/*/src/**/*.scss'",
     "--------- TESTS:UNIT ---------------": "",
-    "test": "jest --coverage --config jest.json",
+    "test": "jest --coverage --config=jest.json",
     "test:setup": "selenium-standalone install && yarn webpack && yarn build",
     "xb": "yarn regression:core -- --env local --filter **/*.xb.js",
     "regression:core": "cross-env NODE_ENV=production ./tests/regression/start-test-server.js -o ./tests/regression/tests_output -c ./tests/nightwatch/nightwatch.conf.js --saveDir=new --compareDir=base",
+    "--------- DEPLOY / PUBLISH ---------------": "",
+    "publish": "yarn pre-publish && lerna publish",
+    "webpack": "cross-env NODE_ENV=production webpack --config webpack.config.js -p",
     "--------- HELPERS ----------": "",
-    "init": "yarn i && yarn test:setup && yarn precommit",
+    "init": "yarn && yarn test:setup && yarn precommit",
     "precommit": "yarn lint && yarn test",
+    "postinstall": "npm run bootstrap",
     "pre-publish": "git fetch && git pull -r && yarn test:setup && yarn lint && yarn test && yarn xb",
+    "nuke": "yarn clean && rm -rf node_modules && yarn run init",
     "--------- LERNA ----------": "",
     "link": "lerna exec -- yarn link",
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean --yes",
-    "publish": "yarn pre-publish && lerna publish",
-    "webpack": "yarn webpack:components && yarn webpack:vendor",
-    "webpack:components": "cross-env NODE_ENV=production webpack --config webpack.config.packages.js -p",
-    "webpack:vendor": "cross-env NODE_ENV=production webpack --config webpack.config.vendor.js -p"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/peter-mouland/kammy-ui.git"
+    "clean": "lerna clean --yes"
   },
   "author": "peter.mouland@gmail.com",
   "license": "ISC",
@@ -43,8 +42,10 @@
   },
   "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
   "dependencies": {
+    "cross-env": "^5.1.4",
     "prop-types": "^15.6.1",
-    "react": "^16.3.0"
+    "react": "^16.3.0",
+    "resolve-url-loader": "^2.3.0"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^4.0.0-alpha.1",
@@ -66,12 +67,13 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "chance": "^1.0.13",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
@@ -92,9 +94,11 @@
     "sass-loader": "^6.0.7",
     "selenium-standalone": "^6.13.0",
     "style-loader": "^0.20.3",
+    "stylelint": "^9.1.3",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-standard": "^18.2.0",
     "svg-inline-loader": "^0.8.0",
-    "webpack": "^4.4.1"
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
   }
 }

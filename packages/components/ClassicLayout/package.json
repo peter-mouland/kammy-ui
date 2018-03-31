@@ -1,9 +1,9 @@
 {
-  "name": "@kammy/modal",
+  "name": "@kammy/classic-layout",
   "version": "0.0.1",
   "description": "Kammy UI Component: Modal",
-  "main": "dist/Modal.min.js",
-  "src": "src/Modal.jsx",
+  "main": "dist/ClassicLayout.min.js",
+  "src": "src/ClassicLayout.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -14,10 +14,16 @@
   "license": "ISC",
   "dependencies": {
     "@kammy/bootstrap": "^0.0.1",
+    "@kammy/nav-bar": "^0.0.1",
     "@kammy/bem": "^0.0.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13",
+    "enzyme": "^3.3.0",
+    "react-router-dom": "^4.2.2"
   }
 }

@@ -65,7 +65,8 @@ describe('bem test', () => {
     });
 
     it('with element & single string modifier', () => {
-      expect(bem(element, modifier)).toEqual(`${block}__${element} ${block}__${element}--${modifier}`);
+      const expected = `${block}__${element} ${block}__${element}--${modifier}`;
+      expect(bem(element, modifier)).toEqual(expected);
     });
 
     it('with element & single string util', () => {
@@ -77,7 +78,8 @@ describe('bem test', () => {
     });
 
     it('with element & single string modifier & single string util', () => {
-      expect(bem(element, modifier, util)).toEqual(`${block}__${element} ${block}__${element}--${modifier} ${util}`);
+      const expected = `${block}__${element} ${block}__${element}--${modifier} ${util}`;
+      expect(bem(element, modifier, util)).toEqual(expected);
     });
 
     it('should handle a dynamic keys/complex structures', () => {
@@ -121,7 +123,8 @@ describe('bem test', () => {
     });
 
     it('with array of string modifiers', () => {
-      expect(bem(null, modifiers)).toEqual(`${prefix}${block} ${prefix}${block}--${modifiers[0]} ${prefix}${block}--${modifiers[1]}`);
+      const expected = `${prefix}${block} ${prefix}${block}--${modifiers[0]} ${prefix}${block}--${modifiers[1]}`;
+      expect(bem(null, modifiers)).toEqual(expected);
     });
 
     it('with object of modifiers', () => {
@@ -141,7 +144,8 @@ describe('bem test', () => {
     });
 
     it('with element & single string modifier', () => {
-      expect(bem(element, modifier)).toEqual(`${prefix}${block}__${element} ${prefix}${block}__${element}--${modifier}`);
+      const expected = `${prefix}${block}__${element} ${prefix}${block}__${element}--${modifier}`;
+      expect(bem(element, modifier)).toEqual(expected);
     });
 
     it('with element & single string util', () => {
@@ -149,11 +153,13 @@ describe('bem test', () => {
     });
 
     it('with single string modifier & single string util', () => {
-      expect(bem(null, modifier, util)).toEqual(`${prefix}${block} ${prefix}${block}--${modifier} ${util}`);
+      const expected = `${prefix}${block} ${prefix}${block}--${modifier} ${util}`;
+      expect(bem(null, modifier, util)).toEqual(expected);
     });
 
     it('with element & single string modifier & single string util', () => {
-      expect(bem(element, modifier, util)).toEqual(`${prefix}${block}__${element} ${prefix}${block}__${element}--${modifier} ${util}`);
+      const expected = `${prefix}${block}__${element} ${prefix}${block}__${element}--${modifier} ${util}`;
+      expect(bem(element, modifier, util)).toEqual(expected);
     });
 
     it('should handle a dynamic keys/complex structures', () => {

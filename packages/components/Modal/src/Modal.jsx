@@ -5,6 +5,7 @@ import './modal.scss';
 
 export default class Modal extends Component {
   static propTypes = {
+    children: PropTypes.node.isRequired,
     id: PropTypes.string.isRequired,
     title: PropTypes.oneOfType([
       PropTypes.string,
@@ -16,18 +17,13 @@ export default class Modal extends Component {
     focusElement: PropTypes.string,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
-    children: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array,
-    ]).isRequired,
   }
 
   static defaultProps = {
     open: false,
-    title: '',
     disableClose: false,
     disableOverlay: false,
-    focusElementSelector: null,
+    focusElement: null,
     onOpen: () => {},
     onClose: () => {},
   }

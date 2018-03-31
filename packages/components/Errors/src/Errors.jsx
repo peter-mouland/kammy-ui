@@ -1,12 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import bemHelper from '@kammy/bem';
 
-const bem = bemHelper({ name: 'message' });
-const Error = ({ error }) => <p>{ error.message }</p>;
+const bem = bemHelper({ name: 'error' });
 
-export default ({ errors, small = false }) => (
-  <div { ...bem(null, { error: true, small }) }>
+const Errors = ({ errors }) => (
+  <div className={ bem() }>
     <p>Error!</p>
-    {errors.map((error, i) => <Error error={error} key={i} />)}
+    {errors.map((error, i) => <p key={i}>{error.message}</p>)}
   </div>
 );
+
+Errors.propTypes = {
+  errors: PropTypes.array.isRequired,
+};
+
+export default Errors;

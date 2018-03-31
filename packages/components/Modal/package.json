@@ -16,7 +16,12 @@
     "@kammy/bootstrap": "^0.0.1"
   },
   "peerDependencies": {
+    "@kammy/bem": "^0.0.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13",
+    "enzyme": "^3.3.0"
   }
 }

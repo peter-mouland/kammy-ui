@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 dist
+coverage
 compiled
 .DS_Store
 .swp
