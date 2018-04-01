@@ -6,119 +6,11 @@ import Link from 'react-router-dom/Link';
 import bemHelper from '@kammy/bem';
 
 const bem = bemHelper({ block: 'named-link' });
-const baseMetaData = {
-  title: 'Fantasy Football',
-  description: '',
-  meta: {
-    charSet: 'utf-8',
-    name: {
-      keywords: 'react,example',
-    },
-  },
-};
 
-const routesConfig = [
-  {
-    name: 'homepage',
-    exact: true,
-    path: '/',
-    meta: {
-      ...baseMetaData,
-      title: 'Fantasy Football',
-    },
-    label: 'Homepage',
-  },
-  {
-    name: 'admin',
-    path: '/admin/',
-    meta: {
-      ...baseMetaData,
-      title: 'Admin',
-    },
-    label: 'Admin',
-    requiresAuthentication: true,
-  },
-  {
-    name: 'teams',
-    path: '/teams/',
-    label: 'Teams',
-    meta: {
-      ...baseMetaData,
-      title: 'Teams',
-    },
-  },
-  {
-    name: 'myTeam',
-    path: '/my-team/',
-    label: 'My Team',
-    meta: {
-      ...baseMetaData,
-      title: 'My Team',
-    },
-    requiresAuthentication: true,
-  },
-  {
-    name: 'logout',
-    path: '/logout/',
-    label: 'Logout',
-    meta: {
-      ...baseMetaData,
-      title: 'Logout',
-    },
-  },
-  {
-    name: 'profile',
-    path: '/profile/',
-    label: 'Profile',
-    meta: {
-      ...baseMetaData,
-      title: 'profile',
-    },
-    requiresAuthentication: true,
-  },
-  {
-    name: 'login',
-    path: '/login/',
-    label: 'Login',
-    meta: {
-      ...baseMetaData,
-      title: 'Login',
-    },
-  },
-  {
-    name: 'rules',
-    path: '/rules/',
-    label: 'Rules',
-    meta: {
-      ...baseMetaData,
-      title: 'Rules',
-    },
-  },
-  {
-    name: 'divisions',
-    path: '/divisions/',
-    label: 'Divisions',
-    meta: {
-      ...baseMetaData,
-      title: 'Divisions',
-    },
-  },
-  {
-    name: 'change-password',
-    path: '/change-password/',
-    requiresAuthentication: true,
-    label: 'Change Password',
-    meta: {
-      ...baseMetaData,
-      title: 'Change Password',
-    },
-  },
-];
+const findRoute = ({ appConfig, to }) => appConfig.routes.find((rt) => rt.name === to);
 
-const findRoute = (to) => routesConfig.find((rt) => rt.name === to);
-
-const NamedLink = ({ className, to }) => {
-  const route = findRoute(to);
+const NamedLink = ({ className, to }, { appConfig }) => {
+  const route = findRoute({ to, appConfig });
   if (!route) throw new Error(`Route to '${to}' not found`);
   const { path, label } = route;
   return (
@@ -135,6 +27,10 @@ const NamedLink = ({ className, to }) => {
 NamedLink.propTypes = {
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
+};
+
+NamedLink.contextTypes = {
+  appConfig: PropTypes.object,
 };
 
 export default NamedLink;

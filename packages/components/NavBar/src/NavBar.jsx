@@ -17,7 +17,6 @@ const NavBar = ({ isUserAuthenticated, isAdmin, name }) => (
     <NamedLink to="divisions" className={linkClass} />
     <NamedLink to="rules" className={linkClass} />
     { isAdmin ? <NamedLink to="admin" className={linkClass} /> : null }
-    <NamedLink to="rules" className={linkClass} />
     <span className={bem('my-account')} >
       { isUserAuthenticated
         ? (

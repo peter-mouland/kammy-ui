@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chance": "^1.0.13",
-    "enzyme": "^3.3.0"
+    "enzyme": "^3.3.0",
+    "@kammy/app-config-provider": "^0.0.1"
   }
 }
