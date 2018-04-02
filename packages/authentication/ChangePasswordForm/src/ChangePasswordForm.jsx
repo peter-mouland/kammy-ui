@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './change-password-form.scss';
+import { validateUpdatePassword } from './validation';
 
 class ChangePasswordPage extends React.Component {
   constructor(props, context) {
@@ -9,25 +10,29 @@ class ChangePasswordPage extends React.Component {
     this.state = {
       errors: {},
     };
-
-    this.processForm = this.processForm.bind(this);
   }
 
   inputs = {};
 
-  processForm(event) {
+  processForm = (event) => {
     event.preventDefault();
     const { auth } = this.context;
-    auth.updatePassword(this.inputs.password.value, (errors) => {
-      const { location } = this.props;
-      if (errors) {
-        this.setState({ errors });
-      } else if (location && location.state && location.state.from) {
-        this.setState({ redirectToReferrer: location.state.from });
-      } else {
-        this.setState({ redirectToReferrer: '/', message: 'You have now updated your password' });
-      }
-    });
+    const validationResponse = validateUpdatePassword({ password: this.inputs.password.value });
+
+    if (!validationResponse.success) {
+      this.setState({ errors: validationResponse.errors });
+    } else {
+      auth.updatePassword('/auth/updatePassword', this.inputs.password.value, (errors) => {
+        const { location } = this.props;
+        if (errors) {
+          this.setState({ errors });
+        } else if (location && location.state && location.state.from) {
+          this.setState({ redirectToReferrer: location.state.from });
+        } else {
+          this.setState({ redirectToReferrer: '/', message: 'You have now updated your password' });
+        }
+      });
+    }
   }
 
   render() {

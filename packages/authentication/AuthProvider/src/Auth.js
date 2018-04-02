@@ -1,8 +1,6 @@
 import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
 
-import { validateSignUpForm, validateUpdatePassword } from './auth-validation';
-
 export function sendXhr({ data, url }, cb) {
   const xhr = new XMLHttpRequest();
   xhr.open('post', url);
@@ -21,35 +19,9 @@ export function sendXhr({ data, url }, cb) {
   xhr.send(data);
 }
 
-function requestUpdatePassword(user, cb) {
-  const validationResult = validateUpdatePassword(user);
-  if (!validationResult.success) {
-    cb({ errors: validationResult.errors });
-  } else {
-    const email = encodeURIComponent(user.email);
-    const password = encodeURIComponent(user.password);
-    const data = `email=${email}&password=${password}`;
-    sendXhr({ data, url: '/auth/updatePassword' }, cb);
-  }
-}
-
-function requestSignUp(user, cb) {
-  const validationResult = validateSignUpForm(user);
-  if (!validationResult.success) {
-    cb({ errors: validationResult.errors });
-  } else {
-    const email = encodeURIComponent(user.email);
-    const password = encodeURIComponent(user.password);
-    const data = `email=${email}&password=${password}`;
-    sendXhr({ data, url: '/auth/signup' }, cb);
-  }
-}
-
-
 class Auth {
-  constructor({ cookieToken, serverLoginUrl }) {
+  constructor({ cookieToken }) {
     this.cookieToken = cookieToken;
-    this.serverLoginUrl = serverLoginUrl;
     this.subscriptions = [];
     return this;
   }
@@ -115,7 +87,7 @@ class Auth {
     return token ? jwtDecode(token) : { loggedIn: false };
   }
 
-  login(user, cb) {
+  login(url, user, cb) {
     if (this.getToken()) {
       if (cb) cb();
       this.onChange(true);
@@ -124,19 +96,25 @@ class Auth {
     const email = encodeURIComponent(user.email);
     const password = encodeURIComponent(user.password);
     const data = `email=${email}&password=${password}`;
-    sendXhr({ data, url: this.serverLoginUrl }, (res) => this.responseCallback(res, cb));
+    sendXhr({ data, url }, (res) => this.responseCallback(res, cb));
   }
 
-  updatePassword(password, cb) {
+  updatePassword(url, password, cb) {
     const user = {
       ...this.user(),
       password,
     };
-    requestUpdatePassword(user, (res) => this.responseCallback(res, cb));
+    const email = encodeURIComponent(user.email);
+    const passwordEncoded = encodeURIComponent(user.password);
+    const data = `email=${email}&password=${passwordEncoded}`;
+    sendXhr({ data, url }, (res) => this.responseCallback(res, cb));
   }
 
-  signUp(user, cb) {
-    requestSignUp(user, (res) => this.responseCallback(res, cb));
+  signUp(url, user, cb) {
+    const email = encodeURIComponent(user.email);
+    const password = encodeURIComponent(user.password);
+    const data = `email=${email}&password=${password}`;
+    sendXhr({ data, url }, (res) => this.responseCallback(res, cb));
   }
 
   logout(cb) {

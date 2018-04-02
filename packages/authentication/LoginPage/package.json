@@ -15,7 +15,8 @@
   "dependencies": {
     "@kammy/bootstrap": "^0.0.1",
     "@kammy/bem": "^0.0.1",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "validator": "^9.4.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

@@ -32,7 +32,7 @@ DemoAuthOutput.contextTypes = {
 storiesOf('Authentication', module)
   .add('LoginPage', () => (
     <AppConfigProvider>
-      <AuthProvider cookieToken={'demo-token'} serverLoginUrl={'/auth/login'}>
+      <AuthProvider cookieToken={'demo-token'}>
         <BrowserRouter>
           <Fragment>
             <DemoAuthOutput />

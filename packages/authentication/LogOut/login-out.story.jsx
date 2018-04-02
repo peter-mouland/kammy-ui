@@ -32,7 +32,7 @@ DemoAuthOutput.contextTypes = {
 storiesOf('Authentication', module)
   .add('LogOut', () => (
     <AppConfigProvider>
-      <AuthProvider cookieToken={'demo-token'} serverLoginUrl={'/auth/login'}>
+      <AuthProvider cookieToken={'demo-token'}>
         <BrowserRouter>
           <Fragment>
             <DemoAuthOutput />

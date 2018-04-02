@@ -1,12 +1,134 @@
 /* eslint-env jest */
 import Chance from 'chance';
 
-import { validateLoginForm, validateLoginResponse, text } from './validation';
+import {
+  validateSignUpForm,
+  validateLoginForm,
+  validateSignUpResponse,
+  validateLoginResponse,
+  text,
+} from './validation';
 
 const chance = new Chance();
 let result;
 
 describe('auth-validation', () => {
+  describe('validateSignupForm', () => {
+    describe('with no payload', () => {
+      beforeEach(() => {
+        result = validateSignUpForm();
+      });
+
+      it('should return an email error', () => {
+        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+      });
+      it('should return an password error', () => {
+        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+      });
+      it('should return an name error', () => {
+        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+      });
+      it('should return an error message', () => {
+        expect(result.message).to.equal(text.signUpForm.errors.message);
+      });
+      it('should return success = false', () => {
+        expect(result.success).to.equal(false);
+      });
+    });
+
+    describe('with a valid email', () => {
+      beforeEach(() => {
+        result = validateSignUpForm({ email: chance.email() });
+      });
+
+      it('should return an email error', () => {
+        expect(result.errors.email).to.equal(undefined);
+      });
+      it('should return an password error', () => {
+        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+      });
+      it('should return an name error', () => {
+        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+      });
+      it('should return an error message', () => {
+        expect(result.message).to.equal(text.signUpForm.errors.message);
+      });
+      it('should return success = false', () => {
+        expect(result.success).to.equal(false);
+      });
+    });
+
+    describe('with a valid name', () => {
+      beforeEach(() => {
+        result = validateSignUpForm({ name: chance.word() });
+      });
+
+      it('should return an email error', () => {
+        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+      });
+      it('should return an password error', () => {
+        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+      });
+      it('should return an name error', () => {
+        expect(result.errors.name).to.equal(undefined);
+      });
+      it('should return an error message', () => {
+        expect(result.message).to.equal(text.signUpForm.errors.message);
+      });
+      it('should return success = false', () => {
+        expect(result.success).to.equal(false);
+      });
+    });
+
+    describe('with a valid password', () => {
+      beforeEach(() => {
+        result = validateSignUpForm({ password: chance.word({ length: 8 }) });
+      });
+
+      it('should return an email error', () => {
+        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+      });
+      it('should return an password error', () => {
+        expect(result.errors.password).to.equal(undefined);
+      });
+      it('should return an name error', () => {
+        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+      });
+      it('should return an error message', () => {
+        expect(result.message).to.equal(text.signUpForm.errors.message);
+      });
+      it('should return success = false', () => {
+        expect(result.success).to.equal(false);
+      });
+    });
+
+    describe('with a valid details', () => {
+      beforeEach(() => {
+        result = validateSignUpForm({
+          password: chance.word({ length: 8 }),
+          name: chance.word(),
+          email: chance.email(),
+        });
+      });
+
+      it('should return an email error', () => {
+        expect(result.errors.email).to.equal(undefined);
+      });
+      it('should return an password error', () => {
+        expect(result.errors.password).to.equal(undefined);
+      });
+      it('should return an name error', () => {
+        expect(result.errors.name).to.equal(undefined);
+      });
+      it('should return an error message', () => {
+        expect(result.message).to.equal('');
+      });
+      it('should return success = false', () => {
+        expect(result.success).to.equal(true);
+      });
+    });
+  });
+
   describe('validateLoginForm', () => {
     describe('with no payload', () => {
       beforeEach(() => {
@@ -86,6 +208,30 @@ describe('auth-validation', () => {
       it('should return success = false', () => {
         expect(result.success).to.equal(true);
       });
+    });
+  });
+
+  describe('validateSignupResponse', () => {
+    it('returns a successful 200 status if no error is passed', () => {
+      const successResponse = validateSignUpResponse();
+      expect(successResponse.status).to.equal(200);
+      expect(successResponse.body.success).to.equal(true);
+      expect(successResponse.body.message).to.equal(text.signUpResponse.success);
+    });
+
+    it('returns a 409 status for MongoError 11000', () => {
+      const successResponse = validateSignUpResponse({ name: 'MongoError', code: 11000 });
+      expect(successResponse.status).to.equal(409);
+      expect(successResponse.body.success).to.equal(false);
+      expect(successResponse.body.message).to.equal(text.signUpResponse.errors.message);
+      expect(successResponse.body.errors.email).to.equal(text.signUpResponse.errors.email);
+    });
+
+    it('returns a 400 status for other errors', () => {
+      const successResponse = validateSignUpResponse({ name: chance.word() });
+      expect(successResponse.status).to.equal(400);
+      expect(successResponse.body.success).to.equal(false);
+      expect(successResponse.body.message).to.equal(text.signUpResponse.error400);
     });
   });
 

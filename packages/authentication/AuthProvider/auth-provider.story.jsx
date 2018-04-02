@@ -49,7 +49,9 @@ class FauxForm extends React.Component {
   processLogin = (event) => {
     event.preventDefault();
     const { auth } = this.context;
-    auth.login({ email: 'demo@email.com', password: 'demo@password.com' }, (errors) => {
+    const user = { email: 'demo@email.com', password: 'demo@password.com' };
+    const url = '/auth/login';
+    auth.login(url, user, (errors) => {
       if (errors) this.setState({ errors });
     });
   };
@@ -73,7 +75,7 @@ class FauxForm extends React.Component {
 storiesOf('Authentication', module)
   .add('AuthProvider', () => (
     <AppConfigProvider>
-      <AuthProvider cookieToken={'demo-token'} serverLoginUrl={'/auth/login'}>
+      <AuthProvider cookieToken={'demo-token'}>
         <BrowserRouter>
           <Fragment>
             <DemoAuthOutput />

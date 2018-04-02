@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import Redirect from 'react-router-dom/Redirect';
 
 // import localStorage from '../../auth-helper/src/local-storage';
-import { validateLoginForm } from './validation';
+import { validateLoginForm, validateSignUpForm } from './validation';
 import './login-page.scss';
 
 const actions = {
   signUp: {
     type: 'signUp',
+    url: '/auth/signup',
   },
   login: {
     type: 'login',
-  },
-  updatePassword: {
-    type: 'updatePassword',
+    url: '/auth/login',
   },
 };
 
@@ -62,12 +61,14 @@ class LoginPage extends React.Component {
     event.preventDefault();
     const { user } = this.state;
     const { auth } = this.context;
-    const validationResponse = validateLoginForm(user);
+    const validationResponse = user.action.type === 'login'
+      ? validateLoginForm(user)
+      : validateSignUpForm(user);
 
     if (!validationResponse.success) {
       this.setState({ errors: validationResponse.errors });
     } else {
-      auth[user.action.type](user, (errors) => {
+      auth[user.action.type](user.action.url, user, (errors) => {
         const { location } = this.props;
         const { loginAttemptCount } = this.state;
         if (errors) {
