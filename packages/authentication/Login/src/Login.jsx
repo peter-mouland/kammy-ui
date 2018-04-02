@@ -4,7 +4,7 @@ import Redirect from 'react-router-dom/Redirect';
 
 // import localStorage from '../../auth-helper/src/local-storage';
 import { validateLoginForm, validateSignUpForm } from './validation';
-import './login-page.scss';
+import './login.scss';
 
 const actions = {
   signUp: {
@@ -28,7 +28,7 @@ const getAndRemoveMessage = (key) => {
   return successMessage;
 };
 
-class LoginPage extends React.Component {
+class Login extends React.Component {
   static propTypes = {
     location: PropTypes.object,
   };
@@ -183,4 +183,5 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default Login;
+export { validateLoginForm, validateSignUpForm };

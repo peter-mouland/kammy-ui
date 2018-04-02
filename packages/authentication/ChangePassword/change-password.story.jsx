@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import AuthProvider from '@kammy/auth-provider';
+import { AuthProvider } from '@kammy/auth-provider';
 
-import ChangePasswordForm from './src/ChangePasswordForm';
+import ChangePassword from './src/ChangePassword';
 
 storiesOf('Authentication', module)
-  .add('ChangePasswordForm', () => (
+  .add('ChangePassword', () => (
     <AuthProvider cookieToken={'demo-token'}>
-      <ChangePasswordForm />
+      <ChangePassword />
     </AuthProvider>
   ));

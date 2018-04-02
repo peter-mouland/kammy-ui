@@ -2,8 +2,8 @@
   "name": "@kammy/auth-provider",
   "version": "0.0.1",
   "description": "Kammy UI Component: AuthProvider",
-  "main": "dist/AuthProvider.min.js",
-  "src": "src/AuthProvider.jsx",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

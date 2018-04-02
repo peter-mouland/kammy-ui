@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { storiesOf } from '@storybook/react';
-import AuthProvider from '@kammy/auth-provider';
+import { AuthProvider } from '@kammy/auth-provider';
 import AppConfigProvider from '@kammy/app-config-provider';
 
-import LoginPage from './src/LoginPage';
+import Login from './src/Login';
 
 class DemoAuthOutput extends React.Component {
   componentWillMount() {
@@ -30,13 +30,13 @@ DemoAuthOutput.contextTypes = {
 };
 
 storiesOf('Authentication', module)
-  .add('LoginPage', () => (
+  .add('Login', () => (
     <AppConfigProvider>
       <AuthProvider cookieToken={'demo-token'}>
         <BrowserRouter>
           <Fragment>
             <DemoAuthOutput />
-            <LoginPage />
+            <Login />
           </Fragment>
         </BrowserRouter>
       </AuthProvider>

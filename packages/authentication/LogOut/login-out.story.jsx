@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import { storiesOf } from '@storybook/react';
-import AuthProvider from '@kammy/auth-provider';
+import { AuthProvider } from '@kammy/auth-provider';
 import AppConfigProvider from '@kammy/app-config-provider';
 
 import LogOut from './src/LogOut';

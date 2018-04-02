@@ -1,9 +1,9 @@
 {
-  "name": "@kammy/login-page",
+  "name": "@kammy/change-password",
   "version": "0.0.1",
-  "description": "Kammy UI Component: LoginPage",
-  "main": "dist/LoginPage.min.js",
-  "src": "src/LoginPage.jsx",
+  "description": "Kammy UI Component: ChangePassword",
+  "main": "dist/ChangePassword.min.js",
+  "src": "src/ChangePassword.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -15,8 +15,7 @@
   "dependencies": {
     "@kammy/bootstrap": "^0.0.1",
     "@kammy/bem": "^0.0.1",
-    "react-router-dom": "^4.2.2",
-    "validator": "^9.4.1"
+    "react-router-dom": "^4.2.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
@@ -25,7 +24,6 @@
   "devDependencies": {
     "chance": "^1.0.13",
     "enzyme": "^3.3.0",
-    "@kammy/auth-provider": "^0.0.1",
-    "@kammy/app-config-provider": "^0.0.1"
+    "@kammy/auth-provider": "^0.0.1"
   }
 }

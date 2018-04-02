@@ -77,3 +77,4 @@ ChangePasswordPage.contextTypes = {
 };
 
 export default ChangePasswordPage;
+export { validateUpdatePassword };
