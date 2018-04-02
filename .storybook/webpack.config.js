@@ -5,7 +5,7 @@ const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeSt
 
 module.exports = {
   resolve: {
-    mainFields: ['esnext', 'browser', 'module', 'main'],
+    mainFields: ['src', 'browser', 'module', 'main'],
     extensions: ['.js', '.jsx']
   },
   module: {

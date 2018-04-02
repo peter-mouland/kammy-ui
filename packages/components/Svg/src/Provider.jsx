@@ -24,7 +24,7 @@ class SvgProvider extends React.Component {
 }
 
 SvgProvider.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.string]).isRequired,
 };
 
 SvgProvider.childContextTypes = {

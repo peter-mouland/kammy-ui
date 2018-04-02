@@ -5,7 +5,8 @@
     "packages/components/*",
     "packages/helpers/*",
     "packages/global/*",
-    "packages/pages/*"
+    "packages/pages/*",
+    "packages/authentication/*"
   ],
   "version": "independent"
 }

@@ -1,15 +1,14 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const Visualizer = require('clean-webpack-plugin');
+// const Visualizer = require('clean-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
-const CATEGORIES = ['components', 'global', 'helpers', 'pages'];
+const CATEGORIES = ['components', 'global', 'helpers', 'pages', 'authentication'];
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
@@ -30,7 +29,7 @@ function getPackageInfo({ packageName, category }) {
   return { entry, packageName, file, category, version };
 }
 
-function removePackagesWithoutPackageJson({ entry, packageName, category, version, file }) {
+function removePackagesWithoutPackageJson({ packageName, file }) {
   return (!file)
     ? console.error('Missing src or main from package.json: ', packageName)
     : true;
@@ -77,7 +76,7 @@ module.exports = entries.map(({ entry, packageName, category, version }) => ({
         include: [/packages/],
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader']
+          use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
         }),
       },
       {
@@ -85,12 +84,12 @@ module.exports = entries.map(({ entry, packageName, category, version }) => ({
         include: [/packages/],
         loader: 'svg-inline-loader',
         options: {
-          removeSVGTagAttrs: false
+          removeSVGTagAttrs: false,
         },
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader?name=../../fonts/[name].[ext]'
+        loader: 'file-loader?name=../../fonts/[name].[ext]',
       },
     ],
   },
