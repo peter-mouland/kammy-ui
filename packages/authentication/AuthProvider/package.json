@@ -16,12 +16,12 @@
     "@kammy/bootstrap": "^0.0.1",
     "@kammy/bem": "^0.0.1",
     "jwt-decode": "^2.2.0",
-    "react-cookie": "^1.0.4",
+    "universal-cookie": "^2.1.2",
     "validator": "^9.4.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
-    "react": "^16.3.0"
+    "react": "^16.3.1"
   },
   "devDependencies": {
     "@kammy/app-config-provider": "^0.0.1",

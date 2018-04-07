@@ -1,8 +1,17 @@
-@import "~@kammy/bootstrap/src/abstracts/variables";
+@import '~@kammy/bootstrap/src/abstracts/variables';
 
-$page-bg: #282F32;
-$light-gray: #999;
 $curve: linear;
+
+.separator {
+  height: 3px;
+  width: 100%;
+  background: $brand;
+  display: block;
+  transform: scaleX(0) translateY(-2px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: transform .15s $curve, opacity .15s $curve;
+}
 
 .form {
   //width: 85%;
@@ -14,10 +23,37 @@ $curve: linear;
   box-shadow: 0 0 20px $darker;
   position: relative;
 
+  &__error {
+    background: $error;
+    color: $white;
+    padding: .5em 2em;
+    margin: -1em -2em 1em;
+  }
+
+  &__bottom {
+    margin-top: 1.25em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .field-group {
     display: block;
     margin-bottom: .875em;
     position: relative;
+  }
+
+  .field__error {
+    color: $error--light;
+    position: absolute;
+    top: 2em;
+    right: 0;
+    text-shadow: 0 0 18px $black;
+    margin: 0;
+
+    &:empty {
+      display: none;
+    }
   }
 
   fieldset {
@@ -29,7 +65,7 @@ $curve: linear;
 
   &__text,
   legend {
-    color:  $white;
+    color: $white;
   }
 
   label {
@@ -48,11 +84,6 @@ $curve: linear;
       position: absolute;
       font-size: 1.2em;
     }
-  }
-
-
-  .field__error:empty {
-    display: none;
   }
 
   input[type='text'],
@@ -112,39 +143,4 @@ $curve: linear;
       box-shadow: 0 0 5px $brand--light;
     }
   }
-}
-
-.form__error {
-  background: $error;
-  color: $white;
-  padding: .5em 2em;
-  margin: -1em -2em 1em;
-}
-
-.field__error {
-  color: $error--light;
-  position: absolute;
-  top: 2em;
-  right: 0;
-  text-shadow: 0 0 18px $black;
-  margin: 0;
-}
-
-.separator {
-  height: 3px;
-  width: 100%;
-  background: $brand;
-  display: block;
-  transform: scaleX(0) translateY(-2px);
-  transform-origin: 50%;
-  opacity: 0;
-  transition: transform .15s $curve,  opacity .15s $curve;
-}
-
-
-.form__bottom {
-  margin-top: 1.25em;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }

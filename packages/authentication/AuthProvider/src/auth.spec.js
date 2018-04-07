@@ -1,11 +1,12 @@
 /* eslint-env jest */
-import React from 'react';
+/* eslint-disable no-global-assign */
 import Chance from 'chance';
+
+import { sendXhr } from './Auth';
 
 const chance = new Chance();
 
 let fakeXhr;
-let result;
 let fakeFormData;
 let fakeUrl;
 let fakeCallback;
@@ -32,19 +33,19 @@ describe('auth-helper', () => {
 
     it('should call the open function POSTing the given url', () => {
       XMLHttpRequest = jest.fn().returns(fakeXhr);
-      result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      sendXhr(fakeFormData, fakeUrl, fakeCallback);
       expect(fakeXhr.open).to.be.calledWith('post', fakeUrl);
     });
 
     it('should call the send function with the given data', () => {
       XMLHttpRequest = jest.fn().returns(fakeXhr);
-      result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      sendXhr(fakeFormData, fakeUrl, fakeCallback);
       expect(fakeXhr.send).to.be.calledWith(fakeFormData);
     });
 
     it('should call the setRequestHeader function to send form data', () => {
       XMLHttpRequest = jest.fn().returns(fakeXhr);
-      result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      sendXhr(fakeFormData, fakeUrl, fakeCallback);
       expect(fakeXhr.setRequestHeader).to.be.calledWith('Content-type', 'application/x-www-form-urlencoded');
     });
 
@@ -55,12 +56,12 @@ describe('auth-helper', () => {
         done();
       };
       XMLHttpRequest = jest.fn().returns(fakeXhr);
-      result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      sendXhr(fakeFormData, fakeUrl, fakeCallback);
     });
 
     it('should expect a json response', () => {
       XMLHttpRequest = jest.fn().returns(fakeXhr);
-      result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      sendXhr(fakeFormData, fakeUrl, fakeCallback);
       expect(fakeXhr.responseType).to.equal('json');
     });
 
@@ -78,7 +79,6 @@ describe('auth-helper', () => {
         fakeXhr.response = jsonResponse;
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.called;
           expect(fakeCallback).to.be.calledWith({
             authenticated: true,
             token: jsonResponse.token,
@@ -87,7 +87,7 @@ describe('auth-helper', () => {
           done();
         };
         XMLHttpRequest = jest.fn().returns(fakeXhr);
-        result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        sendXhr(fakeFormData, fakeUrl, fakeCallback);
       });
 
       it('should return parse a response string as json to make sure ie11 + phantomJS works', (done) => {
@@ -99,7 +99,6 @@ describe('auth-helper', () => {
         fakeXhr.response = JSON.stringify(jsonResponse);
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.called;
           expect(fakeCallback).to.be.calledWith({
             authenticated: true,
             token: jsonResponse.token,
@@ -108,7 +107,7 @@ describe('auth-helper', () => {
           done();
         };
         XMLHttpRequest = jest.fn().returns(fakeXhr);
-        result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        sendXhr(fakeFormData, fakeUrl, fakeCallback);
       });
     });
 
@@ -128,12 +127,11 @@ describe('auth-helper', () => {
         fakeXhr.response = jsonResponse;
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.called;
           expect(fakeCallback).to.be.calledWith({ errors: { [error]: errors[error], summary: jsonResponse.message } });
           done();
         };
         XMLHttpRequest = jest.fn().returns(fakeXhr);
-        result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        sendXhr(fakeFormData, fakeUrl, fakeCallback);
       });
 
       it('should return parse a response string as json to make sure ie11 + phantomJS works with error responses', (done) => {
@@ -147,12 +145,11 @@ describe('auth-helper', () => {
         fakeXhr.response = JSON.stringify(jsonResponse);
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.called;
           expect(fakeCallback).to.be.calledWith({ errors: { [error]: errors[error], summary: jsonResponse.message } });
           done();
         };
         XMLHttpRequest = jest.fn().returns(fakeXhr);
-        result = sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        sendXhr(fakeFormData, fakeUrl, fakeCallback);
       });
     });
   });

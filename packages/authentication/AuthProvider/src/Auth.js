@@ -1,5 +1,7 @@
-import cookie from 'react-cookie';
+import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
+
+const cookie = new Cookies();
 
 export function sendXhr({ data, url }, cb) {
   const xhr = new XMLHttpRequest();
@@ -49,7 +51,7 @@ class Auth {
     if (ctx) {
       ctx.session.authorization = `Bearer ${token}`;
     }
-    cookie.save(this.cookieToken, token, { path: '/' });
+    cookie.set(this.cookieToken, token, { path: '/' });
   }
 
   validateToken(ctx) {
@@ -73,7 +75,7 @@ class Auth {
     const authHeader = ctx && ctx.session && ctx.session.authorization;
     return authHeader
       ? authHeader.split(' ')[1]
-      : cookie.load(this.cookieToken, { path: '/' });
+      : cookie.get(this.cookieToken, { path: '/' });
   }
 
   isAdmin(ctx) {

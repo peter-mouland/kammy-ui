@@ -1,0 +1,20 @@
+{
+  "name": "@kammy/node-local-storage",
+  "version": "0.0.1",
+  "description": "Kammy UI Helper: Node Local Storage",
+  "main": "dist/node-local-storage.min.js",
+  "src": "src/node-local-storage.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": ["kammy"],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "chance": "^1.0.13"
+  }
+}
