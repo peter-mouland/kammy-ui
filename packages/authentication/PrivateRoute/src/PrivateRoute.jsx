@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Redirect from 'react-router-dom/Redirect';
 import Route from 'react-router-dom/Route';
 
-const PrivateRoute = ({ Component, ...props }, { auth }) => {
+const PrivateRoute = ({ component: Component, ...props }, { auth }) => {
   const redirect = !auth.validateToken();
   const pathname = auth.user().mustChangePassword
     ? '/change-password/'
@@ -19,7 +19,11 @@ const PrivateRoute = ({ Component, ...props }, { auth }) => {
 };
 
 PrivateRoute.propTypes = {
-  Component: PropTypes.node.isRequired,
+  component: PropTypes.node.isRequired,
+};
+
+PrivateRoute.contextTypes = {
+  auth: PropTypes.object.isRequired,
 };
 
 export default PrivateRoute;

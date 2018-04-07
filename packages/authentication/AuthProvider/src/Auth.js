@@ -1,8 +1,6 @@
 import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
 
-const cookie = new Cookies();
-
 export function sendXhr({ data, url }, cb) {
   const xhr = new XMLHttpRequest();
   xhr.open('post', url);
@@ -22,7 +20,10 @@ export function sendXhr({ data, url }, cb) {
 }
 
 class Auth {
-  constructor({ cookieToken }) {
+  constructor({ cookieToken, ctx }) {
+    const cookie = new Cookies(ctx ? ctx.request.universalCookies : null);
+    this.ctx = ctx;
+    this.cookie = cookie;
     this.cookieToken = cookieToken;
     this.subscriptions = [];
     return this;
@@ -47,45 +48,45 @@ class Auth {
     this.subscriptions.forEach((func) => func());
   }
 
-  saveToken(token, ctx) {
-    if (ctx) {
-      ctx.session.authorization = `Bearer ${token}`;
+  saveToken(token) {
+    if (this.ctx) {
+      this.ctx.session.authorization = `Bearer ${token}`;
     }
-    cookie.set(this.cookieToken, token, { path: '/' });
+    this.cookie.set(this.cookieToken, token, { path: '/' });
   }
 
-  validateToken(ctx) {
-    if (!this.getToken(ctx)) return false; // do this first to stop ie11 breaking
+  validateToken() {
+    if (!this.getToken()) return false; // do this first to stop ie11 breaking
     try {
-      return jwtDecode(this.getToken(ctx));
+      return jwtDecode(this.getToken());
     } catch (e) {
-      this.removeToken(ctx);
+      this.removeToken();
       return false;
     }
   }
 
-  removeToken(ctx) {
-    if (ctx && ctx.session) {
-      ctx.session.authorization = false;
+  removeToken() {
+    if (this.ctx && this.ctx.session) {
+      this.ctx.session.authorization = false;
     }
-    cookie.remove(this.cookieToken, { path: '/' });
+    this.cookie.remove(this.cookieToken, { path: '/' });
   }
 
-  getToken(ctx) {
-    const authHeader = ctx && ctx.session && ctx.session.authorization;
+  getToken() {
+    const authHeader = this.ctx && this.ctx.session && this.ctx.session.authorization;
     return authHeader
       ? authHeader.split(' ')[1]
-      : cookie.get(this.cookieToken, { path: '/' });
+      : this.cookie.get(this.cookieToken, { path: '/' });
   }
 
-  isAdmin(ctx) {
-    const token = this.getToken(ctx);
+  isAdmin() {
+    const token = this.getToken();
     const decodedToken = token ? jwtDecode(token) : { isAdmin: false };
     return decodedToken.isAdmin;
   }
 
-  user(ctx) {
-    const token = this.getToken(ctx);
+  user() {
+    const token = this.getToken();
     return token ? jwtDecode(token) : { loggedIn: false };
   }
 

@@ -5,7 +5,7 @@ import Auth from './Auth';
 class AuthProvider extends React.Component {
   constructor(props, state) {
     super(props, state);
-    this.auth = new Auth({ cookieToken: props.cookieToken });
+    this.auth = new Auth({ cookieToken: props.cookieToken, ctx: props.ctx });
   }
 
   getChildContext() {
@@ -20,6 +20,11 @@ class AuthProvider extends React.Component {
 AuthProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.element, PropTypes.string]).isRequired,
   cookieToken: PropTypes.string.isRequired,
+  ctx: PropTypes.object,
+};
+
+AuthProvider.defaultProps = {
+  ctx: null,
 };
 
 AuthProvider.childContextTypes = {
