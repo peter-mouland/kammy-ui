@@ -58,7 +58,6 @@ class FauxForm extends React.Component {
 
   render() {
     const { auth } = this.context;
-    // see `middleware.js` for contents of `auth.user()` payload
     return auth.user().loggedIn
       ? (
         <form onSubmit={this.processLogOut} method="post" className="form">

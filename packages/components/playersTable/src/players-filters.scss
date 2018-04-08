@@ -1,0 +1,12 @@
+@import '~@kammy/bootstrap/src/abstracts/variables';
+
+.players-filters {
+  &__filters {
+    display: flex;
+  }
+
+  &__group {
+    flex: 1;
+    margin-right: 2em;
+  }
+}

@@ -1,0 +1,112 @@
+@import '~@kammy/bootstrap/src/abstracts/variables';
+
+.player-table {
+  width: 100%;
+
+  tr,
+  td,
+  th {
+    padding: 5px;
+    position: relative;
+  }
+
+  thead {
+    background-color: $white;
+  }
+
+  &__player {
+    height: 2em;
+
+    &:nth-child(odd) {
+      background: $odd-row-bg;
+    }
+
+    &:nth-child(even) {
+      background: $row-bg;
+    }
+
+    &:hover {
+      background: $row-bg--hover;
+    }
+
+    &--selected {
+      color: $brand--dark;
+    }
+  }
+
+  &__new-icon {
+    fill: $error;
+  }
+
+  &__meta {
+    &--stat,
+    &--new {
+      text-align: center;
+      width: 45px;
+    }
+
+    &--code {
+      width: 55px;
+    }
+
+    &--pos {
+      width: 75px;
+    }
+
+    &--player {
+      width: 175px;
+    }
+  }
+
+  &__stat {
+    text-align: center;
+  }
+
+  select,
+  input {
+    height: 2em;
+    line-height: 2em;
+    border-radius: 5px;
+    border: 1px solid $brand;
+    padding: 0 1em;
+    font-size: 1em;
+    font-family: sans-serif;
+    margin: 0;
+    width: auto;
+
+    &[type='submit'] {
+      height: auto;
+    }
+  }
+
+  &__editable {
+    padding: 5px calc(1px + 1em);
+    font-family: sans-serif;
+
+    &--select {
+      padding-left: 9px;
+    }
+  }
+
+  &__options {
+    display: flex;
+  }
+
+  &__option-group {
+    flex: 1;
+    margin-right: 2em;
+  }
+
+  &__output {
+    text-align: right;
+  }
+
+  &__gw-output {
+    text-align: left;
+  }
+}
+
+.player-table__output--highlight {
+  background: $error;
+  color: $white;
+}

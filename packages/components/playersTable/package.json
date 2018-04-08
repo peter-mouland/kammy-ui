@@ -1,0 +1,31 @@
+{
+  "name": "@kammy/players-table",
+  "version": "0.0.1",
+  "description": "Kammy UI Component: Players Table",
+  "main": "dist/PlayersTable.min.js",
+  "src": "src/PlayersTable.jsx",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": ["kammy"],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "@kammy/bootstrap": "^0.0.1",
+    "@kammy/bem": "^0.0.1",
+    "@kammy/multi-toggle": "^0.0.1",
+    "@kammy/select": "^0.0.1",
+    "@kammy/sort-columns": "^0.0.1",
+    "@kammy/svg": "^0.0.1"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "chance": "^1.0.13",
+    "enzyme": "^3.3.0"
+  }
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Redirect from 'react-router-dom/Redirect';
 
-// import localStorage from '../../auth-helper/src/local-storage';
 import { validateLoginForm, validateSignUpForm } from './validation';
 import './login.scss';
 
