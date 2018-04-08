@@ -12,9 +12,6 @@ const bem = bemHelper({ block: 'player-table' });
 const extremeStat = (int) => int < -10 || int > 10;
 
 function AdditionalPoints({ children: points }) {
-  if (!points) {
-    return null;
-  }
   return (
     <sup className={ bem('additional-point')}>
       {
@@ -27,7 +24,7 @@ function AdditionalPoints({ children: points }) {
 }
 
 AdditionalPoints.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.number.isRequired,
 };
 
 const PlayerTable = ({ players, visibleColumns, myTeam }) => (
@@ -75,18 +72,28 @@ const PlayerTable = ({ players, visibleColumns, myTeam }) => (
                     {player.season[stat]}
                   </td>,
                   <td key={`${stat}-gw`} className={ bem('stat')}>
-                    <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek[stat]) })}>
-                      {player.gameWeek[stat]}
-                    </AdditionalPoints>
+                    { player.gameWeek[stat]
+                      ? (
+                        <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek[stat]) })}>
+                          {player.gameWeek[stat]}
+                        </AdditionalPoints>
+                      )
+                      : null
+                    }
                   </td>,
                 ])}
                 <td key={'points'} className={ bem('stat')}>
                   {player.season.points}
                 </td>
                 <td key={'points-gw'} className={ bem('stat')}>
-                  <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek.points) })}>
-                    {player.gameWeek.points}
-                  </AdditionalPoints>
+                  { player.gameWeek.points
+                    ? (
+                      <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek.points) })}>
+                        {player.gameWeek.points}
+                      </AdditionalPoints>
+                    )
+                    : null
+                  }
                 </td>
               </tr>
             );

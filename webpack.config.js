@@ -8,7 +8,7 @@ const path = require('path');
 
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
-const CATEGORIES = ['components', 'global', 'helpers', 'pages', 'authentication'];
+const CATEGORIES = ['components', 'global', 'helpers', 'pages', 'authentication', 'redux'];
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;

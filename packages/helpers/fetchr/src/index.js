@@ -56,5 +56,5 @@ export const getJSON = (url, options) =>
 export const postJSON = (url, data, options) =>
   fetchUrl(url, jsonOpts('POST', data, options));
 
-export const fetchGraphQL = (url = '/graphql', data, variables) =>
-  fetchUrl(url, graphQLOpts(data, variables)).then((response) => JSON.parse(response));
+export const fetchGraphQL = (data, variables) =>
+  fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));

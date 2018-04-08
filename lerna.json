@@ -6,7 +6,8 @@
     "packages/helpers/*",
     "packages/global/*",
     "packages/pages/*",
-    "packages/authentication/*"
+    "packages/authentication/*",
+    "packages/redux/*"
   ],
   "version": "independent"
 }

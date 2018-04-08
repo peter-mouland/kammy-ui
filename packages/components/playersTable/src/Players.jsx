@@ -1,12 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Interstitial from '@kammy/interstitial';
+import Errors from '@kammy/errors';
 
 import PlayersFilters from './PlayersFilters';
 import PlayersTable from './PlayersTable';
 
 class Players extends React.Component {
+  componentDidMount() {
+    const { players, fetchPlayers } = this.props;
+    if (!players) {
+      fetchPlayers();
+    }
+  }
+
+  setShowFixtures = () => {
+    //
+  };
+
   render() {
-    const { players, positions, visibleColumns } = this.props;
+    const {
+      loading, errors, players, positions, visibleColumns,
+    } = this.props;
+
+    if (loading) return <Interstitial />;
+    if (errors) return <Errors errors={errors} />;
+
     return (
       <div>
         <PlayersFilters
@@ -28,14 +47,20 @@ class Players extends React.Component {
 }
 
 Players.propTypes = {
-  players: PropTypes.array.isRequired,
   visibleColumns: PropTypes.array.isRequired,
   positions: PropTypes.array.isRequired,
+  fetchPlayers: PropTypes.func,
+  players: PropTypes.array,
   myTeam: PropTypes.object,
+  loading: PropTypes.bool,
+  errors: PropTypes.object,
 };
 
 Players.defaultProps = {
-  myTeam: {},
+  loading: true,
+  myTeam: null,
+  players: null,
+  errors: null,
 };
 
 export default Players;

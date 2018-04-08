@@ -1,4 +1,5 @@
-import { isBrowser } from './localUrl';
+const navigator = global.navigator && global.navigator.userAgent;
+const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 
 if (!isBrowser) {
   const realFetch = require('node-fetch'); // eslint-disable-line global-require

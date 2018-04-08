@@ -1,9 +1,9 @@
 {
-  "name": "@kammy/node-fetch",
+  "name": "@kammy/fetchr",
   "version": "0.0.1",
-  "description": "Kammy UI Helper: Node Fetch",
-  "main": "dist/node-fetch.min.js",
-  "src": "src/node-fetch.js",
+  "description": "Kammy UI Helper: Fetchr",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -13,8 +13,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "node-fetch": "^2.1.2"
   },
   "devDependencies": {
+    "chance": "^1.0.13"
   }
 }

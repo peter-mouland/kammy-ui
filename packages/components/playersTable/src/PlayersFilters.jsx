@@ -34,36 +34,20 @@ export default class PlayerTable extends React.Component {
   static propTypes = {
     players: PropTypes.array.isRequired,
     positions: PropTypes.array.isRequired,
-    statisticColumns: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
-    type: PropTypes.string,
-    selectedPosition: PropTypes.string,
-    editable: PropTypes.bool,
-    showPoints: PropTypes.bool,
-    hideOptions: PropTypes.bool,
-    showStats: PropTypes.bool,
-    originalPlayers: PropTypes.object,
-    playerUpdates: PropTypes.object,
     myTeam: PropTypes.object,
+    selectedPosition: PropTypes.string,
   };
 
   static defaultProps = {
-    hideOptions: false,
-    editable: false,
-    showPoints: false,
-    showStats: false,
-    selectedPosition: '',
-    loading: false,
-    errors: [],
-    originalPlayers: {},
-    playerUpdates: {},
     myTeam: null,
+    selectedPosition: null,
   };
 
   options = {
     clubs: [],
     positions: [],
-  }
+  };
 
   constructor(props) {
     super(props);
