@@ -44,9 +44,9 @@ describe('Login Page', () => {
       const wrapper = shallow(<Login { ...baseProps } />);
       const loginForm = wrapper.find('form');
       expect(loginForm.props().onSubmit).to.be.a('function');
-      expect(wrapper.state().redirectTo).to.equal(false);
+      expect(wrapper.state().redirectTo).toEqual(false);
       loginForm.props().onSubmit(fakeEvent);
-      expect(wrapper.state().redirectTo).to.equal('/');
+      expect(wrapper.state().redirectTo).toEqual('/');
     });
 
     it('should redirect to the "from" prop once authorised', () => {
@@ -55,9 +55,9 @@ describe('Login Page', () => {
       const wrapper = shallow(<Login { ...props } />);
       const loginForm = wrapper.find('form');
       expect(loginForm.props().onSubmit).to.be.a('function');
-      expect(wrapper.state().redirectTo).to.equal(false);
+      expect(wrapper.state().redirectTo).toEqual(false);
       loginForm.props().onSubmit(fakeEvent);
-      expect(wrapper.state().redirectTo).to.equal(from);
+      expect(wrapper.state().redirectTo).toEqual(from);
     });
   });
 
@@ -70,10 +70,10 @@ describe('Login Page', () => {
       const wrapper = shallow(<Login { ...props } />);
       const loginForm = wrapper.find('form');
       expect(loginForm.props().onSubmit).to.be.a('function');
-      expect(wrapper.state().redirectTo).to.equal(false);
+      expect(wrapper.state().redirectTo).toEqual(false);
       loginForm.props().onSubmit(fakeEvent);
-      expect(wrapper.state().redirectTo).to.equal(false);
-      expect(wrapper.state().errors).to.equal(error);
+      expect(wrapper.state().redirectTo).toEqual(false);
+      expect(wrapper.state().errors).toEqual(error);
     });
   });
 });

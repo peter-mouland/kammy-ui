@@ -26,8 +26,8 @@ describe('PrivateRoute', () => {
     Auth.validateToken = jest.fn();
     const fakeComponent = () => <div />;
     const component = render(<StaticRouter><PrivateRoute path={'/'} Component={fakeComponent}/></StaticRouter>);
-    expect(component.find(Redirect).length).to.equal(1);
-    expect(component.find(fakeComponent).length).to.equal(0);
+    expect(component.find(Redirect).length).toEqual(1);
+    expect(component.find(fakeComponent).length).toEqual(0);
   });
 
   it('renders a component if route does require authentication and user is authenticated', () => {
@@ -35,6 +35,6 @@ describe('PrivateRoute', () => {
     Auth.validateToken = jest.fn();
     const fakeComponent = () => <div />;
     const component = mount(<StaticRouter><PrivateRoute path={'/'} Component={fakeComponent} /></StaticRouter>);
-    expect(component.find(fakeComponent).length).to.equal(1);
+    expect(component.find(fakeComponent).length).toEqual(1);
   });
 });

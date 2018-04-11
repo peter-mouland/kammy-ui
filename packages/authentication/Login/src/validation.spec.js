@@ -20,19 +20,19 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+        expect(result.errors.email).toEqual(text.signUpForm.errors.email);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+        expect(result.errors.password).toEqual(text.signUpForm.errors.password);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+        expect(result.errors.name).toEqual(text.signUpForm.errors.name);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.signUpForm.errors.message);
+        expect(result.message).toEqual(text.signUpForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -42,19 +42,19 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(undefined);
+        expect(result.errors.email).toEqual(undefined);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+        expect(result.errors.password).toEqual(text.signUpForm.errors.password);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+        expect(result.errors.name).toEqual(text.signUpForm.errors.name);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.signUpForm.errors.message);
+        expect(result.message).toEqual(text.signUpForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -64,19 +64,19 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+        expect(result.errors.email).toEqual(text.signUpForm.errors.email);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(text.signUpForm.errors.password);
+        expect(result.errors.password).toEqual(text.signUpForm.errors.password);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).to.equal(undefined);
+        expect(result.errors.name).toEqual(undefined);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.signUpForm.errors.message);
+        expect(result.message).toEqual(text.signUpForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -86,19 +86,19 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(text.signUpForm.errors.email);
+        expect(result.errors.email).toEqual(text.signUpForm.errors.email);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(undefined);
+        expect(result.errors.password).toEqual(undefined);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).to.equal(text.signUpForm.errors.name);
+        expect(result.errors.name).toEqual(text.signUpForm.errors.name);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.signUpForm.errors.message);
+        expect(result.message).toEqual(text.signUpForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -112,19 +112,19 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(undefined);
+        expect(result.errors.email).toEqual(undefined);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(undefined);
+        expect(result.errors.password).toEqual(undefined);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).to.equal(undefined);
+        expect(result.errors.name).toEqual(undefined);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal('');
+        expect(result.message).toEqual('');
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(true);
+        expect(result.success).toEqual(true);
       });
     });
   });
@@ -136,16 +136,16 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(text.loginForm.errors.email);
+        expect(result.errors.email).toEqual(text.loginForm.errors.email);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(text.loginForm.errors.password);
+        expect(result.errors.password).toEqual(text.loginForm.errors.password);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.loginForm.errors.message);
+        expect(result.message).toEqual(text.loginForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -155,16 +155,16 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(undefined);
+        expect(result.errors.email).toEqual(undefined);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(text.loginForm.errors.password);
+        expect(result.errors.password).toEqual(text.loginForm.errors.password);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.loginForm.errors.message);
+        expect(result.message).toEqual(text.loginForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -174,16 +174,16 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(text.loginForm.errors.email);
+        expect(result.errors.email).toEqual(text.loginForm.errors.email);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(undefined);
+        expect(result.errors.password).toEqual(undefined);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal(text.loginForm.errors.message);
+        expect(result.message).toEqual(text.loginForm.errors.message);
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(false);
+        expect(result.success).toEqual(false);
       });
     });
 
@@ -197,16 +197,16 @@ describe('auth-validation', () => {
       });
 
       it('should return an email error', () => {
-        expect(result.errors.email).to.equal(undefined);
+        expect(result.errors.email).toEqual(undefined);
       });
       it('should return an password error', () => {
-        expect(result.errors.password).to.equal(undefined);
+        expect(result.errors.password).toEqual(undefined);
       });
       it('should return an error message', () => {
-        expect(result.message).to.equal('');
+        expect(result.message).toEqual('');
       });
       it('should return success = false', () => {
-        expect(result.success).to.equal(true);
+        expect(result.success).toEqual(true);
       });
     });
   });
@@ -214,24 +214,24 @@ describe('auth-validation', () => {
   describe('validateSignupResponse', () => {
     it('returns a successful 200 status if no error is passed', () => {
       const successResponse = validateSignUpResponse();
-      expect(successResponse.status).to.equal(200);
-      expect(successResponse.body.success).to.equal(true);
-      expect(successResponse.body.message).to.equal(text.signUpResponse.success);
+      expect(successResponse.status).toEqual(200);
+      expect(successResponse.body.success).toEqual(true);
+      expect(successResponse.body.message).toEqual(text.signUpResponse.success);
     });
 
     it('returns a 409 status for MongoError 11000', () => {
       const successResponse = validateSignUpResponse({ name: 'MongoError', code: 11000 });
-      expect(successResponse.status).to.equal(409);
-      expect(successResponse.body.success).to.equal(false);
-      expect(successResponse.body.message).to.equal(text.signUpResponse.errors.message);
-      expect(successResponse.body.errors.email).to.equal(text.signUpResponse.errors.email);
+      expect(successResponse.status).toEqual(409);
+      expect(successResponse.body.success).toEqual(false);
+      expect(successResponse.body.message).toEqual(text.signUpResponse.errors.message);
+      expect(successResponse.body.errors.email).toEqual(text.signUpResponse.errors.email);
     });
 
     it('returns a 400 status for other errors', () => {
       const successResponse = validateSignUpResponse({ name: chance.word() });
-      expect(successResponse.status).to.equal(400);
-      expect(successResponse.body.success).to.equal(false);
-      expect(successResponse.body.message).to.equal(text.signUpResponse.error400);
+      expect(successResponse.status).toEqual(400);
+      expect(successResponse.body.success).toEqual(false);
+      expect(successResponse.body.message).toEqual(text.signUpResponse.error400);
     });
   });
 
@@ -240,26 +240,26 @@ describe('auth-validation', () => {
       const fakeToken = chance.apple_token();
       const fakeUserData = chance.word();
       const response = validateLoginResponse(false, fakeToken, fakeUserData);
-      expect(response.status).to.equal(200);
-      expect(response.body.success).to.equal(true);
-      expect(response.body.message).to.equal(text.loginResponse.success);
-      expect(response.body.token).to.equal(fakeToken);
-      expect(response.body.user).to.equal(fakeUserData);
+      expect(response.status).toEqual(200);
+      expect(response.body.success).toEqual(true);
+      expect(response.body.message).toEqual(text.loginResponse.success);
+      expect(response.body.token).toEqual(fakeToken);
+      expect(response.body.user).toEqual(fakeUserData);
     });
 
     it('returns a 409 status for IncorrectCredentialsError', () => {
       const message = chance.word();
       const response = validateLoginResponse({ name: 'IncorrectCredentialsError', message });
-      expect(response.status).to.equal(400);
-      expect(response.body.success).to.equal(false);
-      expect(response.body.message).to.equal(message);
+      expect(response.status).toEqual(400);
+      expect(response.body.success).toEqual(false);
+      expect(response.body.message).toEqual(message);
     });
 
     it('returns a 400 status for other errors', () => {
       const response = validateLoginResponse({ name: chance.word() });
-      expect(response.status).to.equal(400);
-      expect(response.body.success).to.equal(false);
-      expect(response.body.message).to.equal(text.loginResponse.error400);
+      expect(response.status).toEqual(400);
+      expect(response.body.success).toEqual(false);
+      expect(response.body.message).toEqual(text.loginResponse.error400);
     });
   });
 });
