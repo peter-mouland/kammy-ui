@@ -28,10 +28,6 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy/redux-store": "^0.0.1",
-    "chance": "^1.0.13",
-    "enzyme": "^3.3.0",
-    "redux": "^3.7.2",
-    "react-redux": "^5.0.7"
+    "@kammy/redux-store": "^0.0.1"
   }
 }
