@@ -15,7 +15,7 @@ let savedXhrResposne;
 describe('auth-helper', () => {
   describe('sendXhr', () => {
     beforeEach(() => {
-      savedXhrResposne = XMLHttpRequest;
+      savedXhrResposne = global.XMLHttpRequest;
       fakeXhr = {
         open: jest.fn(),
         send: jest.fn(),
@@ -28,25 +28,25 @@ describe('auth-helper', () => {
     });
 
     afterEach(() => {
-      XMLHttpRequest = savedXhrResposne;
+      global.XMLHttpRequest = savedXhrResposne;
     });
 
     it('should call the open function POSTing the given url', () => {
-      XMLHttpRequest = jest.fn(fakeXhr);
-      sendXhr(fakeFormData, fakeUrl, fakeCallback);
-      expect(fakeXhr.open).to.be.calledWith('post', fakeUrl);
+      global.XMLHttpRequest = jest.fn(() => fakeXhr);
+      sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
+      expect(fakeXhr.open).toHaveBeenCalledWith('post', fakeUrl);
     });
 
     it('should call the send function with the given data', () => {
-      XMLHttpRequest = jest.fn(fakeXhr);
-      sendXhr(fakeFormData, fakeUrl, fakeCallback);
-      expect(fakeXhr.send).to.be.calledWith(fakeFormData);
+      global.XMLHttpRequest = jest.fn(() => fakeXhr);
+      sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
+      expect(fakeXhr.send).toHaveBeenCalledWith(fakeFormData);
     });
 
     it('should call the setRequestHeader function to send form data', () => {
-      XMLHttpRequest = jest.fn(fakeXhr);
-      sendXhr(fakeFormData, fakeUrl, fakeCallback);
-      expect(fakeXhr.setRequestHeader).to.be.calledWith('Content-type', 'application/x-www-form-urlencoded');
+      global.XMLHttpRequest = jest.fn(() => fakeXhr);
+      sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
+      expect(fakeXhr.setRequestHeader).toHaveBeenCalledWith('Content-type', 'application/x-www-form-urlencoded');
     });
 
     it('should call addEventListener function ready to receive data', (done) => {
@@ -55,13 +55,13 @@ describe('auth-helper', () => {
         expect(typeof cb).toEqual('function');
         done();
       };
-      XMLHttpRequest = jest.fn(fakeXhr);
-      sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      global.XMLHttpRequest = jest.fn(() => fakeXhr);
+      sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
     });
 
     it('should expect a json response', () => {
-      XMLHttpRequest = jest.fn(fakeXhr);
-      sendXhr(fakeFormData, fakeUrl, fakeCallback);
+      global.XMLHttpRequest = jest.fn(() => fakeXhr);
+      sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
       expect(fakeXhr.responseType).toEqual('json');
     });
 
@@ -79,15 +79,15 @@ describe('auth-helper', () => {
         fakeXhr.response = jsonResponse;
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.calledWith({
+          expect(fakeCallback).toHaveBeenCalledWith({
             authenticated: true,
             token: jsonResponse.token,
             message: jsonResponse.message,
           });
           done();
         };
-        XMLHttpRequest = jest.fn(fakeXhr);
-        sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        global.XMLHttpRequest = jest.fn(() => fakeXhr);
+        sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
       });
 
       it('should return parse a response string as json to make sure ie11 + phantomJS works', (done) => {
@@ -99,15 +99,15 @@ describe('auth-helper', () => {
         fakeXhr.response = JSON.stringify(jsonResponse);
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.calledWith({
+          expect(fakeCallback).toHaveBeenCalledWith({
             authenticated: true,
             token: jsonResponse.token,
             message: jsonResponse.message,
           });
           done();
         };
-        XMLHttpRequest = jest.fn(fakeXhr);
-        sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        global.XMLHttpRequest = jest.fn(() => fakeXhr);
+        sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
       });
     });
 
@@ -127,11 +127,11 @@ describe('auth-helper', () => {
         fakeXhr.response = jsonResponse;
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.calledWith({ errors: { [error]: errors[error], summary: jsonResponse.message } });
+          expect(fakeCallback).toHaveBeenCalledWith({ errors });
           done();
         };
-        XMLHttpRequest = jest.fn(fakeXhr);
-        sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        global.XMLHttpRequest = jest.fn(() => fakeXhr);
+        sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
       });
 
       it('should return parse a response string as json to make sure ie11 + phantomJS works with error responses', (done) => {
@@ -145,11 +145,11 @@ describe('auth-helper', () => {
         fakeXhr.response = JSON.stringify(jsonResponse);
         fakeXhr.addEventListener = (event, cb) => {
           cb();
-          expect(fakeCallback).to.be.calledWith({ errors: { [error]: errors[error], summary: jsonResponse.message } });
+          expect(fakeCallback).toHaveBeenCalledWith({ errors });
           done();
         };
-        XMLHttpRequest = jest.fn(fakeXhr);
-        sendXhr(fakeFormData, fakeUrl, fakeCallback);
+        global.XMLHttpRequest = jest.fn(() => fakeXhr);
+        sendXhr({ data: fakeFormData, url: fakeUrl }, fakeCallback);
       });
     });
   });
