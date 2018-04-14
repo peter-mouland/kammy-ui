@@ -1,10 +1,7 @@
 /* eslint-env jest */
 import Chance from 'chance';
 
-import {
-  validateUpdatePassword,
-  text,
-} from './validation';
+import { validateUpdatePassword, text } from './validation';
 
 const chance = new Chance();
 let result;
@@ -16,17 +13,14 @@ describe('validation', () => {
         result = validateUpdatePassword();
       });
 
-      it('should return an email error', () => {
-        expect(result.errors.email).toEqual(text.signUpForm.errors.email);
-      });
       it('should return an password error', () => {
-        expect(result.errors.password).toEqual(text.signUpForm.errors.password);
+        expect(result.errors.password).toEqual(text.errors.password);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).toEqual(text.signUpForm.errors.name);
+        expect(result.errors.name).toEqual(text.errors.name);
       });
       it('should return an error message', () => {
-        expect(result.message).toEqual(text.signUpForm.errors.message);
+        expect(result.message).toEqual(text.errors.message);
       });
       it('should return success = false', () => {
         expect(result.success).toEqual(false);
@@ -38,20 +32,17 @@ describe('validation', () => {
         result = validateUpdatePassword({ password: chance.word({ length: 8 }) });
       });
 
-      it('should return an email error', () => {
-        expect(result.errors.email).toEqual(text.signUpForm.errors.email);
-      });
       it('should return an password error', () => {
         expect(result.errors.password).toEqual(undefined);
       });
       it('should return an name error', () => {
-        expect(result.errors.name).toEqual(text.signUpForm.errors.name);
+        expect(result.errors.name).toEqual(text.errors.name);
       });
-      it('should return an error message', () => {
-        expect(result.message).toEqual(text.signUpForm.errors.message);
+      it('should return an empty message', () => {
+        expect(result.message).toEqual('');
       });
-      it('should return success = false', () => {
-        expect(result.success).toEqual(false);
+      it('should return success = true', () => {
+        expect(result.success).toEqual(true);
       });
     });
   });
