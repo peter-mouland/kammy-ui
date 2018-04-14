@@ -7,7 +7,9 @@
     "npm": ">=5",
     "yarn": ">=1"
   },
-  "keywords": ["kammy"],
+  "keywords": [
+    "kammy"
+  ],
   "author": "Peter Mouland",
   "license": "ISC",
   "peerDependencies": {

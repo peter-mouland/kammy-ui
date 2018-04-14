@@ -16,13 +16,17 @@ const bodyParserGraphQL = () => (req, res, next) => {
 };
 
 module.exports = function expressMiddleware (router) {
-  router.use(bodyParserGraphQL())
+  router.use(bodyParserGraphQL());
 
   router.post('/graphQL', (req, res) => {
     const { query } = req.body;
+    console.log('Fetching ' + query);
+
     switch (query) {
       case 'getPlayersQuery':
         return res.json(require('./fixtures/getPlayersQuery.fixture'));
+      case 'getPlayerFixturesQuery':
+        return res.json(require('./fixtures/getPlayerFixturesQuery.fixture'));
     }
   });
 

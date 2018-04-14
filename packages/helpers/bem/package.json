@@ -13,8 +13,7 @@
     "react",
     "ui-components"
   ],
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "author": "Peter Mouland",
   "license": "ISC"
 }

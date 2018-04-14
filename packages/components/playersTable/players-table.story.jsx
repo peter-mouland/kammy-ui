@@ -1,5 +1,5 @@
 import React from 'react';
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 import { array } from '@storybook/addon-knobs';
@@ -20,6 +20,9 @@ const preloadedState = { };
 const rootReducer = combineReducers({ players: reducer });
 const store = configureStore(preloadedState, rootReducer);
 
+/**
+ * STORIES
+ */
 storiesOf('Components/PlayersTable', module)
   .add('Component', () => (
     <Players

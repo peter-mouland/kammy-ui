@@ -29,6 +29,7 @@
     "nuke": "yarn clean && rm -rf node_modules && yarn run init",
     "--------- LERNA ----------": "",
     "linkAll": "lerna exec yarn link",
+    "npmLinkAll": "lerna exec npm link",
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes"
