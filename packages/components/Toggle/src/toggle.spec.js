@@ -10,7 +10,6 @@ const defaultMockProps = {
   className: chance.word(),
   label: chance.word(),
   id: chance.word(),
-  children: chance.word(),
   onClick: jest.fn(),
 };
 

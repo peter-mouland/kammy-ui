@@ -84,9 +84,8 @@ class Login extends React.Component {
   changeUser = (event) => {
     const { user } = this.state;
     user[event.target.name] = event.target.value;
-
     this.setState({ user });
-  }
+  };
 
   render() {
     const { location } = this.props;
