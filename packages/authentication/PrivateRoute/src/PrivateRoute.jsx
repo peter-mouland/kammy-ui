@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...props }, { auth }) => {
 };
 
 PrivateRoute.propTypes = {
-  component: PropTypes.node.isRequired,
+  component: PropTypes.func.isRequired,
 };
 
 PrivateRoute.contextTypes = {
