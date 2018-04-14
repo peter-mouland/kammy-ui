@@ -2,11 +2,12 @@
   "coverageThreshold": {
     "global": {
       "statements": 70,
-      "branches": 70,
-      "functions": 70,
-      "lines": 70
+      "branches": 60,
+      "functions": 60,
+      "lines": 75
     }
   },
+  "collectCoverage": true,
   "coverageDirectory": "<rootDir>/coverage",
   "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-enzyme/lib/index.js",
   "setupFiles": [

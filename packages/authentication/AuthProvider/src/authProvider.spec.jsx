@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import Chance from 'chance';
 
 import AuthProvider from './AuthProvider';
@@ -8,19 +8,12 @@ import AuthProvider from './AuthProvider';
 const chance = new Chance();
 
 let children;
-let context;
-let cookieToken
+let cookieToken;
 
 describe('Provider', () => {
   beforeEach(() => {
     children = chance.word();
     cookieToken = chance.word();
-    context = {
-      svgCache: {
-        subscribe: jest.fn(),
-        symbols: jest.fn(),
-      },
-    };
   });
 
   it('Passes props through', () => {

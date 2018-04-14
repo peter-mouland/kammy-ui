@@ -22,7 +22,7 @@ const baseProps = {};
 const fakeOnChange = jest.fn();
 const fakeOnSubmit = jest.fn();
 let fakeLogin = jest.fn();
-let fakeSignup = jest.fn();
+const fakeSignup = jest.fn();
 const auth = { login: fakeLogin, signup: fakeSignup };
 const defaultMockProps = {
   onChange: fakeOnChange,
@@ -37,8 +37,8 @@ const defaultMockProps = {
 
 let fakeEvent;
 let context = { auth };
-let fakeUserLogin = { action: { type: 'login', email: chance.email(), password: chance.sentence() } };
-let fakeUserSignup = { action: { type: 'signup', email: chance.email(), password: chance.sentence() } };
+const fakeUserLogin = { action: { type: 'login', email: chance.email(), password: chance.sentence() } };
+// const fakeUserSignup = { action: { type: 'signup', email: chance.email(), password: chance.sentence() } };
 
 describe('Login Page', () => {
   beforeEach(() => {
