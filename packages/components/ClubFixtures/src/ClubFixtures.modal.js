@@ -22,9 +22,7 @@ class ClubFixturesModal extends React.Component {
 
   componentDidMount() {
     const { showFixtures, player, fetchPlayerFixtures } = this.props;
-
     if (!player || !player[showFixtures]) {
-      console.log({ fetchPlayerFixtures });
       fetchPlayerFixtures({ code: showFixtures });
     }
   }
