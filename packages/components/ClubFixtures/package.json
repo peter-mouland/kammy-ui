@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Kammy UI Component: ClubFixtures",
   "main": "dist/ClubFixtures.min.js",
-  "src": "src/ClubFixtures.container.jsx",
+  "src": "src/ClubFixtures.container.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

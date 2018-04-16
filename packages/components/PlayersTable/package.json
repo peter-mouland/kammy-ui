@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Kammy UI Component: Players Table",
   "main": "dist/PlayersTable.min.js",
-  "src": "src/PlayersTable.container.js",
+  "src": "src/Players.container.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
