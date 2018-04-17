@@ -1,22 +1,11 @@
 const jwt = require('jsonwebtoken');
-const bodyParser = require('body-parser');
 
-const bodyParserGraphQL = () => (req, res, next) => {
-  if (req.is('application/graphql')) {
-    bodyParser.text({ type: 'application/graphql' })(req, res, () => {
-      req.headers['content-type'] = 'application/json';
-      req.body = {
-        query: req.body
-      };
-      next();
-    });
-  } else {
-    bodyParser.json()(req, res, next);
-  }
-};
+const graphQLParser = require('./middleware/graphQLParser');
+const getPlayersQueryJson = require('./fixtures/getPlayersQuery.fixture');
+const getPlayerFixturesQueryJson = require('./fixtures/getPlayerFixturesQuery.fixture');
 
 module.exports = function expressMiddleware (router) {
-  router.use(bodyParserGraphQL());
+  router.use(graphQLParser);
 
   router.post('/graphQL', (req, res) => {
     const { query } = req.body;
@@ -24,9 +13,9 @@ module.exports = function expressMiddleware (router) {
 
     switch (query) {
       case 'getPlayersQuery':
-        return res.json(require('./fixtures/getPlayersQuery.fixture'));
+        return res.json(getPlayersQueryJson);
       case 'getPlayerFixturesQuery':
-        return res.json(require('./fixtures/getPlayerFixturesQuery.fixture'));
+        return res.json(getPlayerFixturesQueryJson);
     }
   });
 

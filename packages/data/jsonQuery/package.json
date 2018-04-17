@@ -1,0 +1,21 @@
+{
+  "name": "@kammy/data-json-query",
+  "version": "0.0.1",
+  "description": "Kammy UI Data: jsonQuery",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "json-query": "^2.2.2"
+  },
+  "devDependencies": {}
+}
