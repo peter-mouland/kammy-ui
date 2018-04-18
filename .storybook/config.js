@@ -7,6 +7,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 
 require('./reset.css');
+require("babel-polyfill");
 
 function addBrowserClassToDocument () {
   var ua = navigator.userAgent, tem,

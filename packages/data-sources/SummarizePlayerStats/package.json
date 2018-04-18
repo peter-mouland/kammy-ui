@@ -1,7 +1,7 @@
 {
-  "name": "@kammy/data-json-query",
+  "name": "@kammy/data-summarize-stats",
   "version": "0.0.1",
-  "description": "Kammy UI Data: jsonQuery",
+  "description": "Kammy UI Data: SummarizeStats",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {

@@ -4,6 +4,7 @@ const fetchr = require('./fetchr');
 const graphQLParser = require('./middleware/graphQLParser');
 const getPlayersQueryJson = require('./fixtures/getPlayersQuery.fixture');
 const getPlayerFixturesQueryJson = require('./fixtures/getPlayerFixturesQuery.fixture');
+const getFixtures = (code) => fetchr.getJSON(`https://fantasyfootball.skysports.com/cache/json_player_stats_${code}.json`);
 
 module.exports = function expressMiddleware (router) {
   router.use(graphQLParser);
@@ -21,8 +22,15 @@ module.exports = function expressMiddleware (router) {
   });
 
   router.get('/players', (req, res) => {
-    fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
-      .then((data) => res.json(data));
+    return fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
+      .then((data) => res.json(data))
+  });
+
+  router.get('/player/:code', async (req, res) => {
+    const { code } = req.params;
+    return getFixtures(code)
+      .then((fixtures) => ({ ...fixtures, code }))
+      .then((data) => res.json(data))
   });
 
   router.use('/auth/login', (req, res) => {
