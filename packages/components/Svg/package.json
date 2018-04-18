@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/svg",
-  "version": "0.0.1",
+  "name": "@kammy-ui/svg",
+  "version": "0.0.10",
   "description": "Kammy UI Component: SVG",
   "main": "dist/Svg.min.js",
   "src": "src/Svg.jsx",
@@ -17,6 +17,5 @@
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
-  },
-  "devDependencies": {}
+  }
 }

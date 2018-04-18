@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Route from 'react-router-dom/Route';
 import Link from 'react-router-dom/Link';
 
-import bemHelper from '@kammy/bem';
+import bemHelper from '@kammy-ui/bem';
 
 const bem = bemHelper({ block: 'named-link' });
 

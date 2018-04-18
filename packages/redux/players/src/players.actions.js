@@ -1,4 +1,4 @@
-import { fetchGraphQL } from '@kammy/fetchr';
+import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_PLAYERS = 'FETCH_PLAYERS';
 export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';

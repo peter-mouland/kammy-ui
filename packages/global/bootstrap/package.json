@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/bootstrap",
-  "version": "0.0.1",
+  "name": "@kammy-ui/bootstrap",
+  "version": "0.0.10",
   "description": "Kammy UI Component: Modal",
   "main": "dist/bootstrap.min.js",
   "src": "src/bootstrap.jsx",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { AuthProvider } from '@kammy/auth-provider';
+import { AuthProvider } from '@kammy-ui/auth-provider';
 
 import ChangePassword from './src/ChangePassword';
 

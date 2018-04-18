@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/redux-players",
-  "version": "0.0.1",
+  "name": "@kammy-ui/redux-players",
+  "version": "0.0.10",
   "description": "Kammy UI Redux: Players",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -15,7 +15,6 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy/fetchr": "^0.0.1"
-  },
-  "devDependencies": {}
+    "@kammy-ui/fetchr": "^0.0.10"
+  }
 }

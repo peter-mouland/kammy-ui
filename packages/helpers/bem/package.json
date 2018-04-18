@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/bem",
-  "version": "0.0.1",
+  "name": "@kammy-ui/bem",
+  "version": "0.0.10",
   "description": "Kammy UI Helper: BEM",
   "main": "dist/bem.min.js",
   "src": "src/bem.js",
@@ -13,7 +13,6 @@
     "react",
     "ui-components"
   ],
-  "devDependencies": {},
   "author": "Peter Mouland",
   "license": "ISC"
 }

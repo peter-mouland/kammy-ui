@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/fetchr",
-  "version": "0.0.1",
+  "name": "@kammy-ui/fetchr",
+  "version": "0.0.10",
   "description": "Kammy UI Helper: Fetchr",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -13,7 +13,5 @@
     "kammy"
   ],
   "author": "Peter Mouland",
-  "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "license": "ISC"
 }

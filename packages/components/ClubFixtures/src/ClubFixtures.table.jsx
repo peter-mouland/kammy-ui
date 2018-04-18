@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import bemHelper from '@kammy/bem';
+import bemHelper from '@kammy-ui/bem';
 
 import './club-fixtures.scss';
 

@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/node-local-storage",
-  "version": "0.0.1",
+  "name": "@kammy-ui/node-local-storage",
+  "version": "0.0.10",
   "description": "Kammy UI Helper: Node Local Storage",
   "main": "dist/node-local-storage.min.js",
   "src": "src/node-local-storage.js",
@@ -13,7 +13,5 @@
     "kammy"
   ],
   "author": "Peter Mouland",
-  "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "license": "ISC"
 }

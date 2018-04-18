@@ -1,5 +1,5 @@
 import React from 'react';
-import { getJSON } from '@kammy/fetchr';
+import { getJSON } from '@kammy-ui/fetchr';
 
 class SkyPlayers extends React.Component {
   state = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Svg from '@kammy/svg';
+import Svg from '@kammy-ui/svg';
 
 import football from './football.svg';
 

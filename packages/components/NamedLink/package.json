@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/named-link",
-  "version": "0.0.1",
+  "name": "@kammy-ui/named-link",
+  "version": "0.0.10",
   "description": "Kammy UI Component: NamedLink",
   "main": "dist/NamedLink.min.js",
   "src": "src/NamedLink.jsx",
@@ -15,8 +15,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy/bootstrap": "^0.0.1",
-    "@kammy/bem": "^0.0.1",
+    "@kammy-ui/bem": "^0.0.10",
+    "@kammy-ui/bootstrap": "^0.0.10",
     "react-router-dom": "^4.2.2"
   },
   "peerDependencies": {
@@ -24,6 +24,6 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy/app-config-provider": "^0.0.1"
+    "@kammy-ui/app-config-provider": "^0.0.10"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/redux-store",
-  "version": "0.0.1",
+  "name": "@kammy-ui/redux-store",
+  "version": "0.0.10",
   "description": "Kammy UI Component: Store",
   "main": "dist/configure-store.min.js",
   "src": "src/configure-store.js",
@@ -15,11 +15,10 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "redux-thunk": "^2.2.0",
+    "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.0.0",
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2"
-  },
-  "devDependencies": {}
+    "redux-thunk": "^2.2.0"
+  }
 }

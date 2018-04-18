@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/data-player-stats",
-  "version": "0.0.1",
+  "name": "@kammy-ui/data-player-stats",
+  "version": "0.0.10",
   "description": "Kammy UI Data: PlayerStats",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -16,6 +16,5 @@
   "license": "ISC",
   "dependencies": {
     "json-query": "^2.2.2"
-  },
-  "devDependencies": {}
+  }
 }

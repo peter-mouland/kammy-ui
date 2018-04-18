@@ -3,8 +3,8 @@ import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 import { array } from '@storybook/addon-knobs';
-import configureStore from '@kammy/redux-store';
-import { reducer } from '@kammy/redux-players';
+import configureStore from '@kammy-ui/redux-store';
+import { reducer } from '@kammy-ui/redux-players';
 
 import fixtures from './players-table.fixtures.json';
 import Players from './src/Players';

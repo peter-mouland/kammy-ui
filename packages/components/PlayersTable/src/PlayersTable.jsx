@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import bemHelper from '@kammy/bem';
-import Svg from '@kammy/svg';
+import bemHelper from '@kammy-ui/bem';
+import Svg from '@kammy-ui/svg';
 
 import New from './new.svg';
 

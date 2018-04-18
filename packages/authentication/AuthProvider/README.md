@@ -2,14 +2,14 @@
 
 One-stop-shop for any 'auth-related' functions
 
-`yarn add @kammy/auth-provider`
+`yarn add @kammy-ui/auth-provider`
 
 ## React <AuthProvider>
 
 This will initiate the `auth` class and give you access to it's functions on React Context. 
 
 ```jsx
-import { AuthProvider } from '@kammy/auth-provider';
+import { AuthProvider } from '@kammy-ui/auth-provider';
 
 //clientside
 <AuthProvider cookieToken='my-token'>
@@ -36,7 +36,7 @@ It uses 'universal-cookie' to ensure a cookies on the client can be read by the 
 It put's an instance of the `auth` class on to Koa `ctx` object.  
 
 ```jsx
-import authMiddleware from '@kammy/koa-auth-middleware';
+import authMiddleware from '@kammy-ui/koa-auth-middleware';
 
 server.use(authMiddleware({ cookieToken: 'my-token' }));
 

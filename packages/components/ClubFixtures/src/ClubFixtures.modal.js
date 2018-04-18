@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Modal from '@kammy/modal';
-import Interstitial from '@kammy/interstitial';
+import Modal from '@kammy-ui/modal';
+import Interstitial from '@kammy-ui/interstitial';
 import ClubFixturesTable from './ClubFixtures.table';
 
 class ClubFixturesModal extends React.Component {

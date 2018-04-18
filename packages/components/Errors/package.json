@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/errors",
-  "version": "0.0.1",
+  "name": "@kammy-ui/errors",
+  "version": "0.0.10",
   "description": "Kammy UI Component: Errors",
   "main": "dist/Errors.min.js",
   "src": "src/Errors.jsx",
@@ -16,11 +16,10 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy/bem": "^0.0.1"
+    "@kammy-ui/bem": "^0.0.10"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
-  },
-  "devDependencies": {}
+  }
 }

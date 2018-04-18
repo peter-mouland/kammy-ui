@@ -2,7 +2,7 @@
   "name": "kammy-ui",
   "version": "0.0.1",
   "description": "UI components for Kammy using lerna + storybook",
-  "private": true,
+  "private": false,
   "main": "index.js",
   "author": "peter.mouland@gmail.com",
   "license": "ISC",

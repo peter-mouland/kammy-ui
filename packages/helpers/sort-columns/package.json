@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/sort-columns",
-  "version": "0.0.1",
+  "name": "@kammy-ui/sort-columns",
+  "version": "0.0.10",
   "description": "Kammy UI Helper: Sort-Columns",
   "main": "dist/sort-columns.min.js",
   "src": "src/sort-columns.js",
@@ -13,7 +13,5 @@
     "kammy"
   ],
   "author": "Peter Mouland",
-  "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "license": "ISC"
 }

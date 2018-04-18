@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import bemHelper from '@kammy/bem';
-import MultiToggle from '@kammy/multi-toggle';
-import Selector from '@kammy/select';
-import sortColumns from '@kammy/sort-columns';
+import bemHelper from '@kammy-ui/bem';
+import MultiToggle from '@kammy-ui/multi-toggle';
+import Selector from '@kammy-ui/select';
+import sortColumns from '@kammy-ui/sort-columns';
 
 import './players-filters.scss';
 

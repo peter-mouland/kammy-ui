@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import bemHelper from '@kammy/bem';
-import NamedLink from '@kammy/named-link';
+import bemHelper from '@kammy-ui/bem';
+import NamedLink from '@kammy-ui/named-link';
 
 import './nav-bar.scss';
 

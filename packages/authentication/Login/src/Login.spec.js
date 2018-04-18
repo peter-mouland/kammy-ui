@@ -2,7 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Chance from 'chance';
-import '@kammy/node-local-storage';
+import '@kammy-ui/node-local-storage';
 
 import Login from './Login';
 import { validateLoginForm, validateSignUpForm } from './validation';

@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/icons",
-  "version": "0.0.1",
+  "name": "@kammy-ui/icons",
+  "version": "0.0.10",
   "description": "Kammy UI Component: Icons",
   "engines": {
     "node": ">=8",

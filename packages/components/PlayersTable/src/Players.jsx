@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Interstitial from '@kammy/interstitial';
-import Errors from '@kammy/errors';
+import Interstitial from '@kammy-ui/interstitial';
+import Errors from '@kammy-ui/errors';
 
 import PlayersFilters from './PlayersFilters';
 import PlayersTable from './PlayersTable';

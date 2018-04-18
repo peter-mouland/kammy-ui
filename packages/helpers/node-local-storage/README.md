@@ -2,9 +2,9 @@
 
  > a node implementation of local-storage
 
-`yarn add @kammy/node-local-storage`
+`yarn add @kammy-ui/node-local-storage`
 
 ```js
-import '@kammy/node-local-storage';
+import '@kammy-ui/node-local-storage';
 
 ```

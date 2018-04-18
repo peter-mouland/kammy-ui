@@ -1,6 +1,6 @@
 {
-  "name": "@kammy/rules-page",
-  "version": "0.0.1",
+  "name": "@kammy-ui/rules-page",
+  "version": "0.0.10",
   "description": "Kammy UI Component: RulesPage",
   "main": "dist/RulesPage.min.js",
   "src": "src/RulesPage.jsx",
@@ -15,12 +15,11 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy/bootstrap": "^0.0.1",
-    "@kammy/bem": "^0.0.1"
+    "@kammy-ui/bem": "^0.0.10",
+    "@kammy-ui/bootstrap": "^0.0.10"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
-  },
-  "devDependencies": {}
+  }
 }
