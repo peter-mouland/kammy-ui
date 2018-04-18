@@ -12,6 +12,12 @@ class SkyPlayers extends React.Component {
     this.setState({ players });
   };
 
+  fetchPlayersWithSummary = async () => {
+    const data = await getJSON('http://localhost:9001/playersWithFixtures');
+    console.log({ data });
+    this.setState({ playersWithFixtures: data });
+  };
+
   fetchStats = async (code) => {
     const player = await getJSON(`http://localhost:9001/player/${code}`);
     this.setState({ playerStats: player });
@@ -22,6 +28,7 @@ class SkyPlayers extends React.Component {
     return (
       <div>
         <button onClick={this.fetchPlayers}>Fetch Players!</button>
+        <button onClick={this.fetchPlayersWithSummary}>Fetch Players With Summary!</button>
         <div><textarea value={JSON.stringify(playerStats, null, 2)} /></div>
         <ul>
           {players.map((player) => (
