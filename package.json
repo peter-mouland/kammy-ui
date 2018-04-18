@@ -4,9 +4,13 @@
   "description": "UI components for Kammy using lerna + storybook",
   "private": true,
   "main": "index.js",
+  "author": "peter.mouland@gmail.com",
+  "license": "ISC",
+  "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
     "start": "start-storybook -s ./tests/fixtures -p 9001",
+    "start:prod": "start-storybook -s ./tests/fixtures -p ${PORT}",
     "start:test-server": "node  tests/regression/start-test-server.js",
     "build": "build-storybook -o public",
     "--------- LINTING ------------------": "",
@@ -34,15 +38,17 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes"
   },
-  "author": "peter.mouland@gmail.com",
-  "license": "ISC",
+  "engines": {
+    "node": "^9.3.0",
+    "yarn": "^1.6.0",
+    "npm": "^5.5.0"
+  },
   "bugs": {
     "url": "https://github.com/peter-mouland/kammy-ui/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
   "dependencies": {
     "cross-env": "^5.1.4",
     "prop-types": "^15.6.1",
