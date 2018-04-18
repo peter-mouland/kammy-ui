@@ -7,7 +7,7 @@
     "packages/global/*",
     "packages/pages/*",
     "packages/authentication/*",
-    "packages/data/*",
+    "packages/data-sources/*",
     "packages/redux/*"
   ],
   "version": "independent"

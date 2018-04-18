@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+const fetchr = require('./fetchr');
 const graphQLParser = require('./middleware/graphQLParser');
 const getPlayersQueryJson = require('./fixtures/getPlayersQuery.fixture');
 const getPlayerFixturesQueryJson = require('./fixtures/getPlayerFixturesQuery.fixture');
@@ -17,6 +18,11 @@ module.exports = function expressMiddleware (router) {
       case 'getPlayerFixturesQuery':
         return res.json(getPlayerFixturesQueryJson);
     }
+  });
+
+  router.get('/players', (req, res) => {
+    fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
+      .then((data) => res.json(data));
   });
 
   router.use('/auth/login', (req, res) => {

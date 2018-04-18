@@ -1,0 +1,21 @@
+{
+  "name": "@kammy/data-sky-players",
+  "version": "0.0.1",
+  "description": "Kammy UI Data: Sky Players",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "dependencies": {
+    "@kammy/fetchr": "^0.0.1"
+  },
+  "devDependencies": {}
+}
