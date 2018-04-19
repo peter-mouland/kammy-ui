@@ -10,7 +10,7 @@
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
     "start": "start-storybook -s ./tests/fixtures -p 9001",
-    "start:prod": "start-storybook -s ./tests/fixtures -p ${PORT}",
+    "start:prod": "start-storybook -s ./tests/fixtures",
     "start:test-server": "node  tests/regression/start-test-server.js",
     "build": "build-storybook -o public",
     "--------- LINTING ------------------": "",
