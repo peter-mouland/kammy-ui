@@ -8,18 +8,18 @@ class SkyPlayers extends React.Component {
   };
 
   fetchPlayers = async () => {
-    const { players } = await getJSON('http://localhost:9001/players');
+    const { players } = await getJSON('/players'); // todo: add test to ensure localhost is not used
     this.setState({ players });
   };
 
   fetchPlayersWithSummary = async () => {
-    const data = await getJSON('http://localhost:9001/playersWithFixtures');
+    const data = await getJSON('/playersWithFixtures'); // todo: add test to ensure localhost is not used
     console.log({ data });
     this.setState({ playersWithFixtures: data });
   };
 
   fetchStats = async (code) => {
-    const player = await getJSON(`http://localhost:9001/player/${code}`);
+    const player = await getJSON(`/player/${code}`); // todo: add test to ensure localhost is not used
     this.setState({ playerStats: player });
   };
 

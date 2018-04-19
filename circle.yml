@@ -17,7 +17,6 @@ test:
   override:
     - npm run bootstrap
     - npm run webpack
-    - npm run build
     - npm run test
   post:
     - git config --global user.name "Peter Mouland"
