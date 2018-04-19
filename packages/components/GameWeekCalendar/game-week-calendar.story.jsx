@@ -9,6 +9,6 @@ storiesOf('Components', module)
   .add('GameWeekCalendar', () => (
     <GameWeekCalendar
       fixtures={fixtures}
-      gameWeeks={number('gameWeeks', 38)}
+      gameWeeksCount={number('gameWeeksCount', 38)}
     />
   ));

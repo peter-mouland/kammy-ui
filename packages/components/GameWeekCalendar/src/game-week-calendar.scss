@@ -56,19 +56,55 @@
     min-width: 0;
   }
 
-  table.calendar td.gw-1 {
+  table.calendar td.gw-1,
+  table.calendar td.gw-5,
+  table.calendar td.gw-9,
+  table.calendar td.gw-13,
+  table.calendar td.gw-17,
+  table.calendar td.gw-21,
+  table.calendar td.gw-25,
+  table.calendar td.gw-29,
+  table.calendar td.gw-33,
+  table.calendar td.gw-37 {
     background-color: rgba(159, 220, 249, 0.32);
   }
 
-  table.calendar td.gw-2 {
+  table.calendar td.gw-2,
+  table.calendar td.gw-6,
+  table.calendar td.gw-10,
+  table.calendar td.gw-14,
+  table.calendar td.gw-18,
+  table.calendar td.gw-22,
+  table.calendar td.gw-26,
+  table.calendar td.gw-30,
+  table.calendar td.gw-34,
+  table.calendar td.gw-38 {
     background-color: rgba(145, 212, 110, 0.32);
   }
 
-  table.calendar td.gw-3 {
+  table.calendar td.gw-3,
+  table.calendar td.gw-7,
+  table.calendar td.gw-11,
+  table.calendar td.gw-15,
+  table.calendar td.gw-19,
+  table.calendar td.gw-23,
+  table.calendar td.gw-27,
+  table.calendar td.gw-31,
+  table.calendar td.gw-35,
+  table.calendar td.gw-39 {
     background-color: rgba(255, 232, 91, 0.32);
   }
 
-  table.calendar td.gw-4 {
+  table.calendar td.gw-4,
+  table.calendar td.gw-8,
+  table.calendar td.gw-12,
+  table.calendar td.gw-16,
+  table.calendar td.gw-20,
+  table.calendar td.gw-24,
+  table.calendar td.gw-28,
+  table.calendar td.gw-32,
+  table.calendar td.gw-36,
+  table.calendar td.gw-40 {
     background-color: rgba(246, 151, 60, 0.32);
   }
 
@@ -94,25 +130,96 @@
   }
 
   table.calendar td.gw-1.range,
-  table.calendar td.gw-1.selected {
+  table.calendar td.gw-1.selected,
+  table.calendar td.gw-5.range,
+  table.calendar td.gw-5.selected,
+  table.calendar td.gw-9.range,
+  table.calendar td.gw-9.selected,
+  table.calendar td.gw-13.range,
+  table.calendar td.gw-13.selected,
+  table.calendar td.gw-17.range,
+  table.calendar td.gw-17.selected,
+  table.calendar td.gw-21.range,
+  table.calendar td.gw-21.selected,
+  table.calendar td.gw-25.range,
+  table.calendar td.gw-25.selected,
+  table.calendar td.gw-29.range,
+  table.calendar td.gw-29.selected,
+  table.calendar td.gw-33.range,
+  table.calendar td.gw-33.selected,
+  table.calendar td.gw-37.range,
+  table.calendar td.gw-37.selected {
     background-color: rgba(159, 220, 249, 1);
     font-weight: bold;
   }
 
   table.calendar td.gw-2.range,
-  table.calendar td.gw-2.selected {
+  table.calendar td.gw-2.selected,
+  table.calendar td.gw-6.range,
+  table.calendar td.gw-10.range,
+  table.calendar td.gw-10.selected,
+  table.calendar td.gw-14.range,
+  table.calendar td.gw-14.selected,
+  table.calendar td.gw-18.range,
+  table.calendar td.gw-18.selected,
+  table.calendar td.gw-22.range,
+  table.calendar td.gw-22.selected,
+  table.calendar td.gw-26.range,
+  table.calendar td.gw-26.selected,
+  table.calendar td.gw-30.range,
+  table.calendar td.gw-30.selected,
+  table.calendar td.gw-34.range,
+  table.calendar td.gw-34.selected,
+  table.calendar td.gw-38.range,
+  table.calendar td.gw-38.selected {
     background-color: rgba(145, 212, 110, 1);
     font-weight: bold;
   }
 
   table.calendar td.gw-3.range,
-  table.calendar td.gw-3.selected {
+  table.calendar td.gw-3.selected,
+  table.calendar td.gw-7.range,
+  table.calendar td.gw-7.selected,
+  table.calendar td.gw-11.range,
+  table.calendar td.gw-11.selected,
+  table.calendar td.gw-15.range,
+  table.calendar td.gw-15.selected,
+  table.calendar td.gw-19.range,
+  table.calendar td.gw-19.selected,
+  table.calendar td.gw-23.range,
+  table.calendar td.gw-23.selected,
+  table.calendar td.gw-27.range,
+  table.calendar td.gw-27.selected,
+  table.calendar td.gw-31.range,
+  table.calendar td.gw-31.selected,
+  table.calendar td.gw-35.range,
+  table.calendar td.gw-35.selected,
+  table.calendar td.gw-39.range,
+  table.calendar td.gw-39.selected {
     background-color: rgba(255, 232, 91, 1);
     font-weight: bold;
   }
 
   table.calendar td.gw-4.range,
-  table.calendar td.gw-4.selected {
+  table.calendar td.gw-4.selected,
+  table.calendar td.gw-8.range,
+  table.calendar td.gw-8.selected,
+  table.calendar td.gw-12.range,
+  table.calendar td.gw-12.selected,
+  table.calendar td.gw-16.range,
+  table.calendar td.gw-16.selected,
+  table.calendar td.gw-20.range,
+  table.calendar td.gw-20.selected,
+  table.calendar td.gw-24.range,
+  table.calendar td.gw-24.selected,
+  table.calendar td.gw-28.range,
+  table.calendar td.gw-28.selected,
+  table.calendar td.gw-32.range,
+  table.calendar td.gw-32.selected,
+  table.calendar td.gw-36.range,
+  table.calendar td.gw-36.selected,
+  table.calendar td.gw-40.range,
+  table.calendar td.gw-40.selected {
     background-color: rgba(246, 151, 60, 1);
   }
 
