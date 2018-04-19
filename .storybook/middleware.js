@@ -22,6 +22,11 @@ module.exports = function expressMiddleware (router) {
     }
   });
 
+  router.get('/fixtures', (req, res) => {
+    return fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_fixtures.json')
+      .then((data) => res.json(data))
+  });
+
   router.get('/players', (req, res) => {
     return fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
       .then((data) => res.json(data))

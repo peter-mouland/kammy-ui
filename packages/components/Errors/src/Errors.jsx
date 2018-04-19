@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 
-const bem = bemHelper({ name: 'error' });
+const bem = bemHelper({ block: 'error' });
 
 const Errors = ({ errors }) => (
   <div className={ bem() }>

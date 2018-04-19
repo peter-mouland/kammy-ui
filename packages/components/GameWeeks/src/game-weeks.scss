@@ -1,0 +1,35 @@
+.game-weeks {
+  display: flex;
+
+  &__calendar {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+  }
+
+  &__date-list {
+    width: 200px;
+  }
+
+  &__week-item {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 4px;
+    background: rgba(255, 255, 255, .2);
+  }
+
+  &__year-header {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #4f5a65;
+    background: lavender;
+  }
+
+  &__month-header {
+    width: 50%;
+    padding: 4px;
+    border: 1px solid #4f5a65;
+    background: seashell;
+  }
+}
