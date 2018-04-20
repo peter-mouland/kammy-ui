@@ -1,19 +1,20 @@
 import { connect } from 'react-redux';
-import { actions } from '@kammy-ui/redux-players';
+import { actions } from '@kammy-ui/redux-fixtures';
 
 import GameWeekFixturesTable from './GameWeekFixtures.table';
 
-const { fetchPlayerFixtures } = actions;
+const { fetchFixtures } = actions;
 
 function mapStateToProps(state) {
+  console.log(state.fixtures)
   return {
-    player: state.players.playerFixtures,
-    loading: state.players.loading,
-    errors: state.players.errors,
+    fixtures: state.fixtures.data,
+    loading: state.fixtures.loading,
+    errors: state.fixtures.errors,
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchPlayerFixtures },
+  { fetchFixtures },
 )(GameWeekFixturesTable);

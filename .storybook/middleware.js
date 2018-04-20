@@ -4,6 +4,7 @@ const fetchr = require('./fetchr');
 const graphQLParser = require('./middleware/graphQLParser');
 const getPlayersQueryJson = require('./fixtures/getPlayersQuery.fixture');
 const getPlayerFixturesQueryJson = require('./fixtures/getPlayerFixturesQuery.fixture');
+const getFixturesQueryJson = require('./fixtures/getGameFixtures.fixture');
 const getFixtures = (code) => fetchr.getJSON(`https://fantasyfootball.skysports.com/cache/json_player_stats_${code}.json`);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -19,6 +20,8 @@ module.exports = function expressMiddleware (router) {
         return res.json(getPlayersQueryJson);
       case 'getPlayerFixturesQuery':
         return res.json(getPlayerFixturesQueryJson);
+      case 'getFixturesQuery':
+        return res.json(getFixturesQueryJson);
     }
   });
 

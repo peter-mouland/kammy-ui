@@ -18,7 +18,7 @@
     "@kammy-ui/bem": "^0.0.10",
     "@kammy-ui/bootstrap": "^0.0.10",
     "@kammy-ui/interstitial": "^0.0.10",
-    "@kammy-ui/redux-players": "^0.0.10"
+    "@kammy-ui/redux-fixtures": "^0.0.10"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
