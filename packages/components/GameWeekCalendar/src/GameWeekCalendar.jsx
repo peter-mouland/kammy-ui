@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Calendar, CalendarControls } from 'react-yearly-calendar';
 import moment from 'moment';
-// import jsonQuery from 'json-query';
+import jsonQuery from 'json-query';
 
 import bemHelper from '@kammy-ui/bem';
 
@@ -21,6 +21,19 @@ const defaultGameWeekDates = () => (
       end: moment(firstGameDate).add(((currentIndex + 1) * 7) - 1, 'days').format('YYYY-MM-DD'),
     },
   }), {})
+);
+
+const getGwFixtures = (data, { start, end }) => (
+  jsonQuery('fixtures[*:date]', {
+    data,
+    locals: {
+      date(item) {
+        const fixtureDate = new Date(item.date);
+        const isWithinGw = fixtureDate <= new Date(end) && fixtureDate >= new Date(start);
+        return isWithinGw
+      },
+    },
+  })
 );
 
 class GameWeekCalendar extends React.Component {
@@ -170,6 +183,7 @@ class GameWeekCalendar extends React.Component {
   };
 
   render() {
+    const { fixtures } = this.props;
     const {
       year,
       showTodayBtn,
@@ -187,28 +201,11 @@ class GameWeekCalendar extends React.Component {
       changeGwEnd,
     } = this.state;
 
+    const [start, end] = selectedRange;
+    const gwFixtures = getGwFixtures(fixtures, { start, end }).value;
+
     return (
       <div className={bem()}>
-        <strong>GameWeek {selectedGW}</strong>:
-        {
-          selectedRange && selectedRange.length > 0
-            ? (
-              <Fragment>
-                <p>
-                  Starts: {selectedRange[0].format('YYYY-MM-DD')}
-                  <button onClick={this.changeGwStart}> change start date </button>
-                  {changeGwStart && 'Select a new start date'}
-                </p>
-                <p>
-                  Ends: {selectedRange[1].format('YYYY-MM-DD')}
-                  <button onClick={this.changeGwEnd}> change end date </button>
-                  {changeGwEnd && 'Select a new end date'}
-                </p>
-              </Fragment>
-            )
-            : null
-        }
-        {error && <p>{error}</p>}
         <div id="calendar">
           <CalendarControls
             year={year}
@@ -231,6 +228,32 @@ class GameWeekCalendar extends React.Component {
             customClasses={customCssClasses}
           />
         </div>
+        <section>
+          <strong>GameWeek {selectedGW}</strong>:
+          {
+            selectedRange && selectedRange.length > 0
+              ? (
+                <Fragment>
+                  <p>
+                    Starts: {formatDate(start)}
+                    <button onClick={this.changeGwStart}> change start date </button>
+                    {changeGwStart && 'Select a new start date'}
+                  </p>
+                  <p>
+                    Ends: {formatDate(end)}
+                    <button onClick={this.changeGwEnd}> change end date </button>
+                    {changeGwEnd && 'Select a new end date'}
+                  </p>
+                </Fragment>
+              )
+              : null
+          }
+          {error && <p>{error}</p>}
+        </section>
+        <section>
+          <h2>Fixtures:</h2>
+          {JSON.stringify(gwFixtures)}
+        </section>
       </div>
     );
   }
