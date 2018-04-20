@@ -22,11 +22,11 @@ const getGwFixtures = (data, { start, end }) => (
   })
 );
 
-class ClubFixtures extends React.Component {
+class GameWeekFixtures extends React.Component {
   static propTypes = {
     fetchFixtures: PropTypes.func.isRequired,
-    start: PropTypes.string,
-    end: PropTypes.string,
+    start: PropTypes.oneOfType([PropTypes.string, PropTypes.object]), // string or moment
+    end: PropTypes.oneOfType([PropTypes.string, PropTypes.object]), // string or moment
     loading: PropTypes.bool,
     fixtures: PropTypes.shape({
       hTname: PropTypes.string,
@@ -70,4 +70,4 @@ class ClubFixtures extends React.Component {
   }
 }
 
-export default ClubFixtures;
+export default GameWeekFixtures;

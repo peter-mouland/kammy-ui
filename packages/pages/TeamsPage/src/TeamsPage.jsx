@@ -7,29 +7,29 @@ import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-page' });
 
-const leagues = ['Premiership', 'Championship', 'League 1'];
+const divisions = ['Premiership', 'Championship', 'League 1'];
 // const teams = ['team a', 'team b', 'team c'];
 
 class TeamsPage extends React.Component {
   state = {
-    selectedLeague: leagues[0],
+    selectedDivision: divisions[0],
   };
 
   changeLeague = (league) => {
     this.setState({
-      selectedLeague: league,
+      selectedDivision: league,
     });
   };
 
   render() {
-    const { selectedLeague } = this.state;
+    const { selectedDivision } = this.state;
     return (
       <div className={bem()} id="teams-page">
-        <h1>Leagues</h1>
+        <h1>Divisions</h1>
         <MultiToggle
-          id={'leagues'}
-          checked={selectedLeague}
-          options={leagues}
+          id={'divisions'}
+          checked={selectedDivision}
+          options={divisions}
           onChange={this.changeLeague}
         />
       </div>
