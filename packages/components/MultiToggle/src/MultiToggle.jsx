@@ -22,7 +22,7 @@ const MultiToggle = ({
               name={ id }
               type={'radio'}
               value={option}
-              onChange={ onChange }
+              onChange={ () => onChange(option) }
             />
             <label className={ bem('option-label') } htmlFor={ `${id}-${i}` }>{option}</label>
           </div>

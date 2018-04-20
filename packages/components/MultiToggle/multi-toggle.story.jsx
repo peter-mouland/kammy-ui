@@ -1,21 +1,27 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, array } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
 import Chance from 'chance';
 
 import MultiToggle from './src/MultiToggle';
 
 const chance = new Chance();
 
-const options = [chance.word(), chance.word(), chance.word()];
+class DemoToggle extends React.Component {
+  state = { checked: '' };
+  options = [chance.word(), chance.word(), chance.word()];
+  onChange = (checked) => this.setState({ checked });
+  render() {
+    return (
+      <MultiToggle
+        id={text('id', 'id')}
+        checked={text('checked', this.state.checked)}
+        options={array('options', this.options)}
+        onChange={this.onChange}
+      />
+    );
+  }
+}
 
 storiesOf('Components', module)
-  .add('MultiToggle', () => (
-    <MultiToggle
-      id={text('id', 'id')}
-      checked={text('checked', '')}
-      options={array('options', options)}
-      onChange={action('onChange')}
-    />
-  ));
+  .add('MultiToggle', () => <DemoToggle />);
