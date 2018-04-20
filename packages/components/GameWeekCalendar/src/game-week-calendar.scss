@@ -1,13 +1,17 @@
+@import '~@kammy-ui/bootstrap/src/abstracts/variables';
+
+$calendarBg: #5a5a5a;
+
 .game-week-calendar {
   table.calendar {
     border-collapse: collapse;
   }
 
   table.calendar thead {
-    background-color: #5A5A5A;
+    background-color: $calendarBg;
     color: white;
     margin-bottom: 3px;
-    border-bottom: 2px solid white
+    border-bottom: 2px solid $white;
   }
 
   table.calendar thead th {
@@ -20,14 +24,14 @@
   }
 
   table.calendar tbody {
-    font-size: 0.8em;
+    font-size: .8em;
   }
 
   table.calendar td {
     text-align: center;
     padding: 8px;
     cursor: pointer;
-    border: 1px solid rgba(185, 185, 185, 0.13);
+    border: 1px solid rgba(185, 185, 185, .13);
     min-width: 15px;
   }
 
@@ -66,7 +70,7 @@
   table.calendar td.gw-29,
   table.calendar td.gw-33,
   table.calendar td.gw-37 {
-    background-color: rgba(159, 220, 249, 0.32);
+    background-color: rgba(159, 220, 249, .32);
   }
 
   table.calendar td.gw-2,
@@ -79,7 +83,7 @@
   table.calendar td.gw-30,
   table.calendar td.gw-34,
   table.calendar td.gw-38 {
-    background-color: rgba(145, 212, 110, 0.32);
+    background-color: rgba(145, 212, 110, .32);
   }
 
   table.calendar td.gw-3,
@@ -92,7 +96,7 @@
   table.calendar td.gw-31,
   table.calendar td.gw-35,
   table.calendar td.gw-39 {
-    background-color: rgba(255, 232, 91, 0.32);
+    background-color: rgba(255, 232, 91, .32);
   }
 
   table.calendar td.gw-4,
@@ -105,7 +109,7 @@
   table.calendar td.gw-32,
   table.calendar td.gw-36,
   table.calendar td.gw-40 {
-    background-color: rgba(246, 151, 60, 0.32);
+    background-color: rgba(246, 151, 60, .32);
   }
 
   table.calendar td.holidays {
@@ -125,7 +129,7 @@
 
   table.calendar td.range,
   table.calendar td.selected {
-    background-color: rgba(59, 20, 49, 0.3);
+    background-color: rgba(59, 20, 49, .3);
     font-weight: bold;
   }
 
@@ -241,7 +245,7 @@
   div.calendar-controls .control {
     font-weight: bolder;
     color: #323232;
-    font-size: 0.8em;
+    font-size: .8em;
     cursor: pointer;
   }
 
@@ -249,7 +253,7 @@
     position: absolute;
     right: 15px;
     line-height: 35px;
-    font-size: 0.6em;
+    font-size: .6em;
     text-transform: uppercase;
   }
 
@@ -258,7 +262,7 @@
   div#calendar {
     position: relative;
     border-radius: 5px;
-    border: 1px solid #5A5A5A;
+    border: 1px solid #5a5a5a;
     background-color: white;
     overflow: hidden;
     -webkit-touch-callout: none;
@@ -274,18 +278,21 @@
     margin: 50px auto;
   }
 
-  h2,h3,h4,h5 {
+  h2,
+  h3,
+  h4,
+  h5 {
     text-align: center;
     color: #404040;
   }
 
   h1 {
     text-align: center;
-    color: #B10909;
+    color: #b10909;
   }
 
   a {
-    color: #B10909;
+    color: #b10909;
     font-weight: bolder;
     text-decoration: none;
   }
@@ -295,7 +302,7 @@
   }
 
   div.options {
-    border: 1px solid #B9B9B9;
+    border: 1px solid #b9b9b9;
     border-radius: 5px;
     padding: 10px 15px;
     margin-top: 30px;
@@ -307,7 +314,7 @@
 
   div.options .half {
     width: 48%;
-    display: inline-table;;
+    display: inline-table;
   }
 
   div.options textarea {
@@ -323,7 +330,7 @@
   }
 
   div.options .half a {
-    font-size: 0.7em;
+    font-size: .7em;
     margin-left: 10px;
   }
 
@@ -332,7 +339,7 @@
   }
 
   p.interactiveDemo i {
-    background-color: #E2E2E2;
+    background-color: #e2e2e2;
     font-style: normal;
     font-family: monospace;
     padding: 2px 5px;

@@ -8,7 +8,7 @@ import './teamsPage.scss';
 const bem = bemHelper({ block: 'teams-page' });
 
 const leagues = ['Premiership', 'Championship', 'League 1'];
-const teams = ['team a', 'team b', 'team c'];
+// const teams = ['team a', 'team b', 'team c'];
 
 class TeamsPage extends React.Component {
   state = {
