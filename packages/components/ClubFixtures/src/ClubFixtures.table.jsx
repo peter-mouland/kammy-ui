@@ -6,7 +6,7 @@ import './club-fixtures.scss';
 
 const bem = bemHelper({ block: 'club-fixtures' });
 
-const ClubFixtures = ({ fixtures, club, code }) => console.log({ fixtures }) || (
+const ClubFixtures = ({ fixtures, club, code }) => (
   <div>
     <h3>Fixtures</h3>
     {

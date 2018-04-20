@@ -2,7 +2,7 @@
   "name": "@kammy-ui/game-week-fixtures",
   "version": "0.0.10",
   "description": "Kammy UI Component: GameWeekFixtures",
-  "main": "dist/GameWeekFixtures.min.js",
+  "main": "dist/GameWeekFixtures.container.min.js",
   "src": "src/GameWeekFixtures.container.js",
   "engines": {
     "node": ">=8",
@@ -18,7 +18,8 @@
     "@kammy-ui/bem": "^0.0.10",
     "@kammy-ui/bootstrap": "^0.0.10",
     "@kammy-ui/interstitial": "^0.0.10",
-    "@kammy-ui/redux-fixtures": "^0.0.10"
+    "@kammy-ui/redux-fixtures": "^0.0.10",
+    "json-query": "^2.2.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

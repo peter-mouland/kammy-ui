@@ -12,7 +12,7 @@ export default function players(state = {}, action) {
   case `${actions.FETCH_FIXTURES}_FULFILLED`:
     return {
       ...state,
-      data: data && data.getFixtures.fixtures,
+      data: data && data.getFixtures,
       errors: action.payload.errors,
       loading: false,
     };

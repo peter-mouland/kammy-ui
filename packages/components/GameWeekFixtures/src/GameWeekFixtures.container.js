@@ -6,7 +6,6 @@ import GameWeekFixturesTable from './GameWeekFixtures.table';
 const { fetchFixtures } = actions;
 
 function mapStateToProps(state) {
-  console.log(state.fixtures)
   return {
     fixtures: state.fixtures.data,
     loading: state.fixtures.loading,

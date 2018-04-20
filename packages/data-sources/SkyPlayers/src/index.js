@@ -15,7 +15,6 @@ class SkyPlayers extends React.Component {
 
   fetchPlayersWithSummary = async () => {
     const data = await getJSON('/playersWithFixtures'); // todo: add test to ensure localhost is not used
-    console.log({ data });
     this.setState({ playersWithFixtures: data });
   };
 

@@ -2,15 +2,15 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Calendar, CalendarControls } from 'react-yearly-calendar';
 import moment from 'moment';
-import jsonQuery from 'json-query';
 
 import bemHelper from '@kammy-ui/bem';
+import GameWeekFixtures from '@kammy-ui/game-week-fixtures';
 
 import './game-week-calendar.scss';
 
 const bem = bemHelper({ block: 'game-week-calendar' });
 const gameWeeksArray = new Array(38).fill('');
-const firstGameDate = '2017-08-11';
+const firstGameDate = '2017-08-10';
 const formatDate = (date) => moment(date).format('YYYY-MM-DD');
 
 const defaultGameWeekDates = () => (
@@ -21,19 +21,6 @@ const defaultGameWeekDates = () => (
       end: moment(firstGameDate).add(((currentIndex + 1) * 7) - 1, 'days').format('YYYY-MM-DD'),
     },
   }), {})
-);
-
-const getGwFixtures = (data, { start, end }) => (
-  jsonQuery('fixtures[*:date]', {
-    data,
-    locals: {
-      date(item) {
-        const fixtureDate = new Date(item.date);
-        const isWithinGw = fixtureDate <= new Date(end) && fixtureDate >= new Date(start);
-        return isWithinGw
-      },
-    },
-  })
 );
 
 class GameWeekCalendar extends React.Component {
@@ -183,7 +170,6 @@ class GameWeekCalendar extends React.Component {
   };
 
   render() {
-    const { fixtures } = this.props;
     const {
       year,
       showTodayBtn,
@@ -202,7 +188,6 @@ class GameWeekCalendar extends React.Component {
     } = this.state;
 
     const [start, end] = selectedRange;
-    const gwFixtures = getGwFixtures(fixtures, { start, end }).value;
 
     return (
       <div className={bem()}>
@@ -251,8 +236,7 @@ class GameWeekCalendar extends React.Component {
           {error && <p>{error}</p>}
         </section>
         <section>
-          <h2>Fixtures:</h2>
-          {JSON.stringify(gwFixtures)}
+          <GameWeekFixtures start={start} end={end} />
         </section>
       </div>
     );

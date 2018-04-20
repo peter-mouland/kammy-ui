@@ -1,22 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import jsonQuery from 'json-query';
 import bemHelper from '@kammy-ui/bem';
 
 import './game-week-fixtures.scss';
 
 const bem = bemHelper({ block: 'club-fixtures' });
 
+const getGwFixtures = (data, { start, end }) => (
+  jsonQuery('fixtures[*:date]', {
+    data,
+    locals: {
+      date(item) {
+        const fixtureDate = new Date(item.date);
+        // todo: test this start and end dates with hours!
+        const endDate = new Date(end).setHours(23, 59, 59, 999);
+        const startDate = new Date(start).setHours(0, 0, 0, 0);
+        return fixtureDate <= endDate && fixtureDate >= startDate;
+      },
+    },
+  })
+);
+
 class ClubFixtures extends React.Component {
   static propTypes = {
     fetchFixtures: PropTypes.func.isRequired,
+    start: PropTypes.string,
+    end: PropTypes.string,
     loading: PropTypes.bool,
-    fixtures: PropTypes.arrayOf(PropTypes.shape({
+    fixtures: PropTypes.shape({
       hTname: PropTypes.string,
       aTname: PropTypes.string,
       date: PropTypes.string,
       aScore: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       hScore: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    })),
+    }),
   };
 
   componentDidMount() {
@@ -27,13 +45,16 @@ class ClubFixtures extends React.Component {
   }
 
   render() {
-    const { fixtures, loading } = this.props;
+    const {
+      fixtures, loading, start, end,
+    } = this.props;
+    const gwFixtures = fixtures ? getGwFixtures(fixtures, { start, end }) : null;
     return (
       <div>
         <h3>Fixtures</h3>
         {loading && 'Loading...'}
         {
-          fixtures && fixtures.map((fixture, i) => (
+          gwFixtures && gwFixtures.value.map((fixture, i) => (
             <div key={`${fixture.date}-${fixture.hTname}`}>
               <strong className={bem('event')}>{i + 1}</strong>
               <span className={bem('fixture')}>

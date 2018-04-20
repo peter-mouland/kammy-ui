@@ -18,7 +18,7 @@ stories.add('PlayerStats', () => (
     end={date('end', end)}
     data={degea}
   >
-    {(player) => console.log(player) || (
+    {(player) => (
       <Fragment>
         <h2>Stats Summary</h2>
         <pre>{JSON.stringify(player.summary, null, 2)}</pre>
