@@ -6,6 +6,7 @@ import bemHelper from '@kammy-ui/bem';
 import './game-week-fixtures.scss';
 
 const bem = bemHelper({ block: 'club-fixtures' });
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 const getGwFixtures = (data, { start, end }) => (
   jsonQuery('fixtures[*:date]', {
@@ -49,21 +50,28 @@ class GameWeekFixtures extends React.Component {
       fixtures, loading, start, end,
     } = this.props;
     const gwFixtures = fixtures ? getGwFixtures(fixtures, { start, end }) : null;
+    let previousFullDate = '';
     return (
       <div>
         <h3>Fixtures</h3>
         {loading && 'Loading...'}
         {
-          gwFixtures && gwFixtures.value.map((fixture, i) => (
-            <div key={`${fixture.date}-${fixture.hTname}`}>
-              <strong className={bem('event')}>{i + 1}</strong>
-              <span className={bem('fixture')}>
-                <span className={bem('team', 'home')}>{fixture.hTname} {fixture.hScore}</span>
-                vs
-                <span className={bem('team', 'away')}>{fixture.aScore} {fixture.aTname}</span>
-              </span>
-            </div>
-          ))
+          gwFixtures && gwFixtures.value.map((fixture) => {
+            const date = new Date(fixture.date);
+            const fullDate = `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
+            const dateStr = fullDate === previousFullDate ? null : <h2>{fullDate}</h2>;
+            previousFullDate = fullDate;
+            return (
+              <div key={`${fixture.date}-${fixture.hTname}`}>
+                {dateStr}
+                <span className={bem('fixture')}>
+                  <span className={bem('team', 'home')}>{fixture.hTname} {fixture.hScore}</span>
+                  vs
+                  <span className={bem('team', 'away')}>{fixture.aScore} {fixture.aTname}</span>
+                </span>
+              </div>
+            );
+          })
         }
       </div>
     );
