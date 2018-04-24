@@ -9,11 +9,10 @@ import GameWeekFixtures from '@kammy-ui/game-week-fixtures';
 import './game-week-calendar.scss';
 
 const bem = bemHelper({ block: 'game-week-calendar' });
-const gameWeeksArray = new Array(42).fill('');
 const firstGameDate = '2017-08-10';
 const formatDate = (date) => moment(date).format('YYYY-MM-DD');
 
-const defaultGameWeekDates = () => (
+const defaultGameWeekDates = (gameWeeksArray) => (
   gameWeeksArray.reduce((prev, curr, currentIndex) => ({
     ...prev,
     [`gw-${currentIndex + 1}`]: {
@@ -30,7 +29,7 @@ class GameWeekCalendar extends React.Component {
   };
 
   static defaultProps = {
-    gameWeeks: defaultGameWeekDates(),
+    gameWeeks: defaultGameWeekDates(new Array(42).fill('')),
     gameWeeksCount: 42,
   };
 
