@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/teams-page",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Component: TeamsPage",
   "main": "dist/TeamsPage.min.js",
   "src": "src/TeamsPage.jsx",
@@ -15,9 +15,9 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.10",
-    "@kammy-ui/bootstrap": "^0.0.10",
-    "@kammy-ui/multi-toggle": "^0.0.10"
+    "@kammy-ui/bem": "^0.0.11",
+    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/multi-toggle": "^0.0.11"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

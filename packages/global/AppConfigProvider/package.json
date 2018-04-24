@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/app-config-provider",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Helper: App Config Provider",
   "main": "dist/Provider.min.js",
   "src": "src/Provider.jsx",

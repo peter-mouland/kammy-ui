@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/game-week-calendar",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Component: GameWeekCalendar",
   "main": "dist/GameWeekCalendar.min.js",
   "src": "src/GameWeekCalendar.jsx",
@@ -16,18 +16,18 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.10",
-    "@kammy-ui/bootstrap": "^0.0.10",
-    "@kammy-ui/game-week-fixtures": "^0.0.10",
-    "react-yearly-calendar": "^1.2.1",
-    "moment": "^2.22.1"
+    "@kammy-ui/bem": "^0.0.11",
+    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/game-week-fixtures": "^0.0.11",
+    "moment": "^2.22.1",
+    "react-yearly-calendar": "^1.2.1"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/redux-fixtures": "^0.0.10",
-    "@kammy-ui/redux-store": "^0.0.10"
+    "@kammy-ui/redux-fixtures": "^0.0.11",
+    "@kammy-ui/redux-store": "^0.0.11"
   }
 }

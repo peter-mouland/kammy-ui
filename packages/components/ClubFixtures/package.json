@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/club-fixtures",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Component: ClubFixtures",
   "main": "dist/ClubFixtures.min.js",
   "src": "src/ClubFixtures.container.js",
@@ -15,17 +15,17 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.10",
-    "@kammy-ui/bootstrap": "^0.0.10",
-    "@kammy-ui/interstitial": "^0.0.10",
-    "@kammy-ui/modal": "^0.0.10",
-    "@kammy-ui/redux-players": "^0.0.10"
+    "@kammy-ui/bem": "^0.0.11",
+    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/interstitial": "^0.0.11",
+    "@kammy-ui/modal": "^0.0.11",
+    "@kammy-ui/redux-players": "^0.0.11"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/redux-store": "^0.0.10"
+    "@kammy-ui/redux-store": "^0.0.11"
   }
 }

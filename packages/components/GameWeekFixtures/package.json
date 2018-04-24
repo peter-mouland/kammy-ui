@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/game-week-fixtures",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Component: GameWeekFixtures",
   "main": "dist/GameWeekFixtures.container.min.js",
   "src": "src/GameWeekFixtures.container.js",
@@ -15,10 +15,10 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.10",
-    "@kammy-ui/bootstrap": "^0.0.10",
-    "@kammy-ui/interstitial": "^0.0.10",
-    "@kammy-ui/redux-fixtures": "^0.0.10",
+    "@kammy-ui/bem": "^0.0.11",
+    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/interstitial": "^0.0.11",
+    "@kammy-ui/redux-fixtures": "^0.0.11",
     "json-query": "^2.2.2"
   },
   "peerDependencies": {
@@ -26,6 +26,6 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/redux-store": "^0.0.10"
+    "@kammy-ui/redux-store": "^0.0.11"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/players-table",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Component: Players Table",
   "main": "dist/PlayersTable.min.js",
   "src": "src/Players.container.js",
@@ -15,21 +15,21 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.10",
-    "@kammy-ui/bootstrap": "^0.0.10",
-    "@kammy-ui/errors": "^0.0.10",
-    "@kammy-ui/interstitial": "^0.0.10",
-    "@kammy-ui/multi-toggle": "^0.0.10",
-    "@kammy-ui/redux-players": "^0.0.10",
-    "@kammy-ui/select": "^0.0.10",
-    "@kammy-ui/sort-columns": "^0.0.10",
-    "@kammy-ui/svg": "^0.0.10"
+    "@kammy-ui/bem": "^0.0.11",
+    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/errors": "^0.0.11",
+    "@kammy-ui/interstitial": "^0.0.11",
+    "@kammy-ui/multi-toggle": "^0.0.11",
+    "@kammy-ui/redux-players": "^0.0.11",
+    "@kammy-ui/select": "^0.0.11",
+    "@kammy-ui/sort-columns": "^0.0.11",
+    "@kammy-ui/svg": "^0.0.11"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/redux-store": "^0.0.10"
+    "@kammy-ui/redux-store": "^0.0.11"
   }
 }

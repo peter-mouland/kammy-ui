@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/polyfills",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Kammy UI Helper: Polyfills",
   "main": "dist/index.min.js",
   "src": "src/index.js",
