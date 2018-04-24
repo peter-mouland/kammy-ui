@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Calendar, CalendarControls } from 'react-yearly-calendar';
 import moment from 'moment';
@@ -9,7 +9,7 @@ import GameWeekFixtures from '@kammy-ui/game-week-fixtures';
 import './game-week-calendar.scss';
 
 const bem = bemHelper({ block: 'game-week-calendar' });
-const gameWeeksArray = new Array(38).fill('');
+const gameWeeksArray = new Array(42).fill('');
 const firstGameDate = '2017-08-10';
 const formatDate = (date) => moment(date).format('YYYY-MM-DD');
 
@@ -31,7 +31,7 @@ class GameWeekCalendar extends React.Component {
 
   static defaultProps = {
     gameWeeks: defaultGameWeekDates(),
-    gameWeeksCount: 38,
+    gameWeeksCount: 42,
   };
 
   constructor(props) {
@@ -145,14 +145,6 @@ class GameWeekCalendar extends React.Component {
     }
   };
 
-  rangePicked = (start, end) => {
-    this.updateClasses({ start, end });
-    this.setState({
-      selectedRange: [start, end],
-      selectedDay: start,
-    });
-  };
-
   changeGwStart = () => {
     this.setState({ changeGwStart: true, changeGwEnd: false });
   };
@@ -161,12 +153,29 @@ class GameWeekCalendar extends React.Component {
     this.setState({ changeGwStart: false, changeGwEnd: true });
   };
 
-  updateClasses = ({ start, end }) => {
-    const { customCssClasses, gameWeek } = this.state;
+  removeGameWeek = () => {
+    const { customCssClasses, selectedGW } = this.state;
 
-    customCssClasses[`gw-${gameWeek}`] = { start, end };
+    const deletedGw = parseInt(selectedGW.replace('gw-', ''), 10);
+    const newClasses = (Object.keys(customCssClasses)).reduce((prev, currentItem) => {
+      if (currentItem.indexOf('gw-') === -1) {
+        return {
+          ...prev,
+          [currentItem]: customCssClasses[currentItem],
+        };
+      }
+      const currentGw = parseInt(currentItem.replace('gw-', ''), 10);
+      const newGw = currentGw <= deletedGw ? currentGw : currentGw - 1;
+      delete prev[currentItem]; // eslint-disable-line no-param-reassign
+      return {
+        ...prev,
+        [`gw-${newGw}`]: customCssClasses[currentItem],
+      };
+    }, customCssClasses);
 
-    this.setState({ customCssClasses });
+    this.setState({
+      customCssClasses: newClasses,
+    });
   };
 
   render() {
@@ -209,35 +218,39 @@ class GameWeekCalendar extends React.Component {
             selectRange={selectRange}
             selectedRange={selectedRange}
             onPickDate={this.datePicked}
-            onPickRange={this.rangePicked}
             customClasses={customCssClasses}
           />
         </div>
-        <section>
-          <strong>GameWeek {selectedGW}</strong>:
-          {
-            selectedRange && selectedRange.length > 0
-              ? (
-                <Fragment>
-                  <p>
-                    Starts: {formatDate(start)}
-                    <button onClick={this.changeGwStart}> change start date </button>
-                    {changeGwStart && 'Select a new start date'}
-                  </p>
-                  <p>
-                    Ends: {formatDate(end)}
-                    <button onClick={this.changeGwEnd}> change end date </button>
-                    {changeGwEnd && 'Select a new end date'}
-                  </p>
-                </Fragment>
-              )
-              : null
-          }
-          {error && <p>{error}</p>}
-        </section>
-        <section>
-          <GameWeekFixtures start={start} end={end} />
-        </section>
+        {selectedGW && (
+          <div>
+            <section>
+              <strong>GameWeek {selectedGW}</strong>:
+              {
+                selectedRange && selectedRange.length > 0
+                  ? (
+                    <div>
+                      <p>
+                        Starts: {formatDate(start)}
+                        <button onClick={this.changeGwStart}> change start date </button>
+                        {changeGwStart && 'Select a new start date'}
+                      </p>
+                      <p>
+                        Ends: {formatDate(end)}
+                        <button onClick={this.changeGwEnd}> change end date </button>
+                        {changeGwEnd && 'Select a new end date'}
+                      </p>
+                      <p><button onClick={this.removeGameWeek}>! Remove Game Week !</button></p>
+                    </div>
+                  )
+                  : null
+              }
+              {error && <p>{error}</p>}
+            </section>
+            <section>
+              <GameWeekFixtures start={start} end={end} />
+            </section>
+          </div>
+        )}
       </div>
     );
   }

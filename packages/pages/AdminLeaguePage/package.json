@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/teams-page",
+  "name": "@kammy-ui/admin-league-page",
   "version": "0.0.10",
-  "description": "Kammy UI Component: TeamsPage",
-  "main": "dist/TeamsPage.min.js",
-  "src": "src/TeamsPage.jsx",
+  "description": "Kammy UI Component: AdminLeaguePage",
+  "main": "dist/AdminLeaguePage.min.js",
+  "src": "src/AdminLeaguePage.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
