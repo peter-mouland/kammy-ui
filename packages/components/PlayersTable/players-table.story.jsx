@@ -32,7 +32,7 @@ storiesOf('Components/PlayersTable', module)
       loading={false}
     />
   ))
-  .add('Container', () => (
+  .add('todo: Container', () => (
     <Provider store={store}>
       <PlayersContainer
         visibleColumns={array('visibleColumns', visibleColumns)}

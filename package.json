@@ -10,9 +10,11 @@
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
     "start": "start-storybook -s ./tests/fixtures -p 9001",
-    "start:prod": "start-storybook -s ./tests/fixtures",
     "start:test-server": "node  tests/regression/start-test-server.js",
     "build": "build-storybook -o public",
+    "--------- PRODUCTION -------------": "",
+    "mongo": "mongod  --dbpath mongodb",
+    "start:prod": "start-storybook -s ./tests/fixtures",
     "--------- LINTING ------------------": "",
     "lint": "yarn lint:css && yarn lint:js",
     "lint:js": "eslint 'packages/*/*/src/**/*.jsx' 'packages/*/*/src/**/*.js' 'tests/*/src/**/*.js'",
@@ -50,7 +52,14 @@
     "access": "public"
   },
   "dependencies": {
+    "bcrypt": "^2.0.1",
+    "bunyan": "^2.0.2",
     "cross-env": "^5.1.4",
+    "debug": "^3.1.0",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.0.0",
+    "graphql-type-json": "^0.2.1",
+    "mongoose": "^4.11.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "resolve-url-loader": "^2.3.0"

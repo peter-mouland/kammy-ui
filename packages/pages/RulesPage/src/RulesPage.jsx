@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '@kammy-ui/bootstrap';
+
 const RulesPage = () => (
   <section id="rules-page">
     <h1>Game Rules</h1>

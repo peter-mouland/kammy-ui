@@ -9,22 +9,22 @@ class SkyPlayers extends React.Component {
   };
 
   fetchPlayers = async () => {
-    const { players } = await getJSON('/players'); // todo: add test to ensure localhost is not used
+    const { players } = await getJSON('/skysports/players'); // todo: add test to ensure localhost is not used
     this.setState({ players });
   };
 
   fetchPlayersWithSummary = async () => {
-    const data = await getJSON('/playersWithFixtures'); // todo: add test to ensure localhost is not used
+    const data = await getJSON('/skysports/full-report'); // todo: add test to ensure localhost is not used
     this.setState({ playersWithFixtures: data });
   };
 
   fetchStats = async (code) => {
-    const player = await getJSON(`/player/${code}`); // todo: add test to ensure localhost is not used
+    const player = await getJSON(`/skysports/player/${code}`); // todo: add test to ensure localhost is not used
     this.setState({ playerStats: player });
   };
 
   fetchFixturesLocal = async () => {
-    const fixtures = await getJSON('/fixtures'); // todo: add test to ensure localhost is not used
+    const fixtures = await getJSON('/skysports/fixtures'); // todo: add test to ensure localhost is not used
     this.setState({ fixtures });
   };
 

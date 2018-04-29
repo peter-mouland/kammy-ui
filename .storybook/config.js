@@ -6,7 +6,6 @@ import { checkA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 
-require('./reset.css');
 require("babel-polyfill");
 
 function addBrowserClassToDocument () {
@@ -35,7 +34,7 @@ setOptions({
 addDecorator((story) => {
   addBrowserClassToDocument();
     return (
-        <div style={{fontFamily: 'AktivGrotesk'}}>
+        <div>
             {story()}
         </div>
     )
@@ -68,7 +67,7 @@ const req = require.context(
 
 function loadStories () {
   // require('./index.story.jsx');
-  req.keys().forEach((module) => {
+  req.keys().sort().forEach((module) => {
     req(module)
   })
 }

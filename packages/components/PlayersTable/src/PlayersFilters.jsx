@@ -70,16 +70,16 @@ export default class PlayerTable extends React.Component {
     }
   }
 
-  posFilter = (e) => {
-    this.setState({ posFilter: e.target.value });
+  posFilter = (posFilter) => {
+    this.setState({ posFilter });
   }
 
-  clubFilter = (e) => {
-    this.setState({ clubFilter: e.target.value });
+  clubFilter = (clubFilter) => {
+    this.setState({ clubFilter });
   }
 
-  nameFilter = (e) => {
-    this.setState({ nameFilter: e.target.value.trim() });
+  nameFilter = (nameFilter) => {
+    this.setState({ nameFilter: nameFilter.trim() });
   }
 
   onFilter = () => {

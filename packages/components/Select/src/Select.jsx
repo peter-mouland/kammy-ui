@@ -2,22 +2,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = ({
-  onChange, defaultValue, options, warn = [], disabled = [],
-}) => (
-  <select onChange={onChange} defaultValue={defaultValue}>
-    <option value={''}>all</option>
-    {options.map((item) => (
-      <option
-        value={ item._id || item }
-        key={ item._id || item }
-        disabled={ disabled.indexOf(item._id || item) > -1 }
-      >
-        { item.name || item }{ warn.indexOf(item._id || item) > -1 ? '*' : '' }
-      </option>
-    ))}
-  </select>
-);
+class Select extends React.Component {
+  onChange = (e) => this.props.onChange(e.target.value);
+
+  render() {
+    const {
+      defaultValue, options, warn = [], disabled = [],
+    } = this.props;
+    return (
+      <select onChange={this.onChange} defaultValue={defaultValue}>
+        <option value={''}>all</option>
+        {options.map((item) => (
+          <option
+            value={ item._id || item }
+            key={ item._id || item }
+            disabled={ disabled.indexOf(item._id || item) > -1 }
+          >
+            { item.name || item }{ warn.indexOf(item._id || item) > -1 ? '*' : '' }
+          </option>
+        ))}
+      </select>
+    );
+  }
+}
 
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
