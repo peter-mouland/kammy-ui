@@ -1,4 +1,4 @@
-import { getLocalUrl } from './localUrl';
+const { getLocalUrl } = require('./localUrl');
 
 function queryParams(params) {
   return Object.keys(params)
@@ -6,7 +6,7 @@ function queryParams(params) {
     .join('&');
 }
 
-export function checkStatus(response) {
+function checkStatus(response) {
   if (response.status < 200 || response.status >= 500) {
     const error = new Error(response.statusText);
     error.response = response;
@@ -35,7 +35,7 @@ const graphQLOpts = (data, params) => ({
   params,
 });
 
-export const fetchUrl = (endpoint, opts = {}) => {
+const fetchUrl = (endpoint, opts = {}) => {
   let url = endpoint.indexOf('//') > -1 ? endpoint : `${getLocalUrl(opts.port)}${endpoint}`;
 
   if (opts.params) {
@@ -50,11 +50,19 @@ export const fetchUrl = (endpoint, opts = {}) => {
     });
 };
 
-export const getJSON = (url, options) =>
+const getJSON = (url, options) =>
   fetchUrl(url, jsonOpts('GET', null, options)).then((data) => JSON.parse(data));
 
-export const postJSON = (url, data, options) =>
+const postJSON = (url, data, options) =>
   fetchUrl(url, jsonOpts('POST', data, options));
 
-export const fetchGraphQL = (data, variables) =>
+const fetchGraphQL = (data, variables) =>
   fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));
+
+module.exports = {
+  checkStatus,
+  fetchUrl,
+  getJSON,
+  postJSON,
+  fetchGraphQL,
+};
