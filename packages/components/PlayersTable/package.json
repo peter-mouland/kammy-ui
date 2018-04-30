@@ -23,7 +23,8 @@
     "@kammy-ui/redux-players": "^0.0.11",
     "@kammy-ui/select": "^0.0.11",
     "@kammy-ui/sort-columns": "^0.0.11",
-    "@kammy-ui/svg": "^0.0.11"
+    "@kammy-ui/svg": "^0.0.11",
+    "@kammy-ui/toggle": "^0.0.11"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

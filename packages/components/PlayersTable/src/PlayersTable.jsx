@@ -27,7 +27,9 @@ AdditionalPoints.propTypes = {
   children: PropTypes.number.isRequired,
 };
 
-const PlayerTable = ({ players, visibleColumns, myTeam }) => (
+const PlayerTable = ({
+  players, visibleColumns, additionalColumns, myTeam,
+}) => (
   <table className={ bem() }>
     <thead>
       <tr className={ bem('data-header')}>
@@ -36,12 +38,13 @@ const PlayerTable = ({ players, visibleColumns, myTeam }) => (
         <th className={ bem('meta', 'pos')}>Position</th>
         <th className={ bem('meta', 'player')}>Player</th>
         <th className={ bem('meta', 'club')}>Club</th>
+        { additionalColumns.map((col) => [
+          <td key={col} className={ bem('meta', 'stat')} >{col}</td>,
+        ])}
         { visibleColumns.map((stat) => [
           <td key={stat} className={ bem('meta', 'stat')} >{stat}</td>,
           <td key={`${stat}-gw`} className={ bem('meta', 'stat')} ><sup>(gw)</sup></td>,
         ])}
-        <td key={'points'} className={ bem('meta', 'stat')} >Points</td>
-        <td key={'points-gw'} className={ bem('meta', 'stat')} ><sup>(gw)</sup></td>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +70,11 @@ const PlayerTable = ({ players, visibleColumns, myTeam }) => (
                 <td>
                   <small>{ player.club }</small>
                 </td>
+                { additionalColumns.map((col) => (
+                  <td key={col} className={ bem('stat')}>
+                    {player[col]}
+                  </td>
+                ))}
                 { visibleColumns.map((stat) => [
                   <td key={stat} className={ bem('stat')}>
                     {player.season[stat]}
@@ -82,19 +90,6 @@ const PlayerTable = ({ players, visibleColumns, myTeam }) => (
                     }
                   </td>,
                 ])}
-                <td key={'points'} className={ bem('stat')}>
-                  {player.season.points}
-                </td>
-                <td key={'points-gw'} className={ bem('stat')}>
-                  { player.gameWeek.points
-                    ? (
-                      <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek.points) })}>
-                        {player.gameWeek.points}
-                      </AdditionalPoints>
-                    )
-                    : null
-                  }
-                </td>
               </tr>
             );
           })
@@ -105,12 +100,15 @@ const PlayerTable = ({ players, visibleColumns, myTeam }) => (
 
 PlayerTable.propTypes = {
   players: PropTypes.array.isRequired,
-  visibleColumns: PropTypes.array.isRequired,
+  visibleColumns: PropTypes.array,
+  additionalColumns: PropTypes.array,
   myTeam: PropTypes.object,
 };
 
 PlayerTable.defaultProps = {
   myTeam: null,
+  visibleColumns: [],
+  additionalColumns: [],
 };
 
 export default PlayerTable;

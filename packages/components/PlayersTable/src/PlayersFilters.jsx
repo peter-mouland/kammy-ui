@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
+import Toggle from '@kammy-ui/toggle';
 import MultiToggle from '@kammy-ui/multi-toggle';
 import Selector from '@kammy-ui/select';
 import sortColumns from '@kammy-ui/sort-columns';
@@ -18,8 +19,9 @@ const setClubs = ({ players = [], myTeam }) => {
 };
 
 const applyFilters = ({
-  nameFilter, posFilter, clubFilter, player, myTeam, showHidden, showOnlyNewPlayers,
+  nameFilter, posFilter, clubFilter, player, myTeam, showHidden, showOnlyNewPlayers, customFilter, customFilterChecked,
 }) => {
+  const customFiltered = !customFilter || !customFilterChecked || customFilter.fn(player);
   const nameFiltered = !nameFilter || player.name.toUpperCase().includes(nameFilter.toUpperCase());
   const posFiltered = !posFilter || posFilter === 'all' || player.pos.toUpperCase().includes(posFilter.toUpperCase());
   const hiddenFiltered = player.isHidden === showHidden;
@@ -27,20 +29,22 @@ const applyFilters = ({
   const clubFiltered = !clubFilter ||
     (clubFilter.toUpperCase() === 'MY TEAM' && myTeam && [player.code]) ||
     (player.club.toUpperCase().includes(clubFilter.toUpperCase()));
-  return nameFiltered && posFiltered && clubFiltered && hiddenFiltered && newFiltered;
+  return nameFiltered && posFiltered && clubFiltered && hiddenFiltered && newFiltered && customFiltered;
 };
 
-export default class PlayerTable extends React.Component {
+export default class PlayersFilters extends React.Component {
   static propTypes = {
     players: PropTypes.array.isRequired,
     positions: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
     myTeam: PropTypes.object,
+    customFilter: PropTypes.object,
     selectedPosition: PropTypes.string,
   };
 
   static defaultProps = {
     myTeam: null,
+    customFilter: null,
     selectedPosition: null,
   };
 
@@ -58,6 +62,7 @@ export default class PlayerTable extends React.Component {
       showHidden: false,
       isSaving: false,
       nameFilter: '',
+      customFilterChecked: false,
       posFilter: props.selectedPosition || 'all',
       clubFilter: this.options.clubs[0],
     };
@@ -74,6 +79,10 @@ export default class PlayerTable extends React.Component {
     this.setState({ posFilter });
   }
 
+  customFilter = (e) => {
+    this.setState({ customFilterChecked: e.target.checked });
+  }
+
   clubFilter = (clubFilter) => {
     this.setState({ clubFilter });
   }
@@ -83,9 +92,11 @@ export default class PlayerTable extends React.Component {
   }
 
   onFilter = () => {
-    const { players, myTeam, positions } = this.props;
     const {
-      posFilter, clubFilter, nameFilter, showHidden, showOnlyNewPlayers,
+      players, myTeam, positions, customFilter,
+    } = this.props;
+    const {
+      posFilter, clubFilter, nameFilter, showHidden, showOnlyNewPlayers, customFilterChecked,
     } = this.state;
     const teamPlayers = myTeam
       ? (Object.keys(myTeam))
@@ -99,6 +110,8 @@ export default class PlayerTable extends React.Component {
         nameFilter,
         posFilter,
         clubFilter,
+        customFilter,
+        customFilterChecked,
         myTeam: teamPlayers,
         showHidden,
         showOnlyNewPlayers,
@@ -107,13 +120,24 @@ export default class PlayerTable extends React.Component {
   }
 
   render() {
-    const { posFilter, clubFilter } = this.state;
+    const { customFilter } = this.props;
+    const { posFilter, clubFilter, customFilterChecked } = this.state;
     const { clubs, positions } = this.options;
 
     return (
       <div className={ bem() }>
         <div className={ bem('filters') }>
           <div className={ bem('group')}>
+            {customFilter && (
+              <div>
+                <Toggle
+                  label={customFilter.label}
+                  id={'custom-filter'}
+                  onClick={this.customFilter}
+                  checked={customFilterChecked}
+                />
+              </div>
+            )}
             <div>
               <MultiToggle
                 label="Position:"

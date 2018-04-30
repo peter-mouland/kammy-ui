@@ -52,6 +52,13 @@ class PlayersPage extends React.Component {
       },
     }), {});
     const mergedPlayersArray = Object.keys(mergedPlayers).map((player) => mergedPlayers[player]);
+    const mismatch = (player) => {
+      const skyPlayer = skySportsPlayers[player.name] || {};
+      const spreadsheetPlayer = spreadsheetPlayers[player.name] || {};
+      const filter = String(skyPlayer.code) === String(spreadsheetPlayer.code) &&
+        skyPlayer.club === spreadsheetPlayer.club && spreadsheetPlayers[player.name];
+      return !filter;
+    };
 
     return (
       <section id="players-page" className={bem()}>
@@ -87,25 +94,19 @@ class PlayersPage extends React.Component {
               Fetch players from Google-SpreadSheets
             </button>
           </p>
-          <p>
-            <strong>spreadsheetPlayers</strong>
-            <textarea value={JSON.stringify(spreadsheetPlayers, null, 2)} />
-          </p>
-          <p>
-            <strong>skySportsPlayers</strong>
-            <textarea value={JSON.stringify(skySportsPlayers, null, 2)} />
-          </p>
 
           <h3>Data Differences</h3>
-          <h4>Todo: display/Highlight differences</h4>
+
           <PlayersFilters
             players={mergedPlayersArray}
             positions={positions}
+            customFilter={{ fn: mismatch, label: 'Show only mis-matches' }}
           >
             {(playersFiltered) => (
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
+                additionalColumns={['skySportPosition']}
                 visibleColumns={[]}
               />
             )}
@@ -136,9 +137,9 @@ PlayersPage.defaultProps = {
   fetchPlayers: () => {},
   fetchSkySportsPlayers: () => {},
   skySportsLoading: false,
-  skySportsPlayers: null,
+  skySportsPlayers: {},
   spreadsheetLoading: false,
-  spreadsheetPlayers: null,
+  spreadsheetPlayers: {},
   fetchSpreadsheetPlayers: () => {},
 };
 

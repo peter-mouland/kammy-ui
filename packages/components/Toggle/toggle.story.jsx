@@ -9,6 +9,7 @@ storiesOf('Components', module)
   .add('Toggle', () => (
     <Toggle
       id={text('id', 'id')}
+      label={text('label', 'label')}
       checked={boolean('checked', false)}
       onClick={action('onClick')}
     />
