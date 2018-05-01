@@ -9,7 +9,7 @@
   "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
-    "start": "start-storybook -s ./tests/fixtures -p 9001",
+    "start": "PORT=9001 start-storybook -s ./tests/fixtures -p 9001",
     "start:test-server": "node  tests/regression/start-test-server.js",
     "build": "build-storybook -o public",
     "--------- PRODUCTION -------------": "",

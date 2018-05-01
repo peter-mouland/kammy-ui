@@ -3,7 +3,7 @@ const debug = require('debug');
 const mongoose = require('mongoose');
 
 const { mapImportToSchema, mapSkyFormatToSchema, zeros, mapStats } = require('../../utils/mapDataImportFormats');
-const getJson = require('../../../../../packages/helpers/fetchr/src/index');
+const { getJSON } = require('../../../../../packages/helpers/fetchr/src/index');
 const config = require('../../../../server-config/config');
 
 const playersJson = require('../../../../fixtures/ff-1718.json');
@@ -40,7 +40,7 @@ const getPlayers = (playerDetails = {}) =>
 
 const getPlayerFixtures = ({ code }) => {
   const url = config.getFixtures(code);
-  return getJson(url)
+  return getJSON(url)
     .then((player) => ({
       name: `${player.sName}, ${player.fName}`,
       code,
@@ -72,12 +72,18 @@ const updatePlayers = ({ playerUpdates }) => {
 const importPlayers = async () => {
   const stats = {};
   const updatePromises = [];
-  const skyPlayers = (await getJson(config.EXTERNAL_STATS_URL)).players;
+  const skyPlayers = (await getJSON(config.EXTERNAL_STATS_URL)).players;
+
+  // const spreadsheetPlayers = (await getJSON(`/google-spreadsheet/${config.PLAYERS_SPREADSHEET_ID}/${config.PLAYERS_WORKSHEET_NAME}`, { port: config.PORT }))
+
   const dbPlayers = (await getPlayers());
+  const dbPlayersCount = Object.keys(dbPlayers).length;
+  const markAsNew = dbPlayersCount > 0;
   const players = dbPlayers.reduce((prev, player) => ({ ...prev, [player.code]: player }), {});
   skyPlayers.forEach((skyPlayer) => {
     const player = mapSkyFormatToSchema(skyPlayer);
     const jsonPlayer = playersJson[player.name];
+
     const dbPlayer = players[player.code];
     const formattedJsonPlayer = jsonPlayer ? mapImportToSchema(jsonPlayer) : {};
     player.pos = dbPlayer ? dbPlayer.pos : formattedJsonPlayer.pos || 'unknown';
@@ -85,7 +91,7 @@ const importPlayers = async () => {
     if (!dbPlayer) {
       const maybeGK = String(player.code).startsWith('1');
       if (player.pos === 'unknown' && maybeGK) player.pos = 'GK';
-      player.new = true;
+      player.new = markAsNew;
       player.season = zeros;
       updatePromises.push((new Player(player)).save());
     } else {

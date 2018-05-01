@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
+import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 import PlayersFilters from '@kammy-ui/players-table/src/PlayersFilters';
 import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
@@ -13,15 +14,19 @@ const PLAYERS_WORKSHEET_NAME = 'Players';
 const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 
 class PlayersPage extends React.Component {
-  state = {
-    skySportsData: {},
-    sheetData: {},
-    ffData: {},
+  componentDidMount() {
+    this.props.fetchDbPlayers();
+    this.props.fetchSkySportsPlayers();
+    this.props.fetchSpreadsheetPlayers(PLAYERS_SPREADSHEET_ID, PLAYERS_WORKSHEET_NAME);
+  }
+
+  copySkySportToDB = () => {
+    this.props.importPlayers();
   };
 
-  componentDidMount() {
-    this.props.fetchPlayers();
-  }
+  fetchDbPlayers = () => {
+    this.props.fetchDbPlayers();
+  };
 
   fetchSkySportsPlayers = () => {
     this.props.fetchSkySportsPlayers();
@@ -33,7 +38,9 @@ class PlayersPage extends React.Component {
 
   render() {
     const {
-      spreadsheetLoading, skySportsLoading, skySportsPlayers, spreadsheetPlayers,
+      dbLoading, dbPlayersCount, dbLoaded,
+      spreadsheetLoading, spreadsheetPlayers, spreadsheetPlayersCount, spreadsheetLoaded,
+      skySportsLoading, skySportsPlayers, skySportsPlayersCount, skySportsLoaded,
     } = this.props;
     const allPlayers = {
       ...spreadsheetPlayers,
@@ -59,18 +66,21 @@ class PlayersPage extends React.Component {
         skyPlayer.club === spreadsheetPlayer.club && spreadsheetPlayers[player.name];
       return !filter;
     };
+    // const loading = (dbLoading && skySportsLoading && spreadsheetLoading);
+    const loaded = (dbLoaded && skySportsLoaded && spreadsheetLoaded);
+
 
     return (
       <section id="players-page" className={bem()}>
         <h1>Players</h1>
         <div>
           <p>
-            The purpose of this page is to display all players with
-            SkySports Playing Position and FF Playing Position.
+            The purpose of this page is to display the Players stats from the Google Spreadsheet,
+            import new player data from SkySports, add see the differences highlighted.
           </p>
           <p>
-            From here you can, import new player data from SkySports,
-            receive input from GoogleSpreadSheets and save to the FF DataBase.
+            From here, the updates should be Saved to Database and, optionally,
+            be copied back to google spreadsheet.
           </p>
           <h3>Caution</h3>
           <p>
@@ -79,23 +89,37 @@ class PlayersPage extends React.Component {
           </p>
         </div>
         <div className="page-content">
-          <h3>Actions</h3>
-          <p>
-            <button
-              disabled={skySportsLoading}
-              onClick={this.fetchSkySportsPlayers}
-            >Fetch players from SkySport</button>
-          </p>
-          <p>
-            <button
-              onClick={this.fetchSpreadsheetPlayers}
-              disabled={spreadsheetLoading}
-            >
-              Fetch players from Google-SpreadSheets
-            </button>
-          </p>
-
-          <h3>Data Differences</h3>
+          <h3>Players Counts</h3>
+          <div>
+            <p>
+              Players In DB :
+              {dbLoading ? <Interstitial /> : dbPlayersCount}
+            </p>
+            <p>
+              Players In SkySports :
+              {skySportsLoading ? <Interstitial /> : skySportsPlayersCount}
+            </p>
+            <p>
+              Players In Google Spreadsheets :
+              {spreadsheetLoading ? <Interstitial /> : spreadsheetPlayersCount}
+            </p>
+          </div>
+        </div>
+        {loaded && (
+          <div className="page-content">
+            <h3>Next Steps</h3>
+            <div>
+              {dbPlayersCount === 0 && skySportsPlayersCount > 0 && (
+                <p>
+                  No players in DB! <br/>
+                  Looks like you need to import some players...
+                  <button onClick={this.copySkySportToDB}>Copy SkySports to DB</button>
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+        <div className="page-content">
 
           <PlayersFilters
             players={mergedPlayersArray}
@@ -104,6 +128,7 @@ class PlayersPage extends React.Component {
           >
             {(playersFiltered) => (
               <PlayersTable
+                editable
                 positions={positions}
                 players={playersFiltered}
                 additionalColumns={['skySportPosition']}
@@ -124,23 +149,43 @@ class PlayersPage extends React.Component {
 }
 
 PlayersPage.propTypes = {
-  fetchPlayers: PropTypes.func,
+  importPlayers: PropTypes.func.isRequired,
+
   fetchSkySportsPlayers: PropTypes.func,
   skySportsLoading: PropTypes.bool,
+  skySportsLoaded: PropTypes.bool,
   skySportsPlayers: PropTypes.object,
-  spreadsheetLoading: PropTypes.bool,
+  skySportsPlayersCount: PropTypes.number,
+
+  fetchDbPlayers: PropTypes.func,
+  dbLoading: PropTypes.bool,
+  dbLoaded: PropTypes.bool,
+  dbPlayers: PropTypes.array,
+  dbPlayersCount: PropTypes.number,
+
   fetchSpreadsheetPlayers: PropTypes.func,
+  spreadsheetLoading: PropTypes.bool,
+  spreadsheetLoaded: PropTypes.bool,
   spreadsheetPlayers: PropTypes.object,
+  spreadsheetPlayersCount: PropTypes.number,
 };
 
 PlayersPage.defaultProps = {
-  fetchPlayers: () => {},
+  fetchDbPlayers: () => {},
   fetchSkySportsPlayers: () => {},
-  skySportsLoading: false,
-  skySportsPlayers: {},
-  spreadsheetLoading: false,
-  spreadsheetPlayers: {},
   fetchSpreadsheetPlayers: () => {},
+  dbLoading: false,
+  dbLoaded: false,
+  dbPlayers: [],
+  dbPlayersCount: null,
+  skySportsLoading: false,
+  skySportsLoaded: false,
+  skySportsPlayers: {},
+  skySportsPlayersCount: null,
+  spreadsheetLoading: false,
+  spreadsheetLoaded: false,
+  spreadsheetPlayers: {},
+  spreadsheetPlayersCount: null,
 };
 
 export default PlayersPage;

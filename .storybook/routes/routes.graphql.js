@@ -22,9 +22,13 @@ module.exports = (router) => {
       const requestString = request.body;
       const { query, variables } = requestString;
       console.log('Fetching ' + query);
+      // console.log(queries[query]);
+      // console.log({ root });
+      // console.log({ variables });
 
-      await graphql(schema, queries[query], root, context, variables)
+      await graphql(schema, queries[query], root, {}, variables)
         .then((result) => {
+          // console.log({ result });
           res.json(result);
         })
         .catch((error) => {

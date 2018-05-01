@@ -15,7 +15,8 @@ function checkStatus(response) {
   return response;
 }
 
-const jsonOpts = (method, data) => ({
+const jsonOpts = (method, data, options = {}) => ({
+  port: options.port,
   method,
   headers: {
     Accept: 'application/json',

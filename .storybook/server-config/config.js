@@ -41,6 +41,8 @@ config.adminEmails = ['nickwatts1982@hotmail.com', 'uni_nake@hotmail.com', 'oojd
 config.getFixtures = (code) => `${config.EXTERNAL_FIXTURES_URL}/json_player_stats_${code}.json`;
 config.cookieToken = 'kammy-token';
 config.playerPositions = require('./positions');
+config.PLAYERS_SPREADSHEET_ID = '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI';
+config.PLAYERS_WORKSHEET_NAME = 'Players';
 
 log(config);
 

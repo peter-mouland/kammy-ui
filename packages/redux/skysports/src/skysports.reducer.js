@@ -20,12 +20,15 @@ export default function players(state = {}, action) {
     return {
       ...state,
       loading: true,
+      loaded: false,
     };
   case `${actions.FETCH_SKYSPORTS_PLAYERS}_FULFILLED`:
     return {
       ...state,
       data: data.players.reduce(mapToFFDataStructure, {}),
+      count: data ? data.players.length : 0,
       errors: action.payload.errors,
+      loaded: true,
       loading: false,
     };
   case `${actions.FETCH_SKYSPORTS_PLAYERS}_REJECTED`:

@@ -28,17 +28,21 @@ const updatePlayersData = (state, action) => {
 
 export default function players(state = {}, action) {
   const data = action.payload && action.payload.data;
+
   switch (action.type) {
   case `${actions.FETCH_PLAYERS}_PENDING`:
     return {
       ...state,
+      loaded: false,
       loading: true,
     };
   case `${actions.FETCH_PLAYERS}_FULFILLED`:
     return {
       ...state,
       data: data && data.getPlayers,
+      count: data ? data.getPlayers.length : 0,
       errors: action.payload.errors,
+      loaded: true,
       loading: false,
     };
   case `${actions.FETCH_PLAYERS}_REJECTED`:

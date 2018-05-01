@@ -2,10 +2,10 @@ import React from 'react';
 import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
-import { text, array, object } from '@storybook/addon-knobs';
 
 import { reducer as spreadsheetReducer } from '@kammy-ui/redux-spreadsheet';
 import { reducer as skySportsReducer } from '@kammy-ui/redux-skysports';
+import { reducer as dbReducer } from '@kammy-ui/redux-players';
 import configureStore from '@kammy-ui/redux-store';
 
 import PlayersPage from './src/PlayersPage.container';
@@ -17,7 +17,7 @@ const preloadedState = { };
 const rootReducer = combineReducers({
   skySports: skySportsReducer,
   spreadsheet: spreadsheetReducer,
-  players: () => ({}),
+  players: dbReducer,
 });
 const store = configureStore(preloadedState, rootReducer);
 

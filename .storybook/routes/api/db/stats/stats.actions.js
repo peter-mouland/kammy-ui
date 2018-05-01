@@ -3,7 +3,7 @@ const debug = require('debug');
 
 const { getPlayers } = require('../player/player.actions');
 const config = require('../../../../server-config/config');
-const { getJson } = require('../../../../../packages/helpers/fetchr/src/index');
+const { getJSON } = require('../../../../../packages/helpers/fetchr/src/index');
 const { mapSkyFormatToSchema, mapImportToSkyFormat } = require('../../utils/mapDataImportFormats');
 const { calculatePoints } = require('../../utils/calculatePoints');
 
@@ -17,8 +17,8 @@ const getExternalStats = async ({ currentGW, source }) => {
   const stats = {};
   const errors = [];
   const data = (source === 'internal')
-    ? (await getJson(`${config.INTERNAL_STATS_URL}/stats-GW${currentGW}.json`))
-    : (await getJson(config.EXTERNAL_STATS_URL)).players;
+    ? (await getJSON(`${config.INTERNAL_STATS_URL}/stats-GW${currentGW}.json`))
+    : (await getJSON(config.EXTERNAL_STATS_URL)).players;
   const players = (Array.isArray(data))
     ? data
     : (Object.keys(data)).map((key) => mapImportToSkyFormat(data[key]));

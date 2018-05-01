@@ -7,10 +7,10 @@ import football from './football.svg';
 import './interstitial.scss';
 
 const Interstitial = ({ message }) => (
-  <div className="interstitial">
+  <span className="interstitial">
     <Svg>{football}</Svg>
     { message || 'Please wait' }...
-  </div>
+  </span>
 );
 
 Interstitial.propTypes = {

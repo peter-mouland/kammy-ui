@@ -9,6 +9,18 @@ const createJsonObj = (item) => ({
     name: item.player.trim(),
     club: item.club,
     isHidden: false,
+    // apps: item.apps,
+    // subs: item.subs,
+    // gls: item.gls,
+    // ass: item.ass,
+    // cs: item.cs,
+    // con: item.con,
+    // prensv: item.pensv,
+    // tacbn: item.tacbn,
+    // savbn: item.savbn,
+    // yc: item.yc,
+    // rc: item.rc,
+    // total: item.total,
   },
 });
 
@@ -19,6 +31,7 @@ export default function players(state = {}, action) {
     return {
       ...state,
       loading: true,
+      loaded: false,
     };
   case `${actions.FETCH_SPREADSHEET_PLAYERS}_FULFILLED`:
     return {
@@ -27,8 +40,10 @@ export default function players(state = {}, action) {
         ...prev,
         ...createJsonObj(data[key]),
       }), {}),
+      count: data ? Object.keys(data).length : 0,
       errors: action.payload.errors,
       loading: false,
+      loaded: true,
     };
   case `${actions.FETCH_SPREADSHEET_PLAYERS}_REJECTED`:
     return {
