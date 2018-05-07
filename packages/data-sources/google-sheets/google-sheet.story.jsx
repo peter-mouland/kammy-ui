@@ -20,12 +20,12 @@ class GetSheet extends React.Component {
   };
 
   fetchSheet = async ({ spreadsheetId, worksheetName }) => {
-    const { jsonData } = await getJSON(`/google-spreadsheet/${spreadsheetId}/${worksheetName}`);
-    const data = Object.keys(jsonData).reduce((prev, key) => ({
+    const { data } = await getJSON(`/google-spreadsheet/${spreadsheetId}/${worksheetName}`);
+    const jsonData = Object.keys(data).reduce((prev, key) => ({
       ...prev,
-      ...createJsonObj(jsonData[key]),
+      ...createJsonObj(data[key]),
     }), {});
-    this.setState({ jsonData: data });
+    this.setState({ jsonData });
   };
 
   render() {
