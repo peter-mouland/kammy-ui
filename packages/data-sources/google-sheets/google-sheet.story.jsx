@@ -48,4 +48,10 @@ storiesOf('Data Sources/googleSheet', module)
       spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
       worksheetName={text('worksheetName', 'Transfers')}
     />
+  ))
+  .add('GameWeeks', () => (
+    <GetSheet
+      spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
+      worksheetName={text('worksheetName', 'GameWeeks')}
+    />
   ));

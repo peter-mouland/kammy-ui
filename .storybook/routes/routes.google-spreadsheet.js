@@ -61,9 +61,27 @@ const formatTransfers = (data) => {
     if (!jsonData[player.manager.trim()]) {
       jsonData[player.manager.trim()] = [];
     }
-    jsonData[player.manager.trim()].push(formatTransfer(player));
+    const transfer = formatTransfer(player);
+    if (transfer.status === 'Y'){
+      jsonData[player.manager.trim()].push(formatTransfer(player));
+    }
   });
   return jsonData;
+};
+
+/* GAMEWEEKS */
+const formatGameWeek = (item) => ({
+  gameWeek: item.gameweek,
+  start: item.start,
+  end: item.end,
+});
+const formatGameWeeks = (data) => {
+  const gameWeeks = [];
+  Object.keys(data).forEach((key) => {
+    const gameWeek = data[key];
+    gameWeeks.push(formatGameWeek(gameWeek));
+  });
+  return gameWeeks;
 };
 
 module.exports = (router) => {
@@ -83,8 +101,10 @@ module.exports = (router) => {
           return formatPlayers(data);
         } else if (worksheetName === 'Teams') {
           return formatTeams(data);
-        } else  if (worksheetName === 'Transfers') {
+        } else if (worksheetName === 'Transfers') {
           return formatTransfers(data);
+        } else if (worksheetName === 'GameWeeks') {
+          return formatGameWeeks(data);
         }
         return data;
       })
