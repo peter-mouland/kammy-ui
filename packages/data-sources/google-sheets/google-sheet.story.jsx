@@ -3,16 +3,6 @@ import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import { getJSON } from '@kammy-ui/fetchr';
 
-const createJsonObj = (item) => ({
-  [item.player]: {
-    new: item.new,
-    code: item.code,
-    pos: item.position,
-    player: item.player,
-    club: item.club,
-  },
-});
-
 class GetSheet extends React.Component {
   state = {
     jsonData: {},
@@ -21,11 +11,7 @@ class GetSheet extends React.Component {
 
   fetchSheet = async ({ spreadsheetId, worksheetName }) => {
     const { data } = await getJSON(`/google-spreadsheet/${spreadsheetId}/${worksheetName}`);
-    const jsonData = Object.keys(data).reduce((prev, key) => ({
-      ...prev,
-      ...createJsonObj(data[key]),
-    }), {});
-    this.setState({ jsonData });
+    this.setState({ jsonData: data });
   };
 
   render() {
@@ -44,10 +30,22 @@ class GetSheet extends React.Component {
 /**
  * STORIES
  */
-storiesOf('Data Sources', module)
-  .add('googleSheet', () => (
+storiesOf('Data Sources/googleSheet', module)
+  .add('Players', () => (
     <GetSheet
       spreadsheetId={text('spreadsheetId', '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI')}
       worksheetName={text('worksheetName', 'Players')}
+    />
+  ))
+  .add('Teams', () => (
+    <GetSheet
+      spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
+      worksheetName={text('worksheetName', 'Teams')}
+    />
+  ))
+  .add('Transfers', () => (
+    <GetSheet
+      spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
+      worksheetName={text('worksheetName', 'Transfers')}
     />
   ));
