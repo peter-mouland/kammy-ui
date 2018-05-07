@@ -9,20 +9,23 @@ const totalUpStats = (stats) => stats.reduce((prev, curr) => (
   curr.stats.map((stat, index) => stat + prev[index])
 ), emptyStats);
 
-const getStatsWithinTimeFrame = (data, { start, end }) => (
+const getStatsWithinTimeFrame = (data, gameWeeks) => (
   jsonQuery('fixtures[*status!=PENDING][*:date]', {
     data,
     locals: {
       date(item) {
         const fixtureDate = new Date(item.date);
-        return fixtureDate <= end && fixtureDate >= start;
+        const inGameWeeks = gameWeeks.reduce((prev, gameWeek) => (
+          prev || (fixtureDate <= new Date(gameWeek.end) && fixtureDate >= new Date(gameWeek.start))
+        ), false);
+        return inGameWeeks;
       },
     },
   })
 );
 
-const playerStats = ({ data, start, end }) => {
-  const playerFixtures = getStatsWithinTimeFrame(data, { start, end });
+const playerStats = ({ data, gameWeeks }) => {
+  const playerFixtures = getStatsWithinTimeFrame(data, gameWeeks);
   const summaryArray = totalUpStats(playerFixtures.value);
   const fixturesWithinTeam = playerFixtures.value;
   const summary = extractFFStats(summaryArray);

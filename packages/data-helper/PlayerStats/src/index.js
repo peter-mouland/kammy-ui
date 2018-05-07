@@ -2,11 +2,10 @@ import playerStats from './PlayerStats';
 
 const PlayerStats = ({
   children,
-  start,
-  end,
+  gameWeeks,
   data,
 }) => {
-  const player = playerStats({ data, start, end });
+  const player = playerStats({ data, gameWeeks });
   return children(player);
 };
 
