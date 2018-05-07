@@ -3,7 +3,7 @@ import { getJSON } from '@kammy-ui/fetchr';
 export const FETCH_SKYSPORTS_PLAYER = 'FETCH_SKYSPORTS_PLAYER';
 export const FETCH_SKYSPORTS_PLAYERS = 'FETCH_SKYSPORTS_PLAYERS';
 export const FETCH_SKYSPORTS_FIXTURES = 'FETCH_SKYSPORTS_FIXTURES';
-export const FETCH_SKYSPORTS_FULL_REPORT = 'FETCH_SKYSPORTS_FULL_REPORT';
+export const FETCH_SKYSPORTS_PLAYERS_FULL = 'FETCH_SKYSPORTS_PLAYERS_FULL';
 
 export function fetchPlayers() {
   return {
@@ -22,14 +22,14 @@ export function fetchFixtures() {
 export function fetchPlayer(code) {
   return {
     type: FETCH_SKYSPORTS_PLAYER,
-    payload: getJSON(`/skysports/layer/${code}`),
+    payload: getJSON(`/skysports/player/${code}`),
   };
 }
 
-export function fetchFullReport() {
+export function fetchPlayersFull() {
   return {
-    type: FETCH_SKYSPORTS_FULL_REPORT,
-    payload: getJSON('/skysports/full-report'),
+    type: FETCH_SKYSPORTS_PLAYERS_FULL,
+    payload: getJSON('/skysports/players-full'),
   };
 }
 

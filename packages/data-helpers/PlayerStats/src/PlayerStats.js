@@ -25,6 +25,7 @@ const getStatsWithinTimeFrame = (data, gameWeeks) => (
 );
 
 const playerStats = ({ data, gameWeeks }) => {
+  if (!data) return {};
   const playerFixtures = getStatsWithinTimeFrame(data, gameWeeks);
   const summaryArray = totalUpStats(playerFixtures.value);
   const fixturesWithinTeam = playerFixtures.value;

@@ -14,8 +14,8 @@ class SkyPlayers extends React.Component {
   };
 
   fetchPlayersWithSummary = async () => {
-    const data = await getJSON('/skysports/full-report'); // todo: add test to ensure localhost is not used
-    this.setState({ playersWithFixtures: data });
+    const data = await getJSON('/skysports/players-full'); // todo: add test to ensure localhost is not used
+    this.setState({ playersFull: data });
   };
 
   fetchStats = async (code) => {
@@ -33,7 +33,7 @@ class SkyPlayers extends React.Component {
     return (
       <div>
         <button onClick={this.fetchPlayers}>Fetch Players!</button>
-        <button onClick={this.fetchPlayersWithSummary}>Fetch Players With Summary!</button>
+        <button onClick={this.fetchPlayersWithSummary}>Fetch Players (Full)!</button>
         <button onClick={this.fetchFixturesLocal}>Fetch Fixtures (direct)</button>
         <h2>Stats</h2>
         <div><textarea value={JSON.stringify(playerStats, null, 2)} /></div>

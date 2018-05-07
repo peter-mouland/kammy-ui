@@ -60,9 +60,14 @@ const postJSON = (url, data, options) =>
 const fetchGraphQL = (data, variables) =>
   fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));
 
+
+const fetchSpreadsheet = (docId, worksheet, options) =>
+  getJSON(`/google-spreadsheet/${docId}/${worksheet}`, options);
+
 module.exports = {
   checkStatus,
   fetchUrl,
+  fetchSpreadsheet,
   getJSON,
   postJSON,
   fetchGraphQL,

@@ -6,7 +6,7 @@ import degea from './fixtures/player-stats-1002.json';
 
 import PlayerStats from './src/index';
 
-const stories = storiesOf('Data-Helper', module);
+const stories = storiesOf('Data-Helpers', module);
 
 degea.pos = 'GK';
 

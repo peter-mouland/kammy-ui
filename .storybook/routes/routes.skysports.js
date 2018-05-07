@@ -14,13 +14,12 @@ module.exports = (router) => {
       .then((data) => res.json({ data }))
   });
 
-  router.get('/skysports/full-report', (req, res) => {
+  router.get('/skysports/players-full', (req, res) => {
     const start = new Date();
     return fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
       .then(async (data) => {
         const promises = data.players.map(async (player, i) => {
           await delay((i * 25));
-          console.log({ getCode: player.id });
           const fixtures = await getFixtures(player.id);
           return ({ ...player, ...fixtures });
         });

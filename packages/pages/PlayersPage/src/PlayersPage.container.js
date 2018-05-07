@@ -21,11 +21,11 @@ function mapStateToProps(state) {
     skySportsLoading: state.skySports.loading,
     skySportsLoaded: state.skySports.loaded,
     skySportsErrors: state.skySports.errors,
-    spreadsheetPlayers: state.spreadsheet.data,
-    spreadsheetPlayersCount: state.spreadsheet.count,
-    spreadsheetLoading: state.spreadsheet.loading,
-    spreadsheetLoaded: state.spreadsheet.loaded,
-    spreadsheetErrors: state.spreadsheet.errors,
+    spreadsheetPlayers: state.spreadsheet.players,
+    spreadsheetPlayersCount: state.spreadsheet.playersCount,
+    spreadsheetLoading: state.spreadsheet.playersLoading,
+    spreadsheetLoaded: state.spreadsheet.playersLoaded,
+    spreadsheetErrors: state.spreadsheet.playersErrors,
   };
 }
 
