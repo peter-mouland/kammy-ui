@@ -9,22 +9,46 @@ const { fetchPlayers: fetchSpreadsheetPlayers } = spreadsheetActions;
 const { fetchPlayers: fetchSkySportsPlayers } = skySportActions;
 const { fetchPlayers: fetchDbPlayers, importPlayers } = dbPlayerActions;
 
+const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
+  const allPlayers = {
+    ...spreadsheetPlayers,
+    ...skySportsPlayers,
+  };
+  const mergedPlayers = Object.keys(allPlayers).reduce((prev, key) => ({
+    ...prev,
+    [key]: {
+      pos: '', // pos is required but doesn't exist on skysports players
+      ...spreadsheetPlayers && spreadsheetPlayers[key],
+      ...skySportsPlayers && skySportsPlayers[key],
+      // hidden: !spreadsheetPlayers[key],
+      // new: !spreadsheetPlayers || !spreadsheetPlayers[key],
+      season: {},
+      gameWeek: {},
+    },
+  }), {});
+  return mergedPlayers;
+};
+
 function mapStateToProps(state) {
+  const mergedPlayers = mergePlayersData({
+    spreadsheetPlayers: state.spreadsheet.players,
+    skySportsPlayers: state.skySports.data,
+  });
+  const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
   return {
+    loaded,
+    mergedPlayers,
     dbPlayers: state.players.data,
     dbPlayersCount: state.players.count,
     dbLoading: state.players.loading,
-    dbLoaded: state.players.loaded,
     dbErrors: state.players.errors,
     skySportsPlayers: state.skySports.data,
     skySportsPlayersCount: state.skySports.count,
     skySportsLoading: state.skySports.loading,
-    skySportsLoaded: state.skySports.loaded,
     skySportsErrors: state.skySports.errors,
     spreadsheetPlayers: state.spreadsheet.players,
     spreadsheetPlayersCount: state.spreadsheet.playersCount,
     spreadsheetLoading: state.spreadsheet.playersLoading,
-    spreadsheetLoaded: state.spreadsheet.playersLoaded,
     spreadsheetErrors: state.spreadsheet.playersErrors,
   };
 }

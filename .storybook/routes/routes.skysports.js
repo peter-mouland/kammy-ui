@@ -2,13 +2,17 @@ const fetchr = require('../../packages/helpers/fetchr/src/index');
 const getFixtures = (code) => fetchr.getJSON(`https://fantasyfootball.skysports.com/cache/json_player_stats_${code}.json`);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+
 const mapToFFDataStructure = (prev, curr) => ({
   ...prev,
   [`${curr.sName}, ${curr.fName}`.trim()]: {
-    code: curr.id,
+    code: parseInt(curr.id, 10),
     name: `${curr.sName}, ${curr.fName}`.trim(),
-    skySportsPosition: curr.group,
-    skySportsClub: curr.tName,
+    skySportsPosition: curr.group.toUpperCase(),
+    skySportsClub: toTitleCase(curr.tName),
     new: false,
     isHidden: false,
     fixtures: curr.fixtures,

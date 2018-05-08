@@ -4,14 +4,18 @@ const GoogleSpreadsheet = require("../../packages/data-sources/google-sheets/src
 const GoogleSpreadsheetCred = require("../../packages/data-sources/google-sheets/src/google-generated-creds.json");
 const jsonParser = bodyParser.json();
 
+function toTitleCase(str = '') {
+  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+
 /* PLAYERS */
 const formatPlayer = (item) => ({
   [item.player.trim()]: {
     new: item.new,
-    code: item.code,
-    pos: item.position,
+    code: parseInt(item.code,10),
+    pos: item.position.toUpperCase(),
     name: item.player.trim(),
-    club: item.club,
+    club: toTitleCase(item.club),
     isHidden: false,
   },
 });

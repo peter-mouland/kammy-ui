@@ -4,71 +4,28 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
-import PlayersFilters from '@kammy-ui/players-table/src/PlayersFilters';
-import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
+
+import PlayersPageTable from './PlayersPage.table';
 
 const bem = bemHelper({ block: 'players-page' });
-
-const PLAYERS_SPREADSHEET_ID = '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI';
-const PLAYERS_WORKSHEET_NAME = 'Players';
-const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 
 class PlayersPage extends React.Component {
   componentDidMount() {
     this.props.fetchDbPlayers();
     this.props.fetchSkySportsPlayers();
-    this.props.fetchSpreadsheetPlayers(PLAYERS_SPREADSHEET_ID, PLAYERS_WORKSHEET_NAME);
+    this.props.fetchSpreadsheetPlayers();
   }
 
   copySkySportToDB = () => {
     this.props.importPlayers();
   };
 
-  fetchDbPlayers = () => {
-    this.props.fetchDbPlayers();
-  };
-
-  fetchSkySportsPlayers = () => {
-    this.props.fetchSkySportsPlayers();
-  };
-
-  fetchSpreadsheetPlayers = () => {
-    this.props.fetchSpreadsheetPlayers(PLAYERS_SPREADSHEET_ID, PLAYERS_WORKSHEET_NAME);
-  };
-
   render() {
     const {
-      dbLoading, dbPlayersCount, dbLoaded,
-      spreadsheetLoading, spreadsheetPlayers, spreadsheetPlayersCount, spreadsheetLoaded,
-      skySportsLoading, skySportsPlayers, skySportsPlayersCount, skySportsLoaded,
+      dbLoading, dbPlayersCount, loaded, mergedPlayers,
+      spreadsheetLoading, spreadsheetPlayersCount,
+      skySportsLoading, skySportsPlayersCount,
     } = this.props;
-    const allPlayers = {
-      ...spreadsheetPlayers,
-      ...skySportsPlayers,
-    };
-    const mergedPlayers = Object.keys(allPlayers).reduce((prev, key) => ({
-      ...prev,
-      [key]: {
-        pos: '', // pos is required but doesn't exist on skysports players
-        ...spreadsheetPlayers && spreadsheetPlayers[key],
-        ...skySportsPlayers && skySportsPlayers[key],
-        // hidden: !spreadsheetPlayers[key],
-        // new: !spreadsheetPlayers || !spreadsheetPlayers[key],
-        season: {},
-        gameWeek: {},
-      },
-    }), {});
-    const mergedPlayersArray = Object.keys(mergedPlayers).map((player) => mergedPlayers[player]);
-    const mismatch = (player) => {
-      const skyPlayer = skySportsPlayers[player.name] || {};
-      const spreadsheetPlayer = spreadsheetPlayers[player.name] || {};
-      const filter = String(skyPlayer.code) === String(spreadsheetPlayer.code) &&
-        skyPlayer.club === spreadsheetPlayer.club && spreadsheetPlayers[player.name];
-      return !filter;
-    };
-    // const loading = (dbLoading && skySportsLoading && spreadsheetLoading);
-    const loaded = (dbLoaded && skySportsLoaded && spreadsheetLoaded);
-
 
     return (
       <section id="players-page" className={bem()}>
@@ -120,28 +77,7 @@ class PlayersPage extends React.Component {
           </div>
         )}
         <div className="page-content">
-
-          <PlayersFilters
-            players={mergedPlayersArray}
-            positions={positions}
-            customFilter={{ fn: mismatch, label: 'Show only mis-matches' }}
-          >
-            {(playersFiltered) => (
-              <PlayersTable
-                editable
-                positions={positions}
-                players={playersFiltered}
-                additionalColumns={['skySportPosition']}
-                visibleColumns={[]}
-              />
-            )}
-          </PlayersFilters>
-
-          <h4>Todo:hookup button</h4>
-          <p>
-            <button className={'warning'}>Update the DataBase</button>
-          </p>
-
+          <PlayersPageTable players={mergedPlayers} />
         </div>
       </section>
     );
@@ -150,22 +86,21 @@ class PlayersPage extends React.Component {
 
 PlayersPage.propTypes = {
   importPlayers: PropTypes.func.isRequired,
+  mergedPlayers: PropTypes.object,
+  loaded: PropTypes.bool,
 
   fetchSkySportsPlayers: PropTypes.func,
   skySportsLoading: PropTypes.bool,
-  skySportsLoaded: PropTypes.bool,
   skySportsPlayers: PropTypes.object,
   skySportsPlayersCount: PropTypes.number,
 
   fetchDbPlayers: PropTypes.func,
   dbLoading: PropTypes.bool,
-  dbLoaded: PropTypes.bool,
   dbPlayers: PropTypes.array,
   dbPlayersCount: PropTypes.number,
 
   fetchSpreadsheetPlayers: PropTypes.func,
   spreadsheetLoading: PropTypes.bool,
-  spreadsheetLoaded: PropTypes.bool,
   spreadsheetPlayers: PropTypes.object,
   spreadsheetPlayersCount: PropTypes.number,
 };
@@ -174,16 +109,15 @@ PlayersPage.defaultProps = {
   fetchDbPlayers: () => {},
   fetchSkySportsPlayers: () => {},
   fetchSpreadsheetPlayers: () => {},
+  mergedPlayers: {},
+  loaded: false,
   dbLoading: false,
-  dbLoaded: false,
   dbPlayers: [],
   dbPlayersCount: null,
   skySportsLoading: false,
-  skySportsLoaded: false,
   skySportsPlayers: {},
   skySportsPlayersCount: null,
   spreadsheetLoading: false,
-  spreadsheetLoaded: false,
   spreadsheetPlayers: {},
   spreadsheetPlayersCount: null,
 };

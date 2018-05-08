@@ -9,12 +9,13 @@ import sortColumns from '@kammy-ui/sort-columns';
 import './players-filters.scss';
 
 const bem = bemHelper({ block: 'players-filters' });
+const MY_TEAM = 'My Team';
 
 const setClubs = ({ players = [], myTeam }) => {
   const clubs = new Set();
   players.forEach((player) => clubs.add(player.club));
   const clubsArr = [...clubs.keys()].sort();
-  if (myTeam) clubsArr.unshift('My Team');
+  if (myTeam) clubsArr.unshift(MY_TEAM);
   return clubsArr;
 };
 
@@ -23,12 +24,12 @@ const applyFilters = ({
 }) => {
   const customFiltered = !customFilter || !customFilterChecked || customFilter.fn(player);
   const nameFiltered = !nameFilter || player.name.toUpperCase().includes(nameFilter.toUpperCase());
-  const posFiltered = !posFilter || posFilter === 'all' || player.pos.toUpperCase().includes(posFilter.toUpperCase());
+  const posFiltered = !posFilter || posFilter === 'all' || (player.pos || '').includes(posFilter);
   const hiddenFiltered = player.isHidden === showHidden;
   const newFiltered = !showOnlyNewPlayers || player.new === showOnlyNewPlayers;
   const clubFiltered = !clubFilter ||
-    (clubFilter.toUpperCase() === 'MY TEAM' && myTeam && [player.code]) ||
-    (player.club.toUpperCase().includes(clubFilter.toUpperCase()));
+    (clubFilter === MY_TEAM && myTeam && [player.code]) ||
+    ((player.club || '').includes(clubFilter));
   return nameFiltered && posFiltered && clubFiltered && hiddenFiltered && newFiltered && customFiltered;
 };
 

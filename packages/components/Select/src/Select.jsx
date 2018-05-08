@@ -12,7 +12,7 @@ class Select extends React.Component {
     return (
       <select onChange={this.onChange} defaultValue={defaultValue}>
         <option value={''}>all</option>
-        {options.map((item) => (
+        {options.map((item = '') => (
           <option
             value={ item._id || item }
             key={ item._id || item }

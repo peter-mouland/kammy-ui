@@ -14,7 +14,7 @@ export default function players(state = {}, action) {
     return {
       ...state,
       data,
-      count: data ? data.length : 0,
+      count: data ? Object.keys(data).length : 0,
       errors: action.payload.errors,
       loaded: true,
       loading: false,
