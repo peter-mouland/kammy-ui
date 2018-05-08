@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
-import { getJSON } from '@kammy-ui/fetchr';
+import { fetchSpreadsheet } from '@kammy-ui/fetchr';
 
 class GetSheet extends React.Component {
   state = {
@@ -10,7 +10,7 @@ class GetSheet extends React.Component {
   };
 
   fetchSheet = async ({ spreadsheetId, worksheetName }) => {
-    const { data } = await getJSON(`/google-spreadsheet/${spreadsheetId}/${worksheetName}`);
+    const { data } = await fetchSpreadsheet(spreadsheetId, worksheetName);
     this.setState({ jsonData: data });
   };
 

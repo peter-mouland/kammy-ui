@@ -46,9 +46,9 @@ class TeamsPage extends React.Component {
     const { spreadsheetTransfers, spreadsheetGameWeeks, spreadsheetPlayers } = this.props;
     const transfers = spreadsheetTransfers[manager] || [];
     const endOfSeason = spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end;
-
+    const skyPlayer = this.findSkyPlayer(player);
     const playerTransfers = [{
-      player: this.findSkyPlayer(player),
+      player: skyPlayer,
       start: new Date(spreadsheetGameWeeks[0].start).setHours(0, 0, 0, 0),
     }];
 
@@ -60,11 +60,13 @@ class TeamsPage extends React.Component {
       ))
       .forEach((transfer) => {
         const lastTransfer = playerTransfers[playerTransfers.length - 1];
+        const playerIn = spreadsheetPlayers[transfer.transferIn];
         if (transfer.transferOut === lastTransfer.player.name) {
           playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
           playerTransfers[playerTransfers.length - 1].endTS = transfer.timestamp;
+          const skyPlayerIn = this.findSkyPlayer(playerIn);
           playerTransfers.push({
-            player: this.findSkyPlayer(spreadsheetPlayers[transfer.transferIn]),
+            player: skyPlayerIn,
             start: new Date(transfer.timestamp),
             startTS: transfer.timestamp,
           });
@@ -77,22 +79,21 @@ class TeamsPage extends React.Component {
 
   findPlayerThisGw = (transferList, { start }) => {
     const gwPlayerStart = transferList.filter((transfer) => transfer.start < new Date(start));
-    // const gwPlayerEnd = transferList.filter((transfer) => transfer.end > new Date(end));
     const gwPlayer = gwPlayerStart[gwPlayerStart.length - 1];
-    // if (!gwPlayer) {
-    //
-    // }
     return gwPlayer;
   }
 
   findSkyPlayer = (player) => {
-    if (!player || !player.name) {
+    const { skySportsPlayers, spreadsheetPlayers } = this.props;
+    const spreadsheetPlayer = spreadsheetPlayers[player.name];
+    if (!player || !player.name || !spreadsheetPlayer) {
       console.error('no Player: ', player);
       return {};
     }
-    return (
-      this.props.skySportsPlayers[player.name]
-    );
+    return {
+      ...skySportsPlayers[player.name],
+      pos: spreadsheetPlayers[player.name].pos,
+    };
   }
 
   /* OUTPUT of TEAM
@@ -124,12 +125,7 @@ class TeamsPage extends React.Component {
   }
 
   render() {
-    const {
-      spreadsheetTeams,
-      spreadsheetPlayers,
-      spreadsheetGameWeeks,
-    } = this.props;
-
+    const { spreadsheetTeams, spreadsheetGameWeeks } = this.props;
     const { displayGw } = this.state;
 
     const gwTeams = {};
@@ -167,47 +163,58 @@ class TeamsPage extends React.Component {
                     <th colSpan="5">{manager}</th>
                   </tr>
                   {gwTeams[manager]
-                    .map((players) => {
-                      const { player } = players[parseInt(displayGw, 10)];
-                      if (!player) {
-                        console.error('No Player, ', players[parseInt(displayGw, 10)]);
+                    .map((gameWeeks) => {
+                      const gameWeek = gameWeeks[parseInt(displayGw, 10)];
+                      const { player } = gameWeek;
+                      if (!player || !player.fixtures) {
+                        console.error('No Player, ', gameWeek);
                         return null;
                       }
+                      const positionFixtures = gameWeeks
+                        .filter((gw, i) => gw.player.fixtures[i])
+                        .map((gw, i) => gw.player.fixtures[i]);
+                      const positionData = {
+                        ...player,
+                        fixtures: positionFixtures,
+                      };
+
                       return (
                         <tr key={player.code || player.name}>
                           <td>{player.name}</td>
                           <td>{player.code}</td>
-                          <td>{
-                            player.code && spreadsheetPlayers[player.name]
-                              ? spreadsheetPlayers[player.name].pos
-                              : '?'
-                          }</td>
-                          <td>
-                            <PlayerStats
-                              gameWeeks={[spreadsheetGameWeeks[displayGw - 1]]}
-                              data={player}
-                            >
-                              {
-                                (data) => (data.points ? JSON.stringify(data.points) : null)
-                              }
-                            </PlayerStats>
-                          </td>
-                          <td>
-                            {
-                              /* TODO: build player with correct fixtures based on GW/position */
-                            }
-                            <PlayerStats
-                              gameWeeks={[{
-                                start: spreadsheetGameWeeks[0].start,
-                                end: spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end,
-                              }]}
-                              data={ player }
-                            >
-                              {
-                                (data) => (data.points ? JSON.stringify(data.points) : null)
-                              }
-                            </PlayerStats>
-                          </td>
+                          <td>{player.pos || '?'}</td>
+                          {
+                            player.fixtures && (
+                              <Fragment>
+                                <td>
+                                  <PlayerStats
+                                    gameWeeks={[spreadsheetGameWeeks[displayGw - 1]]}
+                                    data={player}
+                                  >
+                                    {
+                                      (data) => (data.points ? JSON.stringify(data.points) : null)
+                                    }
+                                  </PlayerStats>
+                                </td>
+                                <td>
+                                  {
+                                    /* TODO: build player with correct fixtures based on GW/position */
+                                  }
+                                  <PlayerStats
+                                    gameWeeks={[{
+                                      start: spreadsheetGameWeeks[0].start,
+                                      end: spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end,
+                                    }]}
+                                    data={ positionData }
+                                  >
+                                    {
+                                      (data) => (data.points ? JSON.stringify(data.points) : null)
+                                    }
+                                  </PlayerStats>
+                                </td>
+                              </Fragment>
+                            )
+                          }
                         </tr>
                       );
                     })}
