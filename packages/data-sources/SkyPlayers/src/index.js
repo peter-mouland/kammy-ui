@@ -15,7 +15,7 @@ class SkyPlayers extends React.Component {
 
   fetchPlayersWithSummary = async () => {
     const data = await getJSON('/skysports/players-full'); // todo: add test to ensure localhost is not used
-    console.log(data)
+    console.log(data);
     this.setState({ playersFull: data });
   };
 

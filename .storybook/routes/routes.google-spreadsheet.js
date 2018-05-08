@@ -45,13 +45,22 @@ const formatTeams = (data) => {
 };
 
 /* TRANSFERS */
+const formatTimeStamp = (timestamp) => {
+  const dateTimeArray = timestamp.split(' ');
+  const dateArray = dateTimeArray[0].split('/');
+  const year = dateArray[2];
+  const month = dateArray[1];
+  const day = dateArray[0];
+  const time = dateTimeArray[1];
+  return `${year}/${month}/${day} ${time}`;
+};
 const formatTransfer = (item) => ({
   manager: item.manager.trim(),
   transferIn: item.transferin,
   transferOut: item.transferout,
   codeIn: item.codein,
   codeOut: item.codeout,
-  timestamp: item.timestamp,
+  timestamp: formatTimeStamp(item.timestamp),
   type: item.transfertype,
   status: item.status.trim(),
 });

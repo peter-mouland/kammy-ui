@@ -39,13 +39,17 @@ class TeamsPage extends React.Component {
     ]
   */
   findTransfer = (manager, player) => {
+    if (!player || !player.name) {
+      console.error('no Player: ', player);
+      return [];
+    }
     const { spreadsheetTransfers, spreadsheetGameWeeks, spreadsheetPlayers } = this.props;
-    const transfers = spreadsheetTransfers[manager];
+    const transfers = spreadsheetTransfers[manager] || [];
     const endOfSeason = spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end;
 
     const playerTransfers = [{
-      player,
-      start: spreadsheetGameWeeks[0].start,
+      player: this.findSkyPlayer(player),
+      start: new Date(spreadsheetGameWeeks[0].start).setHours(0, 0, 0, 0),
     }];
 
     transfers
@@ -57,88 +61,81 @@ class TeamsPage extends React.Component {
       .forEach((transfer) => {
         const lastTransfer = playerTransfers[playerTransfers.length - 1];
         if (transfer.transferOut === lastTransfer.player.name) {
-          playerTransfers[playerTransfers.length - 1].end = transfer.timestamp;
+          playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
+          playerTransfers[playerTransfers.length - 1].endTS = transfer.timestamp;
           playerTransfers.push({
             player: this.findSkyPlayer(spreadsheetPlayers[transfer.transferIn]),
-            start: transfer.timestamp,
+            start: new Date(transfer.timestamp),
+            startTS: transfer.timestamp,
           });
         }
       });
 
-    playerTransfers[playerTransfers.length - 1].end = endOfSeason;
-    console.log({ playerTransfers })
-
+    playerTransfers[playerTransfers.length - 1].end = new Date(endOfSeason).setHours(23, 59, 59, 999);
     return playerTransfers;
   }
 
-  findSkyPlayer = (playerToFind) => (
-    this.props.skySportsPlayers[playerToFind.name.trim()]
-  )
+  findPlayerThisGw = (transferList, { start, end }) => {
+    const gwPlayerStart = transferList.filter((transfer) => transfer.start < new Date(start));
+    const gwPlayerEnd = transferList.filter((transfer) => transfer.end > new Date(end));
+    const gwPlayer = gwPlayerStart[gwPlayerStart.length - 1];
+    if (!gwPlayer) {
+
+    }
+    return gwPlayer;
+  }
+
+  findSkyPlayer = (player) => {
+    if (!player || !player.name) {
+      console.error('no Player: ', player);
+      return {};
+    }
+    return (
+      this.props.skySportsPlayers[player.name]
+    );
+  }
+
+  /* OUTPUT of TEAM
+    olly: [
+      [ // GK
+        [ // GWs Fixtures {}
+          { status, date, stats: [], },
+        ],
+      ],
+      [], // CB
+    ]
+  */
+  findGameWeekTeam = (teamManager) => {
+    const {
+      spreadsheetTeams,
+      spreadsheetGameWeeks,
+    } = this.props;
+
+    const originalTeam = spreadsheetTeams[teamManager];
+    const team = originalTeam.map((teamPlayer) => {
+      const playerTransfers = this.findTransfer(teamManager, teamPlayer);
+      return spreadsheetGameWeeks.map((gw, i) => {
+        const playerThisGw = this.findPlayerThisGw(playerTransfers, gw);
+        const fixtures = getGwFixtures(playerThisGw, gw);
+        return { ...playerThisGw, fixtures };
+      });
+    });
+    return team;
+  }
 
   render() {
     const {
       spreadsheetTeams,
       spreadsheetPlayers,
       spreadsheetGameWeeks,
-      spreadsheetTransfers,
-      skySportsPlayers,
     } = this.props;
 
     const { displayGw } = this.state;
 
-    window.spreadsheetTeams = spreadsheetTeams
-    window.skySportsPlayers = skySportsPlayers
-    window.spreadsheetTransfers = spreadsheetTransfers
-    window.spreadsheetGameWeeks = spreadsheetGameWeeks
-    console.log(spreadsheetTeams);
-    console.log(skySportsPlayers);
-    console.log(spreadsheetTransfers);
-    console.log(spreadsheetGameWeeks);
-
-    const teamManager = 'Olly';
-    const originalTeam = spreadsheetTeams[teamManager];
-
-    const team = originalTeam.map((teamPlayer) => {
-      const playerTransfers = this.findTransfer(teamManager, teamPlayer);
-      return spreadsheetGameWeeks.map((gw) => {
-        const skySportsPlayer = this.findSkyPlayer(teamPlayer);
-        const start = gw.start;
-        const end = gw.end;
-        const fixtures = getGwFixtures(skySportsPlayer, { start, end });
-        return { ...teamPlayer, fixtures };
-      });
-
+    const gwTeams = {};
+    Object.keys(spreadsheetTeams).forEach((manager) => {
+      gwTeams[manager] = this.findGameWeekTeam(manager);
     });
-
-    const ollyGwTeam = {
-      [teamManager]: team,
-    };
-
-    /* DESIRED OUTPUT of TEAM
-      olly: [
-        [ // GK
-          [ // GWs Fixtures {}
-            { status, date, stats: [], }
-          ],
-        ],
-        [], // CB
-        [], // CB
-        [], // FB
-        [], // FB
-        [], // MID
-        [], // MID
-        [], // AM
-        [], // AM
-        [], // FWD
-        [], // FWD
-        [], // SUB
-      ]
-    */
-
-
-    console.log(ollyGwTeam);
-
-    debugger;
 
     return (
       <div className="page-content">
@@ -169,38 +166,47 @@ class TeamsPage extends React.Component {
                   <tr>
                     <th colSpan="5">{manager}</th>
                   </tr>
-                  {spreadsheetTeams[manager].map((teamPlayer) => (
-                    <tr key={teamPlayer.code || teamPlayer.name}>
-                      <td>{teamPlayer.name}</td>
-                      <td>{teamPlayer.code}</td>
-                      <td>{
-                        teamPlayer.code && spreadsheetPlayers[teamPlayer.name]
-                          ? spreadsheetPlayers[teamPlayer.name].pos
-                          : '?'
-                      }</td>
-                      <td>
-                        <PlayerStats
-                          gameWeeks={[spreadsheetGameWeeks[displayGw - 1]]}
-                          data={this.findSkyPlayer(teamPlayer)}
-                        >{
-                            (data) => (data.points ? JSON.stringify(data.points) : null)
-                          }
-                        </PlayerStats>
-                      </td>
-                      <td>
-                        {/* <PlayerStats */}
-                        {/* gameWeeks={[{ */}
-                        {/* start: spreadsheetGameWeeks[0].start, */}
-                        {/* end: spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end, */}
-                        {/* }]} */}
-                        {/* data={ MUST BUILD CORRECT DATA LIST FROM TEAM/TRANSFERS } */}
-                        {/* >{ */}
-                        {/* (data) => (data.points ? JSON.stringify(data.points) : null) */}
-                        {/* } */}
-                        {/* </PlayerStats> */}
-                      </td>
-                    </tr>
-                  ))}
+                  {gwTeams[manager]
+                    .map((players) => {
+                      const { player } = players[parseInt(displayGw, 10)];
+                      if (!player) {
+                        console.error('No Player, ', players[parseInt(displayGw, 10)]);
+                        return null;
+                      }
+                      return (
+                        <tr key={player.code || player.name}>
+                          <td>{player.name}</td>
+                          <td>{player.code}</td>
+                          <td>{
+                            player.code && spreadsheetPlayers[player.name]
+                              ? spreadsheetPlayers[player.name].pos
+                              : '?'
+                          }</td>
+                          <td>
+                            <PlayerStats
+                              gameWeeks={[spreadsheetGameWeeks[displayGw - 1]]}
+                              data={player}
+                            >
+                              {
+                                (data) => (data.points ? JSON.stringify(data.points) : null)
+                              }
+                            </PlayerStats>
+                          </td>
+                          <td>
+                            {/* <PlayerStats */}
+                            {/* gameWeeks={[{ */}
+                            {/* start: spreadsheetGameWeeks[0].start, */}
+                            {/* end: spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end, */}
+                            {/* }]} */}
+                            {/* data={ MUST BUILD CORRECT DATA LIST FROM TEAM/TRANSFERS } */}
+                            {/* >{ */}
+                            {/* (data) => (data.points ? JSON.stringify(data.points) : null) */}
+                            {/* } */}
+                            {/* </PlayerStats> */}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </Fragment>
               ))}
             </tbody>
