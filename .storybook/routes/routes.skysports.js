@@ -2,6 +2,20 @@ const fetchr = require('../../packages/helpers/fetchr/src/index');
 const getFixtures = (code) => fetchr.getJSON(`https://fantasyfootball.skysports.com/cache/json_player_stats_${code}.json`);
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const mapToFFDataStructure = (prev, curr) => ({
+  ...prev,
+  [`${curr.sName}, ${curr.fName}`.trim()]: {
+    code: curr.id,
+    name: `${curr.sName}, ${curr.fName}`.trim(),
+    skySportsPosition: curr.group,
+    skySportsClub: curr.tName,
+    new: false,
+    isHidden: false,
+    fixtures: curr.fixtures,
+    stats: curr.stats,
+  },
+});
+
 module.exports = (router) => {
 
   router.get('/skysports/fixtures', (req, res) => {
@@ -11,7 +25,8 @@ module.exports = (router) => {
 
   router.get('/skysports/players', (req, res) => {
     return fetchr.getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
-      .then((data) => res.json({ data }))
+      .then((data) => res.json({ data: data.players.reduce(mapToFFDataStructure, {}) }))
+      .catch(console.error);
   });
 
   router.get('/skysports/players-full', (req, res) => {
@@ -30,14 +45,16 @@ module.exports = (router) => {
 
         return allWithFixtures;
       })
-      .then((data) => res.json({ data }));
+      .then((data) => res.json({ data: data.reduce(mapToFFDataStructure, {}) }))
+      .catch(console.error);
   });
 
   router.get('/skysports/player/:code', async (req, res) => {
     const { code } = req.params;
     return getFixtures(code)
       .then((fixtures) => ({ ...fixtures, code }))
-      .then((data) => res.json({ data }))
+      .then((data) => res.json({ data: mapToFFDataStructure({}, data) }))
+      .catch(console.error);
   });
 
 };

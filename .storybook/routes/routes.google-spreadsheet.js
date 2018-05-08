@@ -29,7 +29,7 @@ const formatTeam = (item) => ({
   manager: item.manager.trim(),
   code: item.code,
   pos: item.position,
-  player: item.player.trim(),
+  name: item.player.trim(),
   club: item.club.trim(),
 });
 const formatTeams = (data) => {
@@ -52,6 +52,7 @@ const formatTransfer = (item) => ({
   codeIn: item.codein,
   codeOut: item.codeout,
   timestamp: item.timestamp,
+  type: item.transfertype,
   status: item.status.trim(),
 });
 const formatTransfers = (data) => {

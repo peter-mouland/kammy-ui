@@ -10,11 +10,12 @@ class SkyPlayers extends React.Component {
 
   fetchPlayers = async () => {
     const { data } = await getJSON('/skysports/players'); // todo: add test to ensure localhost is not used
-    this.setState({ players: data.players });
+    this.setState({ players: data });
   };
 
   fetchPlayersWithSummary = async () => {
     const data = await getJSON('/skysports/players-full'); // todo: add test to ensure localhost is not used
+    console.log(data)
     this.setState({ playersFull: data });
   };
 
@@ -40,12 +41,15 @@ class SkyPlayers extends React.Component {
         <h2>Fixtures</h2>
         <div><textarea value={JSON.stringify(fixtures, null, 2)} /></div>
         <ul>
-          {players.map((player) => (
-            <li key={player.id}>
-              {player.id}: {player.fName} {player.sName}
-              <button onClick={() => this.fetchStats(player.id)}>Fetch Stats</button>
-            </li>
-          ))}
+          {Object.keys(players).map((name) => {
+            const player = players[name];
+            return (
+              <li key={player.code}>
+                {player.code}: {player.name}
+                <button onClick={() => this.fetchStats(player.code)}>Fetch Stats</button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
