@@ -3,7 +3,7 @@
   "version": "0.0.11",
   "description": "Kammy UI Component: TeamsPage",
   "main": "dist/TeamsPage.container.min.js",
-  "src": "src/TeamsPage.container.jsx",
+  "src": "src/TeamsPage.container.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

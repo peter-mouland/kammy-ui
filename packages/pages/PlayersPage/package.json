@@ -3,7 +3,7 @@
   "version": "0.0.11",
   "description": "Kammy UI Component: PlayersPage",
   "main": "dist/PlayersPage.container.min.js",
-  "src": "src/PlayersPage.container.jsx",
+  "src": "src/PlayersPage.container.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

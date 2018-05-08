@@ -7,7 +7,7 @@
         "ie 11",
         "last 2 Chrome versions",
         "last 2 Firefox versions",
-        "edge 13",
+        "last 2 Edge versions",
         "ios_saf >= 9",
         "ie_mob 11",
         "Android >= 4"

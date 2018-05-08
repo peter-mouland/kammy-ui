@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/admin-divisions-page",
+  "name": "@kammy-ui/add-divisions",
   "version": "0.0.11",
-  "description": "Kammy UI Component: AdminDivisionsPage",
-  "main": "dist/AdminDivisionsPage.min.js",
-  "src": "src/AdminDivisionsPage.jsx",
+  "description": "Kammy UI Component: AddDivisions",
+  "main": "dist/AddDivisions.min.js",
+  "src": "src/AddDivisions.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

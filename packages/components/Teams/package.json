@@ -2,8 +2,8 @@
   "name": "@kammy-ui/teams-page",
   "version": "0.0.11",
   "description": "Kammy UI Component: TeamsPage",
-  "main": "dist/TeamsPage.min.js",
-  "src": "src/TeamsPage.jsx",
+  "main": "dist/Teams.min.js",
+  "src": "src/Teams.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
