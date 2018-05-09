@@ -1,5 +1,5 @@
 import React from 'react';
-import { getJSON } from '@kammy-ui/fetchr';
+import { fetchSkySports } from '@kammy-ui/fetchr';
 
 class SkyPlayers extends React.Component {
   state = {
@@ -9,23 +9,23 @@ class SkyPlayers extends React.Component {
   };
 
   fetchPlayers = async () => {
-    const { data } = await getJSON('/skysports/players'); // todo: add test to ensure localhost is not used
+    const { data } = await fetchSkySports('/players'); // todo: add test to ensure localhost is not used
     this.setState({ players: data });
   };
 
   fetchPlayersWithSummary = async () => {
-    const data = await getJSON('/skysports/players-full'); // todo: add test to ensure localhost is not used
+    const data = await fetchSkySports('/players-full'); // todo: add test to ensure localhost is not used
     console.log(data);
     this.setState({ playersFull: data });
   };
 
   fetchStats = async (code) => {
-    const player = await getJSON(`/skysports/player/${code}`); // todo: add test to ensure localhost is not used
+    const player = await fetchSkySports(`/player/${code}`); // todo: add test to ensure localhost is not used
     this.setState({ playerStats: player });
   };
 
   fetchFixturesLocal = async () => {
-    const fixtures = await getJSON('/skysports/fixtures'); // todo: add test to ensure localhost is not used
+    const fixtures = await fetchSkySports('/fixtures'); // todo: add test to ensure localhost is not used
     this.setState({ fixtures });
   };
 

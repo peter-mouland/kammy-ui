@@ -1,11 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import SkyPlayers from './src/index';
+import SkyPlayers from './SkySports';
 
-/**
- * STORIES
- */
 storiesOf('Data Sources', module)
   .add('Sky Players', () => (
     <SkyPlayers />

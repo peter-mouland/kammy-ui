@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/data-sky-players",
+  "name": "@kammy-ui/fetch-sky-sports",
   "version": "0.0.12",
-  "description": "Kammy UI Data: Sky Players",
+  "description": "Kammy Data Source: Fetch Sky Skports",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
