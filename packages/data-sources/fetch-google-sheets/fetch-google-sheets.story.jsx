@@ -30,7 +30,7 @@ class GetSheet extends React.Component {
 /**
  * STORIES
  */
-storiesOf('Data Sources/googleSheet', module)
+storiesOf('Data Sources/fetch-google-sheets', module)
   .add('Players', () => (
     <GetSheet
       spreadsheetId={text('spreadsheetId', '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI')}

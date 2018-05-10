@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/google-sheets",
-  "version": "0.0.11",
-  "description": "Kammy UI Data: google-sheets",
+  "name": "@kammy-ui/fetch-google-sheets",
+  "version": "0.0.12",
+  "description": "Kammy Data Source: Fetch Google Spreadsheets",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
@@ -15,7 +15,6 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/fetchr": "^0.0.11",
-    "google-spreadsheet": "^2.0.4"
+    "@kammy-ui/fetchr": "^0.0.11"
   }
 }
