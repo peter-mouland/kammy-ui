@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
+import ErrorBoundary from '@kammy-ui/error-boundary';
 
 import PlayersPageTable from './PlayersPage.table';
 
@@ -16,13 +17,19 @@ class PlayersPage extends React.Component {
     this.props.fetchSpreadsheetPlayers();
   }
 
-  copySkySportToDB = () => {
-    this.props.importPlayers();
+  componentWillReceiveProps(nextProps) {
+    if (this.props.dbImporting === true && !nextProps.dbImporting) {
+      this.props.fetchDbPlayers();
+    }
+  }
+
+  setupPlayers = () => {
+    this.props.initPlayers();
   };
 
   render() {
     const {
-      dbLoading, dbPlayersCount, loaded, mergedPlayers,
+      dbLoading, dbPlayersCount, loaded, dbImporting, dbPlayers,
       spreadsheetLoading, spreadsheetPlayersCount,
       skySportsLoading, skySportsPlayersCount,
     } = this.props;
@@ -67,25 +74,38 @@ class PlayersPage extends React.Component {
             <h3>Next Steps</h3>
             <div>
               {dbPlayersCount === 0 && skySportsPlayersCount > 0 && (
-                <p>
-                  No players in DB! <br/>
-                  Looks like you need to import some players...
-                  <button onClick={this.copySkySportToDB}>Copy SkySports to DB</button>
-                </p>
+                <div>
+                  <p>
+                    No players in DB! <br/>
+                    Looks like you need to Setup Players...
+                    <button onClick={this.setupPlayers} disabled={dbImporting}>
+                      Setup Players<sup>*</sup>
+                    </button>
+                    { dbImporting && <Interstitial /> }
+                  </p>
+                  <p>
+                    <sup>*</sup>this will copy players from Sky Sports into the Database.
+                    It will also attempt to assign a position if the player is from in Google Spreadsheets.
+                  </p>
+                </div>
               )}
             </div>
           </div>
         )}
-        <div className="page-content">
-          <PlayersPageTable players={mergedPlayers} />
-        </div>
+        {dbPlayersCount > 0 && (
+          <div className="page-content">
+            <ErrorBoundary>
+              <PlayersPageTable players={dbPlayers} />
+            </ErrorBoundary>
+          </div>
+        )}
       </section>
     );
   }
 }
 
 PlayersPage.propTypes = {
-  importPlayers: PropTypes.func.isRequired,
+  initPlayers: PropTypes.func.isRequired,
   mergedPlayers: PropTypes.object,
   loaded: PropTypes.bool,
 
@@ -95,8 +115,9 @@ PlayersPage.propTypes = {
   skySportsPlayersCount: PropTypes.number,
 
   fetchDbPlayers: PropTypes.func,
+  dbImporting: PropTypes.bool,
   dbLoading: PropTypes.bool,
-  dbPlayers: PropTypes.array,
+  dbPlayers: PropTypes.object,
   dbPlayersCount: PropTypes.number,
 
   fetchSpreadsheetPlayers: PropTypes.func,
@@ -111,8 +132,9 @@ PlayersPage.defaultProps = {
   fetchSpreadsheetPlayers: () => {},
   mergedPlayers: {},
   loaded: false,
+  dbImporting: false,
   dbLoading: false,
-  dbPlayers: [],
+  dbPlayers: {},
   dbPlayersCount: null,
   skySportsLoading: false,
   skySportsPlayers: {},

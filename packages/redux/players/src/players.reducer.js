@@ -26,6 +26,17 @@ const updatePlayersData = (state, action) => {
   return allPlayers;
 };
 
+const arrayToObj = (arr) => (
+  arr
+    .filter((item) => !!item)
+    .reduce((prev, curr) => ({
+      ...prev,
+      [curr.name]: {
+        ...curr,
+      },
+    }), {})
+);
+
 export default function players(state = {}, action) {
   const data = action.payload && action.payload.data;
 
@@ -39,7 +50,7 @@ export default function players(state = {}, action) {
   case `${actions.FETCH_PLAYERS}_FULFILLED`:
     return {
       ...state,
-      data: data && data.getPlayers,
+      data: data && arrayToObj(data.getPlayers),
       count: data ? data.getPlayers.length : 0,
       errors: action.payload.errors,
       loaded: true,
@@ -51,18 +62,18 @@ export default function players(state = {}, action) {
       errors: [action.payload],
       loading: false,
     };
-  case `${actions.IMPORT_PLAYERS}_PENDING`:
+  case `${actions.INIT_PLAYERS}_PENDING`:
     return {
       ...state,
       importing: true,
     };
-  case `${actions.IMPORT_PLAYERS}_FULFILLED`:
+  case `${actions.INIT_PLAYERS}_FULFILLED`:
     return {
       ...state,
       errors: action.payload.errors,
       importing: false,
     };
-  case `${actions.IMPORT_PLAYERS}_REJECTED`:
+  case `${actions.INIT_PLAYERS}_REJECTED`:
     return {
       ...state,
       errors: [action.payload],

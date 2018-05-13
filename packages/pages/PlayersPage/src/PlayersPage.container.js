@@ -7,39 +7,15 @@ import PlayersPage from './PlayersPage';
 
 const { fetchPlayers: fetchSpreadsheetPlayers } = spreadsheetActions;
 const { fetchPlayers: fetchSkySportsPlayers } = skySportActions;
-const { fetchPlayers: fetchDbPlayers, importPlayers } = dbPlayerActions;
-
-const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
-  const allPlayers = {
-    ...spreadsheetPlayers,
-    ...skySportsPlayers,
-  };
-  const mergedPlayers = Object.keys(allPlayers).reduce((prev, key) => ({
-    ...prev,
-    [key]: {
-      pos: '', // pos is required but doesn't exist on skysports players
-      ...spreadsheetPlayers && spreadsheetPlayers[key],
-      ...skySportsPlayers && skySportsPlayers[key],
-      // hidden: !spreadsheetPlayers[key],
-      // new: !spreadsheetPlayers || !spreadsheetPlayers[key],
-      season: {},
-      gameWeek: {},
-    },
-  }), {});
-  return mergedPlayers;
-};
+const { fetchPlayers: fetchDbPlayers, initPlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
-  const mergedPlayers = mergePlayersData({
-    spreadsheetPlayers: state.spreadsheet.players,
-    skySportsPlayers: state.skySports.data,
-  });
   const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
   return {
     loaded,
-    mergedPlayers,
     dbPlayers: state.players.data,
     dbPlayersCount: state.players.count,
+    dbImporting: state.players.importing,
     dbLoading: state.players.loading,
     dbErrors: state.players.errors,
     skySportsPlayers: state.skySports.data,
@@ -56,6 +32,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    fetchSpreadsheetPlayers, fetchSkySportsPlayers, fetchDbPlayers, importPlayers,
+    fetchSpreadsheetPlayers, fetchSkySportsPlayers, fetchDbPlayers, initPlayers,
   },
 )(PlayersPage);

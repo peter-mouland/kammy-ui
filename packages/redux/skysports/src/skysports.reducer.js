@@ -35,7 +35,7 @@ export default function players(state = {}, action) {
     return {
       ...state,
       fullData: data,
-      fullDataCount: data ? data.length : 0,
+      fullDataCount: data ? Object.keys(data).length : 0,
       errors: action.payload.errors,
       loaded: true,
       loading: false,

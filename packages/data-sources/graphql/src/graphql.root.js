@@ -1,3 +1,12 @@
 const { rootActions } = require('@kammy-ui/database');
 
-module.exports = rootActions();
+const initPlayers = require('./custom/initPlayers');
+
+const { getPlayers, upsertPlayers } = rootActions();
+
+
+module.exports = {
+  initPlayers,
+  getPlayers,
+  upsertPlayers,
+};

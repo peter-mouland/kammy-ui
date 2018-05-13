@@ -16,7 +16,7 @@ const setClubs = ({ players = [], myTeam }) => {
   players.forEach((player) => clubs.add(player.club));
   const clubsArr = [...clubs.keys()].sort();
   if (myTeam) clubsArr.unshift(MY_TEAM);
-  return clubsArr;
+  return clubsArr.filter((item) => item);
 };
 
 const applyFilters = ({

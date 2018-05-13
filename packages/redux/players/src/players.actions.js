@@ -2,7 +2,7 @@ import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_PLAYERS = 'FETCH_PLAYERS';
 export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';
-export const IMPORT_PLAYERS = 'IMPORT_PLAYERS';
+export const INIT_PLAYERS = 'INIT_PLAYERS';
 export const UPDATE_PLAYERS = 'UPDATE_PLAYERS';
 
 export function fetchPlayers(player) {
@@ -19,10 +19,10 @@ export function fetchPlayerFixtures({ code }) {
   };
 }
 
-export function importPlayers() {
+export function initPlayers() {
   return {
-    type: IMPORT_PLAYERS,
-    payload: fetchGraphQL('importPlayersMutation'),
+    type: INIT_PLAYERS,
+    payload: fetchGraphQL('initPlayersMutation'),
   };
 }
 

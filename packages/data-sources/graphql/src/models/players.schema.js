@@ -31,7 +31,7 @@ const schemaString = `
     code: Int
     pos: String
     club: String
-    skySportsPos: String
+    skySportsPosition: String
     skySportsClub: String
     isHidden: Boolean
     new: Boolean
@@ -43,7 +43,7 @@ const schemaString = `
     code: Int
     name: String
     pos: String
-    skySportsPos: String
+    skySportsPosition: String
     club: String
     skySportsClub: String
     isHidden: Boolean
@@ -56,7 +56,7 @@ const schemaString = `
     code: Int
     name: String
     pos: String
-    skySportsPos: String
+    skySportsPosition: String
     club: String
     skySportsClub: String
     isHidden: Boolean
@@ -71,6 +71,7 @@ const schemaString = `
   
   type Mutation {
     upsertPlayers(playerUpdates: [PlayerUpdates]): [UpdatedPlayer]
+    initPlayers: [UpdatedPlayer]
   }
 `;
 

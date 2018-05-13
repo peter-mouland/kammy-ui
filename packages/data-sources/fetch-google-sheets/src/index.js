@@ -95,11 +95,21 @@ const formatGameWeeks = (data) => {
   return gameWeeks;
 };
 
+const getSpreadsheetId = (worksheetName) => {
+  switch (worksheetName) {
+  case 'Players': return '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI';
+  case 'Teams': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
+  case 'Transfers': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
+  case 'GameWeeks': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
+  default: return 'UNKNOWN';
+  }
+};
+
 
 const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) =>
   // for authorising a new sheet look: https://www.npmjs.com/package/google-spreadsheet
   // probably easiest to make the sheet public
-  new GoogleSpreadsheet(spreadsheetId, GoogleSpreadsheetCred)
+  new GoogleSpreadsheet(spreadsheetId || getSpreadsheetId(worksheetName), GoogleSpreadsheetCred)
     .getWorksheet(worksheetName)
     .toJson((item) => ({ [item.id]: item }))
     .then((data) => {

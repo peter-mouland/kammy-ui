@@ -1,5 +1,5 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const { playersSchema, resolveFunctions: playerResolvers } = require('./players/players.schema');
+const { playersSchema, resolveFunctions: playerResolvers } = require('./models/players.schema');
 
 const schemaString = `
   ${playersSchema}

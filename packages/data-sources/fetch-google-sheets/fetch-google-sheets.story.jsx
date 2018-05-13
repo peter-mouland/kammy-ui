@@ -33,23 +33,25 @@ class GetSheet extends React.Component {
 storiesOf('Data Sources/fetch-google-sheets', module)
   .add('Players', () => (
     <GetSheet
-      spreadsheetId={text('spreadsheetId', '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI')}
       worksheetName={text('worksheetName', 'Players')}
     />
   ))
   .add('Teams', () => (
     <GetSheet
-      spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
       worksheetName={text('worksheetName', 'Teams')}
     />
   ))
   .add('Transfers', () => (
     <GetSheet
-      spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
       worksheetName={text('worksheetName', 'Transfers')}
     />
   ))
   .add('GameWeeks', () => (
+    <GetSheet
+      worksheetName={text('worksheetName', 'GameWeeks')}
+    />
+  ))
+  .add('custom', () => (
     <GetSheet
       spreadsheetId={text('spreadsheetId', '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI')}
       worksheetName={text('worksheetName', 'GameWeeks')}

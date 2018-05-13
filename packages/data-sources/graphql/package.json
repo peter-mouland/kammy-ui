@@ -14,6 +14,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
+    "@kammy-ui/fetch-sky-sports": "^0.0.12",
+    "@kammy-ui/fetch-google-sheets": "^0.0.12",
     "@kammy-ui/database": "^0.0.11",
     "@kammy-ui/fetchr": "^0.0.11"
   }

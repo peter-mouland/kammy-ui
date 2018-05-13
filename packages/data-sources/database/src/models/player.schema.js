@@ -20,7 +20,7 @@ const mongooseSchema = {
   code: Number,
   pos: String,
   club: String,
-  skySportsPos: String,
+  skySportsPosition: String,
   skySportsClub: String,
   isHidden: {
     type: Boolean,
