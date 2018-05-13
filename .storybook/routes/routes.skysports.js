@@ -4,20 +4,20 @@ const {
 
 module.exports = (router) => {
   router.get('/skysports/fixtures', (req, res) => {
-    return fetchFixtures().then(res.json)
+    return fetchFixtures().then((data) => res.json(data))
   });
 
   router.get('/skysports/players', (req, res) => {
-    return fetchPlayersSummary().then(res.json)
+    return fetchPlayersSummary().then((data) => res.json(data))
   });
 
   router.get('/skysports/players-full', (req, res) => {
-    return fetchPlayersFull().then((response) => res.json(response))
+    return fetchPlayersFull().then((data) => res.json(data))
   });
 
   router.get('/skysports/player/:code', (req, res) => {
     const { code } = req.params;
-    return fetchPlayer(code).then(res.json)
+    return fetchPlayer(code).then((data) => res.json(data))
   });
 
 };

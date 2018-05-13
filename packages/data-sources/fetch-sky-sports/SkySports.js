@@ -9,23 +9,22 @@ class SkyPlayers extends React.Component {
   };
 
   fetchPlayers = async () => {
-    const { data } = await fetchSkySports('/players'); // todo: add test to ensure localhost is not used
+    const { data } = await fetchSkySports('players'); // todo: add test to ensure localhost is not used
     this.setState({ players: data });
   };
 
   fetchPlayersWithSummary = async () => {
-    const data = await fetchSkySports('/players-full'); // todo: add test to ensure localhost is not used
-    console.log(data);
+    const data = await fetchSkySports('players-full'); // todo: add test to ensure localhost is not used
     this.setState({ playersFull: data });
   };
 
   fetchStats = async (code) => {
-    const player = await fetchSkySports(`/player/${code}`); // todo: add test to ensure localhost is not used
+    const player = await fetchSkySports(`player/${code}`); // todo: add test to ensure localhost is not used
     this.setState({ playerStats: player });
   };
 
-  fetchFixturesLocal = async () => {
-    const fixtures = await fetchSkySports('/fixtures'); // todo: add test to ensure localhost is not used
+  fetchFixtures = async () => {
+    const fixtures = await fetchSkySports('fixtures'); // todo: add test to ensure localhost is not used
     this.setState({ fixtures });
   };
 
@@ -35,7 +34,7 @@ class SkyPlayers extends React.Component {
       <div>
         <button onClick={this.fetchPlayers}>Fetch Players!</button>
         <button onClick={this.fetchPlayersWithSummary}>Fetch Players (Full)!</button>
-        <button onClick={this.fetchFixturesLocal}>Fetch Fixtures (direct)</button>
+        <button onClick={this.fetchFixtures}>Fetch Fixtures</button>
         <h2>Stats</h2>
         <div><textarea value={JSON.stringify(playerStats, null, 2)} /></div>
         <h2>Fixtures</h2>

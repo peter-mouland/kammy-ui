@@ -4,7 +4,7 @@ const debug = require('debug');
 
 const logger = require('./logger');
 
-const log = debug('kammy:models');
+const log = debug('kammyui:models');
 let connected = false;
 
 const connect = (uri) => {
@@ -35,14 +35,7 @@ const connect = (uri) => {
   });
 
   // load models
-  require('./team/team.schema');
-  require('./user/user.schema');
-  require('./player/player.schema');
-  require('./season/season.schema');
+  require('./models/player.schema');
 };
 
-const connection = mongoose.connection;
-
-module.exports = {
-  connection, connect
-};
+module.exports = connect;

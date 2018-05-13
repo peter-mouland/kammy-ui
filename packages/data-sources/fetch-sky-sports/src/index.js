@@ -38,7 +38,7 @@ const fetchPlayersFull = () => {
   return getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
     .then(async (data) => {
       const promises = data.players.map(async (player, i) => {
-        await delay((i * 25));
+        await delay((i * 20));
         const fixtures = await getFixtures(player.id);
         return ({ ...player, ...fixtures });
       });

@@ -15,24 +15,24 @@ function serializer(data) {
 }
 
 const log = bunyan.createLogger({
-  name: 'kammy',
+  name: 'kammy-ui',
   src: false,
   streams: [
     {
       level: 'debug',
-      stream: process.stdout
+      stream: process.stdout,
     },
     {
       level: 'info',
-      path: `./mongo-${getToday()}.log`
-    }
+      path: `./mongo-${getToday()}.log`,
+    },
   ],
   serializers: {
-    dbQuery: serializer
+    dbQuery: serializer,
   },
 });
 
-module.exports = function (coll, method, query, doc, options) {
+module.exports = function logger(coll, method, query, doc, options) {
   if (1 === 2 && process.env.NODE_ENV !== 'production') {
     log.info({
       dbQuery: {
@@ -40,8 +40,8 @@ module.exports = function (coll, method, query, doc, options) {
         method,
         query,
         doc,
-        options
-      }
+        options,
+      },
     });
   }
 };

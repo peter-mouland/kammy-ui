@@ -42,7 +42,6 @@ const fetchUrl = (endpoint, opts = {}) => {
   if (opts.params) {
     url += (url.indexOf('?') === -1 ? '?' : '&') + queryParams(opts.params);
   }
-
   return fetch(url, { ...opts })
     .then(checkStatus)
     .then((response) => response.text())

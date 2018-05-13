@@ -1,19 +1,5 @@
-const debug = require('debug');
-const { graphql } = require('graphql');
-
-const config = require('../server-config/config');
-const { connect } = require('./api/db/index');
-
-const log = debug('kammy: config:');
-log({ config })
-log({ env: process.env })
-connect(config.MONGODB_URI);
-
-const queries = require("./api/graphql.queries");
-const schema = require("./api/graphql.schema");
-const root = require("./api/graphql.root");
+const graphQL = require('../../packages/data-sources/graphql/src/index');
 const graphQLParser = require('../middleware/graphQLParser');
-
 
 module.exports = (router) => {
   router.use(graphQLParser);
@@ -22,14 +8,13 @@ module.exports = (router) => {
       const requestString = request.body;
       const { query, variables } = requestString;
       console.log('Fetching ' + query);
-      // console.log(queries[query]);
-      // console.log({ root });
-      // console.log({ variables });
 
-      await graphql(schema, queries[query], root, {}, variables)
+      await graphQL({ query, variables })
         .then((result) => {
-          // console.log({ result });
-          res.json(result);
+          if (result.errors){
+            return res.status(500).json(result.errors);
+          }
+          return res.json(result);
         })
         .catch((error) => {
           res.status(500).json(error);
