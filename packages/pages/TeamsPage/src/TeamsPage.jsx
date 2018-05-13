@@ -20,21 +20,13 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
-      dbLoading, dbPlayers, dbPlayersCount, dbLoaded,
-      spreadsheetTeamsLoading, spreadsheetTeams, spreadsheetTeamsCount, spreadsheetTeamsLoaded,
-      spreadsheetPlayersLoading, spreadsheetPlayers, spreadsheetPlayersCount, spreadsheetPlayersLoaded,
-      spreadsheetGameWeeksLoading, spreadsheetGameWeeks, spreadsheetGameWeeksCount, spreadsheetGameWeeksLoaded,
-      spreadsheetTransfersLoading, spreadsheetTransfers, spreadsheetTransfersCount, spreadsheetTransfersLoaded,
+      loaded, gwTeams,
+      playersLoading, playersCount,
+      teamsLoading, teams, teamsCount,
+      spreadsheetPlayersLoading, spreadsheetPlayersCount,
+      gameWeeksLoading, gameWeeks, gameWeeksCount,
+      transfersLoading, transfersCount,
     } = this.props;
-
-    const loaded = (
-      dbLoaded
-      && spreadsheetGameWeeksLoaded
-      && spreadsheetTransfersLoaded
-      && spreadsheetTeamsLoaded
-      && spreadsheetPlayersLoaded
-    );
-    console.log({ dbPlayers });
     return (
       <section id="teams-page" className={bem()}>
         <h1>Teams</h1>
@@ -51,19 +43,19 @@ class TeamsPage extends React.Component {
           <div>
             <p>
               Players :
-              {dbLoading ? <Interstitial /> : dbPlayersCount}
+              {playersLoading ? <Interstitial /> : playersCount}
             </p>
             <p>
               GameWeeks :
-              {spreadsheetGameWeeksLoading ? <Interstitial /> : spreadsheetGameWeeksCount}
+              {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
             </p>
             <p>
               Transfers :
-              {spreadsheetTransfersLoading ? <Interstitial /> : spreadsheetTransfersCount}
+              {transfersLoading ? <Interstitial /> : transfersCount}
             </p>
             <p>
               Teams :
-              {spreadsheetTeamsLoading ? <Interstitial /> : spreadsheetTeamsCount}
+              {teamsLoading ? <Interstitial /> : teamsCount}
             </p>
             <p>
               Players :
@@ -74,11 +66,9 @@ class TeamsPage extends React.Component {
         {
           loaded && (
             <TeamsTable
-              dbPlayers={dbPlayers}
-              spreadsheetTeams={spreadsheetTeams}
-              spreadsheetPlayers={spreadsheetPlayers}
-              spreadsheetGameWeeks={spreadsheetGameWeeks}
-              spreadsheetTransfers={spreadsheetTransfers}
+              gwTeams={gwTeams}
+              teams={teams}
+              gameWeeks={gameWeeks}
             />
           )
         }
@@ -88,62 +78,46 @@ class TeamsPage extends React.Component {
 }
 
 TeamsPage.propTypes = {
-  fetchDbPlayers: PropTypes.func,
-  dbLoading: PropTypes.bool,
-  dbLoaded: PropTypes.bool,
-  dbPlayers: PropTypes.object,
-  dbPlayersCount: PropTypes.number,
+  loaded: PropTypes.bool,
+  gwTeams: PropTypes.object,
+  gameWeeks: PropTypes.array,
+  teams: PropTypes.object,
 
-  fetchSpreadsheetPlayers: PropTypes.func,
+  fetchDbPlayers: PropTypes.func.isRequired,
+  fetchSpreadsheetPlayers: PropTypes.func.isRequired,
+  fetchGameWeeks: PropTypes.func.isRequired,
+  fetchTransfers: PropTypes.func.isRequired,
+  fetchTeams: PropTypes.func.isRequired,
+
+  playersLoading: PropTypes.bool,
   spreadsheetPlayersLoading: PropTypes.bool,
-  spreadsheetPlayersLoaded: PropTypes.bool,
-  spreadsheetPlayers: PropTypes.object,
+  gameWeeksLoading: PropTypes.bool,
+  transfersLoading: PropTypes.bool,
+  teamsLoading: PropTypes.bool,
+
+  playersCount: PropTypes.number,
   spreadsheetPlayersCount: PropTypes.number,
-
-  fetchGameWeeks: PropTypes.func,
-  spreadsheetGameWeeksLoading: PropTypes.bool,
-  spreadsheetGameWeeksLoaded: PropTypes.bool,
-  spreadsheetGameWeeks: PropTypes.array,
-  spreadsheetGameWeeksCount: PropTypes.number,
-
-  fetchTransfers: PropTypes.func,
-  spreadsheetTransfersLoading: PropTypes.bool,
-  spreadsheetTransfersLoaded: PropTypes.bool,
-  spreadsheetTransfers: PropTypes.object,
-  spreadsheetTransfersCount: PropTypes.number,
-
-  fetchTeams: PropTypes.func,
-  spreadsheetTeamsLoading: PropTypes.bool,
-  spreadsheetTeamsLoaded: PropTypes.bool,
-  spreadsheetTeams: PropTypes.object,
-  spreadsheetTeamsCount: PropTypes.number,
+  gameWeeksCount: PropTypes.number,
+  transfersCount: PropTypes.number,
+  teamsCount: PropTypes.number,
 };
 
 TeamsPage.defaultProps = {
-  fetchDbPlayers: () => {},
-  fetchTransfers: () => {},
-  fetchGameWeeks: () => {},
-  fetchSpreadsheetPlayers: () => {},
-  dbLoading: false,
-  dbLoaded: false,
-  dbPlayers: {},
-  dbPlayersCount: null,
+  loaded: false,
+  playersLoading: false,
   spreadsheetPlayersLoading: false,
-  spreadsheetPlayersLoaded: false,
-  spreadsheetPlayers: {},
+  gameWeeksLoading: false,
+  transfersLoading: false,
+  teamsLoading: false,
+  gwTeams: {},
+  Players: {},
+  PlayersCount: null,
   spreadsheetPlayersCount: null,
-  spreadsheetGameWeeksLoading: false,
-  spreadsheetGameWeeksLoaded: false,
-  spreadsheetGameWeeks: [],
-  spreadsheetGameWeeksCount: null,
-  spreadsheetTransfersLoading: false,
-  spreadsheetTransfersLoaded: false,
-  spreadsheetTransfers: {},
-  spreadsheetTransfersCount: null,
-  spreadsheetTeamsLoading: false,
-  spreadsheetTeamsLoaded: false,
-  spreadsheetTeams: {},
-  spreadsheetTeamsCount: null,
+  gameWeeks: [],
+  gameWeeksCount: null,
+  transfersCount: null,
+  teams: {},
+  teamsCount: null,
 };
 
 export default TeamsPage;
