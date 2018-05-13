@@ -25,7 +25,7 @@ const applyFilters = ({
   const customFiltered = !customFilter || !customFilterChecked || customFilter.fn(player);
   const nameFiltered = !nameFilter || player.name.toUpperCase().includes(nameFilter.toUpperCase());
   const posFiltered = !posFilter || posFilter === 'all' || (player.pos || '').includes(posFilter);
-  const hiddenFiltered = player.isHidden === showHidden;
+  const hiddenFiltered = !showHidden || player.isHidden === showHidden;
   const newFiltered = !showNew || player.new === showNew;
   const clubFiltered = !clubFilter ||
     (clubFilter === MY_TEAM && myTeam && [player.code]) ||
@@ -101,8 +101,8 @@ export default class PlayersFilters extends React.Component {
     this.setState({ clubFilter });
   }
 
-  nameFilter = (nameFilter) => {
-    this.setState({ nameFilter: nameFilter.trim() });
+  nameFilter = (e) => {
+    this.setState({ nameFilter: e.target.value.trim() });
   }
 
   onFilter = () => {

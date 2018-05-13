@@ -13,7 +13,9 @@ const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 class PlayersPageTable extends React.Component {
   render() {
     const { players } = this.props;
-    const mismatchFilter = (player) => (player.skySportsClub !== player.club || !player.pos);
+    const mismatchFilter = (player) => (
+      (player.skySportsClub !== player.club || !player.pos)
+    );
 
     return (
       <section id="players-page" className={bem()}>
