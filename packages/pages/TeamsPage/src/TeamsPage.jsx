@@ -11,7 +11,7 @@ const bem = bemHelper({ block: 'teams-page' });
 
 class TeamsPage extends React.Component {
   componentDidMount() {
-    // this.props.fetchSkySportsPlayersFull(); // todo: replace with summary or db
+    this.props.fetchDbPlayers();
     this.props.fetchTeams();
     this.props.fetchTransfers();
     this.props.fetchGameWeeks();
@@ -20,21 +20,21 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
+      dbLoading, dbPlayers, dbPlayersCount, dbLoaded,
       spreadsheetTeamsLoading, spreadsheetTeams, spreadsheetTeamsCount, spreadsheetTeamsLoaded,
       spreadsheetPlayersLoading, spreadsheetPlayers, spreadsheetPlayersCount, spreadsheetPlayersLoaded,
       spreadsheetGameWeeksLoading, spreadsheetGameWeeks, spreadsheetGameWeeksCount, spreadsheetGameWeeksLoaded,
       spreadsheetTransfersLoading, spreadsheetTransfers, spreadsheetTransfersCount, spreadsheetTransfersLoaded,
-      skySportsLoading, skySportsPlayers, skySportsPlayersCount, skySportsLoaded,
     } = this.props;
 
     const loaded = (
-      skySportsLoaded
+      dbLoaded
       && spreadsheetGameWeeksLoaded
       && spreadsheetTransfersLoaded
       && spreadsheetTeamsLoaded
       && spreadsheetPlayersLoaded
     );
-
+    console.log({ dbPlayers });
     return (
       <section id="teams-page" className={bem()}>
         <h1>Teams</h1>
@@ -50,8 +50,8 @@ class TeamsPage extends React.Component {
           <h3>Data Gathering...</h3>
           <div>
             <p>
-              Sky Sports Stats :
-              {skySportsLoading ? <Interstitial /> : skySportsPlayersCount}
+              Players :
+              {dbLoading ? <Interstitial /> : dbPlayersCount}
             </p>
             <p>
               GameWeeks :
@@ -74,11 +74,11 @@ class TeamsPage extends React.Component {
         {
           loaded && (
             <TeamsTable
+              dbPlayers={dbPlayers}
               spreadsheetTeams={spreadsheetTeams}
               spreadsheetPlayers={spreadsheetPlayers}
               spreadsheetGameWeeks={spreadsheetGameWeeks}
               spreadsheetTransfers={spreadsheetTransfers}
-              skySportsPlayers={skySportsPlayers}
             />
           )
         }
@@ -88,11 +88,11 @@ class TeamsPage extends React.Component {
 }
 
 TeamsPage.propTypes = {
-  fetchSkySportsPlayersFull: PropTypes.func,
-  skySportsLoading: PropTypes.bool,
-  skySportsLoaded: PropTypes.bool,
-  skySportsPlayers: PropTypes.array,
-  skySportsPlayersCount: PropTypes.number,
+  fetchDbPlayers: PropTypes.func,
+  dbLoading: PropTypes.bool,
+  dbLoaded: PropTypes.bool,
+  dbPlayers: PropTypes.object,
+  dbPlayersCount: PropTypes.number,
 
   fetchSpreadsheetPlayers: PropTypes.func,
   spreadsheetPlayersLoading: PropTypes.bool,
@@ -120,14 +120,14 @@ TeamsPage.propTypes = {
 };
 
 TeamsPage.defaultProps = {
-  fetchSkySportsPlayersFull: () => {},
+  fetchDbPlayers: () => {},
   fetchTransfers: () => {},
   fetchGameWeeks: () => {},
   fetchSpreadsheetPlayers: () => {},
-  skySportsLoading: false,
-  skySportsLoaded: false,
-  skySportsPlayers: [],
-  skySportsPlayersCount: null,
+  dbLoading: false,
+  dbLoaded: false,
+  dbPlayers: {},
+  dbPlayersCount: null,
   spreadsheetPlayersLoading: false,
   spreadsheetPlayersLoaded: false,
   spreadsheetPlayers: {},

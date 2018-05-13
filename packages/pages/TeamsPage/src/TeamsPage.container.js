@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { actions as skySportActions } from '@kammy-ui/redux-skysports';
+import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 
 import TeamsPage from './TeamsPage';
@@ -7,15 +7,15 @@ import TeamsPage from './TeamsPage';
 const {
   fetchPlayers: fetchSpreadsheetPlayers, fetchGameWeeks, fetchTransfers, fetchTeams,
 } = spreadsheetActions;
-const { fetchPlayersFull: fetchSkySportsPlayersFull } = skySportActions;
+const { fetchPlayers: fetchDbPlayers } = dbActions;
 
 function mapStateToProps(state) {
   return {
-    skySportsPlayers: state.skySports.fullData,
-    skySportsPlayersCount: state.skySports.fullDataCount,
-    skySportsLoading: state.skySports.loading,
-    skySportsLoaded: state.skySports.loaded,
-    skySportsErrors: state.skySports.errors,
+    dbPlayers: state.players.data,
+    dbPlayersCount: state.players.count,
+    dbLoading: state.players.loading,
+    dbLoaded: state.players.loaded,
+    dbErrors: state.players.errors,
     spreadsheetPlayers: state.spreadsheet.players,
     spreadsheetPlayersCount: state.spreadsheet.playersCount,
     spreadsheetPlayersLoading: state.spreadsheet.playersLoading,
@@ -42,6 +42,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    fetchSpreadsheetPlayers, fetchGameWeeks, fetchTeams, fetchTransfers, fetchSkySportsPlayersFull,
+    fetchSpreadsheetPlayers, fetchGameWeeks, fetchTeams, fetchTransfers, fetchDbPlayers,
   },
 )(TeamsPage);

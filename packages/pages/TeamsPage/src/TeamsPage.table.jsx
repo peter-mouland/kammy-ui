@@ -46,9 +46,9 @@ class TeamsPage extends React.Component {
     const { spreadsheetTransfers, spreadsheetGameWeeks, spreadsheetPlayers } = this.props;
     const transfers = spreadsheetTransfers[manager] || [];
     const endOfSeason = spreadsheetGameWeeks[spreadsheetGameWeeks.length - 1].end;
-    const skyPlayer = this.findSkyPlayer(player);
+    const dbPlayer = this.findDbPlayer(player);
     const playerTransfers = [{
-      player: skyPlayer,
+      player: dbPlayer,
       start: new Date(spreadsheetGameWeeks[0].start).setHours(0, 0, 0, 0),
     }];
 
@@ -64,9 +64,9 @@ class TeamsPage extends React.Component {
         if (transfer.transferOut === lastTransfer.player.name) {
           playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
           playerTransfers[playerTransfers.length - 1].endTS = transfer.timestamp;
-          const skyPlayerIn = this.findSkyPlayer(playerIn);
+          const dbPlayerIn = this.findDbPlayer(playerIn);
           playerTransfers.push({
-            player: skyPlayerIn,
+            player: dbPlayerIn,
             start: new Date(transfer.timestamp),
             startTS: transfer.timestamp,
           });
@@ -83,15 +83,15 @@ class TeamsPage extends React.Component {
     return gwPlayer;
   }
 
-  findSkyPlayer = (player) => {
-    const { skySportsPlayers, spreadsheetPlayers } = this.props;
+  findDbPlayer = (player) => {
+    const { dbPlayers, spreadsheetPlayers } = this.props;
     const spreadsheetPlayer = spreadsheetPlayers[player.name];
     if (!player || !player.name || !spreadsheetPlayer) {
       console.error('no Player: ', player);
       return {};
     }
     return {
-      ...skySportsPlayers[player.name],
+      ...dbPlayers[player.name],
       pos: spreadsheetPlayers[player.name].pos,
     };
   }
@@ -229,7 +229,7 @@ class TeamsPage extends React.Component {
 }
 
 TeamsPage.propTypes = {
-  skySportsPlayers: PropTypes.array,
+  dbPlayers: PropTypes.object,
   spreadsheetPlayers: PropTypes.object,
   spreadsheetGameWeeks: PropTypes.array,
   spreadsheetTransfers: PropTypes.object,
@@ -237,7 +237,7 @@ TeamsPage.propTypes = {
 };
 
 TeamsPage.defaultProps = {
-  skySportsPlayers: {},
+  dbPlayers: {},
   spreadsheetPlayers: {},
   spreadsheetGameWeeks: [],
   spreadsheetTransfers: {},

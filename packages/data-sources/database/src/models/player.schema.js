@@ -11,6 +11,12 @@ const fixtureSchema = {
   stats: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 
+const summaryStatsSchema = {
+  week: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  month: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  season: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+};
+
 const mongooseSchema = {
   dateCreated: { type: Date, default: Date.now },
   name: {
@@ -32,6 +38,7 @@ const mongooseSchema = {
   },
   value: Number,
   fixtures: [new mongoose.Schema(fixtureSchema)],
+  stats: new mongoose.Schema(summaryStatsSchema),
 };
 
 

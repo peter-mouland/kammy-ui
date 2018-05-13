@@ -1,41 +1,45 @@
-const { fetchPlayersFull } = require('@kammy-ui/fetch-sky-sports');
+const { fetchPlayersFull, fetchPlayersSummary } = require('@kammy-ui/fetch-sky-sports');
 const fetchGsheet = require('@kammy-ui/fetch-google-sheets');
 const { rootActions } = require('@kammy-ui/database');
 
 const { upsertPlayers } = rootActions();
 
-const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
+const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers, playersSummary }) => {
   const allPlayers = {
     ...spreadsheetPlayers,
+    ...playersSummary,
     ...skySportsPlayers,
   };
-  const mergedPlayers = Object.keys(allPlayers).reduce((prev, key) => ({
-    ...prev,
-    [key]: {
-      pos: '', // pos is required but doesn't exist on skysports players
-      ...spreadsheetPlayers && spreadsheetPlayers[key],
-      ...skySportsPlayers && skySportsPlayers[key],
-      isHidden: (
-        spreadsheetPlayers[key] && (!spreadsheetPlayers[key].club || spreadsheetPlayers[key].isHidden)
-      ) || !spreadsheetPlayers[key],
-    },
-  }), {});
+  console.log(allPlayers);
+  const mergedPlayers = Object.keys(allPlayers)
+    .reduce((prev, key) => ({
+      ...prev,
+      [key]: {
+        pos: '', // pos is required but doesn't exist on skysports players
+        ...spreadsheetPlayers && spreadsheetPlayers[key],
+        ...playersSummary && playersSummary[key],
+        ...skySportsPlayers && skySportsPlayers[key],
+        isHidden: (
+          spreadsheetPlayers[key] && (!spreadsheetPlayers[key].club || spreadsheetPlayers[key].isHidden)
+        ) || !spreadsheetPlayers[key],
+      },
+    }), {});
   return mergedPlayers;
 };
 
-
-const fetchAndMergePlayers = () => (
+const initPlayers = () => (
   Promise.all([
     fetchGsheet({ worksheetName: 'Players' }),
     fetchPlayersFull(),
+    fetchPlayersSummary(),
   ])
-    .then(([spreadsheetPlayers, skySportsPlayers]) => (
-      mergePlayersData({ spreadsheetPlayers, skySportsPlayers: skySportsPlayers.data })
+    .then(([spreadsheetPlayers, skySportsPlayers, playersSummary]) => (
+      mergePlayersData({
+        spreadsheetPlayers,
+        skySportsPlayers: skySportsPlayers.data,
+        playersSummary,
+      })
     ))
-);
-
-const initPlayers = () => (
-  fetchAndMergePlayers()
     .then((mergedPlayers) => (
       upsertPlayers(Object.values(mergedPlayers))
     ))

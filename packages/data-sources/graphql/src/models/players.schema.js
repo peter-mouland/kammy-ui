@@ -3,6 +3,18 @@ const GraphQLJSON = require('graphql-type-json');
 const schemaString = `
   scalar JSON
 
+  input StatsSummaryInput {
+      week: [Int]
+      month: [Int]
+      season: [Int]
+  }
+
+  type StatsSummary {
+      week: [Int]
+      month: [Int]
+      season: [Int]
+  }
+
   input FixtureInput {
     aScore: Int
     aTname: String
@@ -35,6 +47,7 @@ const schemaString = `
     skySportsClub: String
     isHidden: Boolean
     new: Boolean
+    stats: StatsSummary
     fixtures: [Fixture]
   }
 
@@ -49,6 +62,7 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
+    stats: StatsSummary
   }
 
   input PlayerUpdates {
@@ -62,6 +76,7 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [FixtureInput]
+    stats: StatsSummaryInput
   }
   
   type Query {
