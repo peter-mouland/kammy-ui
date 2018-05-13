@@ -11,7 +11,7 @@ const bem = bemHelper({ block: 'teams-page' });
 
 class TeamsPage extends React.Component {
   componentDidMount() {
-    this.props.fetchSkySportsPlayersFull();
+    // this.props.fetchSkySportsPlayersFull(); // todo: replace with summary or db
     this.props.fetchTeams();
     this.props.fetchTransfers();
     this.props.fetchGameWeeks();

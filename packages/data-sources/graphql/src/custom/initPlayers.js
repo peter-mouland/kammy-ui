@@ -15,9 +15,9 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
       pos: '', // pos is required but doesn't exist on skysports players
       ...spreadsheetPlayers && spreadsheetPlayers[key],
       ...skySportsPlayers && skySportsPlayers[key],
-      hidden: (
-        spreadsheetPlayers[key] && (!spreadsheetPlayers[key].club || spreadsheetPlayers[key].hidden)
-      ) || spreadsheetPlayers[key],
+      isHidden: (
+        spreadsheetPlayers[key] && (!spreadsheetPlayers[key].club || spreadsheetPlayers[key].isHidden)
+      ) || !spreadsheetPlayers[key],
     },
   }), {});
   return mergedPlayers;

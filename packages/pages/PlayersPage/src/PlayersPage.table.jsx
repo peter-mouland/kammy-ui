@@ -21,6 +21,7 @@ class PlayersPageTable extends React.Component {
           <PlayersFilters
             players={Object.values(players)}
             positions={positions}
+            showHiddenToggle={true}
             customFilter={{ fn: mismatchFilter, label: 'Show only mis-matches' }}
           >
             {(playersFiltered) => (
@@ -28,7 +29,7 @@ class PlayersPageTable extends React.Component {
                 editable
                 positions={positions}
                 players={playersFiltered}
-                additionalColumns={['skySportsPosition', 'skySportsClub']}
+                additionalColumns={['skySportsPosition', 'skySportsClub', 'isHidden']}
                 visibleColumns={[]}
               />
             )}

@@ -41,12 +41,14 @@ export default class PlayersFilters extends React.Component {
     myTeam: PropTypes.object,
     customFilter: PropTypes.object,
     selectedPosition: PropTypes.string,
+    showHiddenToggle: PropTypes.bool,
   };
 
   static defaultProps = {
     myTeam: null,
     customFilter: null,
     selectedPosition: null,
+    showHiddenToggle: false,
   };
 
   options = {
@@ -64,6 +66,7 @@ export default class PlayersFilters extends React.Component {
       isSaving: false,
       nameFilter: '',
       customFilterChecked: false,
+      showHiddenChecked: false,
       posFilter: props.selectedPosition || 'all',
       clubFilter: this.options.clubs[0],
     };
@@ -78,6 +81,10 @@ export default class PlayersFilters extends React.Component {
 
   posFilter = (posFilter) => {
     this.setState({ posFilter });
+  }
+
+  showHidden = (e) => {
+    this.setState({ showHidden: e.target.checked });
   }
 
   customFilter = (e) => {
@@ -121,8 +128,10 @@ export default class PlayersFilters extends React.Component {
   }
 
   render() {
-    const { customFilter } = this.props;
-    const { posFilter, clubFilter, customFilterChecked } = this.state;
+    const { customFilter, showHiddenToggle } = this.props;
+    const {
+      posFilter, clubFilter, customFilterChecked, showHidden,
+    } = this.state;
     const { clubs, positions } = this.options;
 
     return (
@@ -136,6 +145,16 @@ export default class PlayersFilters extends React.Component {
                   id={'custom-filter'}
                   onClick={this.customFilter}
                   checked={customFilterChecked}
+                />
+              </div>
+            )}
+            {showHiddenToggle && (
+              <div>
+                <Toggle
+                  label={'Hidden Players'}
+                  id={'hidden-filter'}
+                  onClick={this.showHidden}
+                  checked={showHidden}
                 />
               </div>
             )}

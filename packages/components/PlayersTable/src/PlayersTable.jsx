@@ -115,7 +115,7 @@ const PlayerTable = ({
                 </td>
                 { additionalColumns.map((col) => (
                   <td key={col} className={ bem('stat')}>
-                    {player[col]}
+                    {String(player[col])}
                   </td>
                 ))}
                 { visibleColumns.map((stat) => [
