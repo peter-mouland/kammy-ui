@@ -21,6 +21,7 @@ class PlayersPageTable extends React.Component {
           <PlayersFilters
             players={Object.values(players)}
             positions={positions}
+            showNewToggle={true}
             showHiddenToggle={true}
             customFilter={{ fn: mismatchFilter, label: 'Show only mis-matches' }}
           >
