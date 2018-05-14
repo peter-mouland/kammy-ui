@@ -24,16 +24,22 @@ const getStatsWithinTimeFrame = (data, gameWeeks) => (
   })
 );
 
+export const calculatePoints = calculateTotalPoints;
+
 export const playerStats = ({ data, gameWeeks }) => {
   if (!data) return {};
   const playerFixtures = getStatsWithinTimeFrame(data, gameWeeks);
   const summaryArray = totalUpStats(playerFixtures.value);
   const fixturesWithinTeam = playerFixtures.value;
-  const summary = extractFFStats(summaryArray);
-  const seasonStats = extractFFStats(data.stats.season);
-  const points = calculateTotalPoints({ stats: summary, pos: data.pos });
+  const gameWeekStats = extractFFStats(summaryArray);
+
+  // not needed when looking at team scores
+  const seasonStats = data.stats
+    ? extractFFStats(data.stats.season)
+    : {};
+  const points = calculateTotalPoints({ stats: gameWeekStats, pos: data.pos });
   return {
-    ...data, fixturesWithinTeam, summary, seasonStats, points,
+    ...data, fixturesWithinTeam, gameWeekStats, seasonStats, points,
   };
 };
 

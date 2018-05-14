@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 import Select from '@kammy-ui/select';
 import bemHelper from '@kammy-ui/bem';
-import PlayerStats from '@kammy-ui/data-player-stats';
 // import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
 // const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 
 const bem = bemHelper({ block: 'teams-table' });
+
+const keysAsCells = (obj) => (
+  Object.keys(obj).map((key) => <td key={key}>{obj[key]}</td>)
+);
+const keysAsCellHeaders = (obj) => (
+  Object.keys(obj).map((key) => <th key={key}>{key}</th>)
+);
 
 class TeamsPage extends React.Component {
   state = {
@@ -23,93 +29,62 @@ class TeamsPage extends React.Component {
   render() {
     const { teams, gameWeeks, gwTeams } = this.props;
     const { displayGw } = this.state;
+    const intGameWeek = parseInt(displayGw, 10) - 1;
 
     return (
       <div className={bem(null, null, 'page-content')}>
         <h3>Teams</h3>
-        <div>
-          <p>
-            GW:
-            <Select
-              options={gameWeeks.map((gw) => gw.gameWeek)}
-              defaultValue={displayGw}
-              onChange={this.updateDisplayGw}
-            />
-            <span>{gameWeeks[displayGw - 1].start} to {gameWeeks[displayGw - 1].end}</span>
-          </p>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Player</th>
-                <th>Code</th>
-                <th>Position</th>
-                <th>GW Score<sup>*</sup></th>
-                <th>Season Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(teams).map((manager) => (
-                <Fragment key={manager}>
-                  <tr>
-                    <th colSpan="5">{manager}</th>
+        <p>
+          GameWeek:
+          <Select
+            options={gameWeeks.map((gw) => gw.gameWeek)}
+            defaultValue={displayGw}
+            onChange={this.updateDisplayGw}
+          />
+          <span>{gameWeeks[intGameWeek].start} to {gameWeeks[intGameWeek].end}</span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Team Position</th>
+              <th>Code</th>
+              <th>Player</th>
+              <th>Position</th>
+              <th colSpan={12}>GameWeek Score</th>
+              <th colSpan={12}>Season Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(teams).map((manager) => (
+              <Fragment key={manager}>
+                <tr>
+                  <th colSpan="3">{manager}</th>
+                </tr>
+                <tr>
+                  <th colSpan={4} />
+                  {keysAsCellHeaders(gwTeams[manager][0].gameWeeks[0].points)}
+                  {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
+                </tr>
+                {gwTeams[manager].map((teamSheetItem) => (
+                  <tr key={teamSheetItem.gameWeeks[intGameWeek].name}>
+                    <th>{teamSheetItem.teamPos}</th>
+                    <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
+                    <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
+                    <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
+                    {
+                      teamSheetItem.gameWeeks[intGameWeek] && (
+                        <Fragment>
+                          {keysAsCells(teamSheetItem.gameWeeks[intGameWeek].points)}
+                          {keysAsCells(teamSheetItem.seasonPoints)}
+                        </Fragment>
+                      )
+                    }
                   </tr>
-                  {gwTeams[manager]
-                    .map((gws) => {
-                      const { player } = gws[parseInt(displayGw, 10)];
-                      const positionFixtures = gws
-                        .filter((gw, i) => gw.player.fixtures[i])
-                        .map((gw, i) => gw.player.fixtures[i]);
-                      const positionData = {
-                        ...player,
-                        fixtures: positionFixtures,
-                      };
-
-                      return (
-                        <tr key={player.code || player.name}>
-                          <td>{player.name}</td>
-                          <td>{player.code}</td>
-                          <td>{player.pos || '?'}</td>
-                          {
-                            player.fixtures && (
-                              <Fragment>
-                                <td>
-                                  <PlayerStats
-                                    gameWeeks={[gameWeeks[displayGw - 1]]}
-                                    data={player}
-                                  >
-                                    {
-                                      (data) => (data.points ? JSON.stringify(data.points) : null)
-                                    }
-                                  </PlayerStats>
-                                </td>
-                                <td>
-                                  {
-                                    /* TODO: build player with correct fixtures based on GW/position */
-                                  }
-                                  <PlayerStats
-                                    gameWeeks={[{
-                                      start: gameWeeks[0].start,
-                                      end: gameWeeks[gameWeeks.length - 1].end,
-                                    }]}
-                                    data={ positionData }
-                                  >
-                                    {
-                                      (data) => (data.points ? JSON.stringify(data.points) : null)
-                                    }
-                                  </PlayerStats>
-                                </td>
-                              </Fragment>
-                            )
-                          }
-                        </tr>
-                      );
-                    })}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

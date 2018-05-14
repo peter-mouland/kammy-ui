@@ -40,19 +40,14 @@ function mapStateToProps(state) {
     && state.spreadsheet.playersLoaded
   );
 
-  const gwTeams = {};
-
-  if (loaded) {
-    Object.keys(props.teams).forEach((manager) => {
-      gwTeams[manager] = formatGameWeeks({
-        teams: props.teams,
-        gameWeeks: state.spreadsheet.gameWeeks,
-        players: state.players.data,
-        transfers: state.spreadsheet.transfers,
-        manager,
-      });
-    });
-  }
+  const gwTeams = (loaded)
+    ? formatGameWeeks({
+      teams: props.teams,
+      gameWeeks: state.spreadsheet.gameWeeks,
+      players: state.players.data,
+      transfers: state.spreadsheet.transfers,
+    })
+    : {};
 
   return {
     ...props,

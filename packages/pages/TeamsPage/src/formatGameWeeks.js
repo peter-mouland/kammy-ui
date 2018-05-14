@@ -1,30 +1,53 @@
-const findPlayerThisGw = (transferList, { start }) => {
-  const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(start));
-  return gwPlayers[gwPlayers.length - 1];
+import { playerStats } from '@kammy-ui/data-player-stats';
+
+const calculateSeasonPoints = (playerGameWeeks) => (
+  playerGameWeeks.reduce((totals, gw) => (
+    Object.keys(gw.points).reduce((prev, stat) => ({
+      ...prev,
+      [stat]: gw.points[stat] + (totals[stat] || 0),
+    }), {})
+  ), {})
+);
+const calculateSeasonStats = (playerGameWeeks) => (
+  playerGameWeeks.reduce((totals, gw) => (
+    Object.keys(gw.gameWeekStats).reduce((prev, stat) => ({
+      ...prev,
+      [stat]: gw.gameWeekStats[stat] + (totals[stat] || 0),
+    }), {})
+  ), {})
+);
+
+/*
+ PURPOSE: to find a transfer list of players
+ OUTPUT:
+  [
+    { ...Player, ...PlayerStats }
+  ]
+*/
+const findPlayerThisGw = (transferList, gameWeek) => {
+  const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(gameWeek.start));
+  const transfer = gwPlayers[gwPlayers.length - 1];
+  return playerStats({ data: transfer.player, gameWeeks: [gameWeek] });
 };
 
 
-/* OUTPUT:
+/*
+ PURPOSE: to find a transfer list of players
+ OUTPUT:
   [
     { player, start, end }
   ]
 */
 const findTransfer = ({
-  manager, player, transfers, gameWeeks, players,
+  player, transfers = [], endOfSeason, startOfSeason, players,
 }) => {
-  if (!player || !player.name) {
-    console.error('no Player: ', player);
+  if (!player) {
+    console.error('no Player: ');
     return [];
   }
-  const managerTransfers = transfers[manager] || [];
-  const endOfSeason = gameWeeks[gameWeeks.length - 1].end;
-  const dbPlayer = players[player.name];
-  const playerTransfers = [{
-    player: dbPlayer,
-    start: new Date(gameWeeks[0].start).setHours(0, 0, 0, 0),
-  }];
+  const playerTransfers = [{ player: players[player.name], start: startOfSeason }];
 
-  managerTransfers
+  transfers
     .filter((transfer) => (
       transfer.type === 'Transfer'
       && players[transfer.transferIn]
@@ -32,38 +55,71 @@ const findTransfer = ({
     ))
     .forEach((transfer) => {
       const lastTransfer = playerTransfers[playerTransfers.length - 1];
-      const playerIn = players[transfer.transferIn];
       if (transfer.transferOut === lastTransfer.player.name) {
         playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
-        playerTransfers[playerTransfers.length - 1].endTS = transfer.timestamp;
-        const dbPlayerIn = players[playerIn.name];
         playerTransfers.push({
-          player: dbPlayerIn,
+          player: players[transfer.transferIn],
           start: new Date(transfer.timestamp),
-          startTS: transfer.timestamp,
         });
       }
     });
 
-  playerTransfers[playerTransfers.length - 1].end = new Date(endOfSeason).setHours(23, 59, 59, 999);
+  playerTransfers[playerTransfers.length - 1].end = endOfSeason;
   return playerTransfers;
 };
 
+// out:
+//   {   // teams obj
+//     [manager]: {
+//        [
+//          teamPos, // GK, CB, CB, ..., SUB
+//          pos, // GK, CB, CB, ..., STR
+//          gameWeeks: [  // * 40
+//            {
+//              player,
+//              gameWeekStats: [ stats ],
+//              gameWeekPoints: [ stats ],
+//            }
+//          ],
+//          seasonStats: [ stats ],  // TODO: make this output!
+//          seasonPoints: [ stats ], // TODO: make this output!
+//        ]
+//     }
+//   }
+
 const findGameWeekTeam = ({
-  teams, gameWeeks, manager, transfers, players,
+  teams, gameWeeks, transfers, players,
 }) => {
-  const originalTeam = teams[manager];
-  return originalTeam.map((player) => {
-    const playerTransfers = findTransfer({
-      manager, player, gameWeeks, transfers, players,
+  const endOfSeason = new Date(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
+  const startOfSeason = new Date(gameWeeks[0].start).setHours(0, 0, 0, 0);
+  return Object.keys(teams).reduce((prev, manager) => {
+    const initialPlayers = teams[manager];
+    const managerTransfers = transfers[manager];
+    const teamPlayers = initialPlayers.map((player) => {
+      const playerTransfers = findTransfer({
+        player,
+        endOfSeason,
+        startOfSeason,
+        transfers: managerTransfers,
+        players,
+      });
+      const playerGameWeeks = gameWeeks.map((gw) => findPlayerThisGw(playerTransfers, gw));
+      return {
+        teamPos: player.pos,
+        pos: players[player.name].pos,
+        gameWeeks: playerGameWeeks,
+        seasonStats: calculateSeasonStats(playerGameWeeks),
+        seasonPoints: calculateSeasonPoints(playerGameWeeks),
+      };
     });
-    return gameWeeks
-      .map((gw) => {
-        const playerThisGw = findPlayerThisGw(playerTransfers, gw);
-        return { ...playerThisGw };
-      })
-      .filter((gw, i) => gw.player.fixtures[i]);
-  });
+    console.log('teamPlayers');
+    console.log(teamPlayers);
+
+    return {
+      ...prev,
+      [manager]: teamPlayers,
+    };
+  }, {});
 };
 
 export default findGameWeekTeam;
