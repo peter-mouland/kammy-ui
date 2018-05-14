@@ -30,7 +30,7 @@
     "--------- HELPERS ----------": "",
     "init": "yarn && yarn test:setup && yarn precommit",
     "precommit": "yarn lint && yarn test",
-    "postinstall": "npm run bootstrap",
+    "postinstall": "npm run bootstrap && npm run webpack",
     "pre-publish": "git fetch && git pull -r && yarn test:setup && yarn lint && yarn test",
     "nuke": "yarn clean && rm -rf node_modules && yarn run init",
     "--------- LERNA ----------": "",
