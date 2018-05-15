@@ -6,6 +6,8 @@ import bemHelper from '@kammy-ui/bem';
 // import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
 // const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 
+import './teamsPage.scss';
+
 const bem = bemHelper({ block: 'teams-table' });
 
 const keysAsCells = (obj) => (
@@ -30,6 +32,7 @@ class TeamsPage extends React.Component {
     const { teams, gameWeeks, gwTeams } = this.props;
     const { displayGw } = this.state;
     const intGameWeek = parseInt(displayGw, 10) - 1;
+    const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -66,7 +69,14 @@ class TeamsPage extends React.Component {
                   {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
                 </tr>
                 {gwTeams[manager].map((teamSheetItem) => (
-                  <tr key={teamSheetItem.gameWeeks[intGameWeek].name}>
+                  <tr
+                    key={teamSheetItem.gameWeeks[intGameWeek].name}
+                    className={
+                      teamSheetItem.gameWeeks[previousGameWeek].name !== teamSheetItem.gameWeeks[intGameWeek].name
+                        ? bem('transfer')
+                        : null
+                    }
+                  >
                     <th>{teamSheetItem.teamPos}</th>
                     <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
                     <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>

@@ -49,7 +49,8 @@ const findTransfer = ({
 
   transfers
     .filter((transfer) => (
-      transfer.type === 'Transfer'
+      transfer.type !== 'Swap'
+      && transfer.type !== 'Waiver Request'
       && players[transfer.transferIn]
       && players[transfer.transferOut]
     ))
@@ -81,8 +82,8 @@ const findTransfer = ({
 //              gameWeekPoints: [ stats ],
 //            }
 //          ],
-//          seasonStats: [ stats ],  // TODO: make this output!
-//          seasonPoints: [ stats ], // TODO: make this output!
+//          seasonStats: [ stats ],
+//          seasonPoints: [ stats ],
 //        ]
 //     }
 //   }
@@ -112,8 +113,6 @@ const findGameWeekTeam = ({
         seasonPoints: calculateSeasonPoints(playerGameWeeks),
       };
     });
-    console.log('teamPlayers');
-    console.log(teamPlayers);
 
     return {
       ...prev,
