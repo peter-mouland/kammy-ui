@@ -20,6 +20,7 @@ const keysAsCellHeaders = (obj) => (
 class TeamsPage extends React.Component {
   state = {
     displayGw: '1',
+    displayManager: 'Nick',
     seasonStats: null,
     gameWeekStats: null,
   }
@@ -28,15 +29,27 @@ class TeamsPage extends React.Component {
     this.setState({ displayGw });
   }
 
+  updateDisplayManager = (displayManager) => {
+    this.setState({ displayManager });
+  }
+
   render() {
     const { teams, gameWeeks, gwTeams } = this.props;
-    const { displayGw } = this.state;
+    const { displayGw, displayManager } = this.state;
     const intGameWeek = parseInt(displayGw, 10) - 1;
     const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
 
     return (
       <div className={bem(null, null, 'page-content')}>
         <h3>Teams</h3>
+        <p>
+          Manager:
+          <Select
+            options={Object.keys(teams)}
+            defaultValue={'Nick'}
+            onChange={this.updateDisplayManager}
+          />
+        </p>
         <p>
           GameWeek:
           <Select
@@ -58,41 +71,43 @@ class TeamsPage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {Object.keys(teams).map((manager) => (
-              <Fragment key={manager}>
-                <tr>
-                  <th colSpan="3">{manager}</th>
-                </tr>
-                <tr>
-                  <th colSpan={4} />
-                  {keysAsCellHeaders(gwTeams[manager][0].gameWeeks[0].points)}
-                  {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
-                </tr>
-                {gwTeams[manager].map((teamSheetItem) => (
-                  <tr
-                    key={teamSheetItem.gameWeeks[intGameWeek].name}
-                    className={
-                      teamSheetItem.gameWeeks[previousGameWeek].name !== teamSheetItem.gameWeeks[intGameWeek].name
-                        ? bem('transfer')
-                        : null
-                    }
-                  >
-                    <th>{teamSheetItem.teamPos}</th>
-                    <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
-                    <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
-                    <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
-                    {
-                      teamSheetItem.gameWeeks[intGameWeek] && (
-                        <Fragment>
-                          {keysAsCells(teamSheetItem.gameWeeks[intGameWeek].points)}
-                          {keysAsCells(teamSheetItem.seasonPoints)}
-                        </Fragment>
-                      )
-                    }
+            {Object.keys(teams)
+              .filter((manager) => (manager === displayManager || displayManager === 'all'))
+              .map((manager) => (
+                <Fragment key={manager}>
+                  <tr>
+                    <th colSpan="3">{manager}</th>
                   </tr>
-                ))}
-              </Fragment>
-            ))}
+                  <tr>
+                    <th colSpan={4} />
+                    {keysAsCellHeaders(gwTeams[manager][0].gameWeeks[0].points)}
+                    {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
+                  </tr>
+                  {gwTeams[manager].map((teamSheetItem) => (
+                    <tr
+                      key={teamSheetItem.gameWeeks[intGameWeek].name}
+                      className={
+                        teamSheetItem.gameWeeks[previousGameWeek].name !== teamSheetItem.gameWeeks[intGameWeek].name
+                          ? bem('transfer')
+                          : null
+                      }
+                    >
+                      <th>{teamSheetItem.teamPos}</th>
+                      <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
+                      <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
+                      <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
+                      {
+                        teamSheetItem.gameWeeks[intGameWeek] && (
+                          <Fragment>
+                            {keysAsCells(teamSheetItem.gameWeeks[intGameWeek].points)}
+                            {keysAsCells(teamSheetItem.seasonPoints)}
+                          </Fragment>
+                        )
+                      }
+                    </tr>
+                  ))}
+                </Fragment>
+              ))}
           </tbody>
         </table>
       </div>
