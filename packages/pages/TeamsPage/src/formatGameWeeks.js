@@ -55,22 +55,22 @@ const findPlayerTransfers = ({
 
   transfers
     .filter((transfer) => (
-      transfer.type !== 'Swap'
-      && transfer.type !== 'Waiver Request'
-      && players[transfer.transferIn]
-      && players[transfer.transferOut]
+      // transfer.type !== 'Swap' &&
+      transfer.type !== 'Waiver Request' &&
+      players[transfer.transferIn] &&
+      players[transfer.transferOut]
     ))
     .forEach((transfer) => {
-      // if (transfer.type === 'Swap' && transfer.transferIn === player.name) {
-      // playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
-      // playerTransfers.push({
-      //   player: players[transfer.transferOut],
-      //   playerOut: players[transfer.transferIn],
-      //   start: new Date(transfer.timestamp),
-      //   type: transfer.type,
-      // });
-      // }
-      if (transfer.transferOut === playerInPosition.name) {
+      if (transfer.type === 'Swap' && transfer.transferIn === player.name) {
+        playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
+        playerTransfers.push({
+          player: players[transfer.transferOut],
+          playerOut: players[transfer.transferIn],
+          start: new Date(transfer.timestamp),
+          type: transfer.type,
+        });
+        playerInPosition = players[transfer.transferOut];
+      } else if (transfer.transferOut === playerInPosition.name) {
         playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
         playerTransfers.push({
           player: players[transfer.transferIn],
