@@ -14,7 +14,7 @@ const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) 
     <table>
       <tbody>
         <tr>
-          <th colSpan={4} />
+          <th colSpan={5} />
           {keysAsCellHeaders(positionGameWeeks[0].points)}
         </tr>
         {
@@ -22,6 +22,7 @@ const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) 
             gameWeek.fixturesWithinTeam.map((fixture, i) => (
               <tr key={`${fixture.event}`}>
                 <th>{i === 0 && (gw + 1)}</th>
+                <td>{gameWeek.name}</td>
                 <td className={bem('team', {
                   home: true,
                   'my-team': gameWeek.club === fixture.hTname,
@@ -37,7 +38,7 @@ const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) 
           ))
         }
         <tr>
-          <th colSpan={4} />
+          <th colSpan={5} />
           {keysAsCells(positionSeason)}
         </tr>
       </tbody>

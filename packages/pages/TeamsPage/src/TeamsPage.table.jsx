@@ -62,6 +62,7 @@ class TeamsPage extends React.Component {
           <Modal
             key={'timeline'}
             id={'timeline'}
+            wide
             title={`${positionTimelineProps.position} Time-line`}
             open={showPositionTimeline}
             onClose={this.closeModal}

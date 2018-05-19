@@ -132,7 +132,7 @@ $modal-md: 725px;
     min-width: initial;
     width: 90%;
     max-height: 90%;
-    max-width: $modal-md;
+    max-width: 90%; //$modal-md;
   }
 
   .modal__content.modal__content--mobile-full {
@@ -140,7 +140,7 @@ $modal-md: 725px;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: $modal-md;
+    max-width: 90%; //$modal-md;
     height: auto;
     max-height: 90%;
   }
