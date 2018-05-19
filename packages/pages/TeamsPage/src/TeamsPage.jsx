@@ -15,7 +15,6 @@ class TeamsPage extends React.Component {
     this.props.fetchTeams();
     this.props.fetchTransfers();
     this.props.fetchGameWeeks();
-    this.props.fetchSpreadsheetPlayers();
   }
 
   render() {
@@ -23,7 +22,6 @@ class TeamsPage extends React.Component {
       loaded, gwTeams,
       playersLoading, playersCount,
       teamsLoading, teams, teamsCount,
-      spreadsheetPlayersLoading, spreadsheetPlayersCount,
       gameWeeksLoading, gameWeeks, gameWeeksCount,
       transfersLoading, transfersCount,
     } = this.props;
@@ -32,7 +30,7 @@ class TeamsPage extends React.Component {
         <h1>Teams</h1>
         <div>
           <p>
-            The purpose of this page is to display the Managers Team stats.
+            The purpose of this page is to display the Managers Team stats, by GameWeel.
           </p>
           <p>
             Combining the SkySport stats with the Spreadsheet Team Sheet we can output GameWeek Score and Season Score
@@ -57,10 +55,6 @@ class TeamsPage extends React.Component {
               Teams :
               {teamsLoading ? <Interstitial /> : teamsCount}
             </p>
-            <p>
-              Players :
-              {spreadsheetPlayersLoading ? <Interstitial /> : spreadsheetPlayersCount}
-            </p>
           </div>
         </div>
         {
@@ -84,19 +78,16 @@ TeamsPage.propTypes = {
   teams: PropTypes.object,
 
   fetchDbPlayers: PropTypes.func.isRequired,
-  fetchSpreadsheetPlayers: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
   fetchTeams: PropTypes.func.isRequired,
 
   playersLoading: PropTypes.bool,
-  spreadsheetPlayersLoading: PropTypes.bool,
   gameWeeksLoading: PropTypes.bool,
   transfersLoading: PropTypes.bool,
   teamsLoading: PropTypes.bool,
 
   playersCount: PropTypes.number,
-  spreadsheetPlayersCount: PropTypes.number,
   gameWeeksCount: PropTypes.number,
   transfersCount: PropTypes.number,
   teamsCount: PropTypes.number,
@@ -105,14 +96,12 @@ TeamsPage.propTypes = {
 TeamsPage.defaultProps = {
   loaded: false,
   playersLoading: false,
-  spreadsheetPlayersLoading: false,
   gameWeeksLoading: false,
   transfersLoading: false,
   teamsLoading: false,
   gwTeams: {},
   Players: {},
   PlayersCount: null,
-  spreadsheetPlayersCount: null,
   gameWeeks: [],
   gameWeeksCount: null,
   transfersCount: null,
