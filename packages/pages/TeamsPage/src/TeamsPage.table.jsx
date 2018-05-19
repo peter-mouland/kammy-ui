@@ -66,6 +66,7 @@ class TeamsPage extends React.Component {
               <th>Code</th>
               <th>Player</th>
               <th>Position</th>
+              <th>Club</th>
               <th colSpan={12}>GameWeek Score</th>
               <th colSpan={12}>Season Score</th>
             </tr>
@@ -96,6 +97,7 @@ class TeamsPage extends React.Component {
                       <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
+                      <td>{teamSheetItem.gameWeeks[intGameWeek].club}</td>
                       {
                         teamSheetItem.gameWeeks[intGameWeek] && (
                           <Fragment>

@@ -77,7 +77,7 @@ export default function players(state = {}, action) {
     return {
       ...state,
       transfers: data,
-      transfersCount: data ? Object.keys(data).length : 0,
+      transfersCount: data ? Object.values(data).reduce((acc, val) => acc.concat(val), []).length : 0,
       transfersErrors: action.payload.errors,
       transfersLoading: false,
       transfersLoaded: true,

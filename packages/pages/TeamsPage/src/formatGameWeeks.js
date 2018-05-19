@@ -41,10 +41,6 @@ const findPlayerThisGw = (transferList, gameWeek) => {
 const findPlayerTransfers = ({
   player, transfers = [], endOfSeason, startOfSeason, players,
 }) => {
-  if (!player) {
-    console.error('no Player: ');
-    return [];
-  }
   let playerInPosition = players[player.name];
   const playerTransfers = [{
     player: playerInPosition,
@@ -113,15 +109,17 @@ const findGameWeekTeam = ({
   return Object.keys(teams).reduce((prev, manager) => {
     const initialPlayers = teams[manager];
     const managerTransfers = transfers[manager];
+    // console.log({ managerTransfers })
     const teamPlayers = initialPlayers.map((player) => {
-      const playerTransfers = findPlayerTransfers({
+      const teamPositionTransfers = findPlayerTransfers({
         player,
         endOfSeason,
         startOfSeason,
         transfers: managerTransfers,
         players,
       });
-      const playerGameWeeks = gameWeeks.map((gw) => findPlayerThisGw(playerTransfers, gw));
+      // console.log({ teamPositionTransfers })
+      const playerGameWeeks = gameWeeks.map((gw) => findPlayerThisGw(teamPositionTransfers, gw));
       return {
         teamPos: player.pos,
         pos: players[player.name].pos,
