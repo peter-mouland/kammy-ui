@@ -93,7 +93,7 @@ export default class Modal extends Component {
         <div className='modal__content modal__content--mobile-full'>
           <div className='modal__header'>
             <div className='modal__title'>
-              <h2 className='h2 uppercase modal__header'>{title}</h2>
+              <h2 className='h2 uppercase'>{title}</h2>
             </div>
             {!disableClose && (
               <button className='modal__close' onClick={() => this.closeModal()}>

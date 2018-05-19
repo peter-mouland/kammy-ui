@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
+import Modal from '@kammy-ui/modal';
 
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
+import PositionTimeline from './components/PositionTimeline.table';
+import { keysAsCellHeaders, keysAsCells } from './lib/tableHelpers';
 import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
 
-const keysAsCells = (obj) => (
-  Object.keys(obj).map((key) => <td key={key}>{obj[key]}</td>)
-);
-const keysAsCellHeaders = (obj) => (
-  Object.keys(obj).map((key) => <th key={key}>{key}</th>)
-);
 
 class TeamsPage extends React.Component {
   state = {
@@ -22,6 +19,24 @@ class TeamsPage extends React.Component {
     displayManager: 'Nick',
     seasonStats: null,
     gameWeekStats: null,
+    showPositionTimeline: false,
+    positionTimelineProps: {},
+  }
+
+  showTimeline = (e, { position, positionGameWeeks, positionSeason }) => {
+    e.preventDefault();
+    this.setState({
+      showPositionTimeline: true,
+      positionTimelineProps: {
+        positionGameWeeks,
+        positionSeason,
+        position,
+      },
+    });
+  }
+
+  closeModal = () => {
+    this.setState({ showPositionTimeline: false });
   }
 
   updateDisplayGw = (displayGw) => {
@@ -34,13 +49,26 @@ class TeamsPage extends React.Component {
 
   render() {
     const { teams, gameWeeks, gwTeams } = this.props;
-    const { displayGw, displayManager } = this.state;
+    const {
+      displayGw, displayManager, showPositionTimeline, positionTimelineProps,
+    } = this.state;
     const intGameWeek = parseInt(displayGw, 10) - 1;
     const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
 
     return (
       <div className={bem(null, null, 'page-content')}>
         <h3>Teams</h3>
+        {showPositionTimeline && (
+          <Modal
+            key={'timeline'}
+            id={'timeline'}
+            title={`${positionTimelineProps.position} Time-line`}
+            open={showPositionTimeline}
+            onClose={this.closeModal}
+          >
+            <PositionTimeline { ...positionTimelineProps } />
+          </Modal>
+        )}
         <MultiToggle
           label={'Manager'}
           id={'manager'}
@@ -74,10 +102,10 @@ class TeamsPage extends React.Component {
               .map((manager) => (
                 <Fragment key={manager}>
                   <tr>
-                    <th colSpan="3">{manager}</th>
+                    <th colSpan="4">{manager}</th>
                   </tr>
                   <tr>
-                    <th colSpan={4} />
+                    <th colSpan={5} />
                     {keysAsCellHeaders(gwTeams[manager][0].gameWeeks[0].points)}
                     {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
                   </tr>
@@ -90,7 +118,19 @@ class TeamsPage extends React.Component {
                           : null
                       }
                     >
-                      <th>{teamSheetItem.teamPos}</th>
+                      <th>
+                        <a
+                          href={'#'}
+                          onClick={(e) => this.showTimeline(e, {
+                            position: teamSheetItem.gameWeeks[intGameWeek].pos,
+                            positionGameWeeks: teamSheetItem.gameWeeks,
+                            positionSeason: teamSheetItem.seasonPoints,
+                          })}
+                          title={`Show ${teamSheetItem.teamPos} timeline`}
+                        >
+                          {teamSheetItem.teamPos}
+                        </a>
+                      </th>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>

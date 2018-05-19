@@ -3,7 +3,7 @@ import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 
 import TeamsPage from './TeamsPage';
-import formatGameWeeks from './formatGameWeeks';
+import formatGameWeeks from './lib/formatGameWeeks';
 
 const { fetchGameWeeks, fetchTransfers, fetchTeams } = spreadsheetActions;
 const { fetchPlayers: fetchDbPlayers } = dbActions;
