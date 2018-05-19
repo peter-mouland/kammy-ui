@@ -1,0 +1,13 @@
+.formatted-gameweek-date {
+  opacity: .8;
+
+  &__year {
+    margin-right: 12px;
+    font-size: .75em;
+  }
+
+  &__time {
+    margin-left: 12px;
+    font-size: .85em;
+  }
+}

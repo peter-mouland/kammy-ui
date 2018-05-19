@@ -14,6 +14,7 @@ class DemoToggle extends React.Component {
   render() {
     return (
       <MultiToggle
+        label={text('label', 'label')}
         id={text('id', 'id')}
         checked={text('checked', this.state.checked)}
         options={array('options', this.options)}

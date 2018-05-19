@@ -20,12 +20,13 @@
     "@kammy-ui/data-player-stats": "^0.0.12",
     "@kammy-ui/fetchr": "^0.0.11",
     "@kammy-ui/interstitial": "^0.0.11",
-    "@kammy-ui/select": "^0.0.11",
+    "@kammy-ui/multi-toggle": "^0.0.11",
     "@kammy-ui/players-table": "^0.0.11",
     "@kammy-ui/redux-players": "^0.0.11",
     "@kammy-ui/redux-skysports": "^0.0.11",
     "@kammy-ui/redux-spreadsheet": "^0.0.11",
     "@kammy-ui/redux-store": "^0.0.11",
+    "@kammy-ui/select": "^0.0.11",
     "json-query": "^2.2.2"
   },
   "peerDependencies": {

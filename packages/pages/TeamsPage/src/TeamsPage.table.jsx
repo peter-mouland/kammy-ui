@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Select from '@kammy-ui/select';
 import bemHelper from '@kammy-ui/bem';
-// import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
-// const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
+import MultiToggle from '@kammy-ui/multi-toggle';
 
+import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
@@ -42,23 +41,21 @@ class TeamsPage extends React.Component {
     return (
       <div className={bem(null, null, 'page-content')}>
         <h3>Teams</h3>
-        <p>
-          Manager:
-          <Select
-            options={Object.keys(teams)}
-            defaultValue={'Nick'}
-            onChange={this.updateDisplayManager}
-          />
-        </p>
-        <p>
-          GameWeek:
-          <Select
-            options={gameWeeks.map((gw) => gw.gameWeek)}
-            defaultValue={displayGw}
-            onChange={this.updateDisplayGw}
-          />
-          <span>{gameWeeks[intGameWeek].start} to {gameWeeks[intGameWeek].end}</span>
-        </p>
+        <MultiToggle
+          label={'Manager'}
+          id={'manager'}
+          options={Object.keys(teams)}
+          checked={displayManager}
+          onChange={this.updateDisplayManager}
+        />
+        <MultiToggle
+          label={'GameWeek'}
+          id={'GameWeek'}
+          checked={displayGw}
+          options={gameWeeks.map((gw) => gw.gameWeek)}
+          onChange={this.updateDisplayGw}
+        />
+        <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
         <table>
           <thead>
             <tr>
