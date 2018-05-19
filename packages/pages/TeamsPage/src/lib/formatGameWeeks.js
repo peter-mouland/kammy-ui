@@ -101,7 +101,7 @@ const findPlayerTransfers = ({
 //     }
 //   }
 
-const findGameWeekTeam = ({
+const formatGameWeeks = ({
   teams, gameWeeks, transfers, players,
 }) => {
   const endOfSeason = new Date(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
@@ -139,4 +139,4 @@ const findGameWeekTeam = ({
   }, {});
 };
 
-export default findGameWeekTeam;
+export default formatGameWeeks;
