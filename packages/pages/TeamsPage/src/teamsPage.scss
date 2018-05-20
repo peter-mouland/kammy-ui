@@ -2,4 +2,20 @@
   &__transfer {
     background-color: lavender;
   }
+
+  th.cell {
+    text-align: center;
+  }
+
+  .cell {
+    min-width: 25px;
+    text-align: right;
+  }
+
+  .cell--pair {
+    opacity: .9;
+    font-weight: 100;
+    font-size: .9em;
+    text-align: left;
+  }
 }

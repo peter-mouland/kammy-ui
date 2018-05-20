@@ -7,7 +7,7 @@ import Modal from '@kammy-ui/modal';
 
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import PositionTimeline from './components/PositionTimeline.table';
-import { keysAsCellHeaders, keysAsCells } from './lib/tableHelpers';
+import { keysAsCellHeaders, pairedKeysAsCells } from './lib/tableHelpers';
 import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
@@ -96,14 +96,14 @@ class TeamsPage extends React.Component {
                 <thead>
                   <tr>
                     <th colSpan="4">{manager}</th>
-                    <th colSpan={12}>Season: // todo: <em>to date</em> i.e. update with selected gw</th>
+                    <th colSpan={24}>Season: // todo: <em>to date</em> i.e. update with selected gw</th>
                   </tr>
                   <tr>
                     <th>Team Position</th>
                     <th>Player</th>
                     <th>Position</th>
                     <th>Club</th>
-                    {keysAsCellHeaders(gwTeams[manager][0].seasonStats)}
+                    {keysAsCellHeaders(gwTeams[manager][0].seasonStats, { colSpan: 2 })}
                   </tr>
                 </thead>
                 <tbody>
@@ -135,7 +135,16 @@ class TeamsPage extends React.Component {
                       <td>{teamSheetItem.gameWeeks[intGameWeek].club}</td>
                       {
                         teamSheetItem.gameWeeks[intGameWeek] && (
-                          keysAsCells({ ...teamSheetItem.seasonStats, points: teamSheetItem.seasonPoints.total })
+                          pairedKeysAsCells(
+                            {
+                              ...teamSheetItem.seasonStats,
+                              points: teamSheetItem.seasonPoints.total,
+                            },
+                            {
+                              ...teamSheetItem.gameWeeks[intGameWeek].gameWeekStats,
+                              points: teamSheetItem.gameWeeks[intGameWeek].points.total,
+                            },
+                          )
                         )
                       }
                     </tr>
