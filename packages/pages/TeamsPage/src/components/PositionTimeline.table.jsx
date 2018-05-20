@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
-import { calculatePoints } from '@kammy-ui/data-player-stats';
 
 import { keysAsCellHeaders, keysAsCells } from '../lib/tableHelpers';
-import statsToKeys from '../lib/extract-ff-stats';
 import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
 
 const PositionTimelineTable = ({
-  gameWeeks, season, total, position,
+  gameWeeks, season, total,
 }) => (
   <div>
     <table>
@@ -34,8 +32,7 @@ const PositionTimelineTable = ({
                   away: true,
                   'my-team': gameWeek.club === fixture.aTname,
                 })}>{fixture.aScore} {fixture.aTname}</td>
-                {keysAsCells(statsToKeys(fixture.stats))}
-                <td>{(calculatePoints({ stats: statsToKeys(fixture.stats), pos: position }).total)}</td>
+                {keysAsCells(fixture.stats)}
               </tr>
             ))
           ))

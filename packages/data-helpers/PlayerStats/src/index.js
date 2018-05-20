@@ -24,13 +24,20 @@ const getStatsWithinTimeFrame = (data, gameWeeks) => (
   })
 );
 
+const fixturesWithStats = (fixtures, position) => (
+  fixtures.map((fixture) => ({
+    ...fixture,
+    stats: calculateTotalPoints({ stats: extractFFStats(fixture.stats), pos: position }),
+  }))
+);
+
 export const calculatePoints = calculateTotalPoints;
 
 export const playerStats = ({ data, gameWeeks }) => {
   if (!data) return {};
   const playerFixtures = getStatsWithinTimeFrame(data, gameWeeks);
   const summaryArray = totalUpStats(playerFixtures.value);
-  const fixturesWithinTeam = playerFixtures.value;
+  const fixturesWithinTeam = fixturesWithStats(playerFixtures.value, data.pos);
   const gameWeekStats = extractFFStats(summaryArray);
   const points = calculateTotalPoints({ stats: gameWeekStats, pos: data.pos });
   return {
