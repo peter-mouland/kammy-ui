@@ -9,16 +9,18 @@ import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
 
-const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) => (
+const PositionTimelineTable = ({
+  gameWeeks, season, total, position,
+}) => (
   <div>
     <table>
       <tbody>
         <tr>
           <th colSpan={5} />
-          {keysAsCellHeaders(positionGameWeeks[0].points)}
+          {keysAsCellHeaders(season)}
         </tr>
         {
-          positionGameWeeks.map((gameWeek, gw) => (
+          gameWeeks.map((gameWeek, gw) => (
             gameWeek.fixturesWithinTeam.map((fixture, i) => (
               <tr key={`${fixture.event}`}>
                 <th>{i === 0 && (gw + 1)}</th>
@@ -32,14 +34,15 @@ const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) 
                   away: true,
                   'my-team': gameWeek.club === fixture.aTname,
                 })}>{fixture.aScore} {fixture.aTname}</td>
-                {keysAsCells(calculatePoints({ stats: statsToKeys(fixture.stats), pos: position }))}
+                {keysAsCells(statsToKeys(fixture.stats))}
+                <td>{(calculatePoints({ stats: statsToKeys(fixture.stats), pos: position }).total)}</td>
               </tr>
             ))
           ))
         }
         <tr>
           <th colSpan={5} />
-          {keysAsCells(positionSeason)}
+          {keysAsCells({ ...season, points: total })}
         </tr>
       </tbody>
     </table>
@@ -48,8 +51,9 @@ const PositionTimelineTable = ({ positionGameWeeks, positionSeason, position }) 
 
 PositionTimelineTable.propTypes = {
   position: PropTypes.string.isRequired,
-  positionSeason: PropTypes.object.isRequired,
-  positionGameWeeks: PropTypes.array.isRequired,
+  season: PropTypes.object.isRequired,
+  gameWeeks: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default PositionTimelineTable;

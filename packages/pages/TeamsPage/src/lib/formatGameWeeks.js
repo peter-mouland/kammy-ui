@@ -118,11 +118,6 @@ const formatGameWeeks = ({
         players,
       });
       const playerGameWeeks = gameWeeks.map((gw) => findPlayerThisGw(teamPositionTransfers, gw));
-      // if (player.pos === 'CB') {
-      //   console.log({ playerGameWeeks });
-      //   console.log( calculateSeasonPoints(playerGameWeeks, player.pos))
-      //   debugger;
-      // }
       return {
         teamPos: player.pos,
         pos: players[player.name].pos,

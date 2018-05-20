@@ -39,5 +39,4 @@ export default (stats) => ({
   rcard: stats[map.RED_CARDS] || 0,
   tb: parseInt(stats[map.TACKLE_BONUS1], 10) + parseInt(stats[map.TACKLE_BONUS2], 10) || 0,
   sb: parseInt(stats[map.SAVE_BONUS1], 10) + parseInt(stats[map.SAVE_BONUS2], 10) || 0,
-  points: 0,
 });

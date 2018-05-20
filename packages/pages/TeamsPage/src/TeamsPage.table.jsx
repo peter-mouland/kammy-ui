@@ -15,7 +15,7 @@ const bem = bemHelper({ block: 'teams-table' });
 
 class TeamsPage extends React.Component {
   state = {
-    displayGw: '1',
+    displayGw: '40',
     displayManager: 'Nick',
     seasonStats: null,
     gameWeekStats: null,
@@ -23,13 +23,16 @@ class TeamsPage extends React.Component {
     positionTimelineProps: {},
   }
 
-  showTimeline = (e, { position, positionGameWeeks, positionSeason }) => {
+  showTimeline = (e, {
+    position, gameWeeks, season, total,
+  }) => {
     e.preventDefault();
     this.setState({
       showPositionTimeline: true,
       positionTimelineProps: {
-        positionGameWeeks,
-        positionSeason,
+        total,
+        gameWeeks,
+        season,
         position,
       },
     });
@@ -86,30 +89,24 @@ class TeamsPage extends React.Component {
         />
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
         <table>
-          <thead>
-            <tr>
-              <th>Team Position</th>
-              <th>Code</th>
-              <th>Player</th>
-              <th>Position</th>
-              <th>Club</th>
-              <th colSpan={12}>GameWeek Score</th>
-              <th colSpan={12}>Season Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(teams)
-              .filter((manager) => (manager === displayManager || displayManager === 'all'))
-              .map((manager) => (
-                <Fragment key={manager}>
+          {Object.keys(teams)
+            .filter((manager) => (manager === displayManager || displayManager === 'all'))
+            .map((manager) => (
+              <Fragment key={manager}>
+                <thead>
                   <tr>
                     <th colSpan="4">{manager}</th>
+                    <th colSpan={12}>Season: // todo: <em>to date</em> i.e. update with selected gw</th>
                   </tr>
                   <tr>
-                    <th colSpan={5} />
-                    {keysAsCellHeaders(gwTeams[manager][0].gameWeeks[0].points)}
-                    {keysAsCellHeaders(gwTeams[manager][0].seasonPoints)}
+                    <th>Team Position</th>
+                    <th>Player</th>
+                    <th>Position</th>
+                    <th>Club</th>
+                    {keysAsCellHeaders(gwTeams[manager][0].seasonStats)}
                   </tr>
+                </thead>
+                <tbody>
                   {gwTeams[manager].map((teamSheetItem) => (
                     <tr
                       key={teamSheetItem.gameWeeks[intGameWeek].name}
@@ -124,31 +121,28 @@ class TeamsPage extends React.Component {
                           href={'#'}
                           onClick={(e) => this.showTimeline(e, {
                             position: teamSheetItem.gameWeeks[intGameWeek].pos,
-                            positionGameWeeks: teamSheetItem.gameWeeks,
-                            positionSeason: teamSheetItem.seasonPoints,
+                            gameWeeks: teamSheetItem.gameWeeks,
+                            season: teamSheetItem.seasonStats,
+                            total: teamSheetItem.seasonPoints.total,
                           })}
                           title={`Show ${teamSheetItem.teamPos} timeline`}
                         >
                           {teamSheetItem.teamPos}
                         </a>
                       </th>
-                      <td>{teamSheetItem.gameWeeks[intGameWeek].code}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
                       <td>{teamSheetItem.gameWeeks[intGameWeek].club}</td>
                       {
                         teamSheetItem.gameWeeks[intGameWeek] && (
-                          <Fragment>
-                            {keysAsCells(teamSheetItem.gameWeeks[intGameWeek].points)}
-                            {keysAsCells(teamSheetItem.seasonPoints)}
-                          </Fragment>
+                          keysAsCells({ ...teamSheetItem.seasonStats, points: teamSheetItem.seasonPoints.total })
                         )
                       }
                     </tr>
                   ))}
-                </Fragment>
-              ))}
-          </tbody>
+                </tbody>
+              </Fragment>
+            ))}
         </table>
       </div>
     );

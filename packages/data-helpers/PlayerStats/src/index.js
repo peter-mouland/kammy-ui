@@ -32,14 +32,9 @@ export const playerStats = ({ data, gameWeeks }) => {
   const summaryArray = totalUpStats(playerFixtures.value);
   const fixturesWithinTeam = playerFixtures.value;
   const gameWeekStats = extractFFStats(summaryArray);
-
-  // not needed when looking at team scores
-  const seasonStats = data.stats
-    ? extractFFStats(data.stats.season)
-    : {};
   const points = calculateTotalPoints({ stats: gameWeekStats, pos: data.pos });
   return {
-    ...data, fixturesWithinTeam, gameWeekStats, seasonStats, points,
+    ...data, fixturesWithinTeam, gameWeekStats, points,
   };
 };
 
