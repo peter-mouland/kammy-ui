@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 @import '~@kammy-ui/bootstrap/src/abstracts/variables';
 
 .multi-toggle {
@@ -38,12 +39,14 @@
         outline-offset: 0;
       }
 
-      &:checked + label {
+      &:checked + label,
+      &:checked + .contextual-help label {
         background-color: $brand--dark;
         color: $white;
       }
 
-      &:active + label {
+      &:active + label,
+      &:active + .contextual-help label {
         transform: scale(1.1);
       }
     }

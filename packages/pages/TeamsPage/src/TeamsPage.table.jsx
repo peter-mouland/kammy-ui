@@ -12,7 +12,6 @@ import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
 
-
 class TeamsPage extends React.Component {
   state = {
     displayGw: '40',
@@ -86,6 +85,7 @@ class TeamsPage extends React.Component {
           checked={displayGw}
           options={gameWeeks.map((gw) => gw.gameWeek)}
           onChange={this.updateDisplayGw}
+          contextualHelp={(value) => <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
         />
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
         <table>

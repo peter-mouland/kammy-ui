@@ -1,0 +1,22 @@
+@import '~@kammy-ui/bootstrap/src/abstracts/variables';
+
+.contextual-help {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  color: $brand--dark;
+
+  &__box {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    visibility: hidden;
+    text-align: center;
+
+    &--active {
+      z-index: 1;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

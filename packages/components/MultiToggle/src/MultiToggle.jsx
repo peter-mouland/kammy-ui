@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy-ui/bem';
+import ContextualHelp from '@kammy-ui/contextual-help';
 
 import './multi-toggle.scss';
 
 const bem = bemHelper({ block: 'multi-toggle' });
 
 const MultiToggle = ({
-  id, checked, options = [], label, className, onChange, ...props
+  id, checked, options = [], label, className, onChange, contextualHelp, ...props
 }) => (
   <span className={bem(null, null, className)} id={ id } { ...props }>
     {label && <span className={bem('label')}>{label}</span>}
@@ -24,7 +25,14 @@ const MultiToggle = ({
               value={option}
               onChange={ () => onChange(option) }
             />
-            <label className={ bem('option-label') } htmlFor={ `${id}-${i}` }>{option}</label>
+            {contextualHelp && (
+              <ContextualHelp body={contextualHelp(option)} Trigger={(
+                <label className={ bem('option-label') } htmlFor={ `${id}-${i}` }>{option}</label>
+              )}/>
+            )}
+            {!contextualHelp && (
+              <label className={ bem('option-label') } htmlFor={ `${id}-${i}` }>{option}</label>
+            )}
           </div>
         ))
       }
@@ -39,11 +47,13 @@ MultiToggle.propTypes = {
   className: PropTypes.string,
   checked: PropTypes.string,
   label: PropTypes.string,
+  contextualHelp: PropTypes.func,
 };
 
 MultiToggle.defaultProps = {
   checked: null,
   label: null,
+  contextualHelp: null,
 };
 
 export default MultiToggle;
