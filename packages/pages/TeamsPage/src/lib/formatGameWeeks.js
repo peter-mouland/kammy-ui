@@ -1,21 +1,6 @@
 import { playerStats } from '@kammy-ui/data-player-stats';
 
-const calculateSeasonPoints = (playerGameWeeks) => (
-  playerGameWeeks.reduce((totals, gw) => (
-    Object.keys(gw.points).reduce((prev, stat) => ({
-      ...prev,
-      [stat]: gw.points[stat] + (totals[stat] || 0),
-    }), {})
-  ), {})
-);
-const calculateSeasonStats = (playerGameWeeks) => (
-  playerGameWeeks.reduce((totals, gw) => (
-    Object.keys(gw.gameWeekStats).reduce((prev, stat) => ({
-      ...prev,
-      [stat]: gw.gameWeekStats[stat] + (totals[stat] || 0),
-    }), {})
-  ), {})
-);
+import { calculateSeasonPoints, calculateSeasonStats } from '../lib/calculateSeason';
 
 /*
  PURPOSE: to find a transfer list of players

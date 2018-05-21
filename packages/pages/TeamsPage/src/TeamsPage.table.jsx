@@ -8,6 +8,7 @@ import Modal from '@kammy-ui/modal';
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './lib/tableHelpers';
+import formatSeasonUntilGw from './lib/formatSeasonUntilGw';
 import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
@@ -96,7 +97,7 @@ class TeamsPage extends React.Component {
                 <thead>
                   <tr>
                     <th colSpan="4">{manager}</th>
-                    <th colSpan={24}>Season: // todo: <em>to date</em> i.e. update with selected gw</th>
+                    <th colSpan={24}>Season</th>
                   </tr>
                   <tr>
                     <th>Team Position</th>
@@ -107,48 +108,53 @@ class TeamsPage extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {gwTeams[manager].map((teamSheetItem) => (
-                    <tr
-                      key={teamSheetItem.gameWeeks[intGameWeek].name}
-                      className={
-                        teamSheetItem.gameWeeks[previousGameWeek].name !== teamSheetItem.gameWeeks[intGameWeek].name
-                          ? bem('transfer')
-                          : null
-                      }
-                    >
-                      <th>
-                        <a
-                          href={'#'}
-                          onClick={(e) => this.showTimeline(e, {
-                            position: teamSheetItem.gameWeeks[intGameWeek].pos,
-                            gameWeeks: teamSheetItem.gameWeeks,
-                            season: teamSheetItem.seasonStats,
-                            total: teamSheetItem.seasonPoints.total,
-                          })}
-                          title={`Show ${teamSheetItem.teamPos} timeline`}
-                        >
-                          {teamSheetItem.teamPos}
-                        </a>
-                      </th>
-                      <td>{teamSheetItem.gameWeeks[intGameWeek].name}</td>
-                      <td>{teamSheetItem.gameWeeks[intGameWeek].pos}</td>
-                      <td>{teamSheetItem.gameWeeks[intGameWeek].club}</td>
-                      {
-                        teamSheetItem.gameWeeks[intGameWeek] && (
-                          pairedKeysAsCells(
-                            {
-                              ...teamSheetItem.seasonStats,
-                              points: teamSheetItem.seasonPoints.total,
-                            },
-                            {
-                              ...teamSheetItem.gameWeeks[intGameWeek].gameWeekStats,
-                              points: teamSheetItem.gameWeeks[intGameWeek].points.total,
-                            },
+                  {gwTeams[manager].map((teamSheetItem) => {
+                    const player = teamSheetItem.gameWeeks[intGameWeek];
+                    const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
+                    const seasonToDate = formatSeasonUntilGw(teamSheetItem, intGameWeek + 1);
+                    return (
+                      <tr
+                        key={player.name}
+                        className={
+                          playerLastGW.name !== player.name
+                            ? bem('transfer')
+                            : null
+                        }
+                      >
+                        <th>
+                          <a
+                            href={'#'}
+                            onClick={(e) => this.showTimeline(e, {
+                              position: player.pos,
+                              gameWeeks: teamSheetItem.gameWeeks,
+                              season: teamSheetItem.seasonStats,
+                              total: teamSheetItem.seasonPoints.total,
+                            })}
+                            title={`Show ${teamSheetItem.teamPos} timeline`}
+                          >
+                            {teamSheetItem.teamPos}
+                          </a>
+                        </th>
+                        <td>{player.name}</td>
+                        <td>{player.pos}</td>
+                        <td>{player.club}</td>
+                        {
+                          player && (
+                            pairedKeysAsCells(
+                              {
+                                ...seasonToDate.seasonStats,
+                                points: seasonToDate.seasonPoints.total,
+                              },
+                              {
+                                ...player.gameWeekStats,
+                                points: player.points.total,
+                              },
+                            )
                           )
-                        )
-                      }
-                    </tr>
-                  ))}
+                        }
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Fragment>
             ))}
