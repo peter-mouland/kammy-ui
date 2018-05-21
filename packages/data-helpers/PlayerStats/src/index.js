@@ -24,7 +24,7 @@ const getStatsWithinTimeFrame = (data, gameWeeks) => (
   })
 );
 
-const fixturesWithStats = (fixtures, position) => (
+export const fixturesWithStats = (fixtures, position) => (
   fixtures.map((fixture) => ({
     ...fixture,
     stats: calculateTotalPoints({ stats: extractFFStats(fixture.stats), pos: position }),

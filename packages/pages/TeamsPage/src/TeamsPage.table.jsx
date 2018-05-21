@@ -6,6 +6,7 @@ import MultiToggle from '@kammy-ui/multi-toggle';
 import Modal from '@kammy-ui/modal';
 
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
+import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './lib/tableHelpers';
 import formatSeasonUntilGw from './lib/formatSeasonUntilGw';
@@ -20,7 +21,9 @@ class TeamsPage extends React.Component {
     seasonStats: null,
     gameWeekStats: null,
     showPositionTimeline: false,
+    showPlayerTimeline: false,
     positionTimelineProps: {},
+    playerTimelineProps: {},
   }
 
   showTimeline = (e, {
@@ -38,8 +41,22 @@ class TeamsPage extends React.Component {
     });
   }
 
+  showPlayerTimeline = (e, {
+    player, season, total,
+  }) => {
+    e.preventDefault();
+    this.setState({
+      showPlayerTimeline: true,
+      playerTimelineProps: {
+        player,
+        season,
+        total,
+      },
+    });
+  }
+
   closeModal = () => {
-    this.setState({ showPositionTimeline: false });
+    this.setState({ showPositionTimeline: false, showPlayerTimeline: false });
   }
 
   updateDisplayGw = (displayGw) => {
@@ -53,7 +70,9 @@ class TeamsPage extends React.Component {
   render() {
     const { teams, gameWeeks, gwTeams } = this.props;
     const {
-      displayGw, displayManager, showPositionTimeline, positionTimelineProps,
+      displayGw, displayManager,
+      showPositionTimeline, positionTimelineProps,
+      showPlayerTimeline, playerTimelineProps,
     } = this.state;
     const intGameWeek = parseInt(displayGw, 10) - 1;
     const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
@@ -71,6 +90,18 @@ class TeamsPage extends React.Component {
             onClose={this.closeModal}
           >
             <PositionTimeline { ...positionTimelineProps } />
+          </Modal>
+        )}
+        {showPlayerTimeline && (
+          <Modal
+            key={'player-timeline'}
+            id={'player-timeline'}
+            wide
+            title={`${playerTimelineProps.player.name} Time-line`}
+            open={showPlayerTimeline}
+            onClose={this.closeModal}
+          >
+            <PlayerTimeline { ...playerTimelineProps } />
           </Modal>
         )}
         <MultiToggle
@@ -135,7 +166,14 @@ class TeamsPage extends React.Component {
                             {teamSheetItem.teamPos}
                           </a>
                         </th>
-                        <td>{player.name}</td>
+                        <td>
+                          <a
+                            href={'#'}
+                            onClick={(e) => this.showPlayerTimeline(e, { player })}
+                            title={`Show ${teamSheetItem.teamPos} timeline`}
+                          >
+                            {player.name}
+                          </a></td>
                         <td>{player.pos}</td>
                         <td>{player.club}</td>
                         {

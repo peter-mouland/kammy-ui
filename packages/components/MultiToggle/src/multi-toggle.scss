@@ -25,7 +25,7 @@
     height: 100%;
     line-height: 1.5em;
     flex: 1 1 auto;
-    padding: 2px;
+    padding: 2px 0;
 
     input[type='radio'] {
       position: absolute;
@@ -61,7 +61,7 @@
     text-align: center;
     transition: transform .3s  cubic-bezier(.175, .885, .32, 1.275), color .3s, background-color .3s;
     border-radius: .6em;
-    padding: 0 2px;
+    padding: 0 10px;
 
     &:hover {
       background: $sdarken;
