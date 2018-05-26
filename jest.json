@@ -1,10 +1,10 @@
 {
   "coverageThreshold": {
     "global": {
-      "statements": 70,
-      "branches": 60,
-      "functions": 60,
-      "lines": 75
+      "statements": 15,
+      "branches": 20,
+      "functions": 20,
+      "lines": 15
     }
   },
   "collectCoverage": true,
@@ -20,5 +20,14 @@
   "moduleNameMapper": {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/jest/__mocks__/fileMock.js",
     "\\.(css|scss)$": "<rootDir>/tests/jest/__mocks__/styleMock.js"
-  }
+  },
+  "collectCoverageFrom": [
+    "packages/**/*.{js,jsx}",
+    "!**/*.story.{js,jsx}",
+    "!**/*.test.{js,jsx}",
+    "!**/*.spec.{js,jsx}",
+    "!**/*.min.{js,jsx}",
+    "!**/node_modules/**",
+    "!**/dist/**"
+  ]
 }
