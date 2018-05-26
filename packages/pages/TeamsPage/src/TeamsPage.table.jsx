@@ -130,10 +130,10 @@ class TeamsPage extends React.Component {
                     <th colSpan={24}>Season</th>
                   </tr>
                   <tr>
-                    <th>Team Position</th>
-                    <th>Player</th>
-                    <th>Position</th>
-                    <th>Club</th>
+                    <th className={'cell cell--team-position'}>Team Position</th>
+                    <th className={'cell cell--player'}>Player</th>
+                    <th className={'cell cell--position'}>Position</th>
+                    <th className={'cell cell--club'}>Club</th>
                     {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
                   </tr>
                 </thead>
@@ -151,7 +151,7 @@ class TeamsPage extends React.Component {
                             : null
                         }
                       >
-                        <th>
+                        <th className={'cell cell--team-position'}>
                           <a
                             href={'#'}
                             onClick={(e) => this.showTimeline(e, {
@@ -165,7 +165,7 @@ class TeamsPage extends React.Component {
                             {teamSheetItem.teamPos}
                           </a>
                         </th>
-                        <td>
+                        <td className={'cell cell--player'}>
                           <a
                             href={'#'}
                             onClick={(e) => this.showPlayerTimeline(e, { player })}
@@ -173,8 +173,8 @@ class TeamsPage extends React.Component {
                           >
                             {player.name}
                           </a></td>
-                        <td>{player.pos}</td>
-                        <td>{player.club}</td>
+                        <td className={'cell cell--position'}>{player.pos}</td>
+                        <td className={'cell cell--club'}>{player.club}</td>
                         {
                           player && (
                             pairedKeysAsCells(
