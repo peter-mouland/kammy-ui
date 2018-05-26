@@ -1,13 +1,4 @@
-export const calculateSeasonPoints = (playerGameWeeks) => (
-  playerGameWeeks.reduce((totals, gw) => (
-    Object.keys(gw.points).reduce((prev, stat) => ({
-      ...prev,
-      [stat]: gw.points[stat] + (totals[stat] || 0),
-    }), {})
-  ), {})
-);
-
-export const calculateSeasonStats = (playerGameWeeks) => (
+const calculateSeasonStats = (playerGameWeeks) => (
   playerGameWeeks.reduce((totals, gw) => (
     Object.keys(gw.gameWeekStats).reduce((prev, stat) => ({
       ...prev,
@@ -15,3 +6,5 @@ export const calculateSeasonStats = (playerGameWeeks) => (
     }), {})
   ), {})
 );
+
+export default calculateSeasonStats;

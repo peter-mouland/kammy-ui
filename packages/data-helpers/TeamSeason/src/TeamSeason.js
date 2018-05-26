@@ -1,6 +1,6 @@
 import { playerStats } from '@kammy-ui/data-player-stats';
 
-import { calculateSeasonPoints, calculateSeasonStats } from './calculateSeason';
+import calculateSeasonStats from './calculateSeason';
 
 class TeamSeason {
   constructor({
@@ -12,14 +12,6 @@ class TeamSeason {
     this.team = team;
     this.endOfSeason = new Date(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
     this.startOfSeason = new Date(gameWeeks[0].start).setHours(0, 0, 0, 0);
-  }
-
-  formatSeasonUntilGw = (playerGameWeeks, gameWeek) => {
-    const seasonStats = calculateSeasonStats(playerGameWeeks.slice(0, parseInt(gameWeek, 10)));
-    const seasonPoints = calculateSeasonPoints(playerGameWeeks.slice(0, parseInt(gameWeek, 10)));
-    return {
-      seasonStats, seasonPoints,
-    };
   }
 
   /*
@@ -110,12 +102,8 @@ class TeamSeason {
       const playerGameWeeks = gameWeeks.map((gameWeek) => (
         this.findPlayerThisGw({ transferList, gameWeek, withStats })
       ));
-      const stats = withStats ? {
-        seasonStats: calculateSeasonStats(playerGameWeeks),
-        seasonPoints: calculateSeasonPoints(playerGameWeeks),
-      } : {};
       const seasonToGameWeek = gameWeeks.map((gameWeek) => (
-        this.formatSeasonUntilGw(playerGameWeeks, gameWeek.gameWeek)
+        calculateSeasonStats(playerGameWeeks.slice(0, parseInt(gameWeek.gameWeek, 10)))
       ));
 
       return {
@@ -123,7 +111,7 @@ class TeamSeason {
         pos: players[player.name].pos,
         gameWeeks: playerGameWeeks,
         seasonToGameWeek,
-        ...stats,
+        seasonStats: withStats ? calculateSeasonStats(playerGameWeeks) : null,
       };
     });
   }

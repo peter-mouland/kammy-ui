@@ -25,7 +25,7 @@ class TeamsPage extends React.Component {
     playerTimelineProps: {},
   }
 
-  showTimeline = (e, {
+  showPositionTimeline = (e, {
     position, gameWeeks, season, total,
   }) => {
     e.preventDefault();
@@ -40,17 +40,11 @@ class TeamsPage extends React.Component {
     });
   }
 
-  showPlayerTimeline = (e, {
-    player, season, total,
-  }) => {
+  showPlayerTimeline = (e, { player }) => {
     e.preventDefault();
     this.setState({
       showPlayerTimeline: true,
-      playerTimelineProps: {
-        player,
-        season,
-        total,
-      },
+      playerTimelineProps: { player },
     });
   }
 
@@ -154,11 +148,10 @@ class TeamsPage extends React.Component {
                         <th className={'cell cell--team-position'}>
                           <a
                             href={'#'}
-                            onClick={(e) => this.showTimeline(e, {
+                            onClick={(e) => this.showPositionTimeline(e, {
                               position: player.pos,
                               gameWeeks: teamSheetItem.gameWeeks,
                               season: teamSheetItem.seasonStats,
-                              total: teamSheetItem.seasonPoints.total,
                             })}
                             title={`Show ${teamSheetItem.teamPos} timeline`}
                           >
@@ -178,14 +171,8 @@ class TeamsPage extends React.Component {
                         {
                           player && (
                             pairedKeysAsCells(
-                              {
-                                ...seasonToGameWeek.seasonStats,
-                                points: seasonToGameWeek.seasonPoints.total,
-                              },
-                              {
-                                ...player.gameWeekStats,
-                                points: player.points.total,
-                              },
+                              seasonToGameWeek,
+                              player.gameWeekStats,
                             )
                           )
                         }

@@ -7,9 +7,7 @@ import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
 
-const PositionTimelineTable = ({
-  gameWeeks, season, total,
-}) => (
+const PositionTimelineTable = ({ gameWeeks, season }) => (
   <div>
     <table>
       <tbody>
@@ -39,7 +37,7 @@ const PositionTimelineTable = ({
         }
         <tr>
           <th colSpan={5} />
-          {keysAsCells({ ...season, points: total })}
+          {keysAsCells(season)}
         </tr>
       </tbody>
     </table>
@@ -50,7 +48,6 @@ PositionTimelineTable.propTypes = {
   position: PropTypes.string.isRequired,
   season: PropTypes.object.isRequired,
   gameWeeks: PropTypes.array.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 export default PositionTimelineTable;

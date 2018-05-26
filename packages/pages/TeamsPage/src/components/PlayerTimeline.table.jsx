@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
-import { fixturesWithStats } from '@kammy-ui/data-player-stats';
 
 import { keysAsCellHeaders, keysAsCells } from '../components/tableHelpers';
 import './positionTimeline.scss';
@@ -17,7 +16,7 @@ const PlayerTimelineTable = ({ player }) => (
           {keysAsCellHeaders(player.gameWeekStats)}
         </tr>
         {
-          fixturesWithStats(player.fixtures, player.pos).map((fixture) => (
+          player.fixtures.map((fixture) => (
             <tr key={`${fixture.event}`}>
               <td className={bem('team', {
                 home: true,
@@ -32,9 +31,6 @@ const PlayerTimelineTable = ({ player }) => (
             </tr>
           ))
         }
-        <tr>
-          <th colSpan={5} />
-        </tr>
       </tbody>
     </table>
   </div>
@@ -42,8 +38,6 @@ const PlayerTimelineTable = ({ player }) => (
 
 PlayerTimelineTable.propTypes = {
   player: PropTypes.object.isRequired,
-  season: PropTypes.object.isRequired,
-  total: PropTypes.number.isRequired,
 };
 
 export default PlayerTimelineTable;
