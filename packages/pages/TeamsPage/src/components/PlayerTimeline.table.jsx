@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 import { fixturesWithStats } from '@kammy-ui/data-player-stats';
 
-import { keysAsCellHeaders, keysAsCells } from '../lib/tableHelpers';
+import { keysAsCellHeaders, keysAsCells } from '../components/tableHelpers';
 import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });

@@ -1,12 +1,26 @@
 import { connect } from 'react-redux';
 import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
+import TeamSeason from '@kammy-ui/data-team-season';
 
 import TeamsPage from './TeamsPage';
-import formatGameWeeks from './lib/formatGameWeeks';
 
 const { fetchGameWeeks, fetchTransfers, fetchTeams } = spreadsheetActions;
 const { fetchPlayers: fetchDbPlayers } = dbActions;
+
+const managerTeamSeason = ({
+  teams, gameWeeks, transfers, players, withStats,
+}) => (
+  Object.keys(teams).reduce((prev, manager) => {
+    const team = new TeamSeason({
+      team: teams[manager], transfers: transfers[manager], gameWeeks, players,
+    });
+    return ({
+      ...prev,
+      [manager]: team.getSeason({ withStats }),
+    });
+  }, {})
+);
 
 function mapStateToProps(state) {
   const props = {
@@ -33,19 +47,18 @@ function mapStateToProps(state) {
     && state.spreadsheet.teamsLoaded
   );
 
-  const gwTeams = (loaded)
-    ? formatGameWeeks({
-      teams: props.teams,
-      gameWeeks: state.spreadsheet.gameWeeks,
-      players: state.players.data,
-      transfers: state.spreadsheet.transfers,
-    })
-    : {};
+  const managersSeason = loaded ? managerTeamSeason({
+    teams: props.teams,
+    gameWeeks: state.spreadsheet.gameWeeks,
+    players: state.players.data,
+    transfers: state.spreadsheet.transfers,
+    withStats: true,
+  }) : {};
 
   return {
     ...props,
     loaded,
-    gwTeams,
+    managersSeason,
   };
 }
 

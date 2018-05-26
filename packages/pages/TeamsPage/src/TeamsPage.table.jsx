@@ -8,8 +8,7 @@ import Modal from '@kammy-ui/modal';
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
-import { keysAsCellHeaders, pairedKeysAsCells } from './lib/tableHelpers';
-import formatSeasonUntilGw from './lib/formatSeasonUntilGw';
+import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
 import './teamsPage.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
@@ -68,7 +67,7 @@ class TeamsPage extends React.Component {
   }
 
   render() {
-    const { teams, gameWeeks, gwTeams } = this.props;
+    const { teams, gameWeeks, managersSeason } = this.props;
     const {
       displayGw, displayManager,
       showPositionTimeline, positionTimelineProps,
@@ -135,14 +134,14 @@ class TeamsPage extends React.Component {
                     <th>Player</th>
                     <th>Position</th>
                     <th>Club</th>
-                    {keysAsCellHeaders(gwTeams[manager][0].seasonStats, { colSpan: 2 })}
+                    {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
                   </tr>
                 </thead>
                 <tbody>
-                  {gwTeams[manager].map((teamSheetItem) => {
+                  {managersSeason[manager].map((teamSheetItem) => {
                     const player = teamSheetItem.gameWeeks[intGameWeek];
+                    const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
                     const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
-                    const seasonToDate = formatSeasonUntilGw(teamSheetItem, intGameWeek + 1);
                     return (
                       <tr
                         key={player.name}
@@ -180,8 +179,8 @@ class TeamsPage extends React.Component {
                           player && (
                             pairedKeysAsCells(
                               {
-                                ...seasonToDate.seasonStats,
-                                points: seasonToDate.seasonPoints.total,
+                                ...seasonToGameWeek.seasonStats,
+                                points: seasonToGameWeek.seasonPoints.total,
                               },
                               {
                                 ...player.gameWeekStats,
@@ -205,13 +204,13 @@ class TeamsPage extends React.Component {
 TeamsPage.propTypes = {
   gameWeeks: PropTypes.array,
   teams: PropTypes.object,
-  gwTeams: PropTypes.object,
+  managersSeason: PropTypes.object,
 };
 
 TeamsPage.defaultProps = {
   gameWeeks: [],
   teams: {},
-  gwTeams: {},
+  managersSeason: {},
 };
 
 export default TeamsPage;

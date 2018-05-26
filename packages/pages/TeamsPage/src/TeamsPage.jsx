@@ -19,7 +19,7 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
-      loaded, gwTeams,
+      loaded, managersSeason,
       playersLoading, playersCount,
       teamsLoading, teams, teamsCount,
       gameWeeksLoading, gameWeeks, gameWeeksCount,
@@ -60,7 +60,7 @@ class TeamsPage extends React.Component {
         {
           loaded && (
             <TeamsTable
-              gwTeams={gwTeams}
+              managersSeason={managersSeason}
               teams={teams}
               gameWeeks={gameWeeks}
             />
@@ -73,7 +73,7 @@ class TeamsPage extends React.Component {
 
 TeamsPage.propTypes = {
   loaded: PropTypes.bool,
-  gwTeams: PropTypes.object,
+  managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
   teams: PropTypes.object,
 
@@ -99,7 +99,7 @@ TeamsPage.defaultProps = {
   gameWeeksLoading: false,
   transfersLoading: false,
   teamsLoading: false,
-  gwTeams: {},
+  managersSeason: {},
   Players: {},
   PlayersCount: null,
   gameWeeks: [],

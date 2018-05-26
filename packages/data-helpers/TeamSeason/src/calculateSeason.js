@@ -1,4 +1,3 @@
-
 export const calculateSeasonPoints = (playerGameWeeks) => (
   playerGameWeeks.reduce((totals, gw) => (
     Object.keys(gw.points).reduce((prev, stat) => ({
