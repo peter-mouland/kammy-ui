@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import Chance from 'chance';
 
-import { getGameWeekFixtures, totalUpStats } from './index';
+import { getGameWeekFixtures, totalUpStats, playerStats } from './index';
 import extractFFStats from './extract-ff-stats';
 
 const chance = new Chance();
@@ -371,5 +371,116 @@ describe('totalUpStats', () => {
 });
 
 describe('playerStats', () => {
-  it('', () => {});
+  let fixtures;
+  let player;
+
+  beforeEach(() => {
+    randomKey0 = chance.word();
+    randomKey1 = chance.word();
+    randomKey2 = chance.word();
+    fixtures = [
+      {
+        date: '2017-08-12 17:30:00',
+        status: 'PLAYED',
+        stats: getStats(26),
+        [randomKey0]: chance.word(),
+      },
+      {
+        date: '2017-08-21 20:00:00',
+        status: 'PLAYED',
+        stats: getStats(26),
+        [randomKey1]: chance.word(),
+      },
+      {
+        date: '2017-08-26 12:30:00',
+        status: 'PLAYED',
+        stats: getStats(26),
+        [randomKey2]: chance.word(),
+      },
+    ];
+    player = {
+      pos: 'GK',
+      fixtures,
+    };
+  });
+
+  it('return defaults when gameWeeks dont match', () => {
+    const gameWeeks = [
+      {
+        gameWeek: 1,
+        start: '2016-08-11 18:00:00',
+        end: '2016-08-18 18:00:00',
+      },
+    ];
+    const playerWithStats = playerStats({ data: player, gameWeeks });
+    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.pos).toEqual(player.pos);
+    expect(playerWithStats.fixturesWithinTeam).toEqual([]);
+    expect(playerWithStats.gameWeekStats).toEqual({
+      apps: 0, asts: 0, con: 0, cs: 0, gls: 0, pensv: 0, points: 0, rcard: 0, sb: 0, subs: 0, tb: 0, ycard: 0,
+    });
+  });
+
+  it('return a single gameWeeks match', () => {
+    player.fixtures[0].stats = [
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    ];
+    const gameWeeks = [
+      {
+        gameWeek: 1,
+        start: '2017-08-11 18:00:00',
+        end: '2017-08-18 18:00:00',
+      },
+    ];
+    const playerWithStats = playerStats({ data: player, gameWeeks });
+    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.pos).toEqual(player.pos);
+    expect(playerWithStats.fixturesWithinTeam).toEqual([
+      {
+        ...fixtures[0],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+    ]);
+    expect(playerWithStats.gameWeekStats).toEqual({
+      apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+    });
+  });
+
+  it('returns a gameWeekStats total when Sky gameweeks match a single ff gameweek', () => {
+    player.fixtures[0].stats = [
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    ];
+    player.fixtures[1].stats = [
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    ];
+    const gameWeeks = [
+      {
+        gameWeek: 1,
+        start: '2017-08-11 18:00:00',
+        end: '2017-08-23 18:00:00',
+      },
+    ];
+    const playerWithStats = playerStats({ data: player, gameWeeks });
+    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.pos).toEqual(player.pos);
+    expect(playerWithStats.fixturesWithinTeam).toEqual([
+      {
+        ...fixtures[0],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+      {
+        ...fixtures[1],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+    ]);
+    expect(playerWithStats.gameWeekStats).toEqual({
+      apps: 2, asts: 2, con: 2, cs: 2, gls: 2, pensv: 2, points: 50, rcard: 2, sb: 4, subs: 2, tb: 4, ycard: 2,
+    });
+  });
 });
