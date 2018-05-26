@@ -9,7 +9,8 @@ const totalUpStats = (stats) => stats.reduce((prev, curr) => (
   curr.stats.map((stat, index) => stat + prev[index])
 ), emptyStats);
 
-const getStatsWithinTimeFrame = (data, gameWeeks) => (
+// exported for tests
+export const getStatsWithinTimeFrame = (data, gameWeeks) => (
   jsonQuery('fixtures[*status!=PENDING][*:date]', {
     data,
     locals: {
