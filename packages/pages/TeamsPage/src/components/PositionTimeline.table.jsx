@@ -8,44 +8,45 @@ import './positionTimeline.scss';
 const bem = bemHelper({ block: 'position-timeline' });
 
 const PositionTimelineTable = ({ gameWeeks, season }) => (
-  <div>
-    <table>
-      <tbody>
-        <tr>
-          <th colSpan={5} />
-          {keysAsCellHeaders(season)}
-        </tr>
-        {
-          gameWeeks.map((gameWeek, gw) => (
-            gameWeek.fixturesWithinTeam.map((fixture, i) => (
-              <tr key={`${fixture.event}`}>
-                <th>{i === 0 && (gw + 1)}</th>
-                <td>{gameWeek.name}</td>
-                <td className={bem('team', {
-                  home: true,
-                  'my-team': gameWeek.club === fixture.hTname,
-                })}>{fixture.hTname} {fixture.hScore}</td>
-                <td>vs</td>
-                <td className={bem('team', {
-                  away: true,
-                  'my-team': gameWeek.club === fixture.aTname,
-                })}>{fixture.aScore} {fixture.aTname}</td>
-                {keysAsCells(fixture.stats)}
-              </tr>
-            ))
+  <table>
+    <tbody>
+      <tr>
+        <th colSpan={5} />
+        {keysAsCellHeaders(season)}
+      </tr>
+      {
+        gameWeeks.map((gameWeek, gw) => (
+          gameWeek.fixturesWithinTeam.map((fixture, i) => (
+            <tr key={`${fixture.event}`}>
+              <th>{i === 0 && (gw + 1)}</th>
+              <td>{gameWeek.name}</td>
+              <td className={bem('team', {
+                home: true,
+                'my-team': gameWeek.club === fixture.hTname,
+              })}>{fixture.hTname} {fixture.hScore}</td>
+              <td>vs</td>
+              <td className={bem('team', {
+                away: true,
+                'my-team': gameWeek.club === fixture.aTname,
+              })}>{fixture.aScore} {fixture.aTname}</td>
+              {keysAsCells(fixture.stats)}
+            </tr>
           ))
-        }
+        ))
+      }
+    </tbody>
+    {season && (
+      <tfoot>
         <tr>
           <th colSpan={5} />
           {keysAsCells(season)}
         </tr>
-      </tbody>
-    </table>
-  </div>
+      </tfoot>
+    )}
+  </table>
 );
 
 PositionTimelineTable.propTypes = {
-  position: PropTypes.string.isRequired,
   season: PropTypes.object.isRequired,
   gameWeeks: PropTypes.array.isRequired,
 };

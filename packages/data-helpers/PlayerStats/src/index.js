@@ -7,6 +7,18 @@ const emptyStatsArray = Array.from(Array(26), () => 0);
 const emptyStats = extractFFStats(emptyStatsArray);
 
 // exported for tests
+export const addPointsToFixtures = (fixture, pos) => {
+  const stats = extractFFStats(fixture.stats);
+  return ({
+    ...fixture,
+    stats: {
+      ...stats,
+      points: calculateTotalPoints({ stats, pos }).total,
+    },
+  });
+};
+
+// exported for tests
 export const totalUpStats = (fixtures) => (
   fixtures.reduce((totals, gw) => (
     Object.keys(totals).reduce((prev, stat) => ({
@@ -18,7 +30,7 @@ export const totalUpStats = (fixtures) => (
 
 // exported for tests
 export const getGameWeekFixtures = (data, gameWeeks) => (
-  jsonQuery('fixtures[*status!=PENDING][*:date]:fixturesWithStats', {
+  jsonQuery('fixtures[*status!=PENDING][*:date]', {
     data,
     locals: {
       date(item) {
@@ -27,14 +39,8 @@ export const getGameWeekFixtures = (data, gameWeeks) => (
           prev || (fixtureDate <= new Date(gameWeek.end) && fixtureDate >= new Date(gameWeek.start))
         ), false);
       },
-      fixturesWithStats(fixtures) {
-        return fixtures.map((fixture) => ({
-          ...fixture,
-          stats: extractFFStats(fixture.stats),
-        }));
-      },
     },
-  })
+  }).value
 );
 
 export const calculatePoints = calculateTotalPoints;
@@ -42,20 +48,15 @@ export const calculatePoints = calculateTotalPoints;
 export const playerStats = ({ data, gameWeeks }) => {
   if (!data) return {};
   const playerFixtures = getGameWeekFixtures(data, gameWeeks);
-  const fixturesWithinTeam = playerFixtures.value.map((fixture) => ({
-    ...fixture,
-    stats: {
-      ...fixture.stats,
-      points: calculateTotalPoints({ stats: fixture.stats, pos: data.pos }).total,
-    },
-  }));
+  const fixturesWithinTeam = playerFixtures.map((fixture) => addPointsToFixtures(fixture, data.pos));
   const stats = totalUpStats(fixturesWithinTeam);
   const gameWeekStats = {
     ...stats,
     points: calculateTotalPoints({ stats, pos: data.pos }).total,
   };
+  const fixtures = data.fixtures.map((fixture) => addPointsToFixtures(fixture, data.pos));
   return {
-    ...data, fixturesWithinTeam, gameWeekStats,
+    ...data, fixtures, fixturesWithinTeam, gameWeekStats,
   };
 };
 

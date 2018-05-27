@@ -7,12 +7,20 @@ import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
 
-const PlayerTimelineTable = ({ player }) => (
-  <div>
+const sum = (total, stats) => {
+  Object.keys(stats).forEach((key) => {
+    total[key] = (total[key] || 0) + stats[key]; // eslint-disable-line
+  });
+  return null;
+};
+
+const PlayerTimelineTable = ({ player }) => {
+  const totals = {};
+  return (
     <table>
       <tbody>
         <tr>
-          <th colSpan={4} />
+          <th colSpan={3} />
           {keysAsCellHeaders(player.gameWeekStats)}
         </tr>
         {
@@ -28,13 +36,20 @@ const PlayerTimelineTable = ({ player }) => (
                 'my-team': player.club === fixture.aTname,
               })}>{fixture.aScore} {fixture.aTname}</td>
               {keysAsCells(fixture.stats)}
+              {sum(totals, fixture.stats)}
             </tr>
           ))
         }
       </tbody>
+      <tfoot>
+        <tr>
+          <th colSpan={3} />
+          {keysAsCells(totals)}
+        </tr>
+      </tfoot>
     </table>
-  </div>
-);
+  );
+};
 
 PlayerTimelineTable.propTypes = {
   player: PropTypes.object.isRequired,

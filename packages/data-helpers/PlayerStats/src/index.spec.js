@@ -51,7 +51,7 @@ describe('getGameWeekFixtures', () => {
             end: '2016-08-18 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(0);
       });
 
@@ -63,10 +63,10 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-18 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(1);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
       });
@@ -85,10 +85,10 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-18 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(1);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
       });
@@ -101,14 +101,14 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-22 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(2);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
         expect(result[1].date).toEqual(data.fixtures[1].date);
-        expect(result[1].stats).toEqual(extractFFStats(data.fixtures[1].stats));
+        expect(result[1].stats).toEqual(data.fixtures[1].stats);
         expect(result[1].status).toEqual(data.fixtures[1].status);
         expect(result[1][randomKey1]).toEqual(data.fixtures[1][randomKey1]);
       });
@@ -127,14 +127,14 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-22 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(2);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
         expect(result[1].date).toEqual(data.fixtures[1].date);
-        expect(result[1].stats).toEqual(extractFFStats(data.fixtures[1].stats));
+        expect(result[1].stats).toEqual(data.fixtures[1].stats);
         expect(result[1].status).toEqual(data.fixtures[1].status);
         expect(result[1][randomKey1]).toEqual(data.fixtures[1][randomKey1]);
       });
@@ -154,7 +154,7 @@ describe('getGameWeekFixtures', () => {
             end: '2016-08-28 18:00:00',
           },
         ];
-        expect(getGameWeekFixtures(data, gameWeeks).value).toEqual([]);
+        expect(getGameWeekFixtures(data, gameWeeks)).toEqual([]);
       });
 
       it('returns a single fixture when a single data result matches', () => {
@@ -170,10 +170,10 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-18 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(1);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
       });
@@ -191,14 +191,14 @@ describe('getGameWeekFixtures', () => {
             end: '2017-08-22 18:00:00',
           },
         ];
-        const result = getGameWeekFixtures(data, gameWeeks).value;
+        const result = getGameWeekFixtures(data, gameWeeks);
         expect(result).toHaveLength(2);
         expect(result[0].date).toEqual(data.fixtures[0].date);
-        expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+        expect(result[0].stats).toEqual(data.fixtures[0].stats);
         expect(result[0].status).toEqual(data.fixtures[0].status);
         expect(result[0][randomKey0]).toEqual(data.fixtures[0][randomKey0]);
         expect(result[1].date).toEqual(data.fixtures[1].date);
-        expect(result[1].stats).toEqual(extractFFStats(data.fixtures[1].stats));
+        expect(result[1].stats).toEqual(data.fixtures[1].stats);
         expect(result[1].status).toEqual(data.fixtures[1].status);
         expect(result[1][randomKey1]).toEqual(data.fixtures[1][randomKey1]);
       });
@@ -225,10 +225,10 @@ describe('getGameWeekFixtures', () => {
           end: '2017-08-13 18:00:00',
         },
       ];
-      const result = getGameWeekFixtures(data, gameWeeks).value;
+      const result = getGameWeekFixtures(data, gameWeeks);
       expect(result).toHaveLength(1);
       expect(result[0].date).toEqual(data.fixtures[0].date);
-      expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+      expect(result[0].stats).toEqual(data.fixtures[0].stats);
       expect(result[0].status).toEqual(data.fixtures[0].status);
       expect(result[0][randomKey]).toEqual(data.fixtures[0][randomKey]);
     });
@@ -251,7 +251,7 @@ describe('getGameWeekFixtures', () => {
           end: '2017-08-13 18:00:00',
         },
       ];
-      expect(getGameWeekFixtures(data, gameWeeks).value).toEqual([]);
+      expect(getGameWeekFixtures(data, gameWeeks)).toEqual([]);
     });
 
     it('return a game which starts at the same time the gameweek ends', () => {
@@ -273,10 +273,10 @@ describe('getGameWeekFixtures', () => {
           end: '2017-08-13 18:00:00',
         },
       ];
-      const result = getGameWeekFixtures(data, gameWeeks).value;
+      const result = getGameWeekFixtures(data, gameWeeks);
       expect(result).toHaveLength(1);
       expect(result[0].date).toEqual(data.fixtures[0].date);
-      expect(result[0].stats).toEqual(extractFFStats(data.fixtures[0].stats));
+      expect(result[0].stats).toEqual(data.fixtures[0].stats);
       expect(result[0].status).toEqual(data.fixtures[0].status);
       expect(result[0][randomKey]).toEqual(data.fixtures[0][randomKey]);
     });
@@ -299,7 +299,7 @@ describe('getGameWeekFixtures', () => {
           end: '2017-08-13 18:00:00',
         },
       ];
-      expect(getGameWeekFixtures(data, gameWeeks).value).toEqual([]);
+      expect(getGameWeekFixtures(data, gameWeeks)).toEqual([]);
     });
   });
 });
@@ -413,7 +413,7 @@ describe('playerStats', () => {
       },
     ];
     const playerWithStats = playerStats({ data: player, gameWeeks });
-    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.fixtures).toHaveLength(fixtures.length);
     expect(playerWithStats.pos).toEqual(player.pos);
     expect(playerWithStats.fixturesWithinTeam).toEqual([]);
     expect(playerWithStats.gameWeekStats).toEqual({
@@ -433,7 +433,14 @@ describe('playerStats', () => {
       },
     ];
     const playerWithStats = playerStats({ data: player, gameWeeks });
-    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.fixtures).toHaveLength(fixtures.length);
+    expect(playerWithStats.fixtures[0]).toEqual({
+      ...fixtures[0],
+      stats: {
+        ...extractFFStats(fixtures[0].stats),
+        points: 25,
+      },
+    });
     expect(playerWithStats.pos).toEqual(player.pos);
     expect(playerWithStats.fixturesWithinTeam).toEqual([
       {
@@ -455,6 +462,9 @@ describe('playerStats', () => {
     player.fixtures[1].stats = [
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     ];
+    player.fixtures[2].stats = [
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    ];
     const gameWeeks = [
       {
         gameWeek: 1,
@@ -463,7 +473,27 @@ describe('playerStats', () => {
       },
     ];
     const playerWithStats = playerStats({ data: player, gameWeeks });
-    expect(playerWithStats.fixtures).toEqual(fixtures);
+    expect(playerWithStats.fixtures).toHaveLength(3);
+    expect(playerWithStats.fixtures).toEqual([
+      {
+        ...fixtures[0],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+      {
+        ...fixtures[1],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+      {
+        ...fixtures[2],
+        stats: {
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+        },
+      },
+    ]);
     expect(playerWithStats.pos).toEqual(player.pos);
     expect(playerWithStats.fixturesWithinTeam).toEqual([
       {
