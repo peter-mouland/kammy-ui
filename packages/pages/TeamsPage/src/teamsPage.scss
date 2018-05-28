@@ -5,9 +5,17 @@
 
   th.cell {
     text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: aliceblue;
+    z-index: 1;
   }
 
-  .cell {
+  tr.row.row--header .cell { /* stylelint-disable-line no-descending-specificity */
+    top: 1.2em;
+  }
+
+  .cell { /* stylelint-disable-line no-descending-specificity */
     min-width: 25px;
     text-align: right;
   }
@@ -32,6 +40,7 @@
   .cell--tb,
   .cell--sb {
     display: none;
+    text-align: center;
   }
 
   @media only screen and (min-width: 550px) {

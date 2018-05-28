@@ -100,7 +100,7 @@ class TeamsPage extends React.Component {
         <MultiToggle
           label={'Manager'}
           id={'manager'}
-          options={Object.keys(teams)}
+          options={['all'].concat(Object.keys(teams))}
           checked={displayManager}
           onChange={this.updateDisplayManager}
         />
@@ -120,10 +120,10 @@ class TeamsPage extends React.Component {
               <Fragment key={manager}>
                 <thead>
                   <tr>
-                    <th colSpan="4">{manager}</th>
-                    <th colSpan={24}>Season</th>
+                    <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
+                    <th colSpan={24} className={'cell cell--team-season'}>Season</th>
                   </tr>
-                  <tr>
+                  <tr className={'row row--header'}>
                     <th className={'cell cell--team-position'}>Team Position</th>
                     <th className={'cell cell--player'}>Player</th>
                     <th className={'cell cell--position'}>Position</th>
@@ -145,7 +145,7 @@ class TeamsPage extends React.Component {
                             : null
                         }
                       >
-                        <th className={'cell cell--team-position'}>
+                        <td className={'cell cell--team-position'}>
                           <a
                             href={'#'}
                             onClick={(e) => this.showPositionTimeline(e, {
@@ -157,7 +157,7 @@ class TeamsPage extends React.Component {
                           >
                             {teamSheetItem.teamPos}
                           </a>
-                        </th>
+                        </td>
                         <td className={'cell cell--player'}>
                           <a
                             href={'#'}

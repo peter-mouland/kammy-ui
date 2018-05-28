@@ -9,11 +9,13 @@ const bem = bemHelper({ block: 'position-timeline' });
 
 const PositionTimelineTable = ({ gameWeeks, season }) => (
   <table>
-    <tbody>
+    <thead>
       <tr>
-        <th colSpan={5} />
+        <th className={'cell'} colSpan={5} />
         {keysAsCellHeaders(season)}
       </tr>
+    </thead>
+    <tbody>
       {
         gameWeeks.map((gameWeek, gw) => (
           gameWeek.fixturesWithinTeam.map((fixture, i) => (

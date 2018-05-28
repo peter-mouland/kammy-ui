@@ -18,11 +18,13 @@ const PlayerTimelineTable = ({ player }) => {
   const totals = {};
   return (
     <table>
-      <tbody>
+      <thead>
         <tr>
-          <th colSpan={3} />
+          <th className={'cell'} colSpan={3} />
           {keysAsCellHeaders(player.gameWeekStats)}
         </tr>
+      </thead>
+      <tbody>
         {
           player.fixtures.map((fixture) => (
             <tr key={`${fixture.event}`}>
