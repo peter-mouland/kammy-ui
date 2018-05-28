@@ -1,103 +1,144 @@
-/* eslint-disable */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import '@kammy-ui/bootstrap';
-import Interstitial from '@kammy-ui/interstitial';
+import Svg from '@kammy-ui/svg';
 import bemHelper from '@kammy-ui/bem';
+import MultiToggle from '@kammy-ui/multi-toggle';
+
+import changeIcon from './change.svg';
+import './transferPage.scss';
 
 const bem = bemHelper({ block: 'transfers-page' });
 
 class TransfersPage extends React.Component {
-  componentDidMount() {
-    this.props.fetchDbPlayers();
-    this.props.fetchTeams();
-    this.props.fetchTransfers();
-    this.props.fetchGameWeeks();
+  state = {
+    displayManager: null,
+    changeType: null,
+    changePlayer: null,
   }
 
+  updateDisplayManager = (displayManager) => {
+    this.setState({ displayManager });
+  }
+
+  updateChangeType = (changeType) => {
+    this.setState({ changeType });
+  }
+  updateChangePlayer = (changePlayer) => {
+    this.setState({ changePlayer });
+  }
+
+  getStep = () => {
+    const { displayManager, changeType, changePlayer } = this.state;
+    switch (true) {
+    case !!changePlayer: return 4;
+    case !!changeType: return 3;
+    case !!displayManager: return 2;
+    default: return 1;
+    }
+  }
+
+  getInvalidTeams = () => null
+
   render() {
-    const {
-      loaded, gwTeams,
-      playersLoading, playersCount,
-      teamsLoading, teams, teamsCount,
-      gameWeeksLoading, gameWeeks, gameWeeksCount,
-      transfersLoading, transfersCount,
-    } = this.props;
+    const { teams, managersSeason } = this.props;
+    const { displayManager, changeType, changePlayer } = this.state;
+    const intGameWeek = 39;
+    const step = this.getStep();
+    const invalidTeams = this.getInvalidTeams();
+
     return (
-      <section id="transfers-page" className={bem()}>
-        <h1>Transfers</h1>
-        <div>
-          <p>
-            The purpose of this page is to enable managers to make transfers that do not violate the rules.
-          </p>
-        </div>
-        <div className="page-content">
-          <h3>Data Gathering...</h3>
-          <div>
-            <p>
-              Players :
-              {playersLoading ? <Interstitial /> : playersCount}
-            </p>
-            <p>
-              GameWeeks :
-              {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
-            </p>
-            <p>
-              Transfers :
-              {transfersLoading ? <Interstitial /> : transfersCount}
-            </p>
-            <p>
-              Teams :
-              {teamsLoading ? <Interstitial /> : teamsCount}
-            </p>
-          </div>
-        </div>
-        {
-          // loaded && (
-          // )
-        }
-      </section>
+      <div className={bem(null, null, 'page-content')}>
+        <h2>Change Team-Sheet</h2>
+        <MultiToggle
+          label={'Who are you?'}
+          id={'manager'}
+          options={Object.keys(teams)}
+          checked={displayManager}
+          onChange={this.updateDisplayManager}
+        />
+        {step > 1 && (
+          <MultiToggle
+            label={'What type of team-sheet change?'}
+            id={'change-type'}
+            options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
+            checked={changeType}
+            onChange={this.updateChangeType}
+          />
+        )}
+        {step > 2 && (
+          <Fragment>
+            <h3>Who would you like to <em>{changeType}</em> out?</h3>
+            <table>
+              <tbody>
+                {managersSeason[displayManager].map((teamSheetItem) => {
+                  const player = teamSheetItem.gameWeeks[intGameWeek];
+                  return (
+                    <tr key={player.name}>
+                      <td className={'cell cell--team-position'}>
+                        {teamSheetItem.teamPos}
+                      </td>
+                      <td className={'cell cell--player'}>
+                        {player.name}
+                      </td>
+                      <td className={'cell cell--position'}>{player.pos}</td>
+                      <td className={'cell cell--club'}>{player.club}</td>
+                      <td>
+                        <Svg
+                          className={'change-icon'}
+                          onClick={() => this.updateChangePlayer(player)}
+                        >
+                          {changeIcon}
+                        </Svg>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Fragment>
+        )}
+        {step > 3 && (
+          <Fragment>
+            <h3>Who to <em>{changeType}</em> in (to replace {changePlayer.name})</h3>
+            <p>Notes: must be a {changePlayer.pos} and cannot be from ${invalidTeams}</p>
+            <table>
+              <tbody>
+                {managersSeason[displayManager].map((teamSheetItem) => {
+                  const player = teamSheetItem.gameWeeks[intGameWeek];
+                  return (
+                    <tr key={player.name}>
+                      <td className={'cell cell--team-position'}>
+                        {teamSheetItem.teamPos}
+                      </td>
+                      <td className={'cell cell--player'}>
+                        {player.name}
+                      </td>
+                      <td className={'cell cell--position'}>{player.pos}</td>
+                      <td className={'cell cell--club'}>{player.club}</td>
+                      <td><Svg onClick={() => this.updateChangePlayer(player)}>{changeIcon}</Svg></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Fragment>
+        )}
+      </div>
     );
   }
 }
 
 TransfersPage.propTypes = {
-  loaded: PropTypes.bool,
-  gwTeams: PropTypes.object,
   gameWeeks: PropTypes.array,
   teams: PropTypes.object,
-
-  fetchDbPlayers: PropTypes.func.isRequired,
-  fetchGameWeeks: PropTypes.func.isRequired,
-  fetchTransfers: PropTypes.func.isRequired,
-  fetchTeams: PropTypes.func.isRequired,
-
-  playersLoading: PropTypes.bool,
-  gameWeeksLoading: PropTypes.bool,
-  transfersLoading: PropTypes.bool,
-  teamsLoading: PropTypes.bool,
-
-  playersCount: PropTypes.number,
-  gameWeeksCount: PropTypes.number,
-  transfersCount: PropTypes.number,
-  teamsCount: PropTypes.number,
+  managersSeason: PropTypes.object,
 };
 
 TransfersPage.defaultProps = {
-  loaded: false,
-  playersLoading: false,
-  gameWeeksLoading: false,
-  transfersLoading: false,
-  teamsLoading: false,
-  gwTeams: {},
-  Players: {},
-  PlayersCount: null,
   gameWeeks: [],
-  gameWeeksCount: null,
-  transfersCount: null,
   teams: {},
-  teamsCount: null,
+  managersSeason: {},
 };
 
 export default TransfersPage;
