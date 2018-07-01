@@ -106,24 +106,23 @@ const getSpreadsheetId = (worksheetName) => {
 };
 
 
-const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) =>
-  // for authorising a new sheet look: https://www.npmjs.com/package/google-spreadsheet
-  // probably easiest to make the sheet public
+const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
   new GoogleSpreadsheet(spreadsheetId || getSpreadsheetId(worksheetName), GoogleSpreadsheetCred)
     .getWorksheet(worksheetName)
     .toJson((item) => ({ [item.id]: item }))
     .then((data) => {
       if (formatter) {
         return formatter(data);
-      } else if (worksheetName === 'Players') {
+      } if (worksheetName === 'Players') {
         return formatPlayers(data);
-      } else if (worksheetName === 'Teams') {
+      } if (worksheetName === 'Teams') {
         return formatTeams(data);
-      } else if (worksheetName === 'Transfers') {
+      } if (worksheetName === 'Transfers') {
         return formatTransfers(data);
-      } else if (worksheetName === 'GameWeeks') {
+      } if (worksheetName === 'GameWeeks') {
         return formatGameWeeks(data);
       }
       return data;
-    });
+    })
+);
 module.exports = fetchGsheet;

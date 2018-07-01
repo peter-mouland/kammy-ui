@@ -8,10 +8,11 @@ import AppConfigProvider from '@kammy-ui/app-config-provider';
 import LogOut from './src/LogOut';
 
 class DemoAuthOutput extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     // if you care about auth status, SUBSCRIBE!
     this.context.auth.subscribe(() => this.forceUpdate());
   }
+
   render() {
     const { auth } = this.context;
     return (

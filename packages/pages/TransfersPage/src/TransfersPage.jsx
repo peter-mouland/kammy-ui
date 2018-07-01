@@ -24,6 +24,7 @@ class TransfersPage extends React.Component {
   updateChangeType = (changeType) => {
     this.setState({ changeType });
   }
+
   updateChangePlayer = (changePlayer) => {
     this.setState({ changePlayer });
   }

@@ -147,8 +147,7 @@ function addRows(worksheet, rows, cb, errCb) {
 
 Connect.prototype.addRows = function ConnectAddRows(rows) {
   const promise = onceResolved(this.worksheetsQueue)
-    .then(() => new Promise((resolve, reject) =>
-      addRows(this.worksheet, rows.slice(0), () => resolve(rows), reject)));
+    .then(() => new Promise((resolve, reject) => addRows(this.worksheet, rows.slice(0), () => resolve(rows), reject)));
   this.updateQueues('rowsQueue', promise);
   return this;
 };

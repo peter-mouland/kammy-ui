@@ -51,9 +51,9 @@ class TeamSeason {
 
     transfers
       .filter((transfer) => (
-        transfer.type !== 'Waiver Request' &&
-        players[transfer.transferIn] &&
-        players[transfer.transferOut]
+        transfer.type !== 'Waiver Request'
+        && players[transfer.transferIn]
+        && players[transfer.transferOut]
       ))
       .forEach((transfer) => {
         if (transfer.type === 'Swap' && transfer.transferIn === playerInPosition.name) {

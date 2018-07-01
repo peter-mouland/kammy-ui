@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 
-import { keysAsCellHeaders, keysAsCells } from '../components/tableHelpers';
+import { keysAsCellHeaders, keysAsCells } from './tableHelpers';
 import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });

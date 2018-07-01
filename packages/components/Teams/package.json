@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/teams-page",
+  "name": "@kammy-ui/teams",
   "version": "0.0.11",
-  "description": "Kammy UI Component: TeamsPage",
+  "description": "Kammy UI Component: Teams",
   "main": "dist/Teams.min.js",
   "src": "src/Teams.jsx",
   "engines": {

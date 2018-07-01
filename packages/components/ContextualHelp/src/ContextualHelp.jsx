@@ -36,8 +36,8 @@ class ContextualHelp extends PureComponent {
     static calculateDistance(element, x, y) {
       return Math.floor(
         Math.sqrt(
-          ((x - (element.offsetLeft + (element.clientWidth / 2))) ** 2) +
-          ((y - (element.offsetTop + (element.clientHeight / 2))) ** 2),
+          ((x - (element.offsetLeft + (element.clientWidth / 2))) ** 2)
+          + ((y - (element.offsetTop + (element.clientHeight / 2))) ** 2),
         ),
       );
     }
@@ -97,7 +97,7 @@ class ContextualHelp extends PureComponent {
         const w = this.containerRef.getBoundingClientRect().width / 2;
         if (x < 0) { // off right screen
           return (width / 2) - w;
-        } else if (x > w) { // off left screen
+        } if (x > w) { // off left screen
           return ((width / 2) * -1) + w;
         }
       }

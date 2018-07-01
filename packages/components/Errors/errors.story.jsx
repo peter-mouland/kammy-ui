@@ -7,7 +7,7 @@ import Errors from './src/Errors';
 
 const chance = new Chance();
 const errors = [{
-  message: chance.sentence()
+  message: chance.sentence(),
 }];
 
 storiesOf('Components', module)

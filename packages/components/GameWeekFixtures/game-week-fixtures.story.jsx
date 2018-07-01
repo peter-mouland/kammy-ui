@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, array, object } from '@storybook/addon-knobs';
+import { text, object } from '@storybook/addon-knobs';
 import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { reducer } from '@kammy-ui/redux-fixtures';

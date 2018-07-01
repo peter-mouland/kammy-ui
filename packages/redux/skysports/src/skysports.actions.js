@@ -32,4 +32,3 @@ export function fetchPlayersFull() {
     payload: fetchSkySports('players-full'),
   };
 }
-

@@ -32,11 +32,11 @@ class GetGraphQL extends React.Component {
  */
 storiesOf('Data Sources/GraphQL', module)
   .add('Players', () => (
-    <GetGraphQL query={text('query','getPlayersQuery')}/>
+    <GetGraphQL query={text('query', 'getPlayersQuery')}/>
   ))
   .add('Player', () => (
-    <GetGraphQL query={text('query','getPlayerQuery')} code={text('code','1001')} />
+    <GetGraphQL query={text('query', 'getPlayerQuery')} code={text('code', '1001')} />
   ))
   .add('Fixtures', () => (
-    <GetGraphQL query={text('query','getFixturesQuery')}/>
+    <GetGraphQL query={text('query', 'getFixturesQuery')}/>
   ));

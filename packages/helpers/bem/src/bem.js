@@ -12,15 +12,14 @@ function toClass(classes = '', prefix = '') {
 
 const bem = ({
   prefix = '', block, elementPrefix = '__', modifierPrefix = '--',
-}) =>
-  (element = '', modifier = '', utils = '') => {
-    const blockClass = `${prefix}${block}`;
-    const elementClass = element ? toClass(element, blockClass + elementPrefix) : '';
-    const blockModifier = modifier && !elementClass ? ` ${toClass(modifier, blockClass + modifierPrefix)}` : '';
-    const elementModifier = modifier && elementClass ? ` ${toClass(modifier, elementClass + modifierPrefix)}` : '';
-    const utilsClass = utils ? ` ${toClass(utils)}` : '';
-    const bemClasses = element ? elementClass + elementModifier : blockClass + blockModifier;
-    return (bemClasses + utilsClass).trim();
-  };
+}) => (element = '', modifier = '', utils = '') => {
+  const blockClass = `${prefix}${block}`;
+  const elementClass = element ? toClass(element, blockClass + elementPrefix) : '';
+  const blockModifier = modifier && !elementClass ? ` ${toClass(modifier, blockClass + modifierPrefix)}` : '';
+  const elementModifier = modifier && elementClass ? ` ${toClass(modifier, elementClass + modifierPrefix)}` : '';
+  const utilsClass = utils ? ` ${toClass(utils)}` : '';
+  const bemClasses = element ? elementClass + elementModifier : blockClass + blockModifier;
+  return (bemClasses + utilsClass).trim();
+};
 
 module.exports = bem;

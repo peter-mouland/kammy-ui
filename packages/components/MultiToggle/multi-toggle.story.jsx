@@ -9,8 +9,11 @@ const chance = new Chance();
 
 class DemoToggle extends React.Component {
   state = { checked: '' };
+
   options = [chance.word(), chance.word(), chance.word()];
+
   onChange = (checked) => this.setState({ checked });
+
   render() {
     return (
       <MultiToggle

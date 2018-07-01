@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const LORUM = 'Bacon ipsum dolor amet alcatra landjaeger hamburger sausage, pork chop tail shank turducken beef shankle t-bone frankfurter.'
+const LORUM = 'Bacon ipsum dolor amet alcatra landjaeger hamburger sausage, pork chop tail shank turducken beef shankle t-bone frankfurter.';
 
 const Layout = () => (
   <div className='storybook-app storybook-app--container-full font-standard ' data-b-layout='container'>
@@ -163,7 +163,7 @@ const Layout = () => (
       <div className='storybook-app__demo bolt-grids ' data-b-layout='col 3/4'>
         <div data-b-layout='row start' style={{ height: '100px', marginBottom: '5px' }}>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row start > col</div>
+            <div className={'layout-demo--content'}>row start &gt; col</div>
           </div>
           <div data-b-layout='col 1/3 '>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -171,7 +171,7 @@ const Layout = () => (
         </div>
         <div data-b-layout='row middle' style={{ height: '100px', marginBottom: '5px' }}>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row center > col</div>
+            <div className={'layout-demo--content'}>row center &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -179,7 +179,7 @@ const Layout = () => (
         </div>
         <div data-b-layout='row end' style={{ height: '100px', marginBottom: '5px' }}>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row end > col</div>
+            <div className={'layout-demo--content'}>row end &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -193,7 +193,7 @@ const Layout = () => (
       <div className='storybook-app__demo bolt-grids ' data-b-layout='col 3/4'>
         <div data-b-layout='row between'>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row between > col</div>
+            <div className={'layout-demo--content'}>row between &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -201,7 +201,7 @@ const Layout = () => (
         </div>
         <div data-b-layout='row center'>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row center > col</div>
+            <div className={'layout-demo--content'}>row center &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -209,7 +209,7 @@ const Layout = () => (
         </div>
         <div data-b-layout='row around'>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row around > col</div>
+            <div className={'layout-demo--content'}>row around &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -217,7 +217,7 @@ const Layout = () => (
         </div>
         <div data-b-layout='row stretch'>
           <div data-b-layout='col 1/3'>
-            <div className={'layout-demo--content'}>row stretch > col</div>
+            <div className={'layout-demo--content'}>row stretch &gt; col</div>
           </div>
           <div data-b-layout='col 1/3'>
             <div className={'layout-demo--content'}>{LORUM}</div>
@@ -274,17 +274,17 @@ const Layout = () => (
         </div>
         <div data-b-layout='row negative'>
           <div data-b-layout='col pad'>
-            <div className={'layout-demo--content'}>row negative > col pad</div>
+            <div className={'layout-demo--content'}>row negative &gt; col pad</div>
           </div>
           <div data-b-layout='col pad'>
-            <div className={'layout-demo--content'}>row negative > col pad</div>
+            <div className={'layout-demo--content'}>row negative &gt; col pad</div>
           </div>
           <div data-b-layout='col pad'>
-            <div className={'layout-demo--content'}>row negative > col pad</div>
+            <div className={'layout-demo--content'}>row negative &gt; col pad</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-)
-export default Layout
+);
+export default Layout;

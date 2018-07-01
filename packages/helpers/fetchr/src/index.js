@@ -50,20 +50,15 @@ const fetchUrl = (endpoint, opts = {}) => {
     });
 };
 
-const getJSON = (url, options) =>
-  fetchUrl(url, jsonOpts('GET', null, options)).then((data) => JSON.parse(data));
+const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, options)).then((data) => JSON.parse(data));
 
-const postJSON = (url, data, options) =>
-  fetchUrl(url, jsonOpts('POST', data, options));
+const postJSON = (url, data, options) => fetchUrl(url, jsonOpts('POST', data, options));
 
-const fetchGraphQL = (data, variables) =>
-  fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));
+const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));
 
-const fetchSpreadsheet = (docId, worksheet, options) =>
-  getJSON(`/google-spreadsheet/${docId}/${worksheet}`, options);
+const fetchSpreadsheet = (docId, worksheet, options) => getJSON(`/google-spreadsheet/${docId}/${worksheet}`, options);
 
-const fetchSkySports = (url, options) =>
-  getJSON(`/skysports/${url}`, options);
+const fetchSkySports = (url, options) => getJSON(`/skysports/${url}`, options);
 
 module.exports = {
   checkStatus,

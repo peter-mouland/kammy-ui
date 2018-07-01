@@ -28,9 +28,9 @@ const applyFilters = ({
   const posFiltered = !posFilter || posFilter === 'all' || (player.pos || '').includes(posFilter);
   const hiddenFiltered = !showHidden || player.isHidden === showHidden;
   const newFiltered = !showNew || player.new === showNew;
-  const clubFiltered = !clubFilter ||
-    (clubFilter === MY_TEAM && myTeam && [player.code]) ||
-    ((player.club || '').includes(clubFilter));
+  const clubFiltered = !clubFilter
+    || (clubFilter === MY_TEAM && myTeam && [player.code])
+    || ((player.club || '').includes(clubFilter));
   return nameFiltered && posFiltered && clubFiltered && hiddenFiltered && newFiltered && customFiltered;
 };
 
@@ -115,22 +115,21 @@ export default class PlayersFilters extends React.Component {
     } = this.state;
     const teamPlayers = myTeam
       ? (Object.keys(myTeam))
-        .reduce((prev, curr) => myTeam[curr] &&
-          ({ ...prev, [myTeam[curr].code]: { ...myTeam[curr], teamPos: curr } }), {})
+        .reduce((prev, curr) => myTeam[curr]
+          && ({ ...prev, [myTeam[curr].code]: { ...myTeam[curr], teamPos: curr } }), {})
       : {};
 
-    return players.filter((player) =>
-      applyFilters({
-        player,
-        nameFilter,
-        posFilter,
-        clubFilter,
-        customFilter,
-        customFilterChecked,
-        myTeam: teamPlayers,
-        showHidden,
-        showNew,
-      }))
+    return players.filter((player) => applyFilters({
+      player,
+      nameFilter,
+      posFilter,
+      clubFilter,
+      customFilter,
+      customFilterChecked,
+      myTeam: teamPlayers,
+      showHidden,
+      showNew,
+    }))
       .sort(sortColumns(['pos', 'name'], { pos: positions }));
   }
 
