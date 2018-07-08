@@ -172,6 +172,50 @@ describe('upsert()', () => {
     });
   });
 
+  it('marks players with club as skySportsClub if unknown', () => {
+    const player = {
+      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
+      dateCreated: Date.now(),
+      skySportsClub: 'a club',
+      isHidden: false,
+      new: false,
+      fixtures: [{ stats: [] }],
+      code: 1,
+    };
+    const players = [player];
+    mockingoose.Player.toReturn(players, 'aggregate');
+    return upsert(players).then(() => {
+      expect(playerSchema.prototype.save).not.toHaveBeenCalled();
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
+        ...player,
+        pos: 'GK',
+        club: player.skySportsClub,
+      });
+    });
+  });
+
+  it('marks players with club as club if known', () => {
+    const player = {
+      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
+      dateCreated: Date.now(),
+      skySportsClub: 'a club',
+      club: 'another club',
+      isHidden: false,
+      new: false,
+      fixtures: [{ stats: [] }],
+      code: 1,
+    };
+    const players = [player];
+    mockingoose.Player.toReturn(players, 'aggregate');
+    return upsert(players).then(() => {
+      expect(playerSchema.prototype.save).not.toHaveBeenCalled();
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
+        ...player,
+        pos: 'GK',
+      });
+    });
+  });
+
   it('marks players as new if there is an update when players does NOT already exist in the db', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),

@@ -14,6 +14,7 @@ const upsertPlayers = async (updatedPlayers) => {
     const maybeGK = String(player.code).startsWith('1');
     const newPlayer = {
       ...player,
+      club: player.club || player.skySportsClub,
       pos: !player.pos && maybeGK ? 'GK' : player.pos,
       new: !dbPlayer ? markAsNew : false,
     };
