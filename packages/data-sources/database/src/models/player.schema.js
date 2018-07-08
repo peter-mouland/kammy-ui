@@ -8,7 +8,7 @@ const fixtureSchema = {
   hScore: Number, // 0
   hTname: String, // Newcastle United
   status: String, // PLAYED
-  stats: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  stats: Array, // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 
 const summaryStatsSchema = {
@@ -37,7 +37,7 @@ const mongooseSchema = {
     default: false,
   },
   value: Number,
-  fixtures: [new mongoose.Schema(fixtureSchema)],
+  fixtures: { type: Array, schema: new mongoose.Schema(fixtureSchema), default: { stats: [] } },
   stats: new mongoose.Schema(summaryStatsSchema),
 };
 

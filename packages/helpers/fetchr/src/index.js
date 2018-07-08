@@ -50,11 +50,22 @@ const fetchUrl = (endpoint, opts = {}) => {
     });
 };
 
-const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, options)).then((data) => JSON.parse(data));
+const parseJson = (url, json) => {
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    console.info(url);
+    // console.log(json);
+    console.error(e);
+    return {};
+  }
+};
+
+const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, options)).then((response) => parseJson(url, response));
 
 const postJSON = (url, data, options) => fetchUrl(url, jsonOpts('POST', data, options));
 
-const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => JSON.parse(response));
+const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => parseJson(data, response));
 
 const fetchSpreadsheet = (docId, worksheet, options) => getJSON(`/google-spreadsheet/${docId}/${worksheet}`, options);
 

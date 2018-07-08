@@ -17,11 +17,29 @@ const upsertPlayers = async (updatedPlayers) => {
       pos: !player.pos && maybeGK ? 'GK' : player.pos,
       new: !dbPlayer ? markAsNew : false,
     };
-    return (!dbPlayer)
-      ? (new Player(newPlayer)).save()
-      : (Player.findByIdAndUpdate(dbPlayer._id, newPlayer)).exec();
+    try {
+      if (!dbPlayer) {
+        return new Player(newPlayer).save();
+      }
+      const playerWithNonZeroStats = {
+        ...newPlayer,
+        fixtures: newPlayer.fixtures.map((fixture, i) => {
+          const sumStats = fixture.stats.reduce((acc, value) => acc + value, 0);
+          return {
+            ...fixture,
+            stats: sumStats === 0 ? dbPlayer.fixtures[i].stats : fixture.stats,
+          };
+        }),
+      };
+      return (Player.findByIdAndUpdate(dbPlayer._id, playerWithNonZeroStats)).exec();
+    } catch (e) {
+      console.info(dbPlayer);
+      console.info(newPlayer);
+      console.error(e);
+      return {};
+    }
   });
-  return Promise.all(updatePromises).catch(console.log);
+  return Promise.all(updatePromises).catch(console.error);
 };
 
 module.exports = upsertPlayers;

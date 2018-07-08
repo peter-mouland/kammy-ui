@@ -72,24 +72,19 @@ class PlayersPage extends React.Component {
         </div>
         {loaded && (
           <div className="page-content">
-            <h3>Next Steps</h3>
-            <div>
+            <p>
               {dbPlayersCount < skySportsPlayersCount && (
-                <div>
-                  <p>
-                    New Sky Sports players ! <br/>
-                    <button onClick={this.setupPlayers} disabled={dbImporting}>
-                      Import {skySportsPlayersCount - dbPlayersCount} New Players<sup>*</sup>
-                    </button>
-                    { dbImporting && <Interstitial /> }
-                  </p>
-                  <p>
-                    <sup>*</sup>this will copy players from Sky Sports into the Database.
-                    It will also attempt to assign a position if the player is found within Google Spreadsheets.
-                  </p>
-                </div>
+                <div>{skySportsPlayersCount - dbPlayersCount} New Sky Sports players !</div>
               )}
-            </div>
+              <button onClick={this.setupPlayers} disabled={dbImporting}>
+                Import/Update Player Stats<sup>*</sup>
+              </button>
+              { dbImporting && <Interstitial /> }
+            </p>
+            <p>
+              <sup>*</sup>this will copy players from Sky Sports into the Database.
+              It will also attempt to assign a position if the player is found within Google Spreadsheets.
+            </p>
           </div>
         )}
         {dbPlayersCount > 0 && (
