@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/vendor",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Vendor Bundle",
   "main": "dist/vendor.min.js",
   "src": "src/vendor.js",

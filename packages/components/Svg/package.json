@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/svg",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Kammy UI Component: SVG",
   "main": "dist/Svg.min.js",
   "src": "src/Svg.jsx",

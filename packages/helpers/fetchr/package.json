@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/fetchr",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Kammy UI Helper: Fetchr",
   "main": "dist/index.min.js",
   "src": "src/index.js",
