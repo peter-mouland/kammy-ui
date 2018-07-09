@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/game-week-list",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Kammy UI Component: GameWeekList",
   "main": "dist/GameWeekList.min.js",
   "src": "src/GameWeekList.jsx",
@@ -16,9 +16,9 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.12",
-    "@kammy-ui/bootstrap": "^0.0.12",
-    "@kammy-ui/game-week-fixtures": "^0.0.12",
+    "@kammy-ui/bem": "^0.0.13",
+    "@kammy-ui/bootstrap": "^0.0.13",
+    "@kammy-ui/game-week-fixtures": "^0.0.13",
     "moment": "^2.22.1"
   },
   "peerDependencies": {
@@ -26,7 +26,7 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/redux-fixtures": "^0.0.12",
-    "@kammy-ui/redux-store": "^0.0.11"
+    "@kammy-ui/redux-fixtures": "^0.0.13",
+    "@kammy-ui/redux-store": "^0.0.12"
   }
 }

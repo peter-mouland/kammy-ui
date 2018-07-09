@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/node-local-storage",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Kammy UI Helper: Node Local Storage",
   "main": "dist/node-local-storage.min.js",
   "src": "src/node-local-storage.js",

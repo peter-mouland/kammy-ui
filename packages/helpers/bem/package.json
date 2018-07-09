@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/bem",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Kammy UI Helper: BEM",
   "main": "dist/bem.min.js",
   "src": "src/bem.js",
