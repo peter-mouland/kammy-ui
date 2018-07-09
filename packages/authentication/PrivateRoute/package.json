@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/private-route",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Component: PrivateRoute",
   "main": "dist/PrivateRoute.min.js",
   "src": "src/PrivateRoute.jsx",
@@ -14,9 +14,12 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
     "react-router-dom": "^4.2.2"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/classic-layout",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Component: Modal",
   "main": "dist/ClassicLayout.min.js",
   "src": "src/ClassicLayout.jsx",
@@ -14,10 +14,13 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
-    "@kammy-ui/nav-bar": "^0.0.16"
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
+    "@kammy-ui/nav-bar": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

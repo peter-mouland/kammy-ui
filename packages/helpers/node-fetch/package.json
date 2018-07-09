@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/node-fetch",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Helper: Node Fetch",
   "main": "dist/node-fetch.min.js",
   "src": "src/node-fetch.js",
@@ -12,6 +12,9 @@
   "keywords": [
     "kammy"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {

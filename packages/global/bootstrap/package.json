@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/bootstrap",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Component: Modal",
   "main": "dist/bootstrap.min.js",
   "src": "src/bootstrap.jsx",
@@ -15,6 +15,9 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"

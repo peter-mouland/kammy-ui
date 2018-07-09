@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/login",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Component: LoginPage",
   "main": "dist/Login.min.js",
   "src": "src/Login.jsx",
@@ -14,9 +14,12 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
     "react-router-dom": "^4.2.2",
     "validator": "^9.4.1"
   },
@@ -25,8 +28,8 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/app-config-provider": "^0.0.16",
-    "@kammy-ui/auth-provider": "^0.0.16",
-    "@kammy-ui/node-local-storage": "^0.0.15"
+    "@kammy-ui/app-config-provider": "^0.0.17",
+    "@kammy-ui/auth-provider": "^0.0.17",
+    "@kammy-ui/node-local-storage": "^0.0.16"
   }
 }

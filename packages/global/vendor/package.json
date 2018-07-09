@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/vendor",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Vendor Bundle",
   "main": "dist/vendor.min.js",
   "src": "src/vendor.js",
@@ -11,6 +11,9 @@
   },
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "react": "^16.3.0",
     "react-dom": "16.3.0",

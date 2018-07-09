@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/add-divisions",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Component: AddDivisions",
   "main": "dist/AddDivisions.min.js",
   "src": "src/AddDivisions.jsx",
@@ -14,10 +14,13 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
-    "@kammy-ui/multi-toggle": "^0.0.16"
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
+    "@kammy-ui/multi-toggle": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/graphql",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Kammy Data Source: Graphql",
   "main": "src/index.js",
   "engines": {
@@ -13,10 +13,13 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/database": "^0.0.16",
-    "@kammy-ui/fetch-google-sheets": "^0.0.17",
-    "@kammy-ui/fetch-sky-sports": "^0.0.17",
-    "@kammy-ui/fetchr": "^0.0.16"
+    "@kammy-ui/database": "^0.0.17",
+    "@kammy-ui/fetch-google-sheets": "^0.0.18",
+    "@kammy-ui/fetch-sky-sports": "^0.0.18",
+    "@kammy-ui/fetchr": "^0.0.17"
   }
 }

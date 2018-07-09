@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/redux-skysports",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Redux: SkySports",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -14,7 +14,10 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/fetchr": "^0.0.16"
+    "@kammy-ui/fetchr": "^0.0.17"
   }
 }

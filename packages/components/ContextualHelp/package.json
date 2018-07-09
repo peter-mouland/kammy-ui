@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/contextual-help",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Display a popover on hover",
   "main": "dist/ContextualHelp.min.js",
   "src": "src/ContextualHelp.jsx",
@@ -14,9 +14,12 @@
   ],
   "author": "Peter Mouland",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
     "prop-types": "15.6.1",
     "react": "16.3.2",
     "react-dom": "16.3.2"

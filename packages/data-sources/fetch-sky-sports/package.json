@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/fetch-sky-sports",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Kammy Data Source: Fetch Sky Skports",
   "main": "src/index.js",
   "engines": {
@@ -13,7 +13,10 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/fetchr": "^0.0.16"
+    "@kammy-ui/fetchr": "^0.0.17"
   }
 }

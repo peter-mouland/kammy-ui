@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/change-password",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Kammy UI Component: ChangePassword",
   "main": "dist/ChangePassword.min.js",
   "src": "src/ChangePassword.jsx",
@@ -14,9 +14,12 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.16",
-    "@kammy-ui/bootstrap": "^0.0.16",
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
     "react-router-dom": "^4.2.2"
   },
   "peerDependencies": {
@@ -24,6 +27,6 @@
     "react": "^16.3.0"
   },
   "devDependencies": {
-    "@kammy-ui/auth-provider": "^0.0.16"
+    "@kammy-ui/auth-provider": "^0.0.17"
   }
 }

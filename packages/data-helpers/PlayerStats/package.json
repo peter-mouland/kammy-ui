@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/data-player-stats",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Kammy UI Data: PlayerStats",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -14,6 +14,9 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "json-query": "^2.2.2"
   }

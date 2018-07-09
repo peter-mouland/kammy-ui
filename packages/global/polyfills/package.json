@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/polyfills",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Kammy UI Helper: Polyfills",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -14,6 +14,9 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "promise-polyfill": "^7.1.1",
     "whatwg-fetch": "^2.0.4"
