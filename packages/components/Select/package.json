@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/select",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Kammy UI Component: Select",
   "main": "dist/Select.min.js",
   "src": "src/Select.jsx",
@@ -15,8 +15,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.11",
-    "@kammy-ui/bootstrap": "^0.0.11"
+    "@kammy-ui/bem": "^0.0.12",
+    "@kammy-ui/bootstrap": "^0.0.12"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

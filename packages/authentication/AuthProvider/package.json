@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/auth-provider",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Kammy UI Component: AuthProvider",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -15,8 +15,8 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.11",
-    "@kammy-ui/bootstrap": "^0.0.11",
+    "@kammy-ui/bem": "^0.0.12",
+    "@kammy-ui/bootstrap": "^0.0.12",
     "jwt-decode": "^2.2.0",
     "universal-cookie": "^2.1.2",
     "validator": "^9.4.1"

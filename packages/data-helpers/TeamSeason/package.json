@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/data-team-season",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Kammy UI Data: Team Season",
   "main": "dist/index.min.js",
   "src": "src/index.js",
@@ -15,6 +15,6 @@
   "author": "Peter Mouland",
   "license": "ISC",
   "dependencies": {
-    "@kammy-ui/data-player-stats": "^0.0.12"
+    "@kammy-ui/data-player-stats": "^0.0.13"
   }
 }
