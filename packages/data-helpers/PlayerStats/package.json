@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/data-player-stats",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Kammy UI Data: PlayerStats",
   "main": "dist/index.min.js",
   "src": "src/index.js",

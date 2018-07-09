@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/node-fetch",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Kammy UI Helper: Node Fetch",
   "main": "dist/node-fetch.min.js",
   "src": "src/node-fetch.js",

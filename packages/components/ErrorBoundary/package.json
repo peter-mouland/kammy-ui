@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/error-boundary",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Kammy UI Component: ErrorBoundary",
   "main": "dist/ErrorBoundary.min.js",
   "src": "src/ErrorBoundary.jsx",

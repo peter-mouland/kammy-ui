@@ -1,6 +1,6 @@
 {
   "name": "@kammy-ui/not-found",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Kammy UI Component: Modal",
   "main": "dist/NotFound.min.js",
   "src": "src/NotFound.jsx",
