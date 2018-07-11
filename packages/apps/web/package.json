@@ -1,0 +1,39 @@
+{
+  "name": "@kemmy-ui/web",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=9.0.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
+  },
+  "main": "dist/client-entry.js",
+  "src": "src/client-entry.jsx",
+  "node": "src/server-entry.js",
+  "scripts": {
+
+  },
+  "dependencies": {
+    "@kammy-ui/polyfills": "0.0.17",
+    "@kammy-ui/redux-store": "0.0.16",
+    "@kammy-ui/rules-page": "0.0.17",
+    "koa": "2.5.1",
+    "koa-compress": "3.0.0",
+    "koa-convert": "1.2.0",
+    "koa-session": "5.8.1",
+    "koa-static": "5.0.0",
+    "koa-passport": "4.1.0",
+    "koa-qs": "2.0.0",
+    "koa-router": "7.4.0",
+    "prop-types": "15.6.2",
+    "react-document-meta": "3.0.0-beta.5",
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
+    "react-redux": "5.0.7",
+    "react-router-dom": "4.3.1",
+    "react-router-redux": "4.0.8"
+  },
+  "devDependencies": {
+
+  }
+}

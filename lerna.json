@@ -9,7 +9,8 @@
     "packages/authentication/*",
     "packages/data-helpers/*",
     "packages/data-sources/*",
-    "packages/redux/*"
+    "packages/redux/*",
+    "packages/apps/*"
   ],
   "version": "independent"
 }

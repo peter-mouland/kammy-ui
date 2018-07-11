@@ -3,10 +3,21 @@
   "version": "0.0.1",
   "description": "UI components for Kammy using lerna + storybook",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "author": "peter.mouland@gmail.com",
   "license": "ISC",
   "homepage": "https://github.com/peter-mouland/kammy-ui#readme",
+  "engines": {
+    "node": "^9.3.0",
+    "yarn": "^1.0.0",
+    "npm": "^5.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/peter-mouland/kammy-ui/issues"
+  },
   "scripts": {
     "--------- DEVELOPMENT -------------": "",
     "start": "PORT=9001 start-storybook -s ./tests/fixtures -p 9001",
@@ -14,6 +25,7 @@
     "--------- PRODUCTION -------------": "",
     "mongo": "mongod  --dbpath mongodb",
     "start:prod": "start-storybook -s ./tests/fixtures",
+    "start:webapp": "node packages/apps/web/compiled/server-entry.min.js",
     "--------- LINTING ------------------": "",
     "lint": "yarn lint:css && yarn lint:js",
     "lint:js": "eslint packages --ext=js,jsx",
@@ -22,7 +34,9 @@
     "test": "jest --config=jest.json",
     "--------- DEPLOY / PUBLISH ---------------": "",
     "publish": "yarn pre-publish && lerna publish",
-    "webpack": "cross-env NODE_ENV=production webpack --config webpack.config.js -p",
+    "webpack": "yarn webpack:web && yarn webpack:node",
+    "webpack:web": "cross-env NODE_ENV=production webpack --config webpack.config.js -p",
+    "webpack:node": "cross-env NODE_ENV=production webpack --config webpack.config.node.js -p",
     "--------- HELPERS ----------": "",
     "init": "yarn && yarn precommit",
     "precommit": "yarn lint && yarn test",
@@ -35,17 +49,6 @@
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes"
-  },
-  "engines": {
-    "node": "^9.3.0",
-    "yarn": "^1.0.0",
-    "npm": "^5.5.0"
-  },
-  "bugs": {
-    "url": "https://github.com/peter-mouland/kammy-ui/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
@@ -71,6 +74,7 @@
     "@storybook/addon-viewport": "^4.0.0-alpha.12",
     "@storybook/cli": "^4.0.0-alpha.12",
     "@storybook/react": "^4.0.0-alpha.12",
+    "assets-webpack-plugin": "^3.8.4",
     "babel-cli": "^6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "^8.2.5",

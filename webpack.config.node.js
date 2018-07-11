@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
@@ -30,37 +29,35 @@ function getPackagesJson({ packageName, category }) {
   }
 }
 
-function getWebPackage({ packageName, category }) {
+function getNodePackage({ packageName, category }) {
   const pkg = getPackagesJson({ packageName, category });
-  return pkg.src || pkg.main;
+  return pkg.node;
 }
 
-function getWebPackageInfo({ packageName, category }) {
-  const { main, src, version } = getPackagesJson({ packageName, category });
-  const file = src || main;
-  const fileName = file.replace('src', '').replace(/\.jsx?/, '');
-  const name = `${category}/${packageName}/dist${fileName}.min`;
-  const entry = { [name]: `${PACKAGES}/${category}/${packageName}/${file}` };
-  return { entry, packageName, file, category, version };
+function getNodePackageInfo({ packageName, category }) {
+  const { version, node } = getPackagesJson({ packageName, category });
+  const fileName = node.replace('src', '').replace(/\.jsx?/, '');
+  const name = `${category}/${packageName}/compiled${fileName}.min`;
+  const entry = { [name]: `${PACKAGES}/${category}/${packageName}/${node}` };
+  return { entry, packageName, node, category, version };
 }
 
-const webEntries = CATEGORIES
+const nodeEntries = CATEGORIES
   .reduce((prev, category) => prev.concat(getPackages(category)), [])
-  .filter(getWebPackage)
-  .map(getWebPackageInfo);
+  .filter(getNodePackage)
+  .map(getNodePackageInfo);
 
-module.exports = webEntries.map(({ entry, packageName, category, version }) => ({
+module.exports = nodeEntries
+  .map(({ entry, packageName, category, version }) => ({
     context: PACKAGES,
-    externals: { react: true },
-    target: 'web',
+    target: 'node',
     entry,
     output: {
       path: PACKAGES,
       filename: '[name].js',
-      libraryTarget: packageName === 'vendor' ? 'umd' : 'commonjs2',
     },
     plugins: [
-      new CleanWebpackPlugin(`packages/${category}/${packageName}/dist`),
+      new CleanWebpackPlugin(`packages/${category}/${packageName}/compiled`),
       new webpack.HashedModuleIdsPlugin(),
       new ProgressBarPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
@@ -73,7 +70,6 @@ module.exports = webEntries.map(({ entry, packageName, category, version }) => (
         banner: `PACKAGE: ${packageName} | VERSION: ${version} | BUILD_TIME: ${BUILD_TIME}`,
         entryOnly: true,
       }),
-      new AssetsPlugin({ filename: `packages/${category}/${packageName}/dist/webpack-assets.json` }),
     ],
     module: {
       rules: [
@@ -105,7 +101,7 @@ module.exports = webEntries.map(({ entry, packageName, category, version }) => (
       ],
     },
     resolve: {
-      mainFields: ['src', 'browser', 'module', 'main'],
+      mainFields: ['node', 'src', 'browser', 'module', 'main'],
       extensions: ['.js', '.jsx'],
     },
   })
