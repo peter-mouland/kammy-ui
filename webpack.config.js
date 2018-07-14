@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
@@ -49,64 +48,64 @@ const webEntries = CATEGORIES
   .filter(getWebPackage)
   .map(getWebPackageInfo);
 
-module.exports = webEntries.map(({ entry, packageName, category, version }) => ({
-    context: PACKAGES,
-    externals: { react: true },
-    target: 'web',
-    entry,
-    output: {
-      path: PACKAGES,
-      filename: '[name].js',
-      libraryTarget: packageName === 'vendor' ? 'umd' : 'commonjs2',
-    },
-    plugins: [
-      new CleanWebpackPlugin(`packages/${category}/${packageName}/dist`),
-      new webpack.HashedModuleIdsPlugin(),
-      new ProgressBarPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new ExtractTextPlugin('[name].css'),
-      // new Visualizer({ filename: 'webpack-stats.html' }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-      }),
-      new webpack.BannerPlugin({
-        banner: `PACKAGE: ${packageName} | VERSION: ${version} | BUILD_TIME: ${BUILD_TIME}`,
-        entryOnly: true,
-      }),
-      new AssetsPlugin({ filename: `packages/${category}/${packageName}/dist/webpack-assets.json` }),
+module.exports = webEntries.map(({
+  entry, packageName, category, version,
+}) => ({
+  context: PACKAGES,
+  externals: { react: true },
+  target: 'web',
+  entry,
+  output: {
+    path: PACKAGES,
+    filename: '[name].js',
+    libraryTarget: packageName === 'vendor' ? 'umd' : 'commonjs2',
+  },
+  plugins: [
+    new CleanWebpackPlugin(`packages/${category}/${packageName}/dist`),
+    new webpack.HashedModuleIdsPlugin(),
+    new ProgressBarPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin('[name].css'),
+    // new Visualizer({ filename: 'webpack-stats.html' }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    new webpack.BannerPlugin({
+      banner: `PACKAGE: ${packageName} | VERSION: ${version} | BUILD_TIME: ${BUILD_TIME}`,
+      entryOnly: true,
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [/packages/],
+      },
+      {
+        test: /\.scss$/,
+        include: [/packages/],
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
+        }),
+      },
+      {
+        test: /\.svg$/,
+        include: [/packages/],
+        loader: 'svg-inline-loader',
+        options: {
+          removeSVGTagAttrs: false,
+        },
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader?name=../../fonts/[name].[ext]',
+      },
     ],
-    module: {
-      rules: [
-        {
-          test: /\.jsx?$/,
-          loader: 'babel-loader',
-          include: [/packages/],
-        },
-        {
-          test: /\.scss$/,
-          include: [/packages/],
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
-          }),
-        },
-        {
-          test: /\.svg$/,
-          include: [/packages/],
-          loader: 'svg-inline-loader',
-          options: {
-            removeSVGTagAttrs: false,
-          },
-        },
-        {
-          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'file-loader?name=../../fonts/[name].[ext]',
-        },
-      ],
-    },
-    resolve: {
-      mainFields: ['src', 'browser', 'module', 'main'],
-      extensions: ['.js', '.jsx'],
-    },
-  })
-);
+  },
+  resolve: {
+    mainFields: ['src', 'browser', 'module', 'main'],
+    extensions: ['.js', '.jsx'],
+  },
+}));

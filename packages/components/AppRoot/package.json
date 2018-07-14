@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/vendor",
+  "name": "@kammy-ui/app-root",
   "version": "0.0.17",
-  "description": "Vendor Bundle",
-  "main": "dist/vendor.min.js",
-  "src": "src/vendor.js",
+  "description": "Universal Rendering App Root Component",
+  "main": "dist/AppRoot.min.js",
+  "src": "src/AppRoot.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

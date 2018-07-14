@@ -7,6 +7,9 @@ import qs from 'koa-qs';
 import Router from 'koa-router';
 import koaStatic from 'koa-static';
 
+import Html from '@kammy-ui/html';
+import Root from '@kammy-ui/app-root';
+
 import handleError from './middleware/handle-error';
 import logger from './middleware/logger';
 import responseTime from './middleware/response-time';
@@ -16,6 +19,7 @@ import { DIST } from '../config/paths';
 
 const server = new Koa();
 const router = new Router();
+console.log(DIST);
 const staticRoute = koaStatic(DIST);
 
 qs(server);
@@ -38,10 +42,14 @@ server.use(compress({ threshold: 2048 }));
 server.use(logger());
 server.use(headers());
 
-export default () => {
+export default ({
+  routesConfig, preDispatch, reducers, assetsConfig,
+}) => {
   router
     .use(staticRoute)
-    .get('/(.*)', react());
+    .get('/(.*)', react({
+      routesConfig, assetsConfig, preDispatch, reducers, Root, Html,
+    }));
   server.use(router.routes());
   return server;
 };

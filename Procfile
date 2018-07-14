@@ -1,1 +1,1 @@
-web: yarn start:prod -p $PORT
+web: yarn start:storybook -p $PORT

@@ -1,0 +1,24 @@
+{
+  "name": "@kammy-ui/map-webpack-assets",
+  "version": "0.0.17",
+  "description": "Kammy UI Component: map-webpack-assets",
+  "main": "dist/map-webpack-assets.min.js",
+  "src": "src/map-webpack-assets.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+  }
+}

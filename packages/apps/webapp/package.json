@@ -1,5 +1,5 @@
 {
-  "name": "@kemmy-ui/web",
+  "name": "@kammy-ui/webapp",
   "version": "0.0.0",
   "private": true,
   "engines": {
@@ -7,16 +7,21 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "main": "dist/client-entry.js",
-  "src": "src/client-entry.jsx",
-  "node": "src/server-entry.js",
   "scripts": {
-
+    "build": "rm -rf compiled && npm run build:server && npm run build:app",
+    "build:app": "NODE_ENV=production webpack --config webpack.config.prod.js -p",
+    "build:server": "NODE_ENV=production babel src -d compiled",
+    "start:dev": "DEBUG=kammy,kammy:* webpack-dev-server --config webpack.config.dev-server.js",
+    "start:prod": "NODE_ENV=production node compiled/server-entry.js"
   },
   "dependencies": {
+    "@kammy-ui/app-root": "0.0.17",
+    "@kammy-ui/html": "0.0.17",
+    "@kammy-ui/map-webpack-assets": "0.0.17",
     "@kammy-ui/polyfills": "0.0.17",
     "@kammy-ui/redux-store": "0.0.16",
     "@kammy-ui/rules-page": "0.0.17",
+    "@kammy-ui/vendor": "0.0.17",
     "koa": "2.5.1",
     "koa-compress": "3.0.0",
     "koa-convert": "1.2.0",
@@ -34,6 +39,7 @@
     "react-router-redux": "4.0.8"
   },
   "devDependencies": {
-
+    "nodemon": "^1.18.2",
+    "webpack-merge": "^4.1.3"
   }
 }

@@ -3,35 +3,35 @@ import matchPath from 'react-router-dom/matchPath';
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
-// import { actions } from '@redux/config';
 import configureStore from '@kammy-ui/redux-store';
-
-import reactAssets from '../utils/react-assets';
-import Html from '../utils/html-template';
-import Root from '../../app/Root';
-// import config from '../../config/config';
-import routesConfig from '../../app/routes.config';
-
-// todo: better way to setup app reducers
-const reducers = combineReducers({ routing });
+import reactAssets from '@kammy-ui/map-webpack-assets';
 
 function getMatch(routesArray, url) {
   return routesArray
     .find((route) => matchPath(url, { path: route.path, exact: true, strict: false }));
 }
 
-export default function reactMiddleWare() {
+export default function reactMiddleWare({
+  routesConfig, // array of roots
+  Root, // component
+  Html, // Html Component
+  assetsConfig,
+  preDispatch = () => {}, // func to execute custom store.dispatch methods
+  reducers = {},
+}) {
   return (ctx, next) => {
-    const { js, css } = reactAssets();
+    const { js, css } = reactAssets({ assetsConfig });
     const context = {};
-    const store = configureStore({}, reducers);
-    // store.dispatch(actions.setConfig(config));
-    const body = renderToString(Root({ location: ctx.request.url, context, store }));
+    const store = configureStore({}, combineReducers({ routing, ...reducers }));
+
+    preDispatch(store); // e.g. for import { actions } from '@redux/config'; store.dispatch(actions.setConfig(config));
+    const body = renderToString(Root({
+      routesConfig, location: ctx.request.url, context, store,
+    }));
     const initialState = JSON.stringify(store.getState(), null, 2);
     const appMarkup = Html({
       body, initialState, js, css,
     });
-
     const match = getMatch(routesConfig, ctx.request.url);
     ctx.status = match ? 200 : 404;
     ctx.body = `<!doctype html>${renderToString(appMarkup)}`;

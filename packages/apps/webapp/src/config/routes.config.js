@@ -1,3 +1,5 @@
+import RulesPage from '@kammy-ui/rules-page';
+
 export default [
   {
     name: 'rules',
@@ -9,5 +11,6 @@ export default [
     },
     label: 'Rules',
     requiresAuthentication: false,
+    Component: RulesPage,
   },
 ];
