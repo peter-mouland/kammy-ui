@@ -3,23 +3,16 @@ import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 
-import { reducer as spreadsheetReducer } from '@kammy-ui/redux-spreadsheet';
-import { reducer as skySportsReducer } from '@kammy-ui/redux-skysports';
-import { reducer as dbReducer } from '@kammy-ui/redux-players';
 import configureStore from '@kammy-ui/redux-store';
 
+import reducer from './src/lib/reducer';
 import PlayersPage from './src/PlayersPage.container';
 
 /**
  * REDUX SETUP
  */
 const preloadedState = { };
-const rootReducer = combineReducers({
-  skySports: skySportsReducer,
-  spreadsheet: spreadsheetReducer,
-  players: dbReducer,
-});
-const store = configureStore(preloadedState, rootReducer);
+const store = configureStore(preloadedState, combineReducers(reducer));
 
 storiesOf('Pages', module)
   .add('PlayersPage', () => (

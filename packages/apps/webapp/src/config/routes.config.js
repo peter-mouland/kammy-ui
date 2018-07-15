@@ -1,4 +1,5 @@
 import RulesPage from '@kammy-ui/rules-page';
+import PlayersPage from '@kammy-ui/players-page';
 
 export default [
   {
@@ -12,5 +13,17 @@ export default [
     label: 'Rules',
     requiresAuthentication: false,
     Component: RulesPage,
+  },
+  {
+    name: 'players',
+    exact: true,
+    path: '/players/',
+    meta: {
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Admin - Players',
+    requiresAuthentication: false,
+    Component: PlayersPage,
   },
 ];

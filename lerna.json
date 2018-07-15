@@ -10,6 +10,7 @@
     "packages/data-helpers/*",
     "packages/data-sources/*",
     "packages/redux/*",
+    "packages/server/*",
     "packages/apps/*"
   ],
   "version": "independent"

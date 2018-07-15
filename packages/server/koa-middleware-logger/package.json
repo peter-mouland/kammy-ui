@@ -1,9 +1,8 @@
 {
-  "name": "@kammy-ui/redux-store",
+  "name": "@kammy-ui/koa-middleware-response-time",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
-  "main": "dist/configure-store.min.js",
-  "src": "src/configure-store.js",
+  "main": "src/response-time.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -18,10 +17,5 @@
     "access": "public"
   },
   "dependencies": {
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0"
   }
 }

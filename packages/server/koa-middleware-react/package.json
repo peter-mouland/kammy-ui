@@ -1,9 +1,8 @@
 {
-  "name": "@kammy-ui/redux-store",
+  "name": "@kammy-ui/koa-middleware-react",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
-  "main": "dist/configure-store.min.js",
-  "src": "src/configure-store.js",
+  "main": "src/react-middleware.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -18,10 +17,9 @@
     "access": "public"
   },
   "dependencies": {
-    "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0"
+    "@kammy-ui/redux-store": "^0.0.17",
+    "@kammy-ui/map-webpack-assets": "^0.0.17",
+    "react-dom": "^16.3.0",
+    "react-router-dom": "^4.2.2"
   }
 }

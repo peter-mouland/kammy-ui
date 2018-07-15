@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+const crypto = require('crypto');
 
 export default function headers() {
   return async (ctx, next) => {

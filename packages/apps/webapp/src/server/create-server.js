@@ -9,17 +9,16 @@ import koaStatic from 'koa-static';
 
 import Html from '@kammy-ui/html';
 import Root from '@kammy-ui/app-root';
+import handleError from '@kammy-ui/koa-middleware-handler-error';
+import headers from '@kammy-ui/koa-middleware-headers';
+import responseTime from '@kammy-ui/koa-middleware-response-time';
+import logger from '@kammy-ui/koa-middleware-logger';
+import react from '@kammy-ui/koa-middleware-react';
 
-import handleError from './middleware/handle-error';
-import logger from './middleware/logger';
-import responseTime from './middleware/response-time';
-import headers from './middleware/headers';
-import react from './middleware/react-middleware';
 import { DIST } from '../config/paths';
 
 const server = new Koa();
 const router = new Router();
-console.log(DIST);
 const staticRoute = koaStatic(DIST);
 
 qs(server);

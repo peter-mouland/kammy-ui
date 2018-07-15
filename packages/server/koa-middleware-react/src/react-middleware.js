@@ -1,7 +1,5 @@
 import { renderToString } from 'react-dom/server';
 import matchPath from 'react-router-dom/matchPath';
-import { routerReducer as routing } from 'react-router-redux';
-import { combineReducers } from 'redux';
 
 import configureStore from '@kammy-ui/redux-store';
 import reactAssets from '@kammy-ui/map-webpack-assets';
@@ -15,15 +13,14 @@ export default function reactMiddleWare({
   routesConfig, // array of roots
   Root, // component
   Html, // Html Component
+  reducers,
   assetsConfig,
   preDispatch = () => {}, // func to execute custom store.dispatch methods
-  reducers = {},
 }) {
   return (ctx, next) => {
     const { js, css } = reactAssets({ assetsConfig });
     const context = {};
-    const store = configureStore({}, combineReducers({ routing, ...reducers }));
-
+    const store = configureStore({}, reducers);
     preDispatch(store); // e.g. for import { actions } from '@redux/config'; store.dispatch(actions.setConfig(config));
     const body = renderToString(Root({
       routesConfig, location: ctx.request.url, context, store,

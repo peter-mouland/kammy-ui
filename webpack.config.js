@@ -8,8 +8,8 @@ const path = require('path');
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
 
-// not 'data-sources' as this is serverside only.. not for the web!
-const CATEGORIES = ['apps', 'components', 'global', 'helpers', 'pages', 'authentication', 'redux', 'data-helpers'];
+// not '/data-sources' or '/server' as these are serverside only.. not for the web!
+const CATEGORIES = ['apps', 'components', 'global', 'helpers', 'pages', 'authentication', 'redux'];
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
