@@ -104,7 +104,7 @@ describe('fetch', () => {
     it('should return request options with data', (done) => {
       const data = chance.sentence();
       fetchGraphQL(data).then(() => {
-        expect(stubOptions.body).toEqual(data);
+        expect(JSON.parse(stubOptions.body).query).toEqual(data);
         done();
       }).catch((e) => {
         done(e);
@@ -113,9 +113,9 @@ describe('fetch', () => {
 
     it('should return graphQL request options with params', (done) => {
       const data = chance.sentence();
-      const params = chance.sentence();
-      fetchGraphQL(data, params).then(() => {
-        expect(stubOptions.params).toEqual(params);
+      const variables = chance.sentence();
+      fetchGraphQL(data, variables).then(() => {
+        expect(JSON.parse(stubOptions.body).variables).toEqual(variables);
         done();
       }).catch((e) => {
         done(e);

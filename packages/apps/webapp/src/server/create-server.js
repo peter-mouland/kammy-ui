@@ -15,11 +15,17 @@ import responseTime from '@kammy-ui/koa-middleware-response-time';
 import logger from '@kammy-ui/koa-middleware-logger';
 import react from '@kammy-ui/koa-middleware-react';
 
+
+// import authRouter from './routes/routes.auth';
+// import skySportsRouter from './routes/routes.skysports';
+import graphQlRouter from './routes/routes.graphql';
+// import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';
 import { DIST } from '../config/paths';
 
 const server = new Koa();
 const router = new Router();
 const staticRoute = koaStatic(DIST);
+const graphQlRoutes = graphQlRouter();
 
 qs(server);
 
@@ -45,6 +51,8 @@ export default ({
   routesConfig, preDispatch, reducers, assetsConfig,
 }) => {
   router
+    .use(graphQlRoutes.routes())
+    .use(graphQlRoutes.allowedMethods())
     .use(staticRoute)
     .get('/(.*)', react({
       routesConfig, assetsConfig, preDispatch, reducers, Root, Html,

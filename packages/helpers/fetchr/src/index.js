@@ -25,15 +25,14 @@ const jsonOpts = (method, data, options = {}) => ({
   data: data && JSON.stringify(data),
 });
 
-const graphQLOpts = (data, params) => ({
+const graphQLOpts = (query, variables) => ({
   method: 'POST',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/graphql',
     credentials: 'same-origin',
   },
-  body: data,
-  params,
+  body: JSON.stringify({ query, variables }),
 });
 
 const fetchUrl = (endpoint, opts = {}) => {
