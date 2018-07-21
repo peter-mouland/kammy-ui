@@ -1,12 +1,23 @@
+const bodyParser = require('body-parser');
+
 const graphQL = require('../../packages/data-sources/graphql/src/index');
-const graphQLParser = require('../middleware/graphQLParser');
+
+function graphQLParser(req, res, next) {
+  if (req.is('application/graphql')) {
+    bodyParser.text({ type: 'application/graphql' })(req, res, () => {
+      req.headers['content-type'] = 'application/json';
+      next();
+    });
+  } else {
+    bodyParser.json()(req, res, next);
+  }
+}
 
 module.exports = (router) => {
   router.use(graphQLParser);
 
   router.post('/graphql', async (request, res) => {
-      const requestString = request.body;
-      const { query, variables } = requestString;
+      const { query, variables } =  JSON.parse(request.body);
       console.log('Fetching ' + query);
 
       await graphQL({ query, variables })

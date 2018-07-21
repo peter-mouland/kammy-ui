@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import graphQL from '@kammy-ui/graphql';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
 
-module.exports = () => {
+export default () => {
   const router = Router({ prefix: '/graphql' });
 
   router.use(handleError());

@@ -2,7 +2,8 @@
   "name": "@kammy-ui/koa-middleware-headers",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
-  "main": "src/headers.js",
+  "main": "dist/headers.min.js",
+  "src": "src/headers.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

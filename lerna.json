@@ -2,16 +2,16 @@
   "lerna": "2.9.*",
   "npmClient": "yarn",
   "packages": [
-    "packages/components/*",
-    "packages/helpers/*",
-    "packages/global/*",
-    "packages/pages/*",
+    "packages/apps/*",
     "packages/authentication/*",
+    "packages/components/*",
     "packages/data-helpers/*",
     "packages/data-sources/*",
+    "packages/global/*",
+    "packages/helpers/*",
+    "packages/pages/*",
     "packages/redux/*",
-    "packages/server/*",
-    "packages/apps/*"
+    "packages/server/*"
   ],
   "version": "independent"
 }

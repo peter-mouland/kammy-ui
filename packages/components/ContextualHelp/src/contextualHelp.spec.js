@@ -1,7 +1,6 @@
 /* eslint-env jest */
 /* eslint-disable id-length */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 
 import ContextualHelp from './ContextualHelp';
@@ -34,18 +33,6 @@ describe('ContextualHelp component', () => {
     });
   });
 
-  describe('props', () => {
-    it('prop header should be type string', () => {
-      expect(ContextualHelp.propTypes.header).toBe(PropTypes.string);
-    });
-    it('prop body should be type string', () => {
-      expect(ContextualHelp.propTypes.body).toBe(PropTypes.string);
-    });
-    it('prop width should be type number', () => {
-      expect(ContextualHelp.propTypes.width).toBe(PropTypes.number);
-    });
-  });
-
   describe('caret', () => {
     it('should set the x prop of caret to as positive value when off the left side of the screen', () => {
       wrapper.setState({ x: -100 });
@@ -70,7 +57,7 @@ describe('ContextualHelp component', () => {
       component = new ContextualHelp();
       component.setState = jest.fn();
       component.close(fn);
-      expect(component.setState).toHaveBeenCalledWith({ isOpen: false, opacity: 0 }, fn);
+      expect(component.setState).toHaveBeenCalledWith({ isOpen: false, opacity: 0 });
     });
   });
 
@@ -80,7 +67,7 @@ describe('ContextualHelp component', () => {
       component = new ContextualHelp();
       component.setState = jest.fn();
       component.open(fn);
-      expect(component.setState).toHaveBeenCalledWith({ isOpen: true, opacity: 1 }, fn);
+      expect(component.setState).toHaveBeenCalledWith({ isOpen: true, opacity: 1 });
     });
   });
 
@@ -109,7 +96,8 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      expect(component.calculateBoxPosition().x).toBe(100);
+      component.calculateBoxPosition();
+      expect(component.setState).toHaveBeenCalledWith({ x: 100, y: 0 });
     });
 
     it('should set a negative x transform when box is outside the right side of viewport', () => {
@@ -129,7 +117,8 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      expect(component.calculateBoxPosition().x).toBe(-50);
+      component.calculateBoxPosition();
+      expect(component.setState).toHaveBeenCalledWith({ x: -50, y: 0 });
     });
 
     it('should set a negative y transform when box is outside viewport bottom', () => {
@@ -149,7 +138,8 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      expect(component.calculateBoxPosition().y).toBe(-150);
+      component.calculateBoxPosition();
+      expect(component.setState).toHaveBeenCalledWith({ x: 100, y: -150 });
     });
   });
 });

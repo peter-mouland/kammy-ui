@@ -2,7 +2,8 @@
   "name": "@kammy-ui/koa-middleware-response-time",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
-  "main": "src/response-time.js",
+  "main": "dist/logger.min.js",
+  "src": "src/logger.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

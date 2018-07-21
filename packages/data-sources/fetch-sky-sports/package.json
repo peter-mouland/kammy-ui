@@ -2,7 +2,8 @@
   "name": "@kammy-ui/fetch-sky-sports",
   "version": "0.0.18",
   "description": "Kammy Data Source: Fetch Sky Skports",
-  "main": "src/index.js",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

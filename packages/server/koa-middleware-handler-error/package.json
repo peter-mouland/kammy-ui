@@ -2,7 +2,8 @@
   "name": "@kammy-ui/koa-middleware-handler-error",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
-  "main": "src/handle-error.js",
+  "main": "dist/handle-error.min.js",
+  "src": "src/handle-error.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

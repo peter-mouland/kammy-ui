@@ -26,22 +26,6 @@ class ContextualHelp extends PureComponent {
       width: 360,
     };
 
-    /**
-     * Calculate distance from element
-     * @param element HTMLDivElement
-     * @param {number} x
-     * @param {number} y
-     * @return {number}
-     */
-    static calculateDistance(element, x, y) {
-      return Math.floor(
-        Math.sqrt(
-          ((x - (element.offsetLeft + (element.clientWidth / 2))) ** 2)
-          + ((y - (element.offsetTop + (element.clientHeight / 2))) ** 2),
-        ),
-      );
-    }
-
     state = {
       isOpen: false,
     };

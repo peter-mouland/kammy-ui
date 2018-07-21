@@ -1,15 +1,15 @@
+const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const fs = require('fs');
-const path = require('path');
 
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
 
-// not '/data-sources' or '/server' as these are serverside only.. not for the web!
-const CATEGORIES = ['apps', 'components', 'global', 'helpers', 'pages', 'authentication', 'redux'];
+const CATEGORIES = ['apps', 'components', 'global', 'helpers', 'pages', 'data-sources', 'authentication', 'redux', 'server'];
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
@@ -29,12 +29,12 @@ function getPackagesJson({ packageName, category }) {
   }
 }
 
-function getWebPackage({ packageName, category }) {
+function getPackage({ packageName, category }) {
   const pkg = getPackagesJson({ packageName, category });
   return pkg.src || pkg.main;
 }
 
-function getWebPackageInfo({ packageName, category }) {
+function getPackageInfo({ packageName, category }) {
   const { main, src, version } = getPackagesJson({ packageName, category });
   const file = src || main;
   const fileName = file.replace('src', '').replace(/\.jsx?/, '');
@@ -43,16 +43,16 @@ function getWebPackageInfo({ packageName, category }) {
   return { entry, packageName, file, category, version };
 }
 
-const webEntries = CATEGORIES
+const entries = CATEGORIES
   .reduce((prev, category) => prev.concat(getPackages(category)), [])
-  .filter(getWebPackage)
-  .map(getWebPackageInfo);
+  .filter(getPackage)
+  .map(getPackageInfo);
 
-module.exports = webEntries.map(({
+module.exports = entries.map(({
   entry, packageName, category, version,
 }) => ({
   context: PACKAGES,
-  externals: { react: true },
+  externals: [nodeExternals()],
   target: 'web',
   entry,
   output: {

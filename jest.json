@@ -1,4 +1,9 @@
 {
+  "testEnvironment": "enzyme",
+  "setupTestFrameworkScriptFile": "jest-enzyme",
+  "testEnvironmentOptions": {
+    "enzymeAdapter": "react16"
+  },
   "coverageThreshold": {
     "global": {
       "statements": 15,
@@ -9,7 +14,6 @@
   },
   "collectCoverage": true,
   "coverageDirectory": "<rootDir>/coverage",
-  "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-enzyme/lib/index.js",
   "setupFiles": [
     "<rootDir>/tests/jest/enzymeSetup.js",
     "<rootDir>/tests/jest/reactShim.js"
@@ -28,6 +32,7 @@
     "!**/*.spec.{js,jsx}",
     "!**/*.min.{js,jsx}",
     "!**/node_modules/**",
+    "!**/compiled/**",
     "!**/dist/**"
   ]
 }

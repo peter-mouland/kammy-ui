@@ -2,7 +2,8 @@
   "name": "@kammy-ui/database",
   "version": "0.0.17",
   "description": "Kammy UI Data: base",
-  "main": "src/index.js",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
