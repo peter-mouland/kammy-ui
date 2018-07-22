@@ -26,17 +26,21 @@ function mapStateToProps(state) {
   const props = {
     playersCount: state.players.count,
     playersLoading: state.players.loading,
+    playersLoaded: state.players.loaded,
     playersErrors: state.players.errors,
     gameWeeks: state.spreadsheet.gameWeeks,
     gameWeeksCount: state.spreadsheet.gameWeeksCount,
     gameWeeksLoading: state.spreadsheet.gameWeeksLoading,
+    gameWeeksLoaded: state.spreadsheet.gameWeeksLoaded,
     gameWeeksErrors: state.spreadsheet.gameWeeksErrors,
     transfersCount: state.spreadsheet.transfersCount,
     transfersLoading: state.spreadsheet.transfersLoading,
+    transfersLoaded: state.spreadsheet.transfersLoaded,
     transfersErrors: state.spreadsheet.transfersErrors,
     teams: state.spreadsheet.teams,
     teamsCount: state.spreadsheet.teamsCount,
     teamsLoading: state.spreadsheet.teamsLoading,
+    teamsLoaded: state.spreadsheet.teamsLoaded,
     teamsErrors: state.spreadsheet.teamsErrors,
   };
 

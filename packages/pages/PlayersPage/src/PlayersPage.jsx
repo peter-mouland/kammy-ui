@@ -13,9 +13,13 @@ const bem = bemHelper({ block: 'players-page' });
 
 class PlayersPage extends React.Component {
   componentDidMount() {
-    this.props.fetchDbPlayers();
-    this.props.fetchSkySportsPlayers();
-    this.props.fetchSpreadsheetPlayers();
+    const {
+      fetchDbPlayers, fetchSkySportsPlayers, fetchSpreadsheetPlayers,
+      dbLoaded, skySportsLoaded, spreadsheetLoaded,
+    } = this.props;
+    if (!dbLoaded) fetchDbPlayers();
+    if (!skySportsLoaded) fetchSkySportsPlayers();
+    if (!spreadsheetLoaded) fetchSpreadsheetPlayers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,17 +110,20 @@ PlayersPage.propTypes = {
 
   fetchSkySportsPlayers: PropTypes.func,
   skySportsLoading: PropTypes.bool,
+  skySportsLoaded: PropTypes.bool,
   skySportsPlayers: PropTypes.object,
   skySportsPlayersCount: PropTypes.number,
 
   fetchDbPlayers: PropTypes.func,
   dbImporting: PropTypes.bool,
   dbLoading: PropTypes.bool,
+  dbLoaded: PropTypes.bool,
   dbPlayers: PropTypes.object,
   dbPlayersCount: PropTypes.number,
 
   fetchSpreadsheetPlayers: PropTypes.func,
   spreadsheetLoading: PropTypes.bool,
+  spreadsheetLoaded: PropTypes.bool,
   spreadsheetPlayers: PropTypes.object,
   spreadsheetPlayersCount: PropTypes.number,
 };
@@ -129,12 +136,15 @@ PlayersPage.defaultProps = {
   loaded: false,
   dbImporting: false,
   dbLoading: false,
+  dbLoaded: false,
   dbPlayers: {},
   dbPlayersCount: null,
   skySportsLoading: false,
+  skySportsLoaded: false,
   skySportsPlayers: {},
   skySportsPlayersCount: null,
   spreadsheetLoading: false,
+  spreadsheetLoaded: false,
   spreadsheetPlayers: {},
   spreadsheetPlayersCount: null,
 };

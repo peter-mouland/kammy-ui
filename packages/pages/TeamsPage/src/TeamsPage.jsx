@@ -11,10 +11,14 @@ const bem = bemHelper({ block: 'teams-page' });
 
 class TeamsPage extends React.Component {
   componentDidMount() {
-    this.props.fetchDbPlayers();
-    this.props.fetchTeams();
-    this.props.fetchTransfers();
-    this.props.fetchGameWeeks();
+    const {
+      fetchDbPlayers, fetchTeams, fetchTransfers, fetchGameWeeks,
+      playersLoaded, teamsLoaded, transfersLoaded, gameWeeksLoaded,
+    } = this.props;
+    if (!playersLoaded) fetchDbPlayers();
+    if (!teamsLoaded) fetchTeams();
+    if (!transfersLoaded) fetchTransfers();
+    if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
   render() {
@@ -87,6 +91,11 @@ TeamsPage.propTypes = {
   transfersLoading: PropTypes.bool,
   teamsLoading: PropTypes.bool,
 
+  playersLoaded: PropTypes.bool,
+  gameWeeksLoaded: PropTypes.bool,
+  transfersLoaded: PropTypes.bool,
+  teamsLoaded: PropTypes.bool,
+
   playersCount: PropTypes.number,
   gameWeeksCount: PropTypes.number,
   transfersCount: PropTypes.number,
@@ -99,6 +108,10 @@ TeamsPage.defaultProps = {
   gameWeeksLoading: false,
   transfersLoading: false,
   teamsLoading: false,
+  playersLoaded: false,
+  gameWeeksLoaded: false,
+  transfersLoaded: false,
+  teamsLoaded: false,
   managersSeason: {},
   Players: {},
   PlayersCount: null,
