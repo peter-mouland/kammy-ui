@@ -1,34 +1,42 @@
 /* eslint-env jest */
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import Route from 'react-router-dom/Route';
 import { Provider } from 'react-redux';
 
-import AppRoute from './AppRoot';
+import AppRoute, { Routes } from './AppRoot';
 
 let wrapper;
 let props;
 
 describe('<AppRoute />', () => {
   beforeEach(() => {
-    const Component = () => <div />;
     props = {
       context: {},
-      routesConfig: [{ name: 'example', Component }],
       store: {
         subscribe: jest.fn(),
         getState: jest.fn(),
         dispatch: jest.fn(),
       },
     };
-    wrapper = mount(<AppRoute { ...props } />);
+    wrapper = shallow(
+      <AppRoute { ...props } />,
+    );
   });
 
   it('renders a <Provider> with store prop', () => {
     expect(wrapper.find(Provider)).toHaveProp('store', props.store);
   });
 
-  it('renders a components passed by routesConfig', () => {
-    expect(wrapper.find(Route)).toHaveLength(props.routesConfig.length);
+
+  it('renders a <Routes> component', () => {
+    expect(wrapper.find(Routes)).toHaveLength(1);
+  });
+
+  it('renders a route component for each route', () => {
+    const Component = () => <div />;
+    const appConfig = { routes: [{ name: 'example', Component }] };
+    wrapper = shallow(<Routes { ...props } />, { context: { appConfig } });
+    expect(wrapper.dive().find(Route)).toHaveLength(appConfig.routes.length);
   });
 });

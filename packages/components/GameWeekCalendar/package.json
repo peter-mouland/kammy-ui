@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@kammy-ui/redux-fixtures": "^0.0.17",
-    "@kammy-ui/redux-store": "^0.0.17"
+    "@kammy-ui/redux-store": "^0.0.17",
+    "redux": "^4.0.0",
+    "react-redux": "^5.0.7"
   }
 }

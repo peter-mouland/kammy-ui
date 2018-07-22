@@ -17,7 +17,7 @@ export const hasWindow = typeof window !== 'undefined';
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 export const Router = isBrowser ? BrowserRouter : StaticRouter;
 
-const Routes = ({ ...props }, { appConfig }) => (
+export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>
       {appConfig.routes.map(({ name, Component, ...routeProps }) => (

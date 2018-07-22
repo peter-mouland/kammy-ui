@@ -53,7 +53,7 @@ module.exports = entries.map(({
 }) => ({
   context: PACKAGES,
   externals: [nodeExternals()],
-  target: 'web',
+  target: category === 'server' ? 'node' : 'web',
   entry,
   output: {
     path: PACKAGES,
@@ -106,6 +106,6 @@ module.exports = entries.map(({
   },
   resolve: {
     mainFields: ['src', 'browser', 'module', 'main'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
 }));

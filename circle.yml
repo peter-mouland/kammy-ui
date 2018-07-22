@@ -15,8 +15,6 @@ dependencies:
     - node_modules
 test:
   override:
-    - npm run bootstrap
-    - npm run webpack
     - npm run test
   post:
     - git config --global user.name "Peter Mouland"

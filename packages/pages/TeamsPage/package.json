@@ -33,10 +33,14 @@
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/select": "^0.0.17",
-    "json-query": "^2.2.2"
+    "json-query": "^2.2.2",
+    "react-redux": "^5.0.7"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"
+  },
+  "devDependencies": {
+    "redux": "^4.0.0"
   }
 }

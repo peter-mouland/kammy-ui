@@ -31,7 +31,7 @@ module.exports = {
   resolve: {
     modules: ['node_modules', SRC],
     mainFields: ['src', 'browser', 'module', 'main'],
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.mjs', '.js', '.jsx', '.scss'],
   },
   module: {
     rules: [
