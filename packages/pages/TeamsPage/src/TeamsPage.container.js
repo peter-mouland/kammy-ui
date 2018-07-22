@@ -48,7 +48,7 @@ function mapStateToProps(state) {
   );
 
   const managersSeason = loaded ? managerTeamSeason({
-    teams: props.teams,
+    teams: props.teams || {},
     gameWeeks: state.spreadsheet.gameWeeks,
     players: state.players.data,
     transfers: state.spreadsheet.transfers,

@@ -11,8 +11,9 @@ const linkClass = bem('link');
 const NavBar = () => (
   <nav className={bem()}>
     <span className={bem('header')}>FF</span>
-    <NamedLink to="players" className={linkClass} />
     <NamedLink to="rules" className={linkClass} />
+    <NamedLink to="players" className={linkClass} />
+    <NamedLink to="teams" className={linkClass} />
   </nav>
 );
 

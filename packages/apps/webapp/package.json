@@ -30,6 +30,7 @@
     "@kammy-ui/rules-page": "0.0.17",
     "@kammy-ui/redux-store": "0.0.17",
     "@kammy-ui/players-page": "0.0.17",
+    "@kammy-ui/teams-page": "0.0.17",
     "@kammy-ui/vendor": "0.0.17",
     "koa": "2.5.1",
     "koa-bodyparser": "^4.2.0",

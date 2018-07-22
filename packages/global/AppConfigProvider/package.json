@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "@kammy-ui/rules-page": "0.0.17",
-    "@kammy-ui/players-page": "0.0.17"
+    "@kammy-ui/players-page": "0.0.17",
+    "@kammy-ui/teams-page": "0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import compress from 'koa-compress';
+// import compress from 'koa-compress';
 import session from 'koa-session';
 import convert from 'koa-convert';
 import passport from 'koa-passport';
@@ -44,7 +44,7 @@ server.use(passport.initialize());
 server.use(passport.session());
 server.use(handleError('render500'));
 server.use(responseTime());
-server.use(compress({ threshold: 2048 }));
+// server.use(compress());
 server.use(logger());
 server.use(headers());
 

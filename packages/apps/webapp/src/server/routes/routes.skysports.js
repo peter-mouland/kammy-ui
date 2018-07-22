@@ -14,6 +14,13 @@ const responder = (ctx, next) => (data) => {
 export default () => {
   const router = Router({ prefix: '/skysports' });
   router.use(handleError());
+
+  router.get('/', (ctx) => {
+    ctx.type = 'json';
+    ctx.status = 200;
+    ctx.response.body = { status: 'healthy' };
+  });
+
   router.get('/fixtures', (ctx, next) => fetchFixtures().then(responder(ctx, next)));
 
   router.get('/players', (ctx, next) => fetchPlayersSummary().then(responder(ctx, next)));
