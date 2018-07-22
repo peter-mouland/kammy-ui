@@ -31,7 +31,7 @@ const formatTeam = (item) => ({
   code: item.code,
   pos: item.position,
   name: item.player.trim(),
-  club: item.club.trim(),
+  club: item.club,
 });
 const formatTeams = (data) => {
   const jsonData = {};
@@ -95,19 +95,8 @@ const formatGameWeeks = (data) => {
   return gameWeeks;
 };
 
-const getSpreadsheetId = (worksheetName) => {
-  switch (worksheetName) {
-  case 'Players': return '1x2qD0aS6W-MeARu6QT0YthgLV91-Hmlip5_Gut2nEBI';
-  case 'Teams': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
-  case 'Transfers': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
-  case 'GameWeeks': return '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
-  default: return 'UNKNOWN';
-  }
-};
-
-
 const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
-  new GoogleSpreadsheet(spreadsheetId || getSpreadsheetId(worksheetName), GoogleSpreadsheetCred)
+  new GoogleSpreadsheet(spreadsheetId, GoogleSpreadsheetCred)
     .getWorksheet(worksheetName)
     .toJson((item) => ({ [item.id]: item }))
     .then((data) => {
@@ -115,7 +104,11 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
         return formatter(data);
       } if (worksheetName === 'Players') {
         return formatPlayers(data);
-      } if (worksheetName === 'Teams') {
+      } if (worksheetName === 'Premiership') {
+        return formatTeams(data);
+      } if (worksheetName === 'Championship') {
+        return formatTeams(data);
+      } if (worksheetName === 'LeagueOne') {
         return formatTeams(data);
       } if (worksheetName === 'Transfers') {
         return formatTransfers(data);

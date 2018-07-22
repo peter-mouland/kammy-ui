@@ -10,7 +10,6 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers, playersSummary
     ...playersSummary,
     ...skySportsPlayers,
   };
-  console.log(allPlayers);
   const mergedPlayers = Object.keys(allPlayers)
     .reduce((prev, key) => ({
       ...prev,

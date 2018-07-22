@@ -16,7 +16,6 @@ const bem = bemHelper({ block: 'teams-table' });
 class TeamsPage extends React.Component {
   state = {
     displayGw: '40',
-    displayManager: 'Nick',
     seasonStats: null,
     gameWeekStats: null,
     showPositionTimeline: false,
@@ -56,14 +55,10 @@ class TeamsPage extends React.Component {
     this.setState({ displayGw });
   }
 
-  updateDisplayManager = (displayManager) => {
-    this.setState({ displayManager });
-  }
-
   render() {
     const { teams, gameWeeks, managersSeason } = this.props;
     const {
-      displayGw, displayManager,
+      displayGw,
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
     } = this.state;
@@ -98,13 +93,6 @@ class TeamsPage extends React.Component {
           </Modal>
         )}
         <MultiToggle
-          label={'Manager'}
-          id={'manager'}
-          options={['all'].concat(Object.keys(teams))}
-          checked={displayManager}
-          onChange={this.updateDisplayManager}
-        />
-        <MultiToggle
           label={'GameWeek'}
           id={'GameWeek'}
           checked={displayGw}
@@ -115,7 +103,6 @@ class TeamsPage extends React.Component {
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
         <table>
           {Object.keys(teams)
-            .filter((manager) => (manager === displayManager || displayManager === 'all'))
             .map((manager) => (
               <Fragment key={manager}>
                 <thead>
