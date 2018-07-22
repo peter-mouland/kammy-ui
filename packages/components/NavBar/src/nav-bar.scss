@@ -1,5 +1,9 @@
 @import '~@kammy-ui/bootstrap/src/abstracts/variables';
 
+.nav {
+  background-color: $brand;
+}
+
 .nav__header {
   margin-right: 1em;
   padding: 1.3em;
@@ -30,7 +34,7 @@
   }
 
   &.link--active {
-    text-shadow: 0 0 3px $black;
+    //text-shadow: 0 0 3px $black;
     border-color: $brand;
   }
 }

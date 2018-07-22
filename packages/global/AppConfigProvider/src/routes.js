@@ -1,111 +1,31 @@
+import RulesPage from '@kammy-ui/rules-page';
+import PlayersPage from '@kammy-ui/players-page';
 
-const baseMetaData = {
-  title: 'Fantasy Football',
-  description: '',
-  meta: {
-    charSet: 'utf-8',
-    name: {
-      keywords: 'react,example',
-    },
-  },
-};
-
-const routesConfig = [
+export default [
   {
-    name: 'homepage',
+    name: 'rules',
     exact: true,
     path: '/',
     meta: {
-      ...baseMetaData,
-      title: 'Fantasy Football',
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
     },
-    label: 'Homepage',
-  },
-  {
-    name: 'admin',
-    path: '/admin/',
-    meta: {
-      ...baseMetaData,
-      title: 'Admin',
-    },
-    label: 'Admin',
-    requiresAuthentication: true,
-  },
-  {
-    name: 'teams',
-    path: '/teams/',
-    label: 'Teams',
-    meta: {
-      ...baseMetaData,
-      title: 'Teams',
-    },
-  },
-  {
-    name: 'myTeam',
-    path: '/my-team/',
-    label: 'My Team',
-    meta: {
-      ...baseMetaData,
-      title: 'My Team',
-    },
-    requiresAuthentication: true,
-  },
-  {
-    name: 'logout',
-    path: '/logout/',
-    label: 'Logout',
-    meta: {
-      ...baseMetaData,
-      title: 'Logout',
-    },
-  },
-  {
-    name: 'profile',
-    path: '/profile/',
-    label: 'Profile',
-    meta: {
-      ...baseMetaData,
-      title: 'profile',
-    },
-    requiresAuthentication: true,
-  },
-  {
-    name: 'login',
-    path: '/login/',
-    label: 'Login',
-    meta: {
-      ...baseMetaData,
-      title: 'Login',
-    },
-  },
-  {
-    name: 'rules',
-    path: '/rules/',
     label: 'Rules',
-    meta: {
-      ...baseMetaData,
-      title: 'Rules',
-    },
+    requiresAuthentication: false,
+    Component: RulesPage,
+    template: 'default',
   },
   {
-    name: 'divisions',
-    path: '/divisions/',
-    label: 'Divisions',
+    name: 'players',
+    exact: true,
+    path: '/players/',
     meta: {
-      ...baseMetaData,
-      title: 'Divisions',
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
     },
-  },
-  {
-    name: 'change-password',
-    path: '/change-password/',
-    requiresAuthentication: true,
-    label: 'Change Password',
-    meta: {
-      ...baseMetaData,
-      title: 'Change Password',
-    },
+    label: 'Admin - Players',
+    requiresAuthentication: false,
+    Component: PlayersPage,
+    template: 'default',
   },
 ];
-
-export default routesConfig;

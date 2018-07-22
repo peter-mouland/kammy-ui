@@ -3,6 +3,7 @@ import matchPath from 'react-router-dom/matchPath';
 
 import configureStore from '@kammy-ui/redux-store';
 import reactAssets from '@kammy-ui/map-webpack-assets';
+import { appConfig } from '@kammy-ui/app-config-provider';
 
 function getMatch(routesArray, url) {
   return routesArray
@@ -10,7 +11,6 @@ function getMatch(routesArray, url) {
 }
 
 export default function reactMiddleWare({
-  routesConfig, // array of roots
   Root, // component
   Html, // Html Component
   reducers,
@@ -23,13 +23,13 @@ export default function reactMiddleWare({
     const store = configureStore({}, reducers);
     preDispatch(store); // e.g. for import { actions } from '@redux/config'; store.dispatch(actions.setConfig(config));
     const body = renderToString(Root({
-      routesConfig, location: ctx.request.url, context, store,
+      location: ctx.request.url, context, store,
     }));
     const initialState = JSON.stringify(store.getState(), null, 2);
     const appMarkup = Html({
       body, initialState, js, css,
     });
-    const match = getMatch(routesConfig, ctx.request.url);
+    const match = getMatch(appConfig.routes, ctx.request.url);
     ctx.status = match ? 200 : 404;
     ctx.body = `<!doctype html>${renderToString(appMarkup)}`;
 

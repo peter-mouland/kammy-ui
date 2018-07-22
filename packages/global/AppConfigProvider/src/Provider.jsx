@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import routes from './routes';
 
+const appConfig = {
+  routes,
+};
+
 class ConfigProvider extends React.Component {
   constructor(props, state) {
     super(props, state);
-    this.appConfig = {
-      routes,
-    };
+    this.appConfig = appConfig;
   }
 
   getChildContext() {
@@ -29,6 +31,10 @@ ConfigProvider.propTypes = {
 
 ConfigProvider.childContextTypes = {
   appConfig: PropTypes.object,
+};
+
+export {
+  appConfig,
 };
 
 export default ConfigProvider;

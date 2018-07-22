@@ -37,7 +37,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [/src/, /@kammy-ui\/(.*)/],
+        include: [/src/, /kammy/],
         loader: 'babel-loader',
         options: {
           cacheDirectory: true,
@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        include: [/src/, /@kammy-ui\/(.*)/],
+        include: [/src/, /kammy/],
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        include: [/src/, /@kammy-ui\/(.*)/],
+        include: [/src/, /kammy/],
         loader: 'svg-inline-loader',
         options: {
           removeSVGTagAttrs: false,

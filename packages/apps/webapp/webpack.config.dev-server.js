@@ -12,7 +12,7 @@ module.exports = merge(baseConfig, {
   devtool: 'inline-source-map',
   entry: {
     app: [
-      // 'react-hot-loader/patch',
+      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000',
       'webpack/hot/only-dev-server',
       `${SRC}/client-entry.jsx`,

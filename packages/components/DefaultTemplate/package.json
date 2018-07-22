@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/app-config-provider",
+  "name": "@kammy-ui/default-template",
   "version": "0.0.17",
-  "description": "Kammy UI Helper: App Config Provider",
-  "main": "dist/Provider.min.js",
-  "src": "src/Provider.jsx",
+  "description": "Kammy UI Component: Default Template",
+  "main": "dist/DefaultTemplate.min.js",
+  "src": "src/DefaultTemplate.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -14,12 +14,10 @@
   ],
   "author": "Peter Mouland",
   "license": "ISC",
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
-    "@kammy-ui/rules-page": "0.0.17",
-    "@kammy-ui/players-page": "0.0.17"
+    "@kammy-ui/bem": "0.0.17",
+    "@kammy-ui/bootstrap": "0.0.17",
+    "@kammy-ui/nav-bar": "0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
