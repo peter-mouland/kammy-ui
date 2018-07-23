@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 
-const graphQL = require('../../packages/data-sources/graphql/src/index');
+const graphQL = require('../../packages/server/graphql/src/index');
 
 function graphQLParser(req, res, next) {
   if (req.is('application/graphql')) {

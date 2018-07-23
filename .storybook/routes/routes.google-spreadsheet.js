@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 
-const fetchGoogleSpreadsheet = require("../../packages/data-sources/fetch-google-sheets/src/index");
+const fetchGoogleSpreadsheet = require("../../packages/server/fetch-google-sheets/src/index");
 
 const jsonParser = bodyParser.json();
 

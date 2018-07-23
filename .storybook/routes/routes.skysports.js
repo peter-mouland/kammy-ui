@@ -1,6 +1,6 @@
 const {
   fetchFixtures, fetchPlayer, fetchPlayersFull, fetchPlayersSummary
-} = require('../../packages/data-sources/fetch-sky-sports/src/index');
+} = require('../../packages/server/fetch-sky-sports/src/index');
 
 module.exports = (router) => {
   router.get('/skysports/fixtures', (req, res) => {
