@@ -1,9 +1,12 @@
 /* eslint-env jest */
 import mockingoose from 'mockingoose';
 import mongoose from 'mongoose';
+import Chance from 'chance';
 
 const playerSchema = require('./player.schema');
 const upsert = require('./player.upsert');
+
+const chance = new Chance();
 
 describe('upsert()', () => {
   let saveSpy;
@@ -20,10 +23,24 @@ describe('upsert()', () => {
     findSpy.mockReset();
   });
 
-  it('returns a player object', () => {
+  it('returns filters outs players without a skySportsClub', () => {
     const player = {
       _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
       code: 1,
+    };
+    const players = [player];
+    mockingoose.Player.toReturn(player, 'save');
+    mockingoose.Player.toReturn([], 'aggregate');
+    return upsert(players).then((response) => {
+      expect(response).toHaveLength(0);
+    });
+  });
+
+  it.skip('returns a player object', () => {
+    const player = {
+      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
+      code: 1,
+      skySportsClub: chance.word(),
     };
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
@@ -35,6 +52,7 @@ describe('upsert()', () => {
       expect(response[0]).toHaveProperty('fixtures');
       expect(response[0]).toHaveProperty('isHidden', false);
       expect(response[0]).toHaveProperty('new', false);
+      expect(response[0]).toHaveProperty('skySportsClub', player.skySportsClub);
     });
   });
 
@@ -42,6 +60,7 @@ describe('upsert()', () => {
     const player = {
       _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
       code: 1,
+      skySportsClub: chance.word(),
     };
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
@@ -55,6 +74,7 @@ describe('upsert()', () => {
   it('updates players that DO already exist', () => {
     const player = {
       _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -67,7 +87,7 @@ describe('upsert()', () => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
         ...player,
-        pos: undefined,
+        club: player.skySportsClub,
       });
     });
   });
@@ -75,6 +95,7 @@ describe('upsert()', () => {
   it('DOES update fixture stats of players that exist, where the update would NOT be zero', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -83,6 +104,7 @@ describe('upsert()', () => {
     };
     const player2 = {
       _id: mongoose.Types.ObjectId('227f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -103,11 +125,11 @@ describe('upsert()', () => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, {
         ...player1,
-        pos: undefined,
+        club: player1.skySportsClub,
       });
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, {
         ...player2,
-        pos: undefined,
+        club: player2.skySportsClub,
       });
     });
   });
@@ -115,6 +137,7 @@ describe('upsert()', () => {
   it('does NOT update fixture stats of players that exist, where the update WOULD be zero', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -123,6 +146,7 @@ describe('upsert()', () => {
     };
     const player2 = {
       _id: mongoose.Types.ObjectId('227f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -131,30 +155,27 @@ describe('upsert()', () => {
     };
     const dbPlayer1 = {
       ...player1,
+      club: player1.skySportsClub,
       fixtures: [{ stats: [1, 2, 3, 4] }],
     };
     const dbPlayer2 = {
       ...player2,
+      club: player2.skySportsClub,
       fixtures: [{ stats: [5, 5, 5, 5] }],
     };
     const players = [player1, player2];
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
     return upsert(players).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, {
-        ...dbPlayer1,
-        pos: undefined,
-      });
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, {
-        ...dbPlayer2,
-        pos: undefined,
-      });
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, dbPlayer1);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, dbPlayer2);
     });
   });
 
-  it('marks players with code starting with 1 as GK', () => {
+  it('marks players with club as skySportsClub', () => {
     const player = {
       _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -167,51 +188,7 @@ describe('upsert()', () => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
         ...player,
-        pos: 'GK',
-      });
-    });
-  });
-
-  it('marks players with club as skySportsClub if unknown', () => {
-    const player = {
-      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
-      dateCreated: Date.now(),
-      skySportsClub: 'a club',
-      isHidden: false,
-      new: false,
-      fixtures: [{ stats: [] }],
-      code: 1,
-    };
-    const players = [player];
-    mockingoose.Player.toReturn(players, 'aggregate');
-    return upsert(players).then(() => {
-      expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
-        ...player,
-        pos: 'GK',
         club: player.skySportsClub,
-      });
-    });
-  });
-
-  it('marks players with club as club if known', () => {
-    const player = {
-      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
-      dateCreated: Date.now(),
-      skySportsClub: 'a club',
-      club: 'another club',
-      isHidden: false,
-      new: false,
-      fixtures: [{ stats: [] }],
-      code: 1,
-    };
-    const players = [player];
-    mockingoose.Player.toReturn(players, 'aggregate');
-    return upsert(players).then(() => {
-      expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
-        ...player,
-        pos: 'GK',
       });
     });
   });
@@ -219,6 +196,7 @@ describe('upsert()', () => {
   it('marks players as new if there is an update when players does NOT already exist in the db', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -227,6 +205,7 @@ describe('upsert()', () => {
     };
     const player2 = {
       _id: mongoose.Types.ObjectId('227f191e810c19729de860ea'),
+      skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
@@ -249,9 +228,5 @@ describe('upsert()', () => {
       expect(playerSchema.prototype.save).toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).not.toHaveBeenCalled();
     });
-  });
-
-  it.skip('unmarks new players if there is an update when players DOES already exist in the db', () => {
-
   });
 });

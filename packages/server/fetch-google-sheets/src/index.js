@@ -10,7 +10,7 @@ const formatPlayer = (item) => ({
   [item.player.trim()]: {
     new: item.new,
     code: parseInt(item.code, 10),
-    pos: item.position.toUpperCase(),
+    pos: item.pos.toUpperCase(),
     name: item.player.trim(),
     club: toTitleCase(item.club),
     isHidden: false,

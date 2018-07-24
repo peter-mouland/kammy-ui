@@ -86,7 +86,7 @@ const schemaString = `
   
   type Mutation {
     upsertPlayers(playerUpdates: [PlayerUpdates]): [UpdatedPlayer]
-    initPlayers: [UpdatedPlayer]
+    mergePlayers: [UpdatedPlayer]
   }
 `;
 

@@ -29,7 +29,7 @@ class PlayersPage extends React.Component {
   }
 
   setupPlayers = () => {
-    this.props.initPlayers();
+    this.props.mergePlayers();
   };
 
   render() {
@@ -104,7 +104,7 @@ class PlayersPage extends React.Component {
 }
 
 PlayersPage.propTypes = {
-  initPlayers: PropTypes.func.isRequired,
+  mergePlayers: PropTypes.func.isRequired,
   mergedPlayers: PropTypes.object,
   loaded: PropTypes.bool,
 

@@ -13,22 +13,19 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers, playersSummary
   const mergedPlayers = Object.keys(allPlayers)
     .reduce((prev, key) => ({
       ...prev,
-      [key]: {
-        pos: '', // pos is required but doesn't exist on skysports players
-        ...spreadsheetPlayers && spreadsheetPlayers[key],
+      [key.trim()]: {
+        pos: '', // position is required but doesn't exist on skysports players
         ...playersSummary && playersSummary[key],
         ...skySportsPlayers && skySportsPlayers[key],
-        isHidden: (
-          spreadsheetPlayers[key] && (!spreadsheetPlayers[key].club || spreadsheetPlayers[key].isHidden)
-        ) || !spreadsheetPlayers[key],
+        ...spreadsheetPlayers && spreadsheetPlayers[key],
       },
     }), {});
   return mergedPlayers;
 };
 
-const initPlayers = () => (
+const mergePlayers = () => (
   Promise.all([
-    fetchGsheet({ worksheetName: 'Players' }),
+    fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),
     fetchPlayersFull(),
     fetchPlayersSummary(),
   ])
@@ -44,4 +41,4 @@ const initPlayers = () => (
     ))
 );
 
-module.exports = initPlayers;
+module.exports = mergePlayers;

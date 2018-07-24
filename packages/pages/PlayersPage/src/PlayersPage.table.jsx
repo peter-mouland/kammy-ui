@@ -13,9 +13,7 @@ const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 class PlayersPageTable extends React.Component {
   render() {
     const { players } = this.props;
-    const mismatchFilter = (player) => (
-      (player.skySportsClub !== player.club || !player.pos)
-    );
+    const mismatchFilter = (player) => (!player.pos);
 
     return (
       <section id="players-page" className={bem()}>
@@ -29,19 +27,13 @@ class PlayersPageTable extends React.Component {
           >
             {(playersFiltered) => (
               <PlayersTable
-                editable
                 positions={positions}
                 players={playersFiltered}
-                additionalColumns={['skySportsPosition', 'skySportsClub', 'isHidden']}
+                additionalColumns={['skySportsPosition']}
                 visibleColumns={[]}
               />
             )}
           </PlayersFilters>
-
-          <h4>Todo:hookup button</h4>
-          <p>
-            <button className={'warning'}>Update the DataBase</button>
-          </p>
         </div>
       </section>
     );

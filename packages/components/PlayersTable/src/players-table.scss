@@ -39,6 +39,7 @@
   }
 
   &__meta {
+    &--isHidden,
     &--stat,
     &--new {
       text-align: center;
@@ -76,15 +77,6 @@
 
     &[type='submit'] {
       height: auto;
-    }
-  }
-
-  &__editable {
-    padding: 5px calc(1px + 1em);
-    font-family: sans-serif;
-
-    &--select {
-      padding-left: 9px;
     }
   }
 

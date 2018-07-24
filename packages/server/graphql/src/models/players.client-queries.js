@@ -40,9 +40,9 @@ const upsertPlayersMutation = `
   }
 `;
 
-const initPlayersMutation = `
+const mergePlayersMutation = `
   mutation { 
-    initPlayers{
+    mergePlayers{
       _id code pos name club isHidden new skySportsClub skySportsPosition
        fixtures { 
          aScore aTname date event hScore hTname status stats
@@ -58,5 +58,5 @@ module.exports = {
   getPlayersQuery,
   getPlayerQuery,
   upsertPlayersMutation,
-  initPlayersMutation,
+  mergePlayersMutation,
 };

@@ -7,7 +7,7 @@ import PlayersPage from './PlayersPage';
 
 const { fetchPlayers: fetchSpreadsheetPlayers } = spreadsheetActions;
 const { fetchPlayers: fetchSkySportsPlayers } = skySportActions;
-const { fetchPlayers: fetchDbPlayers, initPlayers } = dbPlayerActions;
+const { fetchPlayers: fetchDbPlayers, mergePlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
   const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
@@ -35,6 +35,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    fetchSpreadsheetPlayers, fetchSkySportsPlayers, fetchDbPlayers, initPlayers,
+    fetchSpreadsheetPlayers, fetchSkySportsPlayers, fetchDbPlayers, mergePlayers,
   },
 )(PlayersPage);

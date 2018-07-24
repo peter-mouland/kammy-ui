@@ -25,6 +25,7 @@
     "start:webapp:dev": "lerna exec --scope @kammy-ui/webapp -- yarn start:dev",
     "--------- PRODUCTION -------------": "",
     "mongo": "mongod  --dbpath mongodb",
+    "mongo:kill": "mongod --shutdown",
     "start:storybook": "start-storybook -s ./tests/fixtures",
     "start:webapp:prod": "lerna exec --scope @kammy-ui/webapp -- yarn start:prod",
     "--------- LINTING ------------------": "",
@@ -109,9 +110,9 @@
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-config-standard": "^18.2.0",
     "svg-inline-loader": "^0.8.0",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "3.1.4",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
     "webpack-node-externals": "^1.7.2",
     "webpack-visualizer-plugin": "^0.1.11"
   }

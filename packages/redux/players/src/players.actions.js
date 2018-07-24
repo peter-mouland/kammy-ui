@@ -19,10 +19,10 @@ export function fetchPlayerFixtures({ code }) {
   };
 }
 
-export function initPlayers() {
+export function mergePlayers() {
   return {
     type: INIT_PLAYERS,
-    payload: fetchGraphQL('initPlayersMutation'),
+    payload: fetchGraphQL('mergePlayersMutation'),
   };
 }
 
