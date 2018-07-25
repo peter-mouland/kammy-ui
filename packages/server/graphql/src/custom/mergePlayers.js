@@ -11,15 +11,18 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers, playersSummary
     ...skySportsPlayers,
   };
   const mergedPlayers = Object.keys(allPlayers)
-    .reduce((prev, key) => ({
-      ...prev,
-      [key.trim()]: {
-        pos: '', // position is required but doesn't exist on skysports players
-        ...playersSummary && playersSummary[key],
-        ...skySportsPlayers && skySportsPlayers[key],
-        ...spreadsheetPlayers && spreadsheetPlayers[key],
-      },
-    }), {});
+    .reduce((prev, key) => {
+      const mergedPlayer = ({
+        ...prev,
+        [key.trim()]: {
+          pos: '', // position is required but doesn't exist on skysports players
+          ...playersSummary && playersSummary[key],
+          ...skySportsPlayers && skySportsPlayers[key],
+          ...spreadsheetPlayers && spreadsheetPlayers[key],
+        },
+      });
+      return mergedPlayer;
+    }, {});
   return mergedPlayers;
 };
 

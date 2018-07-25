@@ -6,16 +6,19 @@ function toTitleCase(str = '') {
 }
 
 /* PLAYERS */
-const formatPlayer = (item) => ({
-  [item.player.trim()]: {
-    new: item.new,
-    code: parseInt(item.code, 10),
-    pos: item.pos.toUpperCase(),
-    name: item.player.trim(),
-    club: toTitleCase(item.club),
-    isHidden: false,
-  },
-});
+const formatPlayer = (item) => {
+  const formattedPlayer = ({
+    [item.player.trim()]: {
+      new: item.new === 'new',
+      code: parseInt(item.code, 10),
+      pos: item.pos.toUpperCase(),
+      name: item.player.trim(),
+      club: toTitleCase(item.club),
+      isHidden: item.ishidden === 'hidden',
+    },
+  });
+  return formattedPlayer;
+};
 
 const formatPlayers = (data) => {
   const jsonData = Object.keys(data).reduce((prev, key) => ({
@@ -100,6 +103,8 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
     .getWorksheet(worksheetName)
     .toJson((item) => ({ [item.id]: item }))
     .then((data) => {
+      // note: headers from spreadsheets will be lowercase
+      // i.e. column header isHidden will be data[0].ishidden
       if (formatter) {
         return formatter(data);
       } if (worksheetName === 'Players') {

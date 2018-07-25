@@ -2,6 +2,16 @@ import { playerStats } from '@kammy-ui/data-player-stats';
 
 import calculateSeasonStats from './calculateSeason';
 
+const UNKNOWN_PLAYER = (name) => ({
+  name: `UNKNOWN: ${name}`,
+  stats: {
+    month: [], season: [], week: [],
+  },
+  fixtures: [],
+  club: '',
+  code: 0,
+});
+
 class TeamSeason {
   constructor({
     gameWeeks, players, transfers, team,
@@ -14,6 +24,10 @@ class TeamSeason {
     this.startOfSeason = new Date(gameWeeks[0].start).setHours(0, 0, 0, 0);
   }
 
+  getPlayer = (player) => (
+    this.players[player.name] || UNKNOWN_PLAYER(player.name)
+  );
+
   /*
    PURPOSE: to find a transfer list of players
    OUTPUT:
@@ -23,11 +37,11 @@ class TeamSeason {
   */
   findPlayerThisGw = ({ transferList, gameWeek, withStats }) => {
     const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(gameWeek.start));
-    const transfer = gwPlayers[gwPlayers.length - 1];
+    const transfer = gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
     if (withStats) {
-      return playerStats({ data: transfer.player, gameWeeks: [gameWeek] });
+      return playerStats({ data: transfer, gameWeeks: [gameWeek] });
     }
-    return transfer.player;
+    return transfer;
   };
 
   /*
@@ -41,7 +55,7 @@ class TeamSeason {
     const {
       players, startOfSeason, endOfSeason, transfers,
     } = this;
-    let playerInPosition = players[player.name];
+    let playerInPosition = this.getPlayer(player);
     const playerTransfers = [{
       player: playerInPosition,
       playerOut: null,
@@ -96,7 +110,7 @@ class TeamSeason {
   //     seasonPoints: [ stats ],
   //   }]
   getSeason = ({ withStats }) => {
-    const { players, team, gameWeeks } = this;
+    const { team, gameWeeks } = this;
     return team.map((player) => {
       const transferList = this.getPlayerTransfers(player);
       const playerGameWeeks = gameWeeks.map((gameWeek) => (
@@ -108,7 +122,7 @@ class TeamSeason {
 
       return {
         teamPos: player.pos,
-        pos: players[player.name].pos,
+        pos: this.getPlayer(player).pos,
         gameWeeks: playerGameWeeks,
         seasonToGameWeek,
         seasonStats: withStats ? calculateSeasonStats(playerGameWeeks) : null,

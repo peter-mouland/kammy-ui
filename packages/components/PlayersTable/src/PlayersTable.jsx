@@ -56,7 +56,7 @@ const PlayerTable = ({
             return (
               <tr key={player.code} id={player.code} className={ bem('player', { selected: isOnMyTeam, new: !!player.new })}>
                 <td>
-                  { player.isHidden && 'true' }
+                  { player.isHidden && 'hidden' }
                 </td>
                 <td>
                   { player.new && <Svg className={ bem('new-icon')}>{New}</Svg> }

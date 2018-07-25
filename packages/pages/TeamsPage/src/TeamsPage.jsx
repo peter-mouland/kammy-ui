@@ -38,19 +38,19 @@ class TeamsPage extends React.Component {
     const {
       premiership, championship, leagueOne, gameWeeks, players, transfers,
     } = this.props;
-    const teams = {
+    const divisions = {
       premiership, championship, leagueOne,
     };
+    const teams = divisions[DIVISIONS_MAP[division]];
 
     const managersSeason = calculateManagerSeason({
-      teams: teams[DIVISIONS_MAP[division]],
+      teams,
       gameWeeks,
       players,
       transfers,
       withStats: true,
     });
-
-    this.setState({ division, managersSeason, teams: teams[DIVISIONS_MAP[division]] });
+    this.setState({ division, managersSeason, teams });
   };
 
   render() {

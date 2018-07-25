@@ -8,7 +8,7 @@ const emptyStats = extractFFStats(emptyStatsArray);
 
 // exported for tests
 export const addPointsToFixtures = (fixture, pos) => {
-  const stats = extractFFStats(fixture.stats);
+  const stats = extractFFStats(fixture.stats || emptyStatsArray);
   return ({
     ...fixture,
     stats: {
@@ -40,7 +40,7 @@ export const getGameWeekFixtures = (data, gameWeeks) => (
         ), false);
       },
     },
-  }).value
+  }).value || []
 );
 
 export const calculatePoints = calculateTotalPoints;
