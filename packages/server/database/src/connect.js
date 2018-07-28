@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const debug = require('debug');
 
-// const logger = require('./logger');
+const logger = require('./logger');
 
 const log = debug('kammyui:models');
 let connected = false;
@@ -10,7 +10,7 @@ let connected = false;
 const connect = (uri) => {
   if (connected) return;
   connected = true;
-  // mongoose.set('debug', logger);
+  mongoose.set('debug', logger);
   mongoose.connect(uri);
   mongoose.Promise = global.Promise;
   log(uri);

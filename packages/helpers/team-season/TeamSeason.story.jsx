@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import degea from './fixtures/player-stats-1002.json';
 
-const stories = storiesOf('Data-Helpers', module);
+const stories = storiesOf('Helpers', module);
 
 degea.pos = 'GK';
 

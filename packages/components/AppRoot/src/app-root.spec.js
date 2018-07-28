@@ -28,7 +28,6 @@ describe('<AppRoute />', () => {
     expect(wrapper.find(Provider)).toHaveProp('store', props.store);
   });
 
-
   it('renders a <Routes> component', () => {
     expect(wrapper.find(Routes)).toHaveLength(1);
   });

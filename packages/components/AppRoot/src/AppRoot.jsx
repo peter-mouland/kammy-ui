@@ -9,6 +9,12 @@ import { Provider } from 'react-redux';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
+import RulesPage from '@kammy-ui/rules-page';
+import PlayersPage from '@kammy-ui/players-page';
+import TeamsPage from '@kammy-ui/teams-page';
+
+// todo import pages dynamically
+const pages = { RulesPage, PlayersPage, TeamsPage };
 
 const navigator = global.navigator && global.navigator.userAgent;
 // hasWindow = true for tests + client
@@ -20,12 +26,15 @@ export const Router = isBrowser ? BrowserRouter : StaticRouter;
 export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>
-      {appConfig.routes.map(({ name, Component, ...routeProps }) => (
-        <Route key={name} {...routeProps} render={(matchProps) => (
-          <DefaultTemplate>
-            <Component {...matchProps} />
-          </DefaultTemplate>
-        )}/>
+      {appConfig.routes.map(({ name, component, ...routeProps }) => (
+        <Route key={name} {...routeProps} render={(matchProps) => {
+          const Component = pages[component];
+          return (
+            <DefaultTemplate>
+              <Component {...matchProps} />)
+            </DefaultTemplate>
+          );
+        }}/>
       ))}
     </Switch>
   </Router>

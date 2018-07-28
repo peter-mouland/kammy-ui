@@ -1,7 +1,3 @@
-import RulesPage from '@kammy-ui/rules-page';
-import PlayersPage from '@kammy-ui/players-page';
-import TeamsPage from '@kammy-ui/teams-page';
-
 export default [
   {
     name: 'rules',
@@ -13,7 +9,7 @@ export default [
     },
     label: 'Rules',
     requiresAuthentication: false,
-    Component: RulesPage,
+    component: 'RulesPage',
     template: 'default',
   },
   {
@@ -26,7 +22,7 @@ export default [
     },
     label: 'Admin - Players',
     requiresAuthentication: false,
-    Component: PlayersPage,
+    component: 'PlayersPage',
     template: 'default',
   },
   {
@@ -39,7 +35,7 @@ export default [
     },
     label: 'Admin - Teams',
     requiresAuthentication: false,
-    Component: TeamsPage,
+    component: 'TeamsPage',
     template: 'default',
   },
 ];
