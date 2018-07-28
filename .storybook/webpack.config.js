@@ -1,7 +1,4 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
-const timestamp = new Date();
-const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`
 
 module.exports = {
   resolve: {
@@ -45,7 +42,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.BannerPlugin({ banner: `PACKAGE: storybook | BUILD_TIME: ${BUILD_TIME}`, entryOnly: true }),
     new ExtractTextPlugin('static/[name].css')
   ]
 }

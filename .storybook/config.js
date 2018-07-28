@@ -2,7 +2,6 @@ import { configure, addDecorator } from '@storybook/react';
 import {setOptions} from '@storybook/addon-options';
 import {setDefaults} from '@storybook/addon-info';
 import backgrounds from '@storybook/addon-backgrounds';
-import { checkA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
 
@@ -46,9 +45,6 @@ addDecorator(backgrounds([
   { name: 'twitter', value: '#00aced' },
   { name: 'facebook', value: '#3b5998' },
 ]));
-
-// addon-a11y
-addDecorator(checkA11y);
 
 // addon-knobs
 addDecorator(withKnobs);
