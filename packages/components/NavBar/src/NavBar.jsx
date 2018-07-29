@@ -14,6 +14,7 @@ const NavBar = () => (
     <NamedLink to="rules" className={linkClass} />
     <NamedLink to="players" className={linkClass} />
     <NamedLink to="teams" className={linkClass} />
+    <NamedLink to="transfers" className={linkClass} />
   </nav>
 );
 

@@ -12,9 +12,12 @@ import AppConfigProvider from '@kammy-ui/app-config-provider';
 import RulesPage from '@kammy-ui/rules-page';
 import PlayersPage from '@kammy-ui/players-page';
 import TeamsPage from '@kammy-ui/teams-page';
+import TransfersPage from '@kammy-ui/transfers-page';
 
 // todo import pages dynamically
-const pages = { RulesPage, PlayersPage, TeamsPage };
+const pages = {
+  RulesPage, PlayersPage, TeamsPage, TransfersPage,
+};
 
 const navigator = global.navigator && global.navigator.userAgent;
 // hasWindow = true for tests + client
@@ -31,7 +34,7 @@ export const Routes = ({ ...props }, { appConfig }) => (
           const Component = pages[component];
           return (
             <DefaultTemplate>
-              <Component {...matchProps} />)
+              <Component {...matchProps} />
             </DefaultTemplate>
           );
         }}/>

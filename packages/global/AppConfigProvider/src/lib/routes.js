@@ -1,5 +1,6 @@
 /*
   DO NOT IMPORT PAGE COMPONENTS HERE: WILL CAUSE CYCLIC LOOPS
+  note: consumed by <AppRoot>
  */
 export default [
   {
@@ -23,7 +24,7 @@ export default [
       title: 'Kammy: Fantasy Football',
       description: 'Kammy : Fantasy Football',
     },
-    label: 'Admin - Players',
+    label: 'Players',
     requiresAuthentication: false,
     component: 'PlayersPage',
     template: 'default',
@@ -36,9 +37,22 @@ export default [
       title: 'Kammy: Fantasy Football',
       description: 'Kammy : Fantasy Football',
     },
-    label: 'Admin - Teams',
+    label: 'Teams',
     requiresAuthentication: false,
     component: 'TeamsPage',
+    template: 'default',
+  },
+  {
+    name: 'transfers',
+    exact: true,
+    path: '/transfers/',
+    meta: {
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Transfers',
+    requiresAuthentication: false,
+    component: 'TransfersPage',
     template: 'default',
   },
 ];
