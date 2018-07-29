@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from '@kammy-ui/redux-store';
-import Root from '@kammy-ui/app-root';
+import Root from './AppRoot/AppRoot';
 
 const reducer = require('./config/reducers').default;
 
@@ -23,8 +23,8 @@ const App = (
 try {
   ReactDOM.render(App, rootEl);
   if (module.hot) {
-    module.hot.accept('@kammy-ui/app-root', () => {
-      const NextApp = require('@kammy-ui/app-root').default; // eslint-disable-line
+    module.hot.accept('./AppRoot/AppRoot', () => {
+      const NextApp = require('./AppRoot/AppRoot').default; // eslint-disable-line
       ReactDOM.render(
         <HmrContainer>
           <NextApp store={store} />

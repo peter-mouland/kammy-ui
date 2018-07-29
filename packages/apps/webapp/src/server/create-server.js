@@ -8,14 +8,13 @@ import Router from 'koa-router';
 import koaStatic from 'koa-static';
 
 import Html from '@kammy-ui/html';
-import Root from '@kammy-ui/app-root';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
 import headers from '@kammy-ui/koa-middleware-headers';
 import responseTime from '@kammy-ui/koa-middleware-response-time';
 import logger from '@kammy-ui/koa-middleware-logger';
 import react from '@kammy-ui/koa-middleware-react';
 
-// import authRouter from './routes/routes.auth';
+import Root from '../AppRoot/AppRoot';
 import skySportsRouter from './routes/routes.skysports';
 import graphQlRouter from './routes/routes.graphql';
 import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';

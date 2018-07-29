@@ -9,7 +9,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
 
-const CATEGORIES = ['apps', 'components', 'global', 'helpers', 'pages', 'redux', 'server'];
+const CATEGORIES = ['components', 'global', 'helpers', 'pages', 'redux', 'server'];
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;

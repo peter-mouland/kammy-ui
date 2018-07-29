@@ -19,6 +19,7 @@
     "<rootDir>/tests/jest/reactShim.js"
   ],
   "testRegex": ".spec.jsx?$",
+  "testPathIgnorePatterns": [ "/node_modules/", "/compiled/" ],
   "transformIgnorePatterns": [ "/node_modules/" ],
   "moduleFileExtensions": [ "js", "jsx", "json" ],
   "moduleNameMapper": {
