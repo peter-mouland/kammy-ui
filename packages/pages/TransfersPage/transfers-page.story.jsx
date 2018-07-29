@@ -18,7 +18,7 @@ storiesOf('Pages', module)
   .add('TransfersPage', () => (
     <Provider store={store}>
       <AppConfigProvider>
-        <TransfersPage />
+        <TransfersPage divisionId={'premiership'} label={'Premiership'} />
       </AppConfigProvider>
     </Provider>
   ));

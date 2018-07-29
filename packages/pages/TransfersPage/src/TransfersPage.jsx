@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import Svg from '@kammy-ui/svg';
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
 
-import changeIcon from './change.svg';
+import Swap from './components/Sub';
+import Team from './components/Team';
 import './transferPage.scss';
 
 const bem = bemHelper({ block: 'transfers-page' });
@@ -29,6 +29,10 @@ class TransfersPage extends React.Component {
     this.setState({ changePlayer });
   }
 
+  swapPlayer = (swapPlayer) => {
+    this.setState({ swapPlayer });
+  }
+
   getStep = () => {
     const { displayManager, changeType, changePlayer } = this.state;
     switch (true) {
@@ -47,7 +51,7 @@ class TransfersPage extends React.Component {
 
     const intGameWeek = 39;
     const step = this.getStep();
-    const invalidTeams = this.getInvalidTeams();
+    // const invalidTeams = this.getInvalidTeams();
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -67,74 +71,29 @@ class TransfersPage extends React.Component {
             onChange={this.updateChangeType}
           />
         )}
-        {step > 2 && (
-          <Fragment>
-            <h3>Who would you like to <em>{changeType}</em> out?</h3>
-            <table>
-              <tbody>
-                {managersSeason[displayManager].map((teamSheetItem) => {
-                  const player = teamSheetItem.gameWeeks[intGameWeek];
-                  const selected = changePlayer && (player.name === changePlayer.name);
-                  return (
-                    <tr
-                      key={player.name}
-                      className={bem('item', { selected })}
-                    >
-                      <td className={'cell cell--team-position'}>
-                        {teamSheetItem.teamPos}
-                      </td>
-                      <td className={'cell cell--player'}>
-                        {player.name}
-                      </td>
-                      <td className={'cell cell--position'}>{player.pos}</td>
-                      <td className={'cell cell--club'}>{player.club}</td>
-                      <td>
-                        <Svg
-                          className={'change-icon'}
-                          onClick={() => this.updateChangePlayer(player)}
-                        >
-                          {changeIcon}
-                        </Svg>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Fragment>
+        {step > 2 && changeType !== 'Swap' && (
+          <Team
+            changePlayer={changePlayer}
+            changeType={changeType}
+            intGameWeek={intGameWeek}
+            updateChangePlayer={this.updateChangePlayer}
+            team={managersSeason[displayManager]}
+          />
+        )}
+        {step > 2 && changeType === 'Swap' && (
+          <Swap
+            intGameWeek={intGameWeek}
+            updateChangePlayer={this.swapPlayer}
+            team={managersSeason[displayManager]}
+          />
         )}
         {step > 3 && (
-          <Fragment>
-            <h3>Who to <em>{changeType}</em> in (to replace {changePlayer.name})</h3>
-            <p>Notes: must be a {changePlayer.pos} and cannot be from ${invalidTeams}</p>
-            <table>
-              <tbody>
-                {managersSeason[displayManager].map((teamSheetItem) => {
-                  const player = teamSheetItem.gameWeeks[intGameWeek];
-                  return (
-                    <tr key={player.name} className={'transfer'}>
-                      <td className={'cell cell--team-position'}>
-                        {teamSheetItem.teamPos}
-                      </td>
-                      <td className={'cell cell--player'}>
-                        {player.name}
-                      </td>
-                      <td className={'cell cell--position'}>{player.pos}</td>
-                      <td className={'cell cell--club'}>{player.club}</td>
-                      <td>
-                        <Svg
-                          className={'change-icon'}
-                          onClick={() => this.updateChangePlayer(player)}
-                        >
-                          {changeIcon}
-                        </Svg>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Fragment>
+          <Swap
+            changePlayer={changePlayer}
+            intGameWeek={intGameWeek}
+            updateChangePlayer={this.swapPlayer}
+            team={managersSeason[displayManager]}
+          />
         )}
       </div>
     );
