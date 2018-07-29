@@ -2,8 +2,8 @@
   "name": "@kammy-ui/transfers-page",
   "version": "0.0.17",
   "description": "Kammy UI Component: TransfersPage",
-  "main": "dist/TransfersPage.container.min.js",
-  "src": "src/TransfersPage.container.js",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
   "engines": {
     "node": ">=8",
     "npm": ">=5",
@@ -18,6 +18,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/data-player-stats": "^0.0.18",

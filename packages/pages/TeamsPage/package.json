@@ -18,6 +18,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/data-player-stats": "^0.0.18",

@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import routes from './routes';
-
-const appConfig = {
-  routes,
-};
+import appConfig from './lib';
 
 class ConfigProvider extends React.Component {
   constructor(props, state) {

@@ -39,18 +39,18 @@ class TransfersPage extends React.Component {
     }
   }
 
-  getInvalidTeams = () => null
+  getInvalidTeams = () => null;
 
   render() {
     const { teams, managersSeason } = this.props;
     const { displayManager, changeType, changePlayer } = this.state;
+
     const intGameWeek = 39;
     const step = this.getStep();
     const invalidTeams = this.getInvalidTeams();
 
     return (
       <div className={bem(null, null, 'page-content')}>
-        <h2>Change Team-Sheet</h2>
         <MultiToggle
           label={'Who are you?'}
           id={'manager'}

@@ -1,16 +1,19 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
+import MultiToggle from '@kammy-ui/multi-toggle';
 
+import calculateManagerSeason from './lib/manager-season';
 import TransfersPage from './TransfersPage';
 
 const bem = bemHelper({ block: 'transfers-page' });
 
 class TransfersPageLoader extends React.Component {
+  state = { }
+
   componentDidMount() {
     const {
       fetchDbPlayers, fetchPremiership, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
@@ -24,16 +27,39 @@ class TransfersPageLoader extends React.Component {
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
+  updateDivision = (division) => {
+    const {
+      premiership, championship, leagueOne, gameWeeks, players, transfers,
+    } = this.props;
+    const { divisionSheets } = this.context.appConfig;
+
+    const divisions = {
+      premiership, championship, leagueOne,
+    };
+
+    const teams = divisions[divisionSheets[division]];
+    const managersSeason = calculateManagerSeason({
+      teams,
+      gameWeeks,
+      players,
+      transfers,
+      withStats: true,
+    });
+    this.setState({ division, managersSeason, teams });
+  };
+
   render() {
     const {
-      loaded, premiershipSeason,
+      loaded,
       playersLoading, playersCount,
-      premiershipLoading, premiership, premiershipCount,
-      championshipLoading, championship, championshipCount,
-      leagueOneLoading, leagueOne, leagueOneCount,
+      premiershipLoading, premiershipCount,
+      championshipLoading, championshipCount,
+      leagueOneLoading, leagueOneCount,
       gameWeeksLoading, gameWeeks, gameWeeksCount,
       transfersLoading, transfersCount,
     } = this.props;
+    const { division, managersSeason, teams } = this.state;
+    const { divisionLabels } = this.context.appConfig;
     return (
       <section id="transfers-page" className={bem()}>
         <h1>Transfers</h1>
@@ -71,11 +97,23 @@ class TransfersPageLoader extends React.Component {
             </p>
           </div>
         </div>
+        <h2>Change Team-Sheet</h2>
         {
           loaded && (
+            <MultiToggle
+              label={'Which division are you in?'}
+              id={'division'}
+              options={divisionLabels}
+              checked={division}
+              onChange={this.updateDivision}
+            />
+          )
+        }
+        {
+          loaded && managersSeason && (
             <TransfersPage
-              managersSeason={premiershipSeason}
-              teams={premiership}
+              managersSeason={managersSeason}
+              teams={teams}
               gameWeeks={gameWeeks}
             />
           )
@@ -87,6 +125,8 @@ class TransfersPageLoader extends React.Component {
 
 TransfersPageLoader.propTypes = {
   loaded: PropTypes.bool,
+  players: PropTypes.object,
+  transfers: PropTypes.object,
   managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
   premiership: PropTypes.object,
@@ -136,6 +176,7 @@ TransfersPageLoader.defaultProps = {
   championshipLoaded: false,
   leagueOneLoading: false,
   premiershipSeason: {},
+  transfers: {},
   Players: {},
   PlayersCount: null,
   gameWeeks: [],
@@ -147,6 +188,10 @@ TransfersPageLoader.defaultProps = {
   championshipCount: null,
   leagueOne: {},
   leagueOneCount: null,
+};
+
+TransfersPageLoader.contextTypes = {
+  appConfig: PropTypes.object,
 };
 
 export default TransfersPageLoader;

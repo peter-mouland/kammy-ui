@@ -1,3 +1,6 @@
+/*
+  DO NOT IMPORT PAGE COMPONENTS HERE: WILL CAUSE CYCLIC LOOPS
+ */
 export default [
   {
     name: 'rules',

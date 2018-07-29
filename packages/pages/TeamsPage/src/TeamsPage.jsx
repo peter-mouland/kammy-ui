@@ -10,16 +10,9 @@ import calculateManagerSeason from './lib/manager-season';
 import TeamsTable from './TeamsPage.table';
 
 const bem = bemHelper({ block: 'teams-page' });
-const DIVISIONS = ['Premiership', 'Championship', 'League One'];
-const DIVISIONS_MAP = {
-  Premiership: 'premiership',
-  Championship: 'championship',
-  'League One': 'leagueOne',
-};
 
 class TeamsPage extends React.Component {
-  state = {
-  }
+  state = { }
 
   componentDidMount() {
     const {
@@ -38,10 +31,12 @@ class TeamsPage extends React.Component {
     const {
       premiership, championship, leagueOne, gameWeeks, players, transfers,
     } = this.props;
+    const { divisionSheets } = this.context.appConfig;
+
     const divisions = {
       premiership, championship, leagueOne,
     };
-    const teams = divisions[DIVISIONS_MAP[division]];
+    const teams = divisions[divisionSheets[division]];
 
     const managersSeason = calculateManagerSeason({
       teams,
@@ -64,6 +59,7 @@ class TeamsPage extends React.Component {
       transfersLoading, transfersCount,
     } = this.props;
     const { division, managersSeason, teams } = this.state;
+    const { divisionLabels } = this.context.appConfig;
     return (
       <section id="teams-page" className={bem()}>
         <h1>Teams</h1>
@@ -109,7 +105,7 @@ class TeamsPage extends React.Component {
             <MultiToggle
               label={'Division'}
               id={'division'}
-              options={DIVISIONS}
+              options={divisionLabels}
               checked={division}
               onChange={this.updateDivision}
             />
@@ -191,6 +187,10 @@ TeamsPage.defaultProps = {
   championshipCount: null,
   leagueOne: {},
   leagueOneCount: null,
+};
+
+TeamsPage.contextTypes = {
+  appConfig: PropTypes.object,
 };
 
 export default TeamsPage;
