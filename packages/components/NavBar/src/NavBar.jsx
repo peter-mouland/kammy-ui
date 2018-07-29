@@ -19,8 +19,7 @@ const NavBar = (__, { appConfig }) => (
       appConfig.divisionLabels.map((division) => (
         <div key={division} className={linkClass}>
           <NavItem label={division}>
-            <div className={linkClass}>Table</div>
-            <div className={linkClass} >Transfers</div>
+            <NamedLink to={`${appConfig.divisionSheets[division]}-table`} className={linkClass} />
           </NavItem>
         </div>
       ))

@@ -30,13 +30,6 @@ function mapStateToProps(state, ownProps) {
   };
   const division = state.spreadsheet[ownProps.divisionId];
   const divisionLoaded = state.spreadsheet[`${ownProps.divisionId}Loaded`];
-  const managersSeason = divisionLoaded ? calculateManagerSeason({
-    teams: division,
-    gameWeeks: props.gameWeeks,
-    players: props.players,
-    transfers: props.transfers,
-    withStats: true,
-  }) : null;
 
   const loaded = (
     state.players.loaded
@@ -44,6 +37,14 @@ function mapStateToProps(state, ownProps) {
     && state.spreadsheet.transfersLoaded
     && divisionLoaded
   );
+
+  const managersSeason = loaded ? calculateManagerSeason({
+    teams: division,
+    gameWeeks: props.gameWeeks,
+    players: props.players,
+    transfers: props.transfers,
+    withStats: true,
+  }) : null;
 
   return {
     ...props,

@@ -12,11 +12,14 @@ import AppConfigProvider from '@kammy-ui/app-config-provider';
 import RulesPage from '@kammy-ui/rules-page';
 import PlayersPage from '@kammy-ui/players-page';
 import TeamsPage from '@kammy-ui/teams-page';
+import PremiershipTable from '@kammy-ui/premiership-table';
+import ChampionshipTable from '@kammy-ui/championship-table';
+import LeagueOneTable from '@kammy-ui/league-one-table';
 import TransfersPage from '@kammy-ui/transfers-page';
 
 // todo import pages dynamically
 const pages = {
-  RulesPage, PlayersPage, TeamsPage, TransfersPage,
+  RulesPage, PlayersPage, TeamsPage, TransfersPage, PremiershipTable, ChampionshipTable, LeagueOneTable,
 };
 
 const navigator = global.navigator && global.navigator.userAgent;
