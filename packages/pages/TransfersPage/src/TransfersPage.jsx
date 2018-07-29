@@ -74,8 +74,12 @@ class TransfersPage extends React.Component {
               <tbody>
                 {managersSeason[displayManager].map((teamSheetItem) => {
                   const player = teamSheetItem.gameWeeks[intGameWeek];
+                  const selected = changePlayer && (player.name === changePlayer.name);
                   return (
-                    <tr key={player.name}>
+                    <tr
+                      key={player.name}
+                      className={bem('item', { selected })}
+                    >
                       <td className={'cell cell--team-position'}>
                         {teamSheetItem.teamPos}
                       </td>
@@ -108,7 +112,7 @@ class TransfersPage extends React.Component {
                 {managersSeason[displayManager].map((teamSheetItem) => {
                   const player = teamSheetItem.gameWeeks[intGameWeek];
                   return (
-                    <tr key={player.name}>
+                    <tr key={player.name} className={'transfer'}>
                       <td className={'cell cell--team-position'}>
                         {teamSheetItem.teamPos}
                       </td>
@@ -117,7 +121,14 @@ class TransfersPage extends React.Component {
                       </td>
                       <td className={'cell cell--position'}>{player.pos}</td>
                       <td className={'cell cell--club'}>{player.club}</td>
-                      <td><Svg onClick={() => this.updateChangePlayer(player)}>{changeIcon}</Svg></td>
+                      <td>
+                        <Svg
+                          className={'change-icon'}
+                          onClick={() => this.updateChangePlayer(player)}
+                        >
+                          {changeIcon}
+                        </Svg>
+                      </td>
                     </tr>
                   );
                 })}

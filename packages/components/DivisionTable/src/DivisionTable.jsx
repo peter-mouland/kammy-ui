@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
@@ -31,22 +31,20 @@ class DivisionTable extends React.Component {
     return (
       <section id="teams-page" className={bem()}>
         <h1>{label}</h1>
-        <div className="page-content">
-          {!loaded && (
-            <div>
-              <Interstitial /> Data Gathering...
-            </div>
-          )}
-          {
-            loaded && division && (
-              <Table
-                managersSeason={managersSeason}
-                teams={division}
-                gameWeeks={gameWeeks}
-              />
-            )
-          }
-        </div>
+        {!loaded && (
+          <Fragment>
+            <Interstitial /> Data Gathering...
+          </Fragment>
+        )}
+        {
+          loaded && division && (
+            <Table
+              managersSeason={managersSeason}
+              teams={division}
+              gameWeeks={gameWeeks}
+            />
+          )
+        }
       </section>
     );
   }

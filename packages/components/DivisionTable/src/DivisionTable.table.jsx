@@ -67,7 +67,6 @@ class TeamsPage extends React.Component {
 
     return (
       <div className={bem(null, null, 'page-content')}>
-        <h3>Teams</h3>
         {showPositionTimeline && (
           <Modal
             key={'timeline'}
