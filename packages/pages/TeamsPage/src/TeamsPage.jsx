@@ -44,45 +44,38 @@ class TeamsPage extends React.Component {
     const { division, teams } = this.state;
     const { divisionLabels, divisionSheets } = this.context.appConfig;
     return (
-      <section id="teams-page" className={bem()}>
+      <section id="teams-page" className={bem(null, 'page-content')}>
         <h1>Teams</h1>
-        <div>
-          <p>
-            The purpose of this page is to display the Managers Team stats, by GameWeel.
-          </p>
-          <p>
-            Combining the SkySport stats with the Spreadsheet Team Sheet we can output GameWeek Score and Season Score
-          </p>
-        </div>
-        <div className="page-content">
-          <h3>Data Gathering...</h3>
-          <div>
-            <p>
-              Players :
-              {playersLoading ? <Interstitial /> : playersCount}
-            </p>
-            <p>
-              GameWeeks :
-              {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
-            </p>
-            <p>
-              Transfers :
-              {transfersLoading ? <Interstitial /> : transfersCount}
-            </p>
-            <p>
-              Premiership Teams :
-              {premiershipLoading ? <Interstitial /> : premiershipCount}
-            </p>
-            <p>
-              Championship Teams :
-              {championshipLoading ? <Interstitial /> : championshipCount}
-            </p>
-            <p>
-              League One Teams :
-              {leagueOneLoading ? <Interstitial /> : leagueOneCount}
-            </p>
-          </div>
-        </div>
+        <p>
+          The purpose of this page is to display the Managers Team stats, by GameWeel.
+        </p>
+        <p>
+          Combining the SkySport stats with the Spreadsheet Team Sheet we can output GameWeek Score and Season Score
+        </p>
+        <p>
+          Players :
+          {playersLoading ? <Interstitial /> : playersCount}
+        </p>
+        <p>
+          GameWeeks :
+          {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
+        </p>
+        <p>
+          Transfers :
+          {transfersLoading ? <Interstitial /> : transfersCount}
+        </p>
+        <p>
+          Premiership Teams :
+          {premiershipLoading ? <Interstitial /> : premiershipCount}
+        </p>
+        <p>
+          Championship Teams :
+          {championshipLoading ? <Interstitial /> : championshipCount}
+        </p>
+        <p>
+          League One Teams :
+          {leagueOneLoading ? <Interstitial /> : leagueOneCount}
+        </p>
         {
           loaded && (
             <MultiToggle

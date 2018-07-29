@@ -61,42 +61,35 @@ class TransfersPageLoader extends React.Component {
     const { division, managersSeason, teams } = this.state;
     const { divisionLabels } = this.context.appConfig;
     return (
-      <section id="transfers-page" className={bem()}>
+      <section id="transfers-page" className={bem(null, 'page-content')}>
         <h1>Transfers</h1>
-        <div>
-          <p>
-            The purpose of this page is to enable managers to make transfers that do not violate the rules.
-          </p>
-        </div>
-        <div className="page-content">
-          <h3>Data Gathering...</h3>
-          <div>
-            <p>
-              Players :
-              {playersLoading ? <Interstitial /> : playersCount}
-            </p>
-            <p>
-              GameWeeks :
-              {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
-            </p>
-            <p>
-              Transfers :
-              {transfersLoading ? <Interstitial /> : transfersCount}
-            </p>
-            <p>
-              Premiership Teams :
-              {premiershipLoading ? <Interstitial /> : premiershipCount}
-            </p>
-            <p>
-              Championship Teams :
-              {championshipLoading ? <Interstitial /> : championshipCount}
-            </p>
-            <p>
-              League One Teams :
-              {leagueOneLoading ? <Interstitial /> : leagueOneCount}
-            </p>
-          </div>
-        </div>
+        <p>
+          The purpose of this page is to enable managers to make transfers that do not violate the rules.
+        </p>
+        <p>
+          Players :
+          {playersLoading ? <Interstitial /> : playersCount}
+        </p>
+        <p>
+          GameWeeks :
+          {gameWeeksLoading ? <Interstitial /> : gameWeeksCount}
+        </p>
+        <p>
+          Transfers :
+          {transfersLoading ? <Interstitial /> : transfersCount}
+        </p>
+        <p>
+          Premiership Teams :
+          {premiershipLoading ? <Interstitial /> : premiershipCount}
+        </p>
+        <p>
+          Championship Teams :
+          {championshipLoading ? <Interstitial /> : championshipCount}
+        </p>
+        <p>
+          League One Teams :
+          {leagueOneLoading ? <Interstitial /> : leagueOneCount}
+        </p>
         <h2>Change Team-Sheet</h2>
         {
           loaded && (

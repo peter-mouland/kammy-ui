@@ -1,5 +1,5 @@
 /* eslint-disable react/no-deprecated */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
@@ -40,42 +40,30 @@ class PlayersPage extends React.Component {
     } = this.props;
 
     return (
-      <section id="players-page" className={bem()}>
+      <section id="players-page" className={bem(null, 'page-content')}>
         <h1>Players</h1>
-        <div>
-          <p>
-            The purpose of this page is to display the Players stats from the Google Spreadsheet,
-            import new player data from SkySports, add see the differences highlighted.
-          </p>
-          <p>
-            From here, the updates should be Saved to Database and, optionally,
-            be copied back to google spreadsheet.
-          </p>
-          <h3>Caution</h3>
-          <p>
-            Updating player positions will result in scoring changes for that player.
-            This should not be done once a player has already been transfered into a team.
-          </p>
-        </div>
-        <div className="page-content">
-          <h3>Players Counts</h3>
-          <div>
-            <p>
-              Players In DB :
-              {dbLoading ? <Interstitial /> : dbPlayersCount}
-            </p>
-            <p>
-              Players In SkySports :
-              {skySportsLoading ? <Interstitial /> : skySportsPlayersCount}
-            </p>
-            <p>
-              Players In Google Spreadsheets :
-              {spreadsheetLoading ? <Interstitial /> : spreadsheetPlayersCount}
-            </p>
-          </div>
-        </div>
+        <p>
+          The purpose of this page is to display the Players stats from the Google Spreadsheet,
+          import new player data from SkySports, add see the differences highlighted.
+        </p>
+        <p>
+          From here, the updates should be Saved to Database and, optionally,
+          be copied back to google spreadsheet.
+        </p>
+        <p>
+          Players In DB :
+          {dbLoading ? <Interstitial /> : dbPlayersCount}
+        </p>
+        <p>
+          Players In SkySports :
+          {skySportsLoading ? <Interstitial /> : skySportsPlayersCount}
+        </p>
+        <p>
+          Players In Google Spreadsheets :
+          {spreadsheetLoading ? <Interstitial /> : spreadsheetPlayersCount}
+        </p>
         {loaded && (
-          <div className="page-content">
+          <Fragment>
             <p>
               {dbPlayersCount < skySportsPlayersCount && (
                 <div>{skySportsPlayersCount - dbPlayersCount} New Sky Sports players !</div>
@@ -89,14 +77,12 @@ class PlayersPage extends React.Component {
               <sup>*</sup>this will copy players from Sky Sports into the Database.
               It will also attempt to assign a position if the player is found within Google Spreadsheets.
             </p>
-          </div>
+          </Fragment>
         )}
         {dbPlayersCount > 0 && (
-          <div className="page-content">
-            <ErrorBoundary>
-              <PlayersPageTable players={dbPlayers} />
-            </ErrorBoundary>
-          </div>
+          <ErrorBoundary>
+            <PlayersPageTable players={dbPlayers} />
+          </ErrorBoundary>
         )}
       </section>
     );
