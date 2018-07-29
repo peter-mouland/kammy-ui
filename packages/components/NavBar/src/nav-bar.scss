@@ -6,7 +6,7 @@
 
 .nav__header {
   margin-right: 1em;
-  padding: 1.3em;
+  padding-left: 1.5em;
   background-color: $brand;
   color: $white;
 }
@@ -32,6 +32,10 @@
 
   &:last-of-type {
     margin-right: 0;
+  }
+
+  &--right {
+    float: right;
   }
 
   &.link--active {

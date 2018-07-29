@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
+import DivisionTable from '@kammy-ui/division-table';
 import MultiToggle from '@kammy-ui/multi-toggle';
-
-import calculateManagerSeason from './lib/manager-season';
-import TeamsTable from './TeamsPage.table';
 
 const bem = bemHelper({ block: 'teams-page' });
 
@@ -28,24 +26,9 @@ class TeamsPage extends React.Component {
   }
 
   updateDivision = (division) => {
-    const {
-      premiership, championship, leagueOne, gameWeeks, players, transfers,
-    } = this.props;
     const { divisionSheets } = this.context.appConfig;
-
-    const divisions = {
-      premiership, championship, leagueOne,
-    };
-    const teams = divisions[divisionSheets[division]];
-
-    const managersSeason = calculateManagerSeason({
-      teams,
-      gameWeeks,
-      players,
-      transfers,
-      withStats: true,
-    });
-    this.setState({ division, managersSeason, teams });
+    const teams = this.props[divisionSheets[division]];
+    this.setState({ division, teams });
   };
 
   render() {
@@ -55,11 +38,11 @@ class TeamsPage extends React.Component {
       premiershipLoading, premiershipCount,
       championshipLoading, championshipCount,
       leagueOneLoading, leagueOneCount,
-      gameWeeksLoading, gameWeeks, gameWeeksCount,
+      gameWeeksLoading, gameWeeksCount,
       transfersLoading, transfersCount,
     } = this.props;
-    const { division, managersSeason, teams } = this.state;
-    const { divisionLabels } = this.context.appConfig;
+    const { division, teams } = this.state;
+    const { divisionLabels, divisionSheets } = this.context.appConfig;
     return (
       <section id="teams-page" className={bem()}>
         <h1>Teams</h1>
@@ -112,11 +95,10 @@ class TeamsPage extends React.Component {
           )
         }
         {
-          loaded && managersSeason && teams && (
-            <TeamsTable
-              managersSeason={managersSeason}
-              teams={teams}
-              gameWeeks={gameWeeks}
+          loaded && teams && (
+            <DivisionTable
+              label={division}
+              divisionId={divisionSheets[division]}
             />
           )
         }

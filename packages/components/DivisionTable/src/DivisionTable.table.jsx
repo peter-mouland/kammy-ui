@@ -9,7 +9,7 @@ import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
-import './teamsPage.scss';
+import './divisionTable.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
 

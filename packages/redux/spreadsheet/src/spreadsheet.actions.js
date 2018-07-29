@@ -35,6 +35,16 @@ export function fetchLeagueOne() {
   };
 }
 
+export function fetchDivision(division) {
+  switch (division) {
+  case 'premiership': return fetchPremiership();
+  case 'championship': return fetchChampionship();
+  default:
+  case 'leagueOne':
+    return fetchLeagueOne();
+  }
+}
+
 export function fetchTransfers() {
   return {
     type: FETCH_SPREADSHEET_TRANSFERS,

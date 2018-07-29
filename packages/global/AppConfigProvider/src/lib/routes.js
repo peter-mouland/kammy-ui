@@ -21,7 +21,7 @@ export default [
     exact: true,
     path: '/players/',
     meta: {
-      title: 'Kammy: Fantasy Football',
+      title: 'Kammy Admin - Players',
       description: 'Kammy : Fantasy Football',
     },
     label: 'Players',
@@ -34,7 +34,7 @@ export default [
     exact: true,
     path: '/teams/',
     meta: {
-      title: 'Kammy: Fantasy Football',
+      title: 'Kammy Admin - Teams',
       description: 'Kammy : Fantasy Football',
     },
     label: 'Teams',
@@ -47,7 +47,7 @@ export default [
     exact: true,
     path: '/transfers/',
     meta: {
-      title: 'Kammy: Fantasy Football',
+      title: 'Kammy Admin - Transfers',
       description: 'Kammy : Fantasy Football',
     },
     label: 'Transfers',
@@ -55,4 +55,17 @@ export default [
     component: 'TransfersPage',
     template: 'default',
   },
+  // {
+  //   name: 'premiership-table',
+  //   exact: true,
+  //   path: '/premiership/table',
+  //   meta: {
+  //     title: 'Kammy - Premiership Table',
+  //     description: 'Kammy : Fantasy Football',
+  //   },
+  //   label: 'Table',
+  //   requiresAuthentication: false,
+  //   component: 'PremiershipTablePage',
+  //   template: 'default',
+  // },
 ];

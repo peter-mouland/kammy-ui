@@ -1,21 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy-ui/bem';
 import NamedLink from '@kammy-ui/named-link';
+
+import NavItem from './components/NavItem';
 
 import './nav-bar.scss';
 
 const bem = bemHelper({ block: 'nav' });
 const linkClass = bem('link');
 
-const NavBar = () => (
+const NavBar = (__, { appConfig }) => (
   <nav className={bem()}>
     <span className={bem('header')}>FF</span>
     <NamedLink to="rules" className={linkClass} />
-    <NamedLink to="players" className={linkClass} />
-    <NamedLink to="teams" className={linkClass} />
-    <NamedLink to="transfers" className={linkClass} />
+    {
+      appConfig.divisionLabels.map((division) => (
+        <div key={division} className={linkClass}>
+          <NavItem label={division}>
+            <div className={linkClass}>Table</div>
+            <div className={linkClass} >Transfers</div>
+          </NavItem>
+        </div>
+      ))
+    }
+    <div className={ bem('link', 'right')}>
+      <NavItem label='Admin' >
+        <NamedLink to="players" className={linkClass} />
+        <NamedLink to="teams" className={linkClass} />
+        <NamedLink to="transfers" className={linkClass} />
+      </NavItem>
+    </div>
   </nav>
 );
+
+NavBar.contextTypes = {
+  appConfig: PropTypes.object,
+};
 
 export default NavBar;

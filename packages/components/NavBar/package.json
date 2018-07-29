@@ -22,6 +22,9 @@
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/named-link": "^0.0.17"
   },
+  "devDependencies": {
+    "@kammy-ui/app-config-provider": "^0.0.17"
+  },
   "peerDependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.0"

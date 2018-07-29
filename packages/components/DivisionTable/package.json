@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/teams-page",
+  "name": "@kammy-ui/division-table",
   "version": "0.0.17",
-  "description": "Kammy UI Component: TeamsPage",
+  "description": "Kammy UI Component: DivisionTable",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
@@ -22,7 +22,6 @@
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/data-player-stats": "^0.0.18",
-    "@kammy-ui/division-table": "^0.0.17",
     "@kammy-ui/data-team-season": "^0.0.18",
     "@kammy-ui/error-boundary": "^0.0.14",
     "@kammy-ui/fetchr": "^0.0.17",

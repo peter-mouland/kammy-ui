@@ -1,0 +1,18 @@
+@import '~@kammy-ui/bootstrap/src/abstracts/variables';
+
+.nav-item {
+  position: relative;
+
+  &__children {
+    display: none;
+    position: absolute;
+    top: 1.25em;
+    right: 0;
+    min-width: 100%;
+    background: $brand;
+
+    :hover > & {
+      display: block;
+    }
+  }
+}
