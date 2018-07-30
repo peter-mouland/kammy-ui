@@ -1,13 +1,13 @@
 import React from 'react';
 
 import bemHelper from '@kammy-ui/bem';
-import DivisionTable from '@kammy-ui/division-table';
+import DivisionStats from '@kammy-ui/division-stats';
 
 const bem = bemHelper({ block: 'teams-page' });
 
 const PremiershipTable = () => (
   <section id="teams-page" className={bem()}>
-    <DivisionTable
+    <DivisionStats
       label={'Premiership'}
       divisionId={'premiership'}
     />

@@ -2,7 +2,7 @@
   "sName": "de Gea",
   "optId": "51940",
   "nxtfix": {
-    "18/04/2018": "BOU (a)"
+    "18/04/2019": "BOU (a)"
   },
   "value": "8.0",
   "fName": "David",
@@ -103,7 +103,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-08-13 16:00:00",
+      "date": "2018-08-13 16:00:00",
       "week": 1,
       "stats": [
         1,
@@ -144,7 +144,7 @@
     {
       "hTname": "Swansea City",
       "status": "PLAYED",
-      "date": "2017-08-19 12:30:00",
+      "date": "2018-08-19 12:30:00",
       "week": 2,
       "stats": [
         1,
@@ -185,7 +185,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-08-26 17:30:00",
+      "date": "2018-08-26 17:30:00",
       "week": 3,
       "stats": [
         1,
@@ -226,7 +226,7 @@
     {
       "hTname": "Stoke City",
       "status": "PLAYED",
-      "date": "2017-09-09 17:30:00",
+      "date": "2018-09-09 17:30:00",
       "week": 5,
       "stats": [
         1,
@@ -267,7 +267,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-09-17 16:00:00",
+      "date": "2018-09-17 16:00:00",
       "week": 6,
       "stats": [
         1,
@@ -308,7 +308,7 @@
     {
       "hTname": "Southampton",
       "status": "PLAYED",
-      "date": "2017-09-23 15:00:00",
+      "date": "2018-09-23 15:00:00",
       "week": 7,
       "stats": [
         1,
@@ -349,7 +349,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-09-30 15:00:00",
+      "date": "2018-09-30 15:00:00",
       "week": 8,
       "stats": [
         1,
@@ -390,7 +390,7 @@
     {
       "hTname": "Liverpool",
       "status": "PLAYED",
-      "date": "2017-10-14 12:30:00",
+      "date": "2018-10-14 12:30:00",
       "week": 10,
       "stats": [
         1,
@@ -431,7 +431,7 @@
     {
       "hTname": "Huddersfield Town",
       "status": "PLAYED",
-      "date": "2017-10-21 15:00:00",
+      "date": "2018-10-21 15:00:00",
       "week": 11,
       "stats": [
         1,
@@ -472,7 +472,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-10-28 12:30:00",
+      "date": "2018-10-28 12:30:00",
       "week": 12,
       "stats": [
         1,
@@ -513,7 +513,7 @@
     {
       "hTname": "Chelsea",
       "status": "PLAYED",
-      "date": "2017-11-05 16:30:00",
+      "date": "2018-11-05 16:30:00",
       "week": 13,
       "stats": [
         1,
@@ -554,7 +554,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-11-18 17:30:00",
+      "date": "2018-11-18 17:30:00",
       "week": 15,
       "stats": [
         1,
@@ -595,7 +595,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-11-25 15:00:00",
+      "date": "2018-11-25 15:00:00",
       "week": 16,
       "stats": [
         1,
@@ -636,7 +636,7 @@
     {
       "hTname": "Watford",
       "status": "PLAYED",
-      "date": "2017-11-28 20:00:00",
+      "date": "2018-11-28 20:00:00",
       "week": 16,
       "stats": [
         1,
@@ -677,7 +677,7 @@
     {
       "hTname": "Arsenal",
       "status": "PLAYED",
-      "date": "2017-12-02 17:30:00",
+      "date": "2018-12-02 17:30:00",
       "week": 17,
       "stats": [
         1,
@@ -718,7 +718,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-12-10 16:30:00",
+      "date": "2018-12-10 16:30:00",
       "week": 18,
       "stats": [
         1,
@@ -759,7 +759,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-12-13 20:00:00",
+      "date": "2018-12-13 20:00:00",
       "week": 18,
       "stats": [
         1,
@@ -800,7 +800,7 @@
     {
       "hTname": "West Bromwich Albion",
       "status": "PLAYED",
-      "date": "2017-12-17 14:15:00",
+      "date": "2018-12-17 14:15:00",
       "week": 19,
       "stats": [
         1,
@@ -841,7 +841,7 @@
     {
       "hTname": "Leicester City",
       "status": "PLAYED",
-      "date": "2017-12-23 19:45:00",
+      "date": "2018-12-23 19:45:00",
       "week": 20,
       "stats": [
         1,
@@ -882,7 +882,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-12-26 15:00:00",
+      "date": "2018-12-26 15:00:00",
       "week": 20,
       "stats": [
         1,
@@ -923,7 +923,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2017-12-30 17:30:00",
+      "date": "2018-12-30 17:30:00",
       "week": 21,
       "stats": [
         1,
@@ -964,7 +964,7 @@
     {
       "hTname": "Everton",
       "status": "PLAYED",
-      "date": "2018-01-01 17:30:00",
+      "date": "2019-01-01 17:30:00",
       "week": 21,
       "stats": [
         1,
@@ -1005,7 +1005,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-01-15 20:00:00",
+      "date": "2019-01-15 20:00:00",
       "week": 23,
       "stats": [
         1,
@@ -1046,7 +1046,7 @@
     {
       "hTname": "Burnley",
       "status": "PLAYED",
-      "date": "2018-01-20 15:00:00",
+      "date": "2019-01-20 15:00:00",
       "week": 24,
       "stats": [
         1,
@@ -1087,7 +1087,7 @@
     {
       "hTname": "Tottenham Hotspur",
       "status": "PLAYED",
-      "date": "2018-01-31 20:00:00",
+      "date": "2019-01-31 20:00:00",
       "week": 25,
       "stats": [
         1,
@@ -1128,7 +1128,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-02-03 15:00:00",
+      "date": "2019-02-03 15:00:00",
       "week": 26,
       "stats": [
         1,
@@ -1169,7 +1169,7 @@
     {
       "hTname": "Newcastle United",
       "status": "PLAYED",
-      "date": "2018-02-11 14:15:00",
+      "date": "2019-02-11 14:15:00",
       "week": 27,
       "stats": [
         1,
@@ -1210,7 +1210,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-02-25 14:05:00",
+      "date": "2019-02-25 14:05:00",
       "week": 29,
       "stats": [
         1,
@@ -1251,7 +1251,7 @@
     {
       "hTname": "Crystal Palace",
       "status": "PLAYED",
-      "date": "2018-03-05 20:00:00",
+      "date": "2019-03-05 20:00:00",
       "week": 30,
       "stats": [
         1,
@@ -1292,7 +1292,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-03-10 12:30:00",
+      "date": "2019-03-10 12:30:00",
       "week": 31,
       "stats": [
         1,
@@ -1333,7 +1333,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-03-31 15:00:00",
+      "date": "2019-03-31 15:00:00",
       "week": 34,
       "stats": [
         1,
@@ -1374,7 +1374,7 @@
     {
       "hTname": "Manchester City",
       "status": "PLAYED",
-      "date": "2018-04-07 17:30:00",
+      "date": "2019-04-07 17:30:00",
       "week": 35,
       "stats": [
         1,
@@ -1415,7 +1415,7 @@
     {
       "hTname": "Manchester United",
       "status": "PLAYED",
-      "date": "2018-04-15 16:00:00",
+      "date": "2019-04-15 16:00:00",
       "week": 36,
       "stats": [
         1,
@@ -1456,7 +1456,7 @@
     {
       "hTname": "Bournemouth",
       "status": "PENDING",
-      "date": "2018-04-18 19:45:00",
+      "date": "2019-04-18 19:45:00",
       "week": 36,
       "aTname": "Manchester United",
       "aScore": null,
@@ -1469,7 +1469,7 @@
     {
       "hTname": "Manchester United",
       "status": "PENDING",
-      "date": "2018-04-29 16:30:00",
+      "date": "2019-04-29 16:30:00",
       "week": 38,
       "aTname": "Arsenal",
       "aScore": null,
@@ -1482,7 +1482,7 @@
     {
       "hTname": "Brighton",
       "status": "PENDING",
-      "date": "2018-05-04 20:00:00",
+      "date": "2019-05-04 20:00:00",
       "week": 39,
       "aTname": "Manchester United",
       "aScore": null,
@@ -1495,7 +1495,7 @@
     {
       "hTname": "To be confirmed",
       "status": "PENDING",
-      "date": "2018-05-10 19:45:00",
+      "date": "2019-05-10 19:45:00",
       "week": 39,
       "aTname": "Manchester United",
       "aScore": null,
@@ -1508,7 +1508,7 @@
     {
       "hTname": "West Ham United",
       "status": "PENDING",
-      "date": "2018-05-10 19:45:00",
+      "date": "2019-05-10 19:45:00",
       "week": 39,
       "aTname": "Manchester United",
       "aScore": null,
@@ -1521,7 +1521,7 @@
     {
       "hTname": "Manchester United",
       "status": "PENDING",
-      "date": "2018-05-13 15:00:00",
+      "date": "2019-05-13 15:00:00",
       "week": 40,
       "aTname": "Watford",
       "aScore": null,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
-import DivisionTable from '@kammy-ui/division-table';
+import DivisionStats from '@kammy-ui/division-stats';
 import MultiToggle from '@kammy-ui/multi-toggle';
 
 const bem = bemHelper({ block: 'teams-page' });
@@ -89,7 +89,7 @@ class TeamsPage extends React.Component {
         }
         {
           loaded && teams && (
-            <DivisionTable
+            <DivisionStats
               label={division}
               divisionId={divisionSheets[division]}
             />

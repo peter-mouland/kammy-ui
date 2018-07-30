@@ -2,7 +2,7 @@ import { playerStats } from '@kammy-ui/data-player-stats';
 
 import calculateSeasonStats from './calculateSeason';
 
-const UNKNOWN_PLAYER = (name) => ({
+export const UNKNOWN_PLAYER = (name) => ({
   name: `UNKNOWN: ${name}`,
   stats: {
     month: [], season: [], week: [],
@@ -93,7 +93,7 @@ class TeamSeason {
 
     playerTransfers[playerTransfers.length - 1].end = endOfSeason;
     return playerTransfers;
-  }
+  };
 
   // out:
   //  [{
@@ -109,7 +109,7 @@ class TeamSeason {
   //     seasonStats: [ stats ],
   //     seasonPoints: [ stats ],
   //   }]
-  getSeason = ({ withStats }) => {
+  getSeason = ({ withStats = true } = {}) => {
     const { team, gameWeeks } = this;
     return team.map((player) => {
       const transferList = this.getPlayerTransfers(player);
@@ -130,5 +130,6 @@ class TeamSeason {
     });
   }
 }
+
 
 export default TeamSeason;

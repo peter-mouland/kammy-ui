@@ -22,7 +22,7 @@
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/data-player-stats": "^0.0.18",
-    "@kammy-ui/division-table": "^0.0.17",
+    "@kammy-ui/division-stats": "^0.0.17",
     "@kammy-ui/data-team-season": "^0.0.18",
     "@kammy-ui/error-boundary": "^0.0.14",
     "@kammy-ui/fetchr": "^0.0.17",

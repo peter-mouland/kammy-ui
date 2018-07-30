@@ -20,7 +20,7 @@
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/division-table": "^0.0.17"
+    "@kammy-ui/division-stats": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
