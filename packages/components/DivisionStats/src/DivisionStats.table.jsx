@@ -15,13 +15,21 @@ const bem = bemHelper({ block: 'teams-table' });
 
 class TeamsPage extends React.Component {
   state = {
-    displayGw: '40',
+    displayGw: '1',
     seasonStats: null,
     gameWeekStats: null,
     showPositionTimeline: false,
     showPlayerTimeline: false,
     positionTimelineProps: {},
     playerTimelineProps: {},
+  }
+
+  constructor(props) {
+    super(props);
+    const currentGameWeek = props.gameWeeks.filter((gw) => (
+      new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
+    )).length;
+    this.state.displayGw = String(currentGameWeek + 1);
   }
 
   showPositionTimeline = (e, {
