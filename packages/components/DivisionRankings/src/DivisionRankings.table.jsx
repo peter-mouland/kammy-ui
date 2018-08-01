@@ -5,53 +5,12 @@ import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
 
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
+import positions from './lib/positions';
+import getTeamPoints from './lib/calculate-division-rank';
 
 import './divisions-rankings.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
-const positions = [
-  { label: 'GK / SUB', teamPos: ['GK', 'SUB'] },
-  { label: 'CB', teamPos: ['CB'] },
-  { label: 'FB', teamPos: ['FB'] },
-  { label: 'AM', teamPos: ['AM'] },
-  { label: 'MID', teamPos: ['MID'] },
-  { label: 'STR', teamPos: ['STR', 'FWD'] },
-];
-
-const getPositionLabel = (teamPos) => (
-  positions.find((position) => position.teamPos.includes(teamPos))
-);
-
-const getPositionPoints = (team, intGameWeek) => {
-  const posPoints = team
-    .reduce((prev, teamSheetItem) => {
-      const player = teamSheetItem.gameWeeks[intGameWeek];
-      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
-      const key = getPositionLabel(teamSheetItem.teamPos).label;
-      const gameWeekPoints = player.gameWeekStats.points;
-      const gameWeek = prev[key] ? prev[key].gameWeek + gameWeekPoints : gameWeekPoints;
-      const season = prev[key] ? prev[key].season + seasonToGameWeek.points : seasonToGameWeek.points;
-      return {
-        ...prev,
-        [key]: {
-          gameWeek, season, rank: -1,
-        },
-      };
-    }, {});
-  return {
-    ...posPoints,
-    total: {
-      gameWeek: -1, season: -1, rank: -1,
-    },
-  };
-};
-
-const getTeamPoints = (teams, managersSeason, intGameWeek) => (
-  Object.keys(teams).map((manager) => ({
-    manager,
-    positionPoints: getPositionPoints(managersSeason[manager], intGameWeek),
-  }))
-);
 
 class TeamsPage extends React.Component {
   state = {
