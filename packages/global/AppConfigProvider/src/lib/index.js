@@ -2,9 +2,9 @@ import routes from './routes';
 
 export default {
   routes,
-  divisionLabels: ['Premiership', 'Championship', 'League One'],
+  divisionLabels: ['Premier League', 'Championship', 'League One'],
   divisionSheets: {
-    Premiership: 'premiership',
+    'Premier League': 'premierLeague',
     Championship: 'championship',
     'League One': 'leagueOne',
   },

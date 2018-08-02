@@ -11,7 +11,7 @@ import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
 import './divisionStats.scss';
 
-const bem = bemHelper({ block: 'teams-table' });
+const bem = bemHelper({ block: 'table' });
 
 class TeamsPage extends React.Component {
   state = {

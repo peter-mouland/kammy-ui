@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/championship-table",
+  "name": "@kammy-ui/premier-league-teams",
   "version": "0.0.17",
-  "description": "Kammy UI Component: ChampionshipTable",
-  "main": "dist/index.min.js",
-  "src": "src/index.js",
+  "description": "Kammy UI Component: PremierLeagueTeams",
+  "main": "dist/PremierLeagueTeams.min.js",
+  "src": "src/PremierLeagueTeams.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

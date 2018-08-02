@@ -1,7 +1,7 @@
 import { fetchSpreadsheet } from '@kammy-ui/fetchr';
 
 export const FETCH_SPREADSHEET_PLAYERS = 'FETCH_SPREADSHEET_PLAYERS';
-export const FETCH_SPREADSHEET_PREMIERSHIP = 'FETCH_SPREADSHEET_PREMIERSHIP';
+export const FETCH_SPREADSHEET_PREMIERLEAGUE = 'FETCH_SPREADSHEET_PREMIERLEAGUE';
 export const FETCH_SPREADSHEET_CHAMPIONSHIP = 'FETCH_SPREADSHEET_CHAMPIONSHIP';
 export const FETCH_SPREADSHEET_LEAGUEONE = 'FETCH_SPREADSHEET_LEAGUEONE';
 export const FETCH_SPREADSHEET_GAMEWEEKS = 'FETCH_SPREADSHEET_GAMEWEEKS';
@@ -14,10 +14,10 @@ export function fetchPlayers() {
   };
 }
 
-export function fetchPremiership() {
+export function fetchPremierLeague() {
   return {
-    type: FETCH_SPREADSHEET_PREMIERSHIP,
-    payload: fetchSpreadsheet('1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', 'Premiership'),
+    type: FETCH_SPREADSHEET_PREMIERLEAGUE,
+    payload: fetchSpreadsheet('1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', 'PremierLeague'),
   };
 }
 
@@ -37,7 +37,7 @@ export function fetchLeagueOne() {
 
 export function fetchDivision(division) {
   switch (division) {
-  case 'premiership': return fetchPremiership();
+  case 'premierLeague': return fetchPremierLeague();
   case 'championship': return fetchChampionship();
   default:
   case 'leagueOne':

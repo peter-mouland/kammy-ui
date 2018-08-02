@@ -16,11 +16,11 @@ class TransfersPageLoader extends React.Component {
 
   componentDidMount() {
     const {
-      fetchDbPlayers, fetchPremiership, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
-      playersLoaded, premiershipLoaded, championshipLoaded, leagueOneLoaded, transfersLoaded, gameWeeksLoaded,
+      fetchDbPlayers, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
+      playersLoaded, premierLeagueLoaded, championshipLoaded, leagueOneLoaded, transfersLoaded, gameWeeksLoaded,
     } = this.props;
     if (!playersLoaded) fetchDbPlayers();
-    if (!premiershipLoaded) fetchPremiership();
+    if (!premierLeagueLoaded) fetchPremierLeague();
     if (!championshipLoaded) fetchChampionship();
     if (!leagueOneLoaded) fetchLeagueOne();
     if (!transfersLoaded) fetchTransfers();
@@ -29,12 +29,12 @@ class TransfersPageLoader extends React.Component {
 
   updateDivision = (division) => {
     const {
-      premiership, championship, leagueOne, gameWeeks, players, transfers,
+      premierLeague, championship, leagueOne, gameWeeks, players, transfers,
     } = this.props;
     const { divisionSheets } = this.context.appConfig;
 
     const divisions = {
-      premiership, championship, leagueOne,
+      premierLeague, championship, leagueOne,
     };
 
     const teams = divisions[divisionSheets[division]];
@@ -52,7 +52,7 @@ class TransfersPageLoader extends React.Component {
     const {
       loaded,
       playersLoading, playersCount,
-      premiershipLoading, premiershipCount,
+      premierLeagueLoading, premierLeagueCount,
       championshipLoading, championshipCount,
       leagueOneLoading, leagueOneCount,
       gameWeeksLoading, gameWeeks, gameWeeksCount,
@@ -79,8 +79,8 @@ class TransfersPageLoader extends React.Component {
           {transfersLoading ? <Interstitial /> : transfersCount}
         </p>
         <p>
-          Premiership Teams :
-          {premiershipLoading ? <Interstitial /> : premiershipCount}
+          Premier League Teams :
+          {premierLeagueLoading ? <Interstitial /> : premierLeagueCount}
         </p>
         <p>
           Championship Teams :
@@ -122,35 +122,35 @@ TransfersPageLoader.propTypes = {
   transfers: PropTypes.object,
   managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
-  premiership: PropTypes.object,
+  premierLeague: PropTypes.object,
   championship: PropTypes.object,
   leagueOne: PropTypes.object,
 
   fetchDbPlayers: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
-  fetchPremiership: PropTypes.func.isRequired,
+  fetchPremierLeague: PropTypes.func.isRequired,
   fetchChampionship: PropTypes.func.isRequired,
   fetchLeagueOne: PropTypes.func.isRequired,
 
   playersLoading: PropTypes.bool,
   gameWeeksLoading: PropTypes.bool,
   transfersLoading: PropTypes.bool,
-  premiershipLoading: PropTypes.bool,
+  premierLeagueLoading: PropTypes.bool,
   championshipLoading: PropTypes.bool,
   leagueOneLoading: PropTypes.bool,
 
   playersLoaded: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
   transfersLoaded: PropTypes.bool,
-  premiershipLoaded: PropTypes.bool,
+  premierLeagueLoaded: PropTypes.bool,
   championshipLoaded: PropTypes.bool,
   leagueOneLoaded: PropTypes.bool,
 
   playersCount: PropTypes.number,
   gameWeeksCount: PropTypes.number,
   transfersCount: PropTypes.number,
-  premiershipCount: PropTypes.number,
+  premierLeagueCount: PropTypes.number,
   championshipCount: PropTypes.number,
   leagueOneCount: PropTypes.number,
 };
@@ -160,23 +160,23 @@ TransfersPageLoader.defaultProps = {
   playersLoading: false,
   gameWeeksLoading: false,
   transfersLoading: false,
-  premiershipLoading: false,
+  premierLeagueLoading: false,
   championshipLoading: false,
   playersLoaded: false,
   gameWeeksLoaded: false,
   transfersLoaded: false,
-  premiershipLoaded: false,
+  premierLeagueLoaded: false,
   championshipLoaded: false,
   leagueOneLoading: false,
-  premiershipSeason: {},
+  premierLeagueSeason: {},
   transfers: {},
   Players: {},
   PlayersCount: null,
   gameWeeks: [],
   gameWeeksCount: null,
   transfersCount: null,
-  premiership: {},
-  premiershipCount: null,
+  premierLeague: {},
+  premierLeagueCount: null,
   championship: {},
   championshipCount: null,
   leagueOne: {},

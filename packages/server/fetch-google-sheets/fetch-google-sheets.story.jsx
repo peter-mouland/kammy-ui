@@ -36,9 +36,9 @@ storiesOf('Data Sources/fetch-google-sheets', module)
       worksheetName={text('worksheetName', 'Players')}
     />
   ))
-  .add('Premiership Teams', () => (
+  .add('Premier League Teams', () => (
     <GetSheet
-      worksheetName={text('worksheetName', 'Premiership')}
+      worksheetName={text('worksheetName', 'PremierLeague')}
     />
   ))
   .add('Championship Teams', () => (

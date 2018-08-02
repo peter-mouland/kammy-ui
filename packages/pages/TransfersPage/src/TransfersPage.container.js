@@ -5,7 +5,7 @@ import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import TransfersPageLoader from './TransfersPage.loader';
 
 const {
-  fetchGameWeeks, fetchTransfers, fetchPremiership, fetchLeagueOne, fetchChampionship,
+  fetchGameWeeks, fetchTransfers, fetchPremierLeague, fetchLeagueOne, fetchChampionship,
 } = spreadsheetActions;
 const { fetchPlayers: fetchDbPlayers } = dbActions;
 
@@ -26,11 +26,11 @@ function mapStateToProps(state) {
     transfersLoading: state.spreadsheet.transfersLoading,
     transfersLoaded: state.spreadsheet.transfersLoaded,
     transfersErrors: state.spreadsheet.transfersErrors,
-    premiership: state.spreadsheet.premiership,
-    premiershipCount: state.spreadsheet.premiershipCount,
-    premiershipLoading: state.spreadsheet.premiershipLoading,
-    premiershipLoaded: state.spreadsheet.premiershipLoaded,
-    premiershipErrors: state.spreadsheet.premiershipErrors,
+    premierLeague: state.spreadsheet.premierLeague,
+    premierLeagueCount: state.spreadsheet.premierLeagueCount,
+    premierLeagueLoading: state.spreadsheet.premierLeagueLoading,
+    premierLeagueLoaded: state.spreadsheet.premierLeagueLoaded,
+    premierLeagueErrors: state.spreadsheet.premierLeagueErrors,
     championship: state.spreadsheet.championship,
     championshipCount: state.spreadsheet.championshipCount,
     championshipLoading: state.spreadsheet.championshipLoading,
@@ -47,7 +47,7 @@ function mapStateToProps(state) {
     state.players.loaded
     && state.spreadsheet.gameWeeksLoaded
     && state.spreadsheet.transfersLoaded
-    && state.spreadsheet.premiershipLoaded
+    && state.spreadsheet.premierLeagueLoaded
     && state.spreadsheet.championshipLoaded
     && state.spreadsheet.leagueOneLoaded
   );
@@ -61,6 +61,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    fetchGameWeeks, fetchPremiership, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchDbPlayers,
+    fetchGameWeeks, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchDbPlayers,
   },
 )(TransfersPageLoader);

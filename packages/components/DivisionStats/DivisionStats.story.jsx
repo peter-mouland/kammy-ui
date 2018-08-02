@@ -17,12 +17,12 @@ const store = configureStore(preloadedState, combineReducers(reducer));
 
 storiesOf('Components/DivisionStats', module)
   .addDecorator(withKnobs)
-  .add('premiership', () => (
+  .add('Premier League', () => (
     <Provider store={store}>
       <AppConfigProvider>
         <DivisionStats
-          divisionId={'premiership'}
-          label={text('label', 'Premiership')}
+          divisionId={'premierLeague'}
+          label={text('label', 'Premier League')}
         />
       </AppConfigProvider>
     </Provider>

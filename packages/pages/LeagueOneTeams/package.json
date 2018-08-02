@@ -1,9 +1,9 @@
 {
-  "name": "@kammy-ui/league-one-table",
+  "name": "@kammy-ui/league-one-teams",
   "version": "0.0.17",
-  "description": "Kammy UI Component: LeagueOneTable",
-  "main": "dist/index.min.js",
-  "src": "src/index.js",
+  "description": "Kammy UI Component: LeagueOneTeams",
+  "main": "dist/LeagueOneTeams.min.js",
+  "src": "src/LeagueOneTeams.jsx",
   "engines": {
     "node": ">=8",
     "npm": ">=5",

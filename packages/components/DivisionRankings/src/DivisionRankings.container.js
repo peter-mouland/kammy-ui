@@ -28,7 +28,7 @@ function mapStateToProps(state, ownProps) {
     transfersLoaded: state.spreadsheet.transfersLoaded,
     transfersErrors: state.spreadsheet.transfersErrors,
   };
-  const division = state.spreadsheet[ownProps.divisionId];
+  const teams = state.spreadsheet[ownProps.divisionId];
   const divisionLoaded = state.spreadsheet[`${ownProps.divisionId}Loaded`];
 
   const loaded = (
@@ -39,7 +39,7 @@ function mapStateToProps(state, ownProps) {
   );
 
   const managersSeason = loaded ? calculateManagerSeason({
-    teams: division,
+    teams,
     gameWeeks: props.gameWeeks,
     players: props.players,
     transfers: props.transfers,
@@ -48,7 +48,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     ...props,
-    division,
+    teams,
     divisionLoaded,
     managersSeason,
     loaded,

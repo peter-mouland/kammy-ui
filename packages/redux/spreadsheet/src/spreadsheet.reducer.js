@@ -33,12 +33,12 @@ export default function players(state = {}, action) {
     return fulfilled(state, 'players', data, errors);
   case `${actions.FETCH_SPREADSHEET_PLAYERS}_REJECTED`:
     return rejected(state, 'players', data, [action.payload]);
-  case `${actions.FETCH_SPREADSHEET_PREMIERSHIP}_PENDING`:
-    return pending(state, 'premiership');
-  case `${actions.FETCH_SPREADSHEET_PREMIERSHIP}_FULFILLED`:
-    return fulfilled(state, 'premiership', data, errors);
-  case `${actions.FETCH_SPREADSHEET_PREMIERSHIP}_REJECTED`:
-    return rejected(state, 'premiership', data, [action.payload]);
+  case `${actions.FETCH_SPREADSHEET_PREMIERLEAGUE}_PENDING`:
+    return pending(state, 'premierLeague');
+  case `${actions.FETCH_SPREADSHEET_PREMIERLEAGUE}_FULFILLED`:
+    return fulfilled(state, 'premierLeague', data, errors);
+  case `${actions.FETCH_SPREADSHEET_PREMIERLEAGUE}_REJECTED`:
+    return rejected(state, 'premierLeague', data, [action.payload]);
   case `${actions.FETCH_SPREADSHEET_CHAMPIONSHIP}_PENDING`:
     return pending(state, 'championship');
   case `${actions.FETCH_SPREADSHEET_CHAMPIONSHIP}_FULFILLED`:

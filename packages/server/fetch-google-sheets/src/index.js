@@ -109,7 +109,7 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
         return formatter(data);
       } if (worksheetName === 'Players') {
         return formatPlayers(data);
-      } if (worksheetName === 'Premiership') {
+      } if (worksheetName === 'PremierLeague') {
         return formatTeams(data);
       } if (worksheetName === 'Championship') {
         return formatTeams(data);

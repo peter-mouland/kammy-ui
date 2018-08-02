@@ -5,13 +5,13 @@ import DivisionStats from '@kammy-ui/division-stats';
 
 const bem = bemHelper({ block: 'teams-page' });
 
-const ChampionshipTable = () => (
+const PremierLeagueTeams = () => (
   <section id="teams-page" className={bem()}>
     <DivisionStats
-      label={'Championship'}
-      divisionId={'championship'}
+      label={'Premier League'}
+      divisionId={'premierLeague'}
     />
   </section>
 );
 
-export default ChampionshipTable;
+export default PremierLeagueTeams;

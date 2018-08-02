@@ -9,7 +9,7 @@ import { reducer as skySportsReducer } from '@kammy-ui/redux-skysports';
 import { reducer as spreadsheetReducer } from '@kammy-ui/redux-spreadsheet';
 import { reducer as dbReducer } from '@kammy-ui/redux-players';
 
-import ChampionshipTable from './src/ChampionshipTable';
+import LeagueOneTeams from './src/LeagueOneTeams';
 
 const reducer = {
   skySports: skySportsReducer,
@@ -24,10 +24,10 @@ const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
 
 storiesOf('Pages', module)
-  .add('ChampionshipTable', () => (
+  .add('LeagueOneTeams', () => (
     <Provider store={store}>
       <AppConfigProvider>
-        <ChampionshipTable />
+        <LeagueOneTeams />
       </AppConfigProvider>
     </Provider>
   ));

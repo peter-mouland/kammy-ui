@@ -18,7 +18,7 @@ storiesOf('Pages', module)
   .add('TransfersPage', () => (
     <Provider store={store}>
       <AppConfigProvider>
-        <TransfersPage divisionId={'premiership'} label={'Premiership'} />
+        <TransfersPage divisionId={'premierLeague'} label={'Premier League'} />
       </AppConfigProvider>
     </Provider>
   ));
