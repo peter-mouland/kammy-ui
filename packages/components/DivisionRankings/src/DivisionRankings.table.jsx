@@ -6,7 +6,8 @@ import MultiToggle from '@kammy-ui/multi-toggle';
 
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import positions from './lib/positions';
-import getTeamPoints from './lib/calculate-division-rank';
+import getDivisionPoints from './lib/calculate-division-points';
+import getDivisionRank from './lib/calculate-division-rank';
 
 import './divisions-rankings.scss';
 
@@ -41,6 +42,8 @@ class TeamsPage extends React.Component {
       displayGw,
     } = this.state;
     const intGameWeek = parseInt(displayGw, 10) - 1;
+    const divisionPoints = getDivisionPoints(teams, managersSeason, intGameWeek);
+    const divisionRank = getDivisionRank(divisionPoints);
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -77,18 +80,17 @@ class TeamsPage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {getTeamPoints(teams, managersSeason, intGameWeek)
-              .map(({ manager, positionPoints }) => (
+            {divisionPoints
+              .map(({ manager, points }) => (
                 <tr key={manager}>
                   <td>{manager}</td>
                   {positions.map((position) => (
                     <Fragment key={position.label}>
-                      <td>{ positionPoints[position.label].rank }</td>
-                      <td>{ positionPoints[position.label].gameWeek }</td>
+                      <td>{ divisionRank[position.label][manager] }</td>
+                      <td>{ points[position.label].gameWeek }</td>
                     </Fragment>
                   ))}
-                  <td>{ positionPoints.total.rank }</td>
-                  <td>{ positionPoints.total.gameWeek }</td>
+                  <td>{ points.total.gameWeek }</td>
                 </tr>
               ))}
           </tbody>

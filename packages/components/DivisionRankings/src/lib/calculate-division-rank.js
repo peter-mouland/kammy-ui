@@ -1,42 +1,43 @@
-import { getPositionLabel } from './positions';
+import positions from './positions';
 
-const getTotal = (posPoints) => (
-  (Object.keys(posPoints).reduce((prev, pos) => ({
-    gameWeek: prev.gameWeek + posPoints[pos].gameWeek,
-    season: prev.season + posPoints[pos].season,
-    rank: -1,
-  }), {
-    gameWeek: 0, season: 0, rank: -1,
-  }))
+const sortingFactory = (pos, dataKey) => (
+  (itemA, itemB) => (
+    itemA[pos][dataKey] - itemB[pos][dataKey]
+  )
 );
 
-const getPositionPoints = (team, intGameWeek) => {
-  const posPoints = team
-    .reduce((prev, teamSheetItem) => {
-      const player = teamSheetItem.gameWeeks[intGameWeek];
-      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
-      const key = getPositionLabel(teamSheetItem.teamPos).label;
-      const gameWeekPoints = player.gameWeekStats.points;
-      const gameWeek = prev[key] ? prev[key].gameWeek + gameWeekPoints : gameWeekPoints;
-      const season = prev[key] ? prev[key].season + seasonToGameWeek.points : seasonToGameWeek.points;
-      return {
-        ...prev,
-        [key]: {
-          gameWeek, season, rank: -1,
-        },
-      };
-    }, {});
-  return {
-    ...posPoints,
-    total: getTotal(posPoints),
-  };
+const getTeamRank = (arr, pos, dataKey) => {
+  const sorter = sortingFactory(pos, dataKey);
+  const sorted = arr.sort(sorter);
+  const ranked = arr.map((item) => sorted.findIndex((i) => sorter(item, i) === 0));
+  const adjustRankForTies = (item, i) => (
+    ranked.findIndex((rItem, rI) => rItem === item && i !== rI) > -1
+      ? { rank: item + 0.5, manager: arr[i].manager }
+      : { rank: item, manager: arr[i].manager }
+  );
+  return ranked
+    .map(adjustRankForTies)
+    .reduce((prev, item) => ({
+      ...prev,
+      [item.manager]: item.rank,
+    }), {});
 };
 
-const getTeamPoints = (teams, managersSeason, intGameWeek) => (
-  Object.keys(teams).map((manager) => ({
-    manager,
-    positionPoints: getPositionPoints(managersSeason[manager], intGameWeek),
-  }))
+const getDivisionRank = (teamsWithDivisionPoints) => (
+  positions
+    .reduce((prev, pos) => {
+      const arrRanks = getTeamRank(
+        teamsWithDivisionPoints.map(
+          (team) => ({ ...team.points, manager: team.manager }),
+        ),
+        pos.label,
+        'gameWeek',
+      );
+      return ({
+        ...prev,
+        [pos.label]: arrRanks,
+      });
+    }, {})
 );
 
-export default getTeamPoints;
+export default getDivisionRank;
