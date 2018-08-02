@@ -2,7 +2,7 @@ import positions from './positions';
 
 const sortingFactory = (pos, dataKey) => (
   (itemA, itemB) => (
-    itemA[pos][dataKey] - itemB[pos][dataKey]
+    itemA[pos] && itemB[pos] ? itemA[pos][dataKey] - itemB[pos][dataKey] : 0
   )
 );
 

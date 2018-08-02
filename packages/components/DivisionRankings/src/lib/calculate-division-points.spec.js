@@ -102,6 +102,23 @@ describe('getTeamPoints()', () => {
       });
     });
 
+    it('should return the empty positions if they do not match to prevent the app from crashing', () => {
+      const divisionPoints = getTeamPoints(teams, managersSeason, 1);
+      expect(divisionPoints[0]).toHaveProperty('points');
+      expect(divisionPoints[0].points).toHaveProperty('CB', {
+        gameWeek: 0,
+        season: 0,
+      });
+      expect(divisionPoints[0].points).toHaveProperty('AM', {
+        gameWeek: 0,
+        season: 0,
+      });
+      expect(divisionPoints[0].points).toHaveProperty('STR', {
+        gameWeek: 0,
+        season: 0,
+      });
+    });
+
     it('should calculate the total points for all positions', () => {
       const divisionPoints = getTeamPoints(teams, managersSeason, 1);
       expect(divisionPoints[0].points).toHaveProperty('total', {

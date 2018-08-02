@@ -1,4 +1,11 @@
-import { getPositionLabel } from './positions';
+import positions, { getPositionLabel } from './positions';
+
+const INITIAL_POINTS = positions.reduce((prev, pos) => (
+  {
+    ...prev,
+    [pos.label]: { gameWeek: 0, season: 0 },
+  }
+), {});
 
 const getTotal = (posPoints) => (
   (Object.keys(posPoints).reduce((prev, pos) => ({
@@ -34,7 +41,10 @@ const getPoints = (team, intGameWeek) => {
 const getTeamPoints = (teams, managersSeason, intGameWeek) => (
   Object.keys(teams).map((manager) => ({
     manager,
-    points: getPoints(managersSeason[manager], intGameWeek),
+    points: {
+      ...INITIAL_POINTS,
+      ...getPoints(managersSeason[manager], intGameWeek),
+    },
   }))
 );
 

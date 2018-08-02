@@ -9,7 +9,7 @@ import Table from './DivisionRankings.table';
 
 const bem = bemHelper({ block: 'division-stats' });
 
-class DivisionStats extends React.Component {
+class DivisionRankings extends React.Component {
   state = { }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ class DivisionStats extends React.Component {
   }
 }
 
-DivisionStats.propTypes = {
+DivisionRankings.propTypes = {
   loaded: PropTypes.bool,
   players: PropTypes.object,
   transfers: PropTypes.object,
@@ -58,7 +58,7 @@ DivisionStats.propTypes = {
   division: PropTypes.object,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  managersSeason: PropTypes.array.isRequired,
+  managersSeason: PropTypes.object.isRequired,
 
   fetchDbPlayers: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
@@ -75,7 +75,7 @@ DivisionStats.propTypes = {
   divisionLoaded: PropTypes.bool,
 };
 
-DivisionStats.defaultProps = {
+DivisionRankings.defaultProps = {
   loaded: false,
   playersLoading: false,
   gameWeeksLoading: false,
@@ -94,8 +94,8 @@ DivisionStats.defaultProps = {
   division: {},
 };
 
-DivisionStats.contextTypes = {
+DivisionRankings.contextTypes = {
   appConfig: PropTypes.object,
 };
 
-export default DivisionStats;
+export default DivisionRankings;

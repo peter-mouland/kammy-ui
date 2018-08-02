@@ -13,7 +13,7 @@ import './divisions-rankings.scss';
 
 const bem = bemHelper({ block: 'teams-table' });
 
-class TeamsPage extends React.Component {
+class DivisionRankingsTable extends React.Component {
   state = {
     displayGw: '1',
     seasonStats: null,
@@ -86,11 +86,11 @@ class TeamsPage extends React.Component {
                   <td>{manager}</td>
                   {positions.map((position) => (
                     <Fragment key={position.label}>
-                      <td>{ divisionRank[position.label][manager].gameWeek }</td>
+                      <td>{ divisionRank.gameWeek[position.label][manager] }</td>
                       <td>{ points[position.label].gameWeek }</td>
                     </Fragment>
                   ))}
-                  <td>{ divisionRank.total[manager].gameWeek }</td>
+                  <td>{ divisionRank.gameWeek.total[manager] }</td>
                   <td>{ points.total.gameWeek }</td>
                 </tr>
               ))}
@@ -101,16 +101,16 @@ class TeamsPage extends React.Component {
   }
 }
 
-TeamsPage.propTypes = {
+DivisionRankingsTable.propTypes = {
   gameWeeks: PropTypes.array,
   teams: PropTypes.object,
   managersSeason: PropTypes.object,
 };
 
-TeamsPage.defaultProps = {
+DivisionRankingsTable.defaultProps = {
   gameWeeks: [],
   teams: {},
   managersSeason: {},
 };
 
-export default TeamsPage;
+export default DivisionRankingsTable;
