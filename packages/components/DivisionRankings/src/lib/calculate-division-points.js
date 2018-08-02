@@ -19,12 +19,13 @@ const getTotal = (posPoints) => (
 const getPoints = (team, intGameWeek) => {
   const posPoints = team
     .reduce((prev, teamSheetItem) => {
-      const player = teamSheetItem.gameWeeks[intGameWeek];
-      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
+      const { gameWeeks, seasonToGameWeek } = teamSheetItem;
+      const player = gameWeeks[intGameWeek] || gameWeeks[gameWeeks.length - 1];
+      const seasonToDate = seasonToGameWeek[intGameWeek] || seasonToGameWeek[seasonToGameWeek.length - 1];
       const key = getPositionLabel(teamSheetItem.teamPos).label;
       const gameWeekPoints = player.gameWeekStats.points;
       const gameWeek = prev[key] ? prev[key].gameWeek + gameWeekPoints : gameWeekPoints;
-      const season = prev[key] ? prev[key].season + seasonToGameWeek.points : seasonToGameWeek.points;
+      const season = prev[key] ? prev[key].season + seasonToDate.points : seasonToDate.points;
       return {
         ...prev,
         [key]: {

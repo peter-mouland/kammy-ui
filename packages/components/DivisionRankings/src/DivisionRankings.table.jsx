@@ -86,8 +86,12 @@ class DivisionRankingsTable extends React.Component {
                   <td>{manager}</td>
                   {positions.map((position) => (
                     <Fragment key={position.label}>
-                      <td>{ divisionRank.gameWeek[position.label][manager] }</td>
-                      <td>{ points[position.label].gameWeek }</td>
+                      <td className={`cell cell--${position.key}`}>
+                        { divisionRank.gameWeek[position.label][manager] }
+                      </td>
+                      <td className={`cell cell--pair cell--${position.key}`}>
+                        { points[position.label].gameWeek }
+                      </td>
                     </Fragment>
                   ))}
                   <td>{ divisionRank.gameWeek.total[manager] }</td>

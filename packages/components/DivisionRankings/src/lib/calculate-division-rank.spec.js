@@ -39,7 +39,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 0.5 },
         MID: { Olly: 0.5, Nick: 0.5 },
         STR: { Olly: 0.5, Nick: 0.5 },
-        total: { Olly: 0.5, Nick: 0.5 },
+        total: { Olly: 3, Nick: 3 },
       });
     });
 
@@ -78,7 +78,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 1, Nick: 0 },
         MID: { Olly: 1, Nick: 0 },
         STR: { Olly: 1, Nick: 0 },
-        total: { Olly: 1, Nick: 0 },
+        total: { Olly: 6, Nick: 0 },
       });
     });
 
@@ -117,7 +117,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0, Nick: 1 },
         MID: { Olly: 0, Nick: 1 },
         STR: { Olly: 0, Nick: 1 },
-        total: { Olly: 0, Nick: 1 },
+        total: { Olly: 0, Nick: 6 },
       });
     });
 
@@ -168,7 +168,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 2, Pete: 0.5 },
         MID: { Olly: 2, Nick: 0.5, Pete: 0.5 },
         STR: { Olly: 1, Nick: 0, Pete: 2 },
-        total: { Olly: 1.5, Nick: 1.5, Pete: 0 },
+        total: { Olly: 6.5, Nick: 6.5, Pete: 5 },
       });
     });
 
@@ -219,7 +219,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 2, Pete: 0.5 },
         MID: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
         STR: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
-        total: { Olly: 0, Nick: 2, Pete: 1 },
+        total: { Olly: 2.5, Nick: 5.5, Pete: 4 },
       });
     });
   });
@@ -260,7 +260,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 0.5 },
         MID: { Olly: 0.5, Nick: 0.5 },
         STR: { Olly: 0.5, Nick: 0.5 },
-        total: { Olly: 0.5, Nick: 0.5 },
+        total: { Olly: 3, Nick: 3 },
       });
     });
 
@@ -299,7 +299,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 1, Nick: 0 },
         MID: { Olly: 1, Nick: 0 },
         STR: { Olly: 1, Nick: 0 },
-        total: { Olly: 1, Nick: 0 },
+        total: { Olly: 6, Nick: 0 },
       });
     });
 
@@ -338,7 +338,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0, Nick: 1 },
         MID: { Olly: 0, Nick: 1 },
         STR: { Olly: 0, Nick: 1 },
-        total: { Olly: 0, Nick: 1 },
+        total: { Olly: 0, Nick: 6 },
       });
     });
 
@@ -389,7 +389,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 2, Pete: 0.5 },
         MID: { Olly: 2, Nick: 0.5, Pete: 0.5 },
         STR: { Olly: 1, Nick: 0, Pete: 2 },
-        total: { Olly: 1.5, Nick: 1.5, Pete: 0 },
+        total: { Olly: 6.5, Nick: 6.5, Pete: 5 },
       });
     });
 
@@ -440,7 +440,7 @@ describe('getDivisionRank()', () => {
         FB: { Olly: 0.5, Nick: 2, Pete: 0.5 },
         MID: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
         STR: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
-        total: { Olly: 0, Nick: 2, Pete: 1 },
+        total: { Olly: 2.5, Nick: 5.5, Pete: 4 },
       });
     });
   });

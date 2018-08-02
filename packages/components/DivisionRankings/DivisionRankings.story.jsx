@@ -18,7 +18,7 @@ const managersSeason = require('./test-fixtures/manager-season.json');
  */
 const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
-const teams = { Olly: 'Manager details', Nick: 'Manager details' };
+const teams = { Olly: 'Manager details', Nick: 'Manager details', Pete: 'Manager details' };
 
 storiesOf('Components/DivisionRankings', module)
   .addDecorator(withKnobs)

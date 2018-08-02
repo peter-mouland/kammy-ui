@@ -23,22 +23,34 @@ const getTeamRank = (arr, pos, dataKey) => {
     }), {});
 };
 
-const getRank = (teamsWithDivisionPoints, dataKey) => (
-  [{ label: 'total' }].concat(positions)
-    .reduce((prev, pos) => {
-      const arrRanks = getTeamRank(
-        teamsWithDivisionPoints.map(
-          (team) => ({ ...team.points, manager: team.manager }),
-        ),
-        pos.label,
-        dataKey,
-      );
-      return ({
-        ...prev,
-        [pos.label]: arrRanks,
-      });
-    }, {})
-);
+const getRank = (teamsWithDivisionPoints, dataKey) => {
+  const ranks = (
+    positions
+      .reduce((prev, pos) => {
+        const posRanks = getTeamRank(
+          teamsWithDivisionPoints.map(
+            (team) => ({ ...team.points, manager: team.manager }),
+          ),
+          pos.label,
+          dataKey,
+        );
+        return ({
+          ...prev,
+          [pos.label]: posRanks,
+        });
+      }, {})
+  );
+  const total = {};
+  Object.keys(ranks).forEach((position) => {
+    Object.keys(ranks[position]).forEach((manager) => {
+      total[manager] = (total[manager] || 0) + ranks[position][manager];
+    });
+  });
+  return {
+    ...ranks,
+    total,
+  };
+};
 
 const getDivisionRank = (teamsWithDivisionPoints) => ({
   gameWeek: getRank(teamsWithDivisionPoints, 'gameWeek'),
