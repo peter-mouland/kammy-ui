@@ -86,10 +86,11 @@ class TeamsPage extends React.Component {
                   <td>{manager}</td>
                   {positions.map((position) => (
                     <Fragment key={position.label}>
-                      <td>{ divisionRank[position.label][manager] }</td>
+                      <td>{ divisionRank[position.label][manager].gameWeek }</td>
                       <td>{ points[position.label].gameWeek }</td>
                     </Fragment>
                   ))}
+                  <td>{ divisionRank.total[manager].gameWeek }</td>
                   <td>{ points.total.gameWeek }</td>
                 </tr>
               ))}
