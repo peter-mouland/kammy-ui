@@ -15,11 +15,23 @@ import TeamsPage from '@kammy-ui/teams-page';
 import PremierLeagueTeams from '@kammy-ui/premier-league-teams';
 import ChampionshipTeams from '@kammy-ui/championship-teams';
 import LeagueOneTeams from '@kammy-ui/league-one-teams';
+import PremierLeagueRankings from '@kammy-ui/premier-league-rankings';
+import ChampionshipRankings from '@kammy-ui/championship-rankings';
+import LeagueOneRankings from '@kammy-ui/league-one-rankings';
 import TransfersPage from '@kammy-ui/transfers-page';
 
 // todo import pages dynamically
 const pages = {
-  RulesPage, PlayersPage, TeamsPage, TransfersPage, PremierLeagueTeams, ChampionshipTeams, LeagueOneTeams,
+  RulesPage,
+  PlayersPage,
+  TeamsPage,
+  TransfersPage,
+  PremierLeagueTeams,
+  ChampionshipTeams,
+  LeagueOneTeams,
+  PremierLeagueRankings,
+  ChampionshipRankings,
+  LeagueOneRankings,
 };
 
 const navigator = global.navigator && global.navigator.userAgent;

@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/division-stats",
+  "name": "@kammy-ui/division-rankings",
   "version": "0.0.17",
-  "description": "Kammy UI Component: DivisionStats",
+  "description": "Kammy UI Component: DivisionRankings",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {

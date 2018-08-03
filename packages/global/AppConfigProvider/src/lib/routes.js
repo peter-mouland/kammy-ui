@@ -60,12 +60,25 @@ export default [
     exact: true,
     path: '/premier-league/teams',
     meta: {
-      title: 'Kammy - Premier League Table',
+      title: 'Kammy - Premier League Teams',
       description: 'Kammy : Fantasy Football',
     },
     label: 'Teams',
     requiresAuthentication: false,
     component: 'PremierLeagueTeams',
+    template: 'default',
+  },
+  {
+    name: 'premierLeague-rankings',
+    exact: true,
+    path: '/premier-league/rankings',
+    meta: {
+      title: 'Kammy - Premier League Rankings',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'League Table',
+    requiresAuthentication: false,
+    component: 'PremierLeagueRankings',
     template: 'default',
   },
   {
@@ -82,6 +95,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'championship-rankings',
+    exact: true,
+    path: '/championship/rankings',
+    meta: {
+      title: 'Kammy - Championship Rankings',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'League Table',
+    requiresAuthentication: false,
+    component: 'ChampionshipRankings',
+    template: 'default',
+  },
+  {
     name: 'leagueOne-teams',
     exact: true,
     path: '/league-one/teams',
@@ -92,6 +118,19 @@ export default [
     label: 'Teams',
     requiresAuthentication: false,
     component: 'LeagueOneTeams',
+    template: 'default',
+  },
+  {
+    name: 'leagueOne-rankings',
+    exact: true,
+    path: '/league-one/rankings',
+    meta: {
+      title: 'Kammy - League One Rankings',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'League Table',
+    requiresAuthentication: false,
+    component: 'LeagueOneRankings',
     template: 'default',
   },
 ];

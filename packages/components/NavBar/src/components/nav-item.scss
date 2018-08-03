@@ -10,6 +10,7 @@
     right: 0;
     min-width: 100%;
     background: $brand;
+    z-index: 1;
 
     :hover > & {
       display: block;
