@@ -28,7 +28,6 @@ const NavBar = (__, { appConfig }) => (
     <div className={ bem('link', 'right')}>
       <NavItem label='Admin' >
         <NamedLink to="players" className={linkClass} />
-        <NamedLink to="teams" className={linkClass} />
         <NamedLink to="transfers" className={linkClass} />
       </NavItem>
     </div>
