@@ -10,6 +10,7 @@ import Table from './DivisionRankings.table';
 import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import getDivisionPoints from './lib/calculate-division-points';
 import getDivisionRank from './lib/calculate-division-rank';
+import getRankChange from './lib/calculate-rank-change';
 
 const bem = bemHelper({ block: 'division-stats' });
 
@@ -46,11 +47,12 @@ class DivisionRankings extends React.Component {
     } = this.props;
     const { displayGw } = this.state;
     const gameWeek = parseInt(displayGw, 10) - 1;
-    const divisionPoints = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeek);
-    const divisionRank = divisionPoints && getDivisionRank(divisionPoints);
-    console.log({ loaded });
-    console.log({ teams });
-    console.log({ divisionPoints });
+    const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeek);
+    const rank = points && getDivisionRank(points);
+    const pointsLastWeek = loaded && teams && gameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeek - 1);
+    const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
+    const rankChange = getRankChange(rankLastWeek, rank);
+
     return (
       <section id="division-ranking-page" className={bem(null, null, 'page-content')}>
         <h1>{label}</h1>
@@ -60,7 +62,7 @@ class DivisionRankings extends React.Component {
           </Fragment>
         )}
         {
-          loaded && teams && divisionPoints && divisionRank && (
+          loaded && teams && points && rank && (
             <Fragment>
               <MultiToggle
                 label={'GameWeek'}
@@ -73,10 +75,16 @@ class DivisionRankings extends React.Component {
               <FormattedGameWeekDate gameWeek={gameWeeks[gameWeek]}/>
               <h2>Overall Standings</h2>
               <Table
-                divisionPoints={divisionPoints}
-                divisionRank={divisionRank}
+                points={points}
+                rank={rank}
+                type='season'
               />
               <h2>Weekly Scores</h2>
+              <Table
+                points={points}
+                rank={rankChange}
+                type='gameWeek'
+              />
             </Fragment>
           )
         }

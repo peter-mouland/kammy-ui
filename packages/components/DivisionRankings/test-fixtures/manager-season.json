@@ -129,57 +129,57 @@
   },{
     "teamPos": "SUB",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":1}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "FB",
     "gameWeeks": [ {"gameWeekStats":{"points":5}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":5}, {"points":9}, {"points":13} ],
+    "seasonStats": {"points":13}
   },{
     "teamPos": "FB",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "CB",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "CB",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "AM",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "AM",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "MID",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "MID",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "STR",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   },{
     "teamPos": "STR",
     "gameWeeks": [ {"gameWeekStats":{"points":3}}, {"gameWeekStats":{"points":4}}, {"gameWeekStats":{"points":4}} ],
-    "seasonToGameWeek": [ {"points":3}, {"points":4}, {"points":4} ],
-    "seasonStats": {"points":7}
+    "seasonToGameWeek": [ {"points":3}, {"points":7}, {"points":11} ],
+    "seasonStats": {"points":11}
   }]
 }

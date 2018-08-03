@@ -24,7 +24,7 @@ const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
 
 storiesOf('Pages', module)
-  .add('LeagueOneTeams', () => (
+  .add('League One Teams', () => (
     <Provider store={store}>
       <AppConfigProvider>
         <LeagueOneTeams />

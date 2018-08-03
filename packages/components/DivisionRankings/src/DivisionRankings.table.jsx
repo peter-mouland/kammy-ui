@@ -5,7 +5,7 @@ import positions from './lib/positions';
 
 import './divisions-rankings.scss';
 
-const DivisionRankingsTable = ({ divisionRank, divisionPoints }) => (
+const DivisionRankingsTable = ({ rank, points, type }) => (
   <table>
     <thead>
       <tr>
@@ -30,22 +30,22 @@ const DivisionRankingsTable = ({ divisionRank, divisionPoints }) => (
       </tr>
     </thead>
     <tbody>
-      {divisionPoints
-        .map(({ manager, points }) => (
+      {points
+        .map(({ manager, points: pos }) => (
           <tr key={manager}>
             <td>{manager}</td>
             {positions.map((position) => (
               <Fragment key={position.label}>
                 <td className={`cell cell--${position.key}`}>
-                  { divisionRank.gameWeek[position.label][manager] }
+                  { rank[position.label][manager] }
                 </td>
                 <td className={`cell cell--pair cell--${position.key}`}>
-                  { points[position.label].gameWeek }
+                  { pos[position.label][type] }
                 </td>
               </Fragment>
             ))}
-            <td className={'cell cell--total'}>{ divisionRank.gameWeek.total[manager] }</td>
-            <td className={'cell cell--pair cell--total'}>{ points.total.gameWeek }</td>
+            <td className={'cell cell--total'}>{ rank.total[manager] }</td>
+            <td className={'cell cell--pair cell--total'}>{ pos.total[type] }</td>
           </tr>
         ))}
     </tbody>
@@ -53,13 +53,14 @@ const DivisionRankingsTable = ({ divisionRank, divisionPoints }) => (
 );
 
 DivisionRankingsTable.propTypes = {
-  divisionRank: PropTypes.object,
-  divisionPoints: PropTypes.array,
+  rank: PropTypes.object,
+  points: PropTypes.array,
+  type: PropTypes.oneOf(['season', 'gameWeek']).isRequired,
 };
 
 DivisionRankingsTable.defaultProps = {
-  divisionRank: {},
-  divisionPoints: [],
+  rank: {},
+  points: [],
 };
 
 export default DivisionRankingsTable;

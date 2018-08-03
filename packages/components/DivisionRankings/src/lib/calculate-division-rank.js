@@ -23,7 +23,7 @@ const getTeamRank = (arr, pos, dataKey) => {
     }), {});
 };
 
-const getRank = (teamsWithDivisionPoints, dataKey) => {
+const getRank = (teamsWithDivisionPoints) => {
   const ranks = (
     positions
       .reduce((prev, pos) => {
@@ -32,7 +32,7 @@ const getRank = (teamsWithDivisionPoints, dataKey) => {
             (team) => ({ ...team.points, manager: team.manager }),
           ),
           pos.label,
-          dataKey,
+          'season',
         );
         return ({
           ...prev,
@@ -52,9 +52,4 @@ const getRank = (teamsWithDivisionPoints, dataKey) => {
   };
 };
 
-const getDivisionRank = (teamsWithDivisionPoints) => ({
-  gameWeek: getRank(teamsWithDivisionPoints, 'gameWeek'),
-  season: getRank(teamsWithDivisionPoints, 'season'),
-});
-
-export default getDivisionRank;
+export default getRank;
