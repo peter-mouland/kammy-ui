@@ -44,8 +44,8 @@ const DivisionRankingsTable = ({ divisionRank, divisionPoints }) => (
                 </td>
               </Fragment>
             ))}
-            <td>{ divisionRank.gameWeek.total[manager] }</td>
-            <td>{ points.total.gameWeek }</td>
+            <td className={'cell cell--total'}>{ divisionRank.gameWeek.total[manager] }</td>
+            <td className={'cell cell--pair cell--total'}>{ points.total.gameWeek }</td>
           </tr>
         ))}
     </tbody>
