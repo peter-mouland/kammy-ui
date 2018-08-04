@@ -1,24 +1,18 @@
 const GoogleSpreadsheet = require('./GoogleSpreadsheet');
 const GoogleSpreadsheetCred = require('./google-generated-creds.json');
 
-function toTitleCase(str = '') {
-  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-}
-
 /* PLAYERS */
-const formatPlayer = (item) => {
-  const formattedPlayer = ({
-    [item.player.trim()]: {
-      new: item.new === 'new',
-      code: parseInt(item.code, 10),
-      pos: item.pos.toUpperCase(),
-      name: item.player.trim(),
-      club: toTitleCase(item.club),
-      isHidden: item.ishidden === 'hidden',
-    },
-  });
-  return formattedPlayer;
-};
+const formatPlayer = ({
+  player = '', ishidden = '', code, pos = '', ...item
+}) => ({
+  [player.trim()]: {
+    isHidden: ['hidden', 'y', 'Y'].includes(ishidden),
+    new: ['new', 'y', 'Y'].includes(item.new),
+    code: parseInt(code, 10),
+    pos: pos.toUpperCase(),
+    name: player.trim(),
+  },
+});
 
 const formatPlayers = (data) => {
   const jsonData = Object.keys(data).reduce((prev, key) => ({
@@ -34,7 +28,6 @@ const formatTeam = (item) => ({
   code: item.code,
   pos: item.position,
   name: item.player.trim(),
-  club: item.club,
 });
 const formatTeams = (data) => {
   const jsonData = {};
@@ -59,14 +52,14 @@ const formatTimeStamp = (timestamp) => {
   return `${year}/${month}/${day} ${time}`;
 };
 const formatTransfer = (item) => ({
+  status: item.status.trim(),
+  timestamp: formatTimeStamp(item.timestamp),
   manager: item.manager.trim(),
   transferIn: item.transferin,
-  transferOut: item.transferout,
   codeIn: item.codein,
+  transferOut: item.transferout,
   codeOut: item.codeout,
-  timestamp: formatTimeStamp(item.timestamp),
   type: item.transfertype,
-  status: item.status.trim(),
 });
 const formatTransfers = (data) => {
   const jsonData = {};

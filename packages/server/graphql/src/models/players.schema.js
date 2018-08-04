@@ -43,6 +43,7 @@ const schemaString = `
     code: Int
     pos: String
     club: String
+    value: String
     skySportsPosition: String
     skySportsClub: String
     isHidden: Boolean
@@ -56,9 +57,10 @@ const schemaString = `
     code: Int
     name: String
     pos: String
-    skySportsPosition: String
     club: String
+    value: String
     skySportsClub: String
+    skySportsPosition: String
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
@@ -70,9 +72,10 @@ const schemaString = `
     code: Int
     name: String
     pos: String
-    skySportsPosition: String
     club: String
+    value: String
     skySportsClub: String
+    skySportsPosition: String
     isHidden: Boolean
     new: Boolean
     fixtures: [FixtureInput]

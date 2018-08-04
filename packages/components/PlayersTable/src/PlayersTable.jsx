@@ -39,6 +39,7 @@ const PlayerTable = ({
         <th className={ bem('meta', 'pos')}>Position</th>
         <th className={ bem('meta', 'player')}>Player</th>
         <th className={ bem('meta', 'club')}>Club</th>
+        <th className={ bem('meta', 'value')}>value</th>
         { additionalColumns.map((col) => [
           <td key={col} className={ bem('meta', 'stat')} >{col}</td>,
         ])}
@@ -73,6 +74,9 @@ const PlayerTable = ({
                 </td>
                 <td>
                   <small>{ player.club }</small>
+                </td>
+                <td>
+                  { player.value }
                 </td>
                 { additionalColumns.map((col) => (
                   <td key={col} className={ bem('stat')}>

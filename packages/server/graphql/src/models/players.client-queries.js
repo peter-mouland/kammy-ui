@@ -1,7 +1,7 @@
 const getPlayersQuery = `
 query { 
   getPlayers{ 
-    _id code pos name club skySportsClub skySportsPosition isHidden new
+    _id code pos name club skySportsClub skySportsPosition isHidden new value
      fixtures { 
       aScore aTname date event hScore hTname status stats
     }
@@ -15,7 +15,7 @@ query {
 const getPlayerQuery = `
 query ($code: Int) { 
   getPlayers(code: $code){
-    _id code pos name club skySportsClub skySportsPosition isHidden new
+    _id code pos name club skySportsClub skySportsPosition isHidden new value
     fixtures { 
       aScore aTname date event hScore hTname status stats
     }
@@ -29,7 +29,7 @@ query ($code: Int) {
 const upsertPlayersMutation = `
   mutation ($playerUpdates: [PlayerUpdates]) { 
     upsertPlayers(playerUpdates: $playerUpdates){
-      _id code pos name club isHidden new skySportsClub skySportsPosition
+      _id code pos name club isHidden new skySportsClub skySportsPosition value
       fixtures { 
         aScore aTname date event hScore hTname status stats
       }
@@ -43,7 +43,7 @@ const upsertPlayersMutation = `
 const mergePlayersMutation = `
   mutation { 
     mergePlayers{
-      _id code pos name club isHidden new skySportsClub skySportsPosition
+      _id code pos name club isHidden new skySportsClub skySportsPosition value
        fixtures { 
          aScore aTname date event hScore hTname status stats
       }

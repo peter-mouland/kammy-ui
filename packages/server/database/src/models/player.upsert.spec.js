@@ -23,20 +23,7 @@ describe('upsert()', () => {
     findSpy.mockReset();
   });
 
-  it('returns filters outs players without a skySportsClub', () => {
-    const player = {
-      _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
-      code: 1,
-    };
-    const players = [player];
-    mockingoose.Player.toReturn(player, 'save');
-    mockingoose.Player.toReturn([], 'aggregate');
-    return upsert(players).then((response) => {
-      expect(response).toHaveLength(0);
-    });
-  });
-
-  it.skip('returns a player object', () => {
+  it('returns a player object', () => {
     const player = {
       _id: mongoose.Types.ObjectId('507f191e810c19729de860ea'),
       code: 1,
@@ -85,10 +72,7 @@ describe('upsert()', () => {
     mockingoose.Player.toReturn(players, 'aggregate');
     return upsert(players).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
-        ...player,
-        club: player.skySportsClub,
-      });
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, player);
     });
   });
 
@@ -123,14 +107,8 @@ describe('upsert()', () => {
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
     return upsert(players).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, {
-        ...player1,
-        club: player1.skySportsClub,
-      });
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, {
-        ...player2,
-        club: player2.skySportsClub,
-      });
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, player1);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, player2);
     });
   });
 
@@ -155,12 +133,10 @@ describe('upsert()', () => {
     };
     const dbPlayer1 = {
       ...player1,
-      club: player1.skySportsClub,
       fixtures: [{ stats: [1, 2, 3, 4] }],
     };
     const dbPlayer2 = {
       ...player2,
-      club: player2.skySportsClub,
       fixtures: [{ stats: [5, 5, 5, 5] }],
     };
     const players = [player1, player2];
@@ -186,10 +162,7 @@ describe('upsert()', () => {
     mockingoose.Player.toReturn(players, 'aggregate');
     return upsert(players).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, {
-        ...player,
-        club: player.skySportsClub,
-      });
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, player);
     });
   });
 

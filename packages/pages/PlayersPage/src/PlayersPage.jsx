@@ -69,7 +69,7 @@ class PlayersPage extends React.Component {
                 <div>{skySportsPlayersCount - dbPlayersCount} New Sky Sports players !</div>
               )}
               <button onClick={this.setupPlayers} disabled={dbImporting}>
-                Import/Update Player Stats<sup>*</sup>
+                Import/Update Players<sup>*</sup>
               </button>
               { dbImporting && <Interstitial /> }
             </p>
