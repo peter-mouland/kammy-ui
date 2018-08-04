@@ -69,22 +69,24 @@ class PlayerTable extends React.Component {
 
   render() {
     const {
-      players, visibleColumns, additionalColumns, myTeam, positions,
+      players, visibleStats, additionalColumns, hiddenColumns, myTeam, positions,
     } = this.props;
     const { sort } = this.state;
     return (
       <table className={ bem() }>
         <thead>
           <tr className={ bem('data-header')}>
-            <th className={ bem('meta', 'isHidden')}>isHidden</th>
-            <th className={ bem('meta', 'new')}>New</th>
-            <th className={ bem('meta', 'code')}>Code</th>
+            { !hiddenColumns.includes('isHidden') && <th className={ bem('meta', 'isHidden')}>isHidden</th>}
+            { !hiddenColumns.includes('new') && <th className={ bem('meta', 'new')}>New</th>}
+            { !hiddenColumns.includes('code') && <th className={ bem('meta', 'code')}>Code</th>}
             <SortableHeader id={'pos'} label={'Position'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'name'} label={'Player'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'club'} label={'Club'} sort={sort} handleSort={this.handleSort} />
-            <SortableHeader id={'value'} label={'Value'} sort={sort} handleSort={this.handleSort} />
+            { !hiddenColumns.includes('value') && (
+              <SortableHeader id={'value'} label={'Value'} sort={sort} handleSort={this.handleSort} />
+            )}
             { additionalColumns.map((col) => (<td key={col} className={ bem('meta', 'stat')} >{col}</td>))}
-            { visibleColumns.map((stat) => (
+            { visibleStats.map((stat) => (
               <Fragment key={stat}>
                 <td className={ bem('meta', 'stat')} >{stat}</td>
                 <td className={ bem('meta', 'stat')} ><sup>(gw)</sup></td>
@@ -100,16 +102,14 @@ class PlayerTable extends React.Component {
                 const isOnMyTeam = myTeam && myTeam[player.code];
                 return (
                   <tr key={player.code} id={player.code} className={ bem('player', { selected: isOnMyTeam, new: !!player.new })}>
-                    <td>
-                      { player.isHidden && 'hidden' }
-                    </td>
-                    <td>
-                      { player.new && <Svg className={ bem('new-icon')}>{New}</Svg> }
-                      { player.new && <span className="sr-only">new</span> }
-                    </td>
-                    <td>
-                      { player.code }
-                    </td>
+                    { !hiddenColumns.includes('isHidden') && (<td>{ player.isHidden && 'hidden' }</td>) }
+                    { !hiddenColumns.includes('new') && (
+                      <td>
+                        { player.new && <Svg className={ bem('new-icon')}>{New}</Svg> }
+                        { player.new && <span className="sr-only">new</span> }
+                      </td>
+                    )}
+                    { !hiddenColumns.includes('code') && <td>{ player.code }</td> }
                     <td>
                       { player.pos }
                     </td>
@@ -119,15 +119,13 @@ class PlayerTable extends React.Component {
                     <td>
                       <small>{ player.club }</small>
                     </td>
-                    <td>
-                      { player.value }
-                    </td>
+                    { !hiddenColumns.includes('value') && <td>{ player.value }</td> }
                     { additionalColumns.map((col) => (
                       <td key={col} className={ bem('stat')}>
                         {String(player[col])}
                       </td>
                     ))}
-                    { visibleColumns.map((stat) => (
+                    { visibleStats.map((stat) => (
                       <Fragment key={stat}>
                         <td className={ bem('stat')}>
                           {player.season[stat]}
@@ -157,14 +155,16 @@ class PlayerTable extends React.Component {
 PlayerTable.propTypes = {
   players: PropTypes.array.isRequired,
   positions: PropTypes.array.isRequired,
-  visibleColumns: PropTypes.array,
-  additionalColumns: PropTypes.array,
+  visibleStats: PropTypes.array,
+  hiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  additionalColumns: PropTypes.arrayOf(PropTypes.string),
   myTeam: PropTypes.object,
 };
 
 PlayerTable.defaultProps = {
   myTeam: null,
-  visibleColumns: [],
+  hiddenColumns: [],
+  visibleStats: [],
   additionalColumns: [],
 };
 

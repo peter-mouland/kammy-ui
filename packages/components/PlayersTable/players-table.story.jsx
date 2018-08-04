@@ -10,7 +10,7 @@ import fixtures from './players-table.fixtures.json';
 import Players from './src/Players';
 import PlayersContainer from './src/Players.container';
 
-const visibleColumns = ['apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'tb', 'sb', 'ycard', 'rcard', 'points'];
+const visibleStats = ['apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'tb', 'sb', 'ycard', 'rcard', 'points'];
 const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR', 'SUB'];
 
 /**
@@ -27,7 +27,7 @@ storiesOf('Components/PlayersTable', module)
   .add('Component', () => (
     <Players
       players={fixtures.players}
-      visibleColumns={array('visibleColumns', visibleColumns)}
+      visibleStats={array('visibleStats', visibleStats)}
       positions={positions}
       loading={false}
     />
@@ -35,7 +35,7 @@ storiesOf('Components/PlayersTable', module)
   .add('todo: Container', () => (
     <Provider store={store}>
       <PlayersContainer
-        visibleColumns={array('visibleColumns', visibleColumns)}
+        visibleStats={array('visibleStats', visibleStats)}
         positions={positions}
       />
     </Provider>

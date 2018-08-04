@@ -30,6 +30,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'players',
+    exact: true,
+    path: '/admin/players/',
+    meta: {
+      title: 'Kammy Admin - Admin Players',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Players',
+    requiresAuthentication: false,
+    component: 'AdminPlayersPage',
+    template: 'default',
+  },
+  {
     name: 'transfers',
     exact: true,
     path: '/admin/transfers/',

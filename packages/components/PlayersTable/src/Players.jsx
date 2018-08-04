@@ -20,7 +20,7 @@ class Players extends React.Component {
 
   render() {
     const {
-      loading, errors, players, positions, visibleColumns,
+      loading, errors, players, positions, visibleStats,
     } = this.props;
 
     if (loading) return <Interstitial />;
@@ -36,7 +36,7 @@ class Players extends React.Component {
             <PlayersTable
               positions={positions}
               players={playersFiltered}
-              visibleColumns={visibleColumns}
+              visibleStats={visibleStats}
               onPlayerClick={this.setShowFixtures}
             />
           )}
@@ -47,7 +47,7 @@ class Players extends React.Component {
 }
 
 Players.propTypes = {
-  visibleColumns: PropTypes.array.isRequired,
+  visibleStats: PropTypes.array.isRequired,
   positions: PropTypes.array.isRequired,
   fetchPlayers: PropTypes.func,
   players: PropTypes.array,

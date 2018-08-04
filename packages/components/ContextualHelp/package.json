@@ -21,7 +21,7 @@
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
     "prop-types": "15.6.1",
-    "react": "16.3.2",
+    "react": "^16.4.1" ,
     "react-dom": "16.3.2"
   }
 }

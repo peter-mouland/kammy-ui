@@ -15,6 +15,7 @@ const NavBar = (__, { appConfig }) => (
   <nav className={bem()}>
     <span className={bem('header')}>FF</span>
     <NamedLink to="rules" className={linkClass} />
+    <NamedLink to="players" className={linkClass} />
     {
       appConfig.divisionLabels.map((division) => (
         <div key={division} className={linkClass}>

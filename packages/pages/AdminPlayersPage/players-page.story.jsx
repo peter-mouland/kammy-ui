@@ -15,7 +15,7 @@ const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
 
 storiesOf('Pages', module)
-  .add('Players Page', () => (
+  .add('Admin Players Page', () => (
     <Provider store={store}>
       <PlayersPage />
     </Provider>

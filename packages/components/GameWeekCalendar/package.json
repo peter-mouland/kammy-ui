@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
-    "react": "^16.3.0"
+    "react": "^16.4.1"
   },
   "devDependencies": {
     "@kammy-ui/redux-fixtures": "^0.0.17",

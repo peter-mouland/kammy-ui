@@ -1,5 +1,5 @@
 /* eslint-disable react/no-deprecated */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
@@ -13,75 +13,20 @@ const bem = bemHelper({ block: 'players-page' });
 
 class PlayersPage extends React.Component {
   componentDidMount() {
-    const {
-      fetchDbPlayers, fetchSkySportsPlayers, fetchSpreadsheetPlayers,
-      dbLoaded, skySportsLoaded, spreadsheetLoaded,
-    } = this.props;
-    if (!dbLoaded) fetchDbPlayers();
-    if (!skySportsLoaded) fetchSkySportsPlayers();
-    if (!spreadsheetLoaded) fetchSpreadsheetPlayers();
+    const { fetchPlayers, loaded } = this.props;
+    if (!loaded) fetchPlayers();
   }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.dbImporting === true && !nextProps.dbImporting) {
-      this.props.fetchDbPlayers();
-    }
-  }
-
-  setupPlayers = () => {
-    this.props.mergePlayers();
-  };
 
   render() {
-    const {
-      dbLoading, dbPlayersCount, loaded, dbImporting, dbPlayers,
-      spreadsheetLoading, spreadsheetPlayersCount,
-      skySportsLoading, skySportsPlayersCount,
-    } = this.props;
+    const { loaded, players } = this.props;
 
     return (
       <section id="players-page" className={bem(null, 'page-content')}>
         <h1>Players</h1>
-        <p>
-          The purpose of this page is to display the Players stats from the Google Spreadsheet,
-          import new player data from SkySports, add see the differences highlighted.
-        </p>
-        <p>
-          From here, the updates should be Saved to Database and, optionally,
-          be copied back to google spreadsheet.
-        </p>
-        <p>
-          Players In DB :
-          {dbLoading ? <Interstitial /> : dbPlayersCount}
-        </p>
-        <p>
-          Players In SkySports :
-          {skySportsLoading ? <Interstitial /> : skySportsPlayersCount}
-        </p>
-        <p>
-          Players In Google Spreadsheets :
-          {spreadsheetLoading ? <Interstitial /> : spreadsheetPlayersCount}
-        </p>
+        {!loaded && <Interstitial />}
         {loaded && (
-          <Fragment>
-            <p>
-              {dbPlayersCount < skySportsPlayersCount && (
-                <div>{skySportsPlayersCount - dbPlayersCount} New Sky Sports players !</div>
-              )}
-              <button onClick={this.setupPlayers} disabled={dbImporting}>
-                Import/Update Players<sup>*</sup>
-              </button>
-              { dbImporting && <Interstitial /> }
-            </p>
-            <p>
-              <sup>*</sup>this will copy players from Sky Sports into the Database.
-              It will also attempt to assign a position if the player is found within Google Spreadsheets.
-            </p>
-          </Fragment>
-        )}
-        {dbPlayersCount > 0 && (
           <ErrorBoundary>
-            <PlayersPageTable players={dbPlayers} />
+            <PlayersPageTable players={players} />
           </ErrorBoundary>
         )}
       </section>
@@ -90,49 +35,15 @@ class PlayersPage extends React.Component {
 }
 
 PlayersPage.propTypes = {
-  mergePlayers: PropTypes.func.isRequired,
-  mergedPlayers: PropTypes.object,
   loaded: PropTypes.bool,
-
-  fetchSkySportsPlayers: PropTypes.func,
-  skySportsLoading: PropTypes.bool,
-  skySportsLoaded: PropTypes.bool,
-  skySportsPlayers: PropTypes.object,
-  skySportsPlayersCount: PropTypes.number,
-
-  fetchDbPlayers: PropTypes.func,
-  dbImporting: PropTypes.bool,
-  dbLoading: PropTypes.bool,
-  dbLoaded: PropTypes.bool,
-  dbPlayers: PropTypes.object,
-  dbPlayersCount: PropTypes.number,
-
-  fetchSpreadsheetPlayers: PropTypes.func,
-  spreadsheetLoading: PropTypes.bool,
-  spreadsheetLoaded: PropTypes.bool,
-  spreadsheetPlayers: PropTypes.object,
-  spreadsheetPlayersCount: PropTypes.number,
+  fetchPlayers: PropTypes.func,
+  players: PropTypes.object,
 };
 
 PlayersPage.defaultProps = {
-  fetchDbPlayers: () => {},
-  fetchSkySportsPlayers: () => {},
-  fetchSpreadsheetPlayers: () => {},
-  mergedPlayers: {},
+  fetchPlayers: () => {},
   loaded: false,
-  dbImporting: false,
-  dbLoading: false,
-  dbLoaded: false,
   dbPlayers: {},
-  dbPlayersCount: null,
-  skySportsLoading: false,
-  skySportsLoaded: false,
-  skySportsPlayers: {},
-  skySportsPlayersCount: null,
-  spreadsheetLoading: false,
-  spreadsheetLoaded: false,
-  spreadsheetPlayers: {},
-  spreadsheetPlayersCount: null,
 };
 
 export default PlayersPage;

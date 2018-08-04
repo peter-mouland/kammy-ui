@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/division-rankings",
+  "name": "@kammy-ui/admin-players-page",
   "version": "0.0.17",
-  "description": "Kammy UI Component: DivisionRankings",
+  "description": "Kammy UI Component: AdminPlayersPage",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
@@ -18,24 +18,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/errors": "^0.0.17",
-    "@kammy-ui/data-player-stats": "^0.0.18",
-    "@kammy-ui/data-team-season": "^0.0.18",
     "@kammy-ui/error-boundary": "^0.0.14",
     "@kammy-ui/fetchr": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
-    "@kammy-ui/modal": "^0.0.17",
-    "@kammy-ui/multi-toggle": "^0.0.17",
     "@kammy-ui/players-table": "^0.0.17",
     "@kammy-ui/redux-players": "^0.0.17",
     "@kammy-ui/redux-skysports": "^0.0.17",
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
-    "@kammy-ui/select": "^0.0.17",
-    "json-query": "^2.2.2",
     "react-redux": "^5.0.7"
   },
   "peerDependencies": {

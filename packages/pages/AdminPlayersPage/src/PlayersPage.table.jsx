@@ -13,6 +13,7 @@ const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
 class PlayersPageTable extends React.Component {
   render() {
     const { players } = this.props;
+    const mismatchFilter = (player) => (!player.pos);
 
     return (
       <section id="players-page" className={bem()}>
@@ -20,12 +21,16 @@ class PlayersPageTable extends React.Component {
           <PlayersFilters
             players={Object.values(players)}
             positions={positions}
+            showNewToggle={true}
+            showHiddenToggle={true}
+            customFilter={{ fn: mismatchFilter, label: 'Show only mis-matches' }}
           >
             {(playersFiltered) => (
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
-                hiddenColumns={['new', 'isHidden', 'code', 'value']}
+                additionalColumns={['skySportsPosition']}
+                visibleColumns={[]}
               />
             )}
           </PlayersFilters>
