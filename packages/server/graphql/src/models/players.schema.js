@@ -43,7 +43,7 @@ const schemaString = `
     code: Int
     pos: String
     club: String
-    value: String
+    value: Float
     skySportsPosition: String
     skySportsClub: String
     isHidden: Boolean
@@ -58,7 +58,7 @@ const schemaString = `
     name: String
     pos: String
     club: String
-    value: String
+    value: Float
     skySportsClub: String
     skySportsPosition: String
     isHidden: Boolean
@@ -73,7 +73,7 @@ const schemaString = `
     name: String
     pos: String
     club: String
-    value: String
+    value: Float
     skySportsClub: String
     skySportsPosition: String
     isHidden: Boolean

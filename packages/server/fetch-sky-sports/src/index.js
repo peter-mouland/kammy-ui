@@ -14,7 +14,7 @@ const mapToFFDataStructure = (prev, curr) => ({
     name: `${curr.sName}, ${curr.fName}`.trim(),
     skySportsPosition: curr.group.toUpperCase(),
     skySportsClub: toTitleCase(curr.tName),
-    value: curr.value,
+    value: parseFloat(curr.value),
     new: false,
     isHidden: false,
     fixtures: curr.fixtures || [],
