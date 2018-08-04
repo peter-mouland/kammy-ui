@@ -19,7 +19,7 @@ export default [
   {
     name: 'players',
     exact: true,
-    path: '/admin/players/',
+    path: '/players/',
     meta: {
       title: 'Kammy Admin - Players',
       description: 'Kammy : Fantasy Football',
@@ -32,14 +32,14 @@ export default [
   {
     name: 'players',
     exact: true,
-    path: '/admin/players/',
+    path: '/players/',
     meta: {
-      title: 'Kammy Admin - Admin Players',
+      title: 'Kammy Admin - Players',
       description: 'Kammy : Fantasy Football',
     },
     label: 'Players',
     requiresAuthentication: false,
-    component: 'AdminPlayersPage',
+    component: 'PlayersPage',
     template: 'default',
   },
   {
@@ -131,6 +131,19 @@ export default [
     label: 'League Table',
     requiresAuthentication: false,
     component: 'LeagueOneRankings',
+    template: 'default',
+  },
+  {
+    name: 'admin-players',
+    exact: true,
+    path: '/admin/players/',
+    meta: {
+      title: 'Kammy Admin - Admin Players',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Players',
+    requiresAuthentication: false,
+    component: 'AdminPlayersPage',
     template: 'default',
   },
 ];
