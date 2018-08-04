@@ -71,7 +71,7 @@ export default class PlayersFilters extends React.Component {
       customFilterChecked: false,
       showHiddenChecked: false,
       posFilter: props.selectedPosition || 'all',
-      clubFilter: this.options.clubs[0],
+      clubFilter: '',
     };
   }
 
