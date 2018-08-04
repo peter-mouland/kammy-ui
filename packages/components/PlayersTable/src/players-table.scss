@@ -38,13 +38,27 @@
     fill: $error;
   }
 
-  &__meta {
-    &--isHidden,
-    &--stat,
-    &--new {
-      text-align: center;
-      width: 45px;
+  &__label {
+    display: inline-block;
+  }
+
+  &__sort-link {
+    display: flex;
+  }
+
+  &__sort-icon {
+    width: 20px;
+    display: inline-block;
+    margin-right: 8px;
+
+    &--selected {
+      fill: #0c509f;
     }
+  }
+
+  &__meta {
+    width: 45px;
+    text-align: center;
 
     &--code {
       width: 55px;

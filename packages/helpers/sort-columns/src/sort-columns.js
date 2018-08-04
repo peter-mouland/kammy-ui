@@ -1,9 +1,14 @@
+import SortIcon from './sort.svg';
+import SortDownIcon from './sort-down.svg';
+import SortUpIcon from './sort-up.svg';
+
 function getNestedKey(obj, key) {
   const isNestedKey = key.indexOf('.') > -1;
   if (!isNestedKey) return obj[key];
   return key.split('.').reduce((prev, curr) => prev[curr], obj);
 }
 
+export { SortIcon, SortDownIcon, SortUpIcon };
 export default function sortColumns(fields, orderPreset = {}) {
   return (prevRow, currRow) => fields
     .map((field) => {

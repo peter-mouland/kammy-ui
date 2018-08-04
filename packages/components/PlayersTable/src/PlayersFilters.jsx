@@ -5,7 +5,6 @@ import bemHelper from '@kammy-ui/bem';
 import Toggle from '@kammy-ui/toggle';
 import MultiToggle from '@kammy-ui/multi-toggle';
 import Selector from '@kammy-ui/select';
-import sortColumns from '@kammy-ui/sort-columns';
 
 import './players-filters.scss';
 
@@ -108,7 +107,7 @@ export default class PlayersFilters extends React.Component {
 
   onFilter = () => {
     const {
-      players, myTeam, positions, customFilter,
+      players, myTeam, customFilter,
     } = this.props;
     const {
       posFilter, clubFilter, nameFilter, showHidden, showNew, customFilterChecked,
@@ -129,8 +128,7 @@ export default class PlayersFilters extends React.Component {
       myTeam: teamPlayers,
       showHidden,
       showNew,
-    }))
-      .sort(sortColumns(['pos', 'name'], { pos: positions }));
+    }));
   }
 
   render() {
