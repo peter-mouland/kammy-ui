@@ -27,6 +27,11 @@ table {
     text-align: left;
   }
 
+  .row--warning,
+  .cell--warning {
+    background: rgb(255, 235, 205);
+  }
+
   .cell--position,
   .cell--apps,
   .cell--subs,

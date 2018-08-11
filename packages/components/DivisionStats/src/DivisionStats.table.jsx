@@ -13,6 +13,22 @@ import './divisionStats.scss';
 
 const bem = bemHelper({ block: 'table' });
 
+// team = managersSeason[manager]
+const validateClub = (team, intGameWeek) => {
+  const players = team.map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]);
+  return players.reduce((acc, player) => {
+    const count = (acc[player.club] || 0) + 1;
+    const warnings = count > 2 && acc.warnings.indexOf(player.club) < 0
+      ? [...acc.warnings, player.club]
+      : acc.warnings;
+    return ({
+      ...acc,
+      [player.club]: count,
+      warnings,
+    });
+  }, { warnings: [] });
+};
+
 class TeamsPage extends React.Component {
   state = {
     displayGw: '1',
@@ -108,12 +124,13 @@ class TeamsPage extends React.Component {
           contextualHelp={(value) => <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
         />
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
-        <table>
-          {Object
-            .keys(teams)
-            .sort()
-            .map((manager) => (
-              <Fragment key={manager}>
+        {Object
+          .keys(teams)
+          .sort()
+          .map((manager) => {
+            const { warnings } = validateClub(managersSeason[manager], intGameWeek);
+            return (
+              <table key={manager}>
                 <thead>
                   <tr>
                     <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
@@ -132,14 +149,12 @@ class TeamsPage extends React.Component {
                     const player = teamSheetItem.gameWeeks[intGameWeek];
                     const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
                     const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
+                    const className = playerLastGW.name !== player.name ? bem('transfer') : '';
+                    const warningClassName = warnings.indexOf(player.club) > -1 ? 'row row--warning' : 'row';
                     return (
                       <tr
                         key={player.name}
-                        className={
-                          playerLastGW.name !== player.name
-                            ? bem('transfer')
-                            : null
-                        }
+                        className={`${className} ${warningClassName}`}
                       >
                         <td className={'cell cell--team-position'}>
                           <a
@@ -176,9 +191,18 @@ class TeamsPage extends React.Component {
                     );
                   })}
                 </tbody>
-              </Fragment>
-            ))}
-        </table>
+                {warnings.length > 0 && (
+                  <tfoot>
+                    <tr className={'row row--warning'}>
+                      <td colSpan={30}>
+                        This team has more than 2 players within the following clubs: {warnings.join(', ')}
+                      </td>
+                    </tr>
+                  </tfoot>
+                )}
+              </table>
+            );
+          })}
       </div>
     );
   }
