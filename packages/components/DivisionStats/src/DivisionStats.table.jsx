@@ -109,7 +109,9 @@ class TeamsPage extends React.Component {
         />
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
         <table>
-          {Object.keys(teams)
+          {Object
+            .keys(teams)
+            .sort()
             .map((manager) => (
               <Fragment key={manager}>
                 <thead>
