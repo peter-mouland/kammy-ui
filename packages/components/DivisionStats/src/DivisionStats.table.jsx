@@ -70,7 +70,7 @@ class TeamsPage extends React.Component {
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
     } = this.state;
-    const intGameWeek = parseInt(displayGw, 10) - 1;
+    const intGameWeek = parseInt(displayGw, 10) - 1 < 0 ? 0 : parseInt(displayGw, 10) - 1;
     const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
 
     return (

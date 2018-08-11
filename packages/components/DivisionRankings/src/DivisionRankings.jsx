@@ -22,7 +22,7 @@ class DivisionRankings extends React.Component {
     const currentGameWeek = props.gameWeeks.filter((gw) => (
       new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
     )).length;
-    this.state.displayGw = String(currentGameWeek);
+    this.state.displayGw = String(currentGameWeek + 1);
   }
 
   componentDidMount() {
@@ -46,7 +46,8 @@ class DivisionRankings extends React.Component {
       loaded, gameWeeks, label, teams, managersSeason,
     } = this.props;
     const { displayGw } = this.state;
-    const gameWeek = parseInt(displayGw, 10) - 1;
+    const gameWeek = parseInt(displayGw, 10) - 1 < 0 ? 0 : parseInt(displayGw, 10) - 1;
+
     const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeek);
     const rank = points && getDivisionRank(points);
     const pointsLastWeek = loaded && teams && gameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeek - 1);

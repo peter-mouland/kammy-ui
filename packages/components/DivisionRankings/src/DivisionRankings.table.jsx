@@ -31,6 +31,7 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
     </thead>
     <tbody>
       {points
+        .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
         .map(({ manager, points: pos }) => (
           <tr key={manager}>
             <td>{manager}</td>
