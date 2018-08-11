@@ -22,7 +22,7 @@ class DivisionRankings extends React.Component {
     const currentGameWeek = props.gameWeeks.filter((gw) => (
       new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
     )).length;
-    this.state.displayGw = String(currentGameWeek + 1);
+    this.state.displayGw = String(currentGameWeek);
   }
 
   componentDidMount() {
