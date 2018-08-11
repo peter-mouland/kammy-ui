@@ -130,7 +130,7 @@ class TeamsPage extends React.Component {
           .map((manager) => {
             const { warnings } = validateClub(managersSeason[manager], intGameWeek);
             return (
-              <table key={manager}>
+              <table key={manager} className={'table'}>
                 <thead>
                   <tr>
                     <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>

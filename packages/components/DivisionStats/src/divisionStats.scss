@@ -1,5 +1,7 @@
-table {
-  .table__transfer {
+.table {
+  min-width: 100%;
+
+  &__transfer {
     background-color: lavender;
   }
 
