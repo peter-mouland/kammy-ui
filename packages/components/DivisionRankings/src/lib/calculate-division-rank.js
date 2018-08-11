@@ -1,22 +1,36 @@
 import positions from './positions';
 
-const sortingFactory = (pos, dataKey) => (
-  (itemA, itemB) => (
-    itemA[pos] && itemB[pos] ? itemA[pos][dataKey] - itemB[pos][dataKey] : 0
-  )
-);
+// comparison function: numeric order
+const compare = (itemA, itemB) => (itemA - itemB);
+
+// reduction function to produce a map of array items to their index
+const indexMap = (acc, item, index) => ({ ...acc, [item]: index });
+
+// sum from x to x2
+const sumRange = (min, max) => ((max - min + 1) * (min + max)) / 2;
+
+function getRanks(values) {
+  const rankIndex = values.slice().sort(compare).reduce(indexMap, {});
+  const standardRanks = values.map((item, i, arr) => ({ rank: rankIndex[item], i: arr.length - i - 1 }));
+  const rankCounts = standardRanks.reduce((acc, { rank }) => ({
+    ...acc,
+    [rank]: {
+      rank,
+      count: ((acc[rank] && acc[rank].count) || 0) + 1,
+    },
+  }), {});
+  return standardRanks.map(({ rank }) => {
+    const sum = sumRange(rankCounts[rank].rank - rankCounts[rank].count + 1, rankCounts[rank].rank);
+    return (sum / rankCounts[rank].count);
+  });
+}
 
 const getTeamRank = (arr, pos, dataKey) => {
-  const sorter = sortingFactory(pos, dataKey);
-  const sorted = arr.sort(sorter);
-  const ranked = arr.map((item) => sorted.findIndex((i) => sorter(item, i) === 0));
-  const adjustRankForTies = (item, i) => (
-    ranked.findIndex((rItem, rI) => rItem === item && i !== rI) > -1
-      ? { rank: item + 0.5, manager: arr[i].manager }
-      : { rank: item, manager: arr[i].manager }
-  );
+  const positionPoints = arr.map((item) => item[pos][dataKey]);
+  const ranked = getRanks(positionPoints);
+
   return ranked
-    .map(adjustRankForTies)
+    .map((item, i) => ({ rank: item, manager: arr[i].manager }))
     .reduce((prev, item) => ({
       ...prev,
       [item.manager]: item.rank,
