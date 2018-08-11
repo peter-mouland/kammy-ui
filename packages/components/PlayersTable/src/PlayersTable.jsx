@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 import Svg from '@kammy-ui/svg';
@@ -87,10 +87,7 @@ class PlayerTable extends React.Component {
             )}
             { additionalColumns.map((col) => (<td key={col} className={ bem('meta', 'stat')} >{col}</td>))}
             { visibleStats.map((stat) => (
-              <Fragment key={stat}>
-                <td className={ bem('meta', 'stat')} >{stat}</td>
-                <td className={ bem('meta', 'stat')} ><sup>(gw)</sup></td>
-              </Fragment>
+              <td className={ bem('meta', 'stat')} >{stat}</td>
             ))}
           </tr>
         </thead>
@@ -126,21 +123,9 @@ class PlayerTable extends React.Component {
                       </td>
                     ))}
                     { visibleStats.map((stat) => (
-                      <Fragment key={stat}>
-                        <td className={ bem('stat')}>
-                          {player.season[stat]}
-                        </td>
-                        <td className={ bem('stat')}>
-                          { player.gameWeek[stat]
-                            ? (
-                              <AdditionalPoints className={ bem('additional', { highlight: extremeStat(player.gameWeek[stat]) })}>
-                                {player.gameWeek[stat]}
-                              </AdditionalPoints>
-                            )
-                            : null
-                          }
-                        </td>
-                      </Fragment>
+                      <td key={stat} className={ bem('stat')}>
+                        {player.season && player.season[stat]}
+                      </td>
                     ))}
                   </tr>
                 );

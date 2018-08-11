@@ -30,7 +30,6 @@ class PlayersPageTable extends React.Component {
                 positions={positions}
                 players={playersFiltered}
                 additionalColumns={['skySportsPosition']}
-                visibleColumns={[]}
               />
             )}
           </PlayersFilters>

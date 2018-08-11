@@ -28,7 +28,6 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
             skySportsPosition: skySportsPlayers[key].skySportsPosition,
           },
         });
-        if (mergedPlayer[key].value === 'Arsenal') console.log(mergedPlayer[key]);
         return mergedPlayer;
       }, {});
     return mergedPlayers;
