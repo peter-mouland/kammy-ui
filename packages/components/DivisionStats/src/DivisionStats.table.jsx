@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy-ui/bem';
@@ -124,85 +124,83 @@ class TeamsPage extends React.Component {
           contextualHelp={(value) => <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
         />
         <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
-        {Object
-          .keys(teams)
-          .sort()
-          .map((manager) => {
-            const { warnings } = validateClub(managersSeason[manager], intGameWeek);
-            return (
-              <table key={manager} className={'table'}>
-                <thead>
-                  <tr>
-                    <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
-                    <th colSpan={24} className={'cell cell--team-season'}>Season</th>
-                  </tr>
-                  <tr className={'row row--header'}>
-                    <th className={'cell cell--team-position'}>Team Position</th>
-                    <th className={'cell cell--player'}>Player</th>
-                    <th className={'cell cell--position'}>Position</th>
-                    <th className={'cell cell--club'}>Club</th>
-                    {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
-                  </tr>
-                </thead>
-                <tbody>
-                  {managersSeason[manager].map((teamSheetItem) => {
-                    const player = teamSheetItem.gameWeeks[intGameWeek];
-                    const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
-                    const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
-                    const className = playerLastGW.name !== player.name ? bem('transfer') : '';
-                    const warningClassName = warnings.indexOf(player.club) > -1 ? 'row row--warning' : 'row';
-                    return (
-                      <tr
-                        key={player.name}
-                        className={`${className} ${warningClassName}`}
-                      >
-                        <td className={'cell cell--team-position'}>
-                          <a
-                            href={'#'}
-                            onClick={(e) => this.showPositionTimeline(e, {
-                              position: player.pos,
-                              gameWeeks: teamSheetItem.gameWeeks,
-                              season: teamSheetItem.seasonStats,
-                            })}
-                            title={`Show ${teamSheetItem.teamPos} timeline`}
-                          >
-                            {teamSheetItem.teamPos}
-                          </a>
-                        </td>
-                        <td className={'cell cell--player'}>
-                          <a
-                            href={'#'}
-                            onClick={(e) => this.showPlayerTimeline(e, { player })}
-                            title={`Show ${teamSheetItem.teamPos} timeline`}
-                          >
-                            {player.name}
-                          </a></td>
-                        <td className={'cell cell--position'}>{player.pos}</td>
-                        <td className={'cell cell--club'}>{player.club}</td>
-                        {
-                          player && (
-                            pairedKeysAsCells(
-                              seasonToGameWeek,
-                              player.gameWeekStats,
+        <table className={'table'}>
+          {Object
+            .keys(teams)
+            .sort()
+            .map((manager) => {
+              const { warnings } = validateClub(managersSeason[manager], intGameWeek);
+              return (
+                <Fragment key={manager} className={'table'}>
+                  <thead>
+                    <tr>
+                      <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
+                      <th colSpan={24} className={'cell cell--team-season'}>Season</th>
+                    </tr>
+                    <tr className={'row row--header'}>
+                      <th className={'cell cell--team-position'}>Team Position</th>
+                      <th className={'cell cell--player'}>Player</th>
+                      <th className={'cell cell--club'}>Club</th>
+                      {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {managersSeason[manager].map((teamSheetItem) => {
+                      const player = teamSheetItem.gameWeeks[intGameWeek];
+                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
+                      const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
+                      const className = playerLastGW.name !== player.name ? bem('transfer') : '';
+                      const warningClassName = warnings.indexOf(player.club) > -1 ? 'row row--warning' : 'row';
+                      return (
+                        <tr
+                          key={player.name}
+                          className={`${className} ${warningClassName}`}
+                        >
+                          <td className={'cell cell--team-position'}>
+                            <a
+                              href={'#'}
+                              onClick={(e) => this.showPositionTimeline(e, {
+                                position: player.pos,
+                                gameWeeks: teamSheetItem.gameWeeks,
+                                season: teamSheetItem.seasonStats,
+                              })}
+                              title={`Show ${teamSheetItem.teamPos} timeline`}
+                            >
+                              {teamSheetItem.teamPos}
+                            </a>
+                          </td>
+                          <td className={'cell cell--player'}>
+                            <a
+                              href={'#'}
+                              onClick={(e) => this.showPlayerTimeline(e, { player })}
+                              title={`Show ${teamSheetItem.teamPos} timeline`}
+                            >
+                              {player.name}
+                            </a></td>
+                          <td className={'cell cell--club'}>{player.club}</td>
+                          {
+                            player && (
+                              pairedKeysAsCells(
+                                seasonToGameWeek,
+                                player.gameWeekStats,
+                              )
                             )
-                          )
-                        }
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                {warnings.length > 0 && (
-                  <tfoot>
+                          }
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  {warnings.length > 0 && (
                     <tr className={'row row--warning'}>
                       <td colSpan={30}>
                         This team has more than 2 players within the following clubs: {warnings.join(', ')}
                       </td>
                     </tr>
-                  </tfoot>
-                )}
-              </table>
-            );
-          })}
+                  )}
+                </Fragment>
+              );
+            })}
+        </table>
       </div>
     );
   }

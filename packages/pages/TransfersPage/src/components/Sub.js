@@ -14,7 +14,7 @@ class Swap extends React.Component {
     return (
       <Fragment>
         <h3>Who to <em>sub</em> in (to replace {sub.gameWeeks[intGameWeek].name})</h3>
-        <table>
+        <table className={'table'}>
           <tbody>
             {team
               .filter((teamSheetItem) => teamSheetItem.teamPos !== 'SUB')

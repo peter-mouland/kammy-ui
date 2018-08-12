@@ -14,7 +14,9 @@ const DefaultTemplate = ({ children }) => {
         { children}
       </main>
       <footer className={bem('footer')}>
-        Hosted at <a href="http://github.com/peter-mouland/kammy-ui">github.com/peter-mouland/kammy</a>
+        <div className={bem('footer-content')}>
+          Hosted at <a href="http://github.com/peter-mouland/kammy-ui">github.com/peter-mouland/kammy</a>
+        </div>
       </footer>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  LineChart, Line, CartesianGrid, YAxis, XAxis, Tooltip,
+  LineChart, Line, CartesianGrid, YAxis, XAxis, Tooltip, Legend,
 } from 'recharts';
 
 import getDivisionPoints from '../lib/calculate-division-points';
@@ -33,17 +33,16 @@ const makeLineChartData = (teams, gameWeeks, managersSeason) => (
 const Chart = ({ teams, gameWeeks, managersSeason }) => {
   const data = makeLineChartData(teams, gameWeeks, managersSeason);
   return (
-    <div style={{ margin: '0 auto' }}>
-      <LineChart width={600} height={300} data={data}>
-        {Object.keys(managersSeason).map((manager, i) => (
-          <Line key={manager} type="monotone" dataKey={manager} stroke={strokes[i]} />
-        ))}
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="gameWeek" />
-        <YAxis />
-        <Tooltip />
-      </LineChart>
-    </div>
+    <LineChart width={800} height={300} data={data} style={{ margin: '0 auto' }}>
+      <Legend verticalAlign="bottom" width={800} height={30}/>
+      {Object.keys(managersSeason).map((manager, i) => (
+        <Line key={manager} type="monotone" dataKey={manager} stroke={strokes[i]} />
+      ))}
+      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+      <XAxis dataKey="gameWeek" />
+      <YAxis />
+      <Tooltip />
+    </LineChart>
   );
 };
 

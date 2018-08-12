@@ -8,7 +8,7 @@ import './positionTimeline.scss';
 const bem = bemHelper({ block: 'position-timeline' });
 
 const PositionTimelineTable = ({ gameWeeks, season }) => (
-  <table>
+  <table className={'table'}>
     <thead>
       <tr>
         <th className={'cell'} colSpan={5} />

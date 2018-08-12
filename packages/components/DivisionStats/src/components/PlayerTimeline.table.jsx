@@ -17,7 +17,7 @@ const sum = (total, stats) => {
 const PlayerTimelineTable = ({ player }) => {
   const totals = {};
   return (
-    <table>
+    <table className={'table'}>
       <thead>
         <tr>
           <th className={'cell'} colSpan={3} />

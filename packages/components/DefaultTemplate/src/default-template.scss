@@ -8,31 +8,37 @@ $col2-width: 66% !default;
 
 .layout {
   width: 100%;
-}
 
-.layout__nav {
-  padding: 0 2.25%;
-  min-height: $nav-height;
-  display: flex;
-  align-items: center;
-  background: $darker;
-}
+  &__nav {
+    padding: 0 2.25%;
+    min-height: $nav-height;
+    display: flex;
+    align-items: center;
+    background: $darker;
+  }
 
-.layout__content {
-  min-height: $content-height;
-  padding: 0 2.25%;
+  &__content {
+    min-height: $content-height;
+    padding: 0 2.25%;
+    max-width: 1050px;
+    margin: 0 auto;
 
-  &::before,
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
+    &::before,
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+
+  &__footer {
+    padding: 0 2.25%;
+    height: $footer-height;
+    line-height: 2em;
+
+    &-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
   }
 }
-
-.layout__footer {
-  padding: 0 2.25%;
-  height: $footer-height;
-  line-height: 2em;
-}
-

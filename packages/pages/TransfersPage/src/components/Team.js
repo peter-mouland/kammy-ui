@@ -15,7 +15,7 @@ class Team extends React.Component {
     return (
       <Fragment>
         <h3>Who would you like to <em>{changeType}</em> out?</h3>
-        <table>
+        <table className='table'>
           <tbody>
             {team.map((teamSheetItem) => {
               const player = teamSheetItem.gameWeeks[intGameWeek];

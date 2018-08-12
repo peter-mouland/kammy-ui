@@ -56,7 +56,7 @@ button {
   }
 }
 
-svg {
+svg:not(.recharts-surface) {
   width: 100%;
   height: 100%;
 }
@@ -70,7 +70,7 @@ h3 {
 h1,
 .page-content {
   background-color: $light;
-  padding: .25em .5em;
+  padding: .25em 0;
   margin-bottom: 1em;
 }
 

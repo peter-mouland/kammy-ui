@@ -6,9 +6,7 @@ import sortColumns, { SortIcon, SortDownIcon, SortUpIcon } from '@kammy-ui/sort-
 
 import New from './new.svg';
 
-import './players-table.scss';
-
-const bem = bemHelper({ block: 'player-table' });
+const bem = bemHelper({ block: 'table' });
 
 const isSortUp = (sort, id) => sort.includes(id);
 const isSortDown = (sort, id) => sort.includes(`-${id}`);
@@ -17,7 +15,7 @@ const isNotSorted = (sort, id) => !isSortUp(sort, id) && !isSortDown(sort, id);
 const SortableHeader = ({
   id, label, sort, handleSort, className = '',
 }) => (
-  <th className={ bem('meta', [id, className]) }>
+  <th className={`cell cell--${id} ${className}`}>
     <a className={ bem('sort-link') } onClick={() => handleSort(id)}>
       {isSortUp(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortUpIcon}</Svg>}
       {isSortDown(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortDownIcon}</Svg>}
@@ -56,21 +54,21 @@ class PlayerTable extends React.Component {
     } = this.props;
     const { sort } = this.state;
     return (
-      <table className={ bem() }>
+      <table className={'table'}>
         <thead>
-          <tr className={ bem('data-header')}>
-            { !hiddenColumns.includes('isHidden') && <th className={ bem('meta', 'isHidden')}>isHidden</th>}
-            { !hiddenColumns.includes('new') && <th className={ bem('meta', 'new')}>New</th>}
-            { !hiddenColumns.includes('code') && <th className={ bem('meta', 'code')}>Code</th>}
+          <tr className={'row row--header'}>
+            { !hiddenColumns.includes('isHidden') && <th className='cell cell--hidden'>isHidden</th>}
+            { !hiddenColumns.includes('new') && <th className='cell cell--new'>New</th>}
+            { !hiddenColumns.includes('code') && <th className='cell cell--code'>Code</th>}
             <SortableHeader id={'pos'} label={'Position'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'name'} label={'Player'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'club'} label={'Club'} sort={sort} handleSort={this.handleSort} />
             { !hiddenColumns.includes('value') && (
               <SortableHeader id={'value'} label={'Value'} sort={sort} handleSort={this.handleSort} />
             )}
-            { additionalColumns.map((col) => (<td key={col} className={ bem('meta', 'stat')} >{col}</td>))}
+            { additionalColumns.map((col) => (<th key={col} className={`cell cell--${col}`} >{col}</th>))}
             { visibleStats.map((stat) => (
-              <SortableHeader id={`season.${stat}`} label={stat} key={stat} sort={sort} handleSort={this.handleSort} className={'stat'} />
+              <SortableHeader id={`season.${stat}`} label={stat} key={stat} sort={sort} handleSort={this.handleSort} className={'cell--stat'} />
             ))}
           </tr>
         </thead>
@@ -81,32 +79,32 @@ class PlayerTable extends React.Component {
               .map((player) => {
                 const isOnMyTeam = myTeam && myTeam[player.code];
                 return (
-                  <tr key={player.code} id={player.code} className={ bem('player', { selected: isOnMyTeam, new: !!player.new })}>
-                    { !hiddenColumns.includes('isHidden') && (<td>{ player.isHidden && 'hidden' }</td>) }
+                  <tr key={player.code} id={player.code} className={ bem('player', { selected: isOnMyTeam, new: !!player.new }, 'row')}>
+                    { !hiddenColumns.includes('isHidden') && (<td className={'cell'}>{ player.isHidden && 'hidden' }</td>) }
                     { !hiddenColumns.includes('new') && (
-                      <td>
+                      <td className={'cell'}>
                         { player.new && <Svg className={ bem('new-icon')}>{New}</Svg> }
                         { player.new && <span className="sr-only">new</span> }
                       </td>
                     )}
-                    { !hiddenColumns.includes('code') && <td>{ player.code }</td> }
-                    <td>
+                    { !hiddenColumns.includes('code') && <td className={'cell'}>{ player.code }</td> }
+                    <td className={'cell'}>
                       { player.pos }
                     </td>
-                    <td>
+                    <td className={'cell'}>
                       <a href="#" >{ player.name }</a>
                     </td>
-                    <td>
+                    <td className={'cell'}>
                       <small>{ player.club }</small>
                     </td>
-                    { !hiddenColumns.includes('value') && <td>{ player.value }</td> }
+                    { !hiddenColumns.includes('value') && <td className={'cell'}>{ player.value }</td> }
                     { additionalColumns.map((col) => (
-                      <td key={col} className={ bem('stat')}>
+                      <td key={col} className={ bem('stat', null, 'cell')}>
                         {String(player[col])}
                       </td>
                     ))}
                     { visibleStats.map((stat) => (
-                      <td key={stat} className={ bem('stat')}>
+                      <td key={stat} className={ bem('stat', null, 'cell')}>
                         {player.season && player.season[stat]}
                       </td>
                     ))}

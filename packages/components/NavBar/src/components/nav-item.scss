@@ -2,11 +2,16 @@
 
 .nav-item {
   position: relative;
+  padding: .5em 1em;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .25);
+  }
 
   &__children {
     display: none;
     position: absolute;
-    top: 1.25em;
+    top: 2.2em;
     right: 0;
     min-width: 100%;
     background: $brand;
@@ -14,6 +19,14 @@
 
     :hover > & {
       display: block;
+    }
+  }
+
+  &__child {
+    padding: .5em;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .25);
     }
   }
 }

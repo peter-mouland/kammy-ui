@@ -1,6 +1,9 @@
+@import '~@kammy-ui/bootstrap/src/abstracts/variables';
+
 .table {
   min-width: 100%;
-  border-spacing: 1px;
+  border-collapse: collapse;
+  border-spacing: 0;
 
   &__transfer {
     background-color: lavender;
@@ -22,9 +25,14 @@
     top: 1.2em;
   }
 
+  td.cell {
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+  }
+
   .cell { /* stylelint-disable-line no-descending-specificity */
     min-width: 25px;
     text-align: right;
+    padding: .3em .2em;
   }
 
   .cell--pair {
@@ -39,20 +47,32 @@
     background: rgb(255, 235, 205);
   }
 
+  .cell--manager,
   .cell--position,
-  .cell--apps,
-  .cell--subs,
-  .cell--gls,
-  .cell--asts,
-  .cell--cs,
-  .cell--con,
-  .cell--pensv,
-  .cell--ycard,
-  .cell--rcard,
-  .cell--tb,
-  .cell--sb {
-    display: none;
+  .cell--team-position {
     text-align: center;
+  }
+
+  &__new-icon {
+    fill: $error;
+  }
+
+  &__label {
+    display: inline-block;
+  }
+
+  &__sort-link {
+    display: flex;
+  }
+
+  &__sort-icon {
+    width: 20px;
+    display: inline-block;
+    margin-right: 8px;
+
+    &--selected {
+      fill: #0c509f;
+    }
   }
 
   @media only screen and (min-width: 550px) {

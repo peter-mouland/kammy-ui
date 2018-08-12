@@ -32,7 +32,7 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
         .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
         .map(({ manager, points: pos }) => (
           <tr key={manager} className={'row'}>
-            <td>{manager}</td>
+            <td className='cell cell--manager'>{manager}</td>
             {positions.map((position) => (
               <Fragment key={position.label}>
                 <td className={`cell cell--${position.key}`}>

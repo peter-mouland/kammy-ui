@@ -6,22 +6,26 @@ import './nav-item.scss';
 const propTypes = {
   label: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  className: PropTypes.string,
 };
 
 export default class NavItem extends Component {
   static propTypes = propTypes;
 
   render() {
-    const { label, children } = this.props;
+    const { label, children, className = '' } = this.props;
     const links = Array.isArray(children) ? children : [children];
     return (
-      <div className='nav-item'>
-        <div className='nav-item__label'>{label}</div>
-        <div className='nav-item__children'>
-          {links.map((child, i) => (
-            <div key={i} className='nav-item__child'>{child}</div>
-          ))}
-        </div>
+      <div className={`nav-item ${className}`}>
+        {label && <div className='nav-item__label'>{label}</div>}
+        {links.length === 1 && (links[0])}
+        {links.length > 1 && (
+          <div className='nav-item__children'>
+            {links.map((child, i) => (
+              <div key={i} className='nav-item__child'>{child}</div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

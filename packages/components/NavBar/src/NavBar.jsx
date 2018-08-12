@@ -13,24 +13,26 @@ const linkClass = bem('link');
 
 const NavBar = (__, { appConfig }) => (
   <nav className={bem()}>
-    <span className={bem('header')}>FF</span>
-    <NamedLink to="rules" className={linkClass} />
-    <NamedLink to="players" className={linkClass} />
-    {
-      appConfig.divisionLabels.map((division) => (
-        <div key={division} className={linkClass}>
-          <NavItem label={division}>
-            <NamedLink to={`${appConfig.divisionSheets[division]}-rankings`} className={linkClass} />
-            <NamedLink to={`${appConfig.divisionSheets[division]}-teams`} className={linkClass} />
-          </NavItem>
-        </div>
-      ))
-    }
-    <div className={ bem('link', 'right')}>
-      <NavItem label='Admin' >
-        <NamedLink to="admin-players" className={linkClass} />
-        <NamedLink to="transfers" className={linkClass} />
-      </NavItem>
+    <div className={bem('content')}>
+      <span className={bem('header')}>FF</span>
+      <NavItem className={linkClass}><NamedLink to="rules" /></NavItem>
+      <NavItem className={linkClass}><NamedLink to="players" /></NavItem>
+      {
+        appConfig.divisionLabels.map((division) => (
+          <div key={division} className={linkClass}>
+            <NavItem label={division}>
+              <NamedLink to={`${appConfig.divisionSheets[division]}-rankings`} className={linkClass} />
+              <NamedLink to={`${appConfig.divisionSheets[division]}-teams`} className={linkClass} />
+            </NavItem>
+          </div>
+        ))
+      }
+      <div className={ bem('link', 'right')}>
+        <NavItem label='Admin' >
+          <NamedLink to="admin-players" className={linkClass} />
+          <NamedLink to="transfers" className={linkClass} />
+        </NavItem>
+      </div>
     </div>
   </nav>
 );

@@ -8,7 +8,7 @@ const bem = bemHelper({ block: 'teams-page' });
 const LeagueOneTeams = () => (
   <section id="teams-page" className={bem()}>
     <DivisionStats
-      label={'League One'}
+      label={'League One: Teams'}
       divisionId={'leagueOne'}
     />
   </section>
