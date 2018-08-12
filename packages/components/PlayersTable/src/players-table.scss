@@ -2,6 +2,7 @@
 
 .player-table {
   width: 100%;
+  border-spacing: 1px;
 
   tr,
   td,
@@ -11,14 +12,14 @@
   }
 
   thead {
-    background-color: $white;
+    background-color: aliceblue;
   }
 
   &__player {
     height: 2em;
 
     &:nth-child(odd) {
-      background: $odd-row-bg;
+      background: rgb(240, 240, 240);
     }
 
     &:nth-child(even) {
@@ -26,7 +27,7 @@
     }
 
     &:hover {
-      background: $row-bg--hover;
+      background-color: rgb(220, 228, 245);
     }
 
     &--selected {

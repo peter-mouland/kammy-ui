@@ -1,5 +1,6 @@
 .table {
   min-width: 100%;
+  border-spacing: 1px;
 
   &__transfer {
     background-color: lavender;
@@ -11,6 +12,10 @@
     top: 0;
     background-color: aliceblue;
     z-index: 1;
+  }
+
+  tr.row:hover {
+    background-color: rgb(220, 228, 245);
   }
 
   tr.row.row--header .cell { /* stylelint-disable-line no-descending-specificity */

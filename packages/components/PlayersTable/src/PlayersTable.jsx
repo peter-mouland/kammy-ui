@@ -10,28 +10,14 @@ import './players-table.scss';
 
 const bem = bemHelper({ block: 'player-table' });
 
-const extremeStat = (int) => int < -10 || int > 10;
-
-function AdditionalPoints({ children: points }) {
-  return (
-    <sup className={ bem('additional-point')}>
-      {
-        points > 0
-          ? <span className="text--success">{points}</span>
-          : <span className="text--error">{points}</span>
-      }
-    </sup>
-  );
-}
-
 const isSortUp = (sort, id) => sort.includes(id);
 const isSortDown = (sort, id) => sort.includes(`-${id}`);
 const isNotSorted = (sort, id) => !isSortUp(sort, id) && !isSortDown(sort, id);
 
 const SortableHeader = ({
-  id, label, sort, handleSort,
+  id, label, sort, handleSort, className = '',
 }) => (
-  <th className={ bem('meta', id) }>
+  <th className={ bem('meta', [id, className]) }>
     <a className={ bem('sort-link') } onClick={() => handleSort(id)}>
       {isSortUp(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortUpIcon}</Svg>}
       {isSortDown(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortDownIcon}</Svg>}
@@ -46,10 +32,7 @@ SortableHeader.propTypes = {
   label: PropTypes.string.isRequired,
   sort: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleSort: PropTypes.func.isRequired,
-};
-
-AdditionalPoints.propTypes = {
-  children: PropTypes.number.isRequired,
+  className: PropTypes.func,
 };
 
 class PlayerTable extends React.Component {
@@ -87,7 +70,7 @@ class PlayerTable extends React.Component {
             )}
             { additionalColumns.map((col) => (<td key={col} className={ bem('meta', 'stat')} >{col}</td>))}
             { visibleStats.map((stat) => (
-              <td className={ bem('meta', 'stat')} >{stat}</td>
+              <SortableHeader id={`season.${stat}`} label={stat} key={stat} sort={sort} handleSort={this.handleSort} className={'stat'} />
             ))}
           </tr>
         </thead>
