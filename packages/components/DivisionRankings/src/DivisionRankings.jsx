@@ -11,6 +11,7 @@ import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import getDivisionPoints from './lib/calculate-division-points';
 import getDivisionRank from './lib/calculate-division-rank';
 import getRankChange from './lib/calculate-rank-change';
+import Chart from './components/chart';
 
 const bem = bemHelper({ block: 'division-stats' });
 
@@ -79,6 +80,11 @@ class DivisionRankings extends React.Component {
                 points={points}
                 rank={rank}
                 type='season'
+              />
+              <Chart
+                teams={teams}
+                gameWeeks={gameWeeks}
+                managersSeason={managersSeason}
               />
               <h2>Weekly Scores</h2>
               <Table

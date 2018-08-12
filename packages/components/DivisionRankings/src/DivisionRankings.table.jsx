@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 import positions from './lib/positions';
 
-import './divisions-rankings.scss';
-
 const DivisionRankingsTable = ({ rank, points, type }) => (
-  <table>
+  <table className='table'>
     <thead>
-      <tr>
+      <tr className='row row--header'>
         <th className={'cell cell--team-manager'}>Manager</th>
         {
           positions.map((position) => (
@@ -33,7 +31,7 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
       {points
         .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
         .map(({ manager, points: pos }) => (
-          <tr key={manager}>
+          <tr key={manager} className={'row'}>
             <td>{manager}</td>
             {positions.map((position) => (
               <Fragment key={position.label}>

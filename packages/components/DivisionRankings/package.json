@@ -36,7 +36,8 @@
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/select": "^0.0.17",
     "json-query": "^2.2.2",
-    "react-redux": "^5.0.7"
+    "react-redux": "^5.0.7",
+    "recharts": "^1.1.0"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

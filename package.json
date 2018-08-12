@@ -55,7 +55,8 @@
   "dependencies": {
     "mongoose": "^4.13.14",
     "prop-types": "^15.6.2",
-    "react": "^16.4.1"
+    "react": "^16.4.1",
+    "recharts": "^1.1.0"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "4.0.0-alpha.14",
@@ -72,6 +73,7 @@
     "babel-core": "6.26.0",
     "babel-eslint": "^8.2.5",
     "babel-loader": "^7.1.5",
+    "babel-plugin-recharts": "^1.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
