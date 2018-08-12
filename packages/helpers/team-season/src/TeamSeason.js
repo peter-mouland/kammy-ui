@@ -4,9 +4,6 @@ import calculateSeasonStats from './calculateSeason';
 
 export const UNKNOWN_PLAYER = (name) => ({
   name: `UNKNOWN: ${name}`,
-  stats: {
-    month: [], season: [], week: [],
-  },
   fixtures: [],
   club: '',
   code: 0,
@@ -35,13 +32,10 @@ class TeamSeason {
       { ...Player, ...PlayerStats }
     ]
   */
-  findPlayerThisGw = ({ transferList, gameWeek, withStats }) => {
+  findPlayerThisGw = ({ transferList, gameWeek }) => {
     const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(gameWeek.start));
     const transfer = gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
-    if (withStats) {
-      return playerStats({ data: transfer, gameWeeks: [gameWeek] });
-    }
-    return transfer;
+    return playerStats({ player: transfer, gameWeeks: [gameWeek] });
   };
 
   /*
@@ -109,15 +103,15 @@ class TeamSeason {
   //     seasonStats: [ stats ],
   //     seasonPoints: [ stats ],
   //   }]
-  getSeason = ({ withStats = true } = {}) => {
+  getSeason = () => {
     const { team, gameWeeks } = this;
     return team.map((player) => {
       const transferList = this.getPlayerTransfers(player);
       const playerGameWeeks = gameWeeks.map((gameWeek) => (
-        this.findPlayerThisGw({ transferList, gameWeek, withStats })
+        this.findPlayerThisGw({ transferList, gameWeek })
       ));
-      const seasonToGameWeek = gameWeeks.map((gameWeek) => (
-        calculateSeasonStats(playerGameWeeks.slice(0, parseInt(gameWeek.gameWeek, 10)))
+      const seasonToGameWeek = gameWeeks.map(({ gameWeek }) => (
+        calculateSeasonStats(playerGameWeeks.slice(0, parseInt(gameWeek, 10)))
       ));
 
       return {
@@ -125,7 +119,7 @@ class TeamSeason {
         pos: this.getPlayer(player).pos,
         gameWeeks: playerGameWeeks,
         seasonToGameWeek,
-        seasonStats: withStats ? calculateSeasonStats(playerGameWeeks) : null,
+        seasonStats: calculateSeasonStats(playerGameWeeks),
       };
     });
   }

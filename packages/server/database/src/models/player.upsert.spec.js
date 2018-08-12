@@ -8,6 +8,34 @@ const upsert = require('./player.upsert');
 
 const chance = new Chance();
 
+const date = '2018-08-12 17:30:00';
+const date2 = '2018-08-20 17:30:00';
+const gameWeeks = [
+  {
+    gameWeek: 1,
+    start: '2018-08-10 19:00:00',
+    end: '2018-08-18 10:59:59',
+  },
+  {
+    gameWeek: '2',
+    start: '2018-08-18 11:00:00',
+    end: '2018-08-25 10:59:59',
+  },
+];
+
+const zeroStats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const zeroPoints = {
+  apps: 0, asts: 0, con: 0, cs: 0, gls: 0, pensv: 0, points: 0, rcard: 0, sb: 0, subs: 0, tb: 0, ycard: 0,
+};
+const stats1 = [1, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2, 3, 4, 2];
+const points1 = {
+  apps: 1, asts: 2, con: 3, cs: 2, gls: 4, pensv: 2, points: -4, rcard: 4, sb: 6, subs: 3, tb: 7, ycard: 3,
+};
+const stats2 = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+const points2 = {
+  apps: 5, asts: 5, con: 5, cs: 5, gls: 5, pensv: 5, points: 25, rcard: 5, sb: 10, subs: 5, tb: 10, ycard: 5,
+};
+
 describe('upsert()', () => {
   let saveSpy;
   let findSpy;
@@ -32,10 +60,11 @@ describe('upsert()', () => {
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
     mockingoose.Player.toReturn([], 'aggregate');
-    return upsert(players).then((response) => {
+    return upsert({ players, gameWeeks }).then((response) => {
       expect(response[0]).toHaveProperty('_id', player._id);
       expect(response[0]).toHaveProperty('code', player.code);
       expect(response[0]).toHaveProperty('dateCreated');
+      expect(response[0]).toHaveProperty('gameWeeks');
       expect(response[0]).toHaveProperty('fixtures');
       expect(response[0]).toHaveProperty('isHidden', false);
       expect(response[0]).toHaveProperty('new', false);
@@ -52,7 +81,7 @@ describe('upsert()', () => {
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
     mockingoose.Player.toReturn([], 'aggregate');
-    return upsert(players).then(() => {
+    return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).not.toHaveBeenCalled();
     });
@@ -70,9 +99,14 @@ describe('upsert()', () => {
     };
     const players = [player];
     mockingoose.Player.toReturn(players, 'aggregate');
-    return upsert(players).then(() => {
+    const expected = {
+      ...player,
+      gameWeeks: [{ fixtures: [], stats: zeroPoints }, { fixtures: [], stats: zeroPoints }],
+      season: zeroPoints,
+    };
+    return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, player);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, expected);
     });
   });
 
@@ -83,7 +117,7 @@ describe('upsert()', () => {
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
-      fixtures: [{ stats: [1, 2, 3, 4] }],
+      fixtures: [{ date, stats: stats1 }],
       code: 21,
     };
     const player2 = {
@@ -92,34 +126,47 @@ describe('upsert()', () => {
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
-      fixtures: [{ stats: [1, 2, 3, 4] }],
+      fixtures: [{ date, stats: stats2 }],
       code: 22,
     };
     const dbPlayer1 = {
       ...player1,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
+      fixtures: [{ date, stats: zeroStats }],
     };
     const dbPlayer2 = {
       ...player2,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
+      fixtures: [{ date, stats: zeroStats }],
+    };
+    const expected1 = {
+      ...player1,
+      gameWeeks: [{ fixtures: [{ date, stats: points1 }], stats: points1 }, { fixtures: [], stats: zeroPoints }],
+      season: points1,
+    };
+    const expected2 = {
+      ...player2,
+      gameWeeks: [{ fixtures: [{ date, stats: points2 }], stats: points2 }, { fixtures: [], stats: zeroPoints }],
+      season: points2,
     };
     const players = [player1, player2];
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
-    return upsert(players).then(() => {
+    return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, player1);
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, player2);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expected1);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, expected2);
     });
   });
 
-  it('does NOT update fixture stats of players that exist, where the update WOULD be zero', () => {
+  it.only('does NOT update fixture stats of players that exist, where the update WOULD be zero', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
       skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
+      fixtures: [{
+        date,
+        stats: zeroStats,
+      }],
       code: 21,
     };
     const player2 = {
@@ -128,23 +175,42 @@ describe('upsert()', () => {
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
+      fixtures: [{
+        date,
+        stats: zeroStats,
+      }],
       code: 22,
     };
     const dbPlayer1 = {
       ...player1,
-      fixtures: [{ stats: [1, 2, 3, 4] }],
+      fixtures: [{
+        date,
+        stats: stats1,
+      }],
     };
     const dbPlayer2 = {
       ...player2,
-      fixtures: [{ stats: [5, 5, 5, 5] }],
+      fixtures: [{
+        date,
+        stats: stats2,
+      }],
     };
     const players = [player1, player2];
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
-    return upsert(players).then(() => {
+    const expect1 = {
+      ...dbPlayer1,
+      gameWeeks: [{ fixtures: [{ date, stats: points1 }], stats: points1 }, { fixtures: [], stats: zeroPoints }],
+      season: points1,
+    };
+    const expect2 = {
+      ...dbPlayer2,
+      gameWeeks: [{ fixtures: [{ date, stats: points2 }], stats: points2 }, { fixtures: [], stats: zeroPoints }],
+      season: points2,
+    };
+    return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, dbPlayer1);
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, dbPlayer2);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expect1);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, expect2);
     });
   });
 
@@ -158,48 +224,56 @@ describe('upsert()', () => {
       fixtures: [{ stats: [] }],
       code: 1,
     };
+    const expected1 = {
+      ...player,
+      gameWeeks: [{ fixtures: [], stats: zeroPoints }, { fixtures: [], stats: zeroPoints }],
+      season: zeroPoints,
+    };
     const players = [player];
     mockingoose.Player.toReturn(players, 'aggregate');
-    return upsert(players).then(() => {
+    return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, player);
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, expected1);
     });
   });
 
-  it('marks players as new if there is an update when players does NOT already exist in the db', () => {
+  it('saves fixtures even if they have not yet been played', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
       skySportsClub: chance.word(),
       dateCreated: Date.now(),
       isHidden: false,
       new: false,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
+      fixtures: [{
+        date,
+        stats: zeroStats,
+      }, {
+        date: date2,
+        stats: zeroStats,
+      }],
       code: 21,
-    };
-    const player2 = {
-      _id: mongoose.Types.ObjectId('227f191e810c19729de860ea'),
-      skySportsClub: chance.word(),
-      dateCreated: Date.now(),
-      isHidden: false,
-      new: false,
-      fixtures: [{ stats: [0, 0, 0, 0] }],
-      code: 22,
     };
     const dbPlayer1 = {
       ...player1,
-      code: 221,
-      fixtures: [{ stats: [1, 2, 3, 4] }],
+      fixtures: [{
+        date,
+        stats: stats1,
+      }, {
+        date: date2,
+        stats: zeroStats,
+      }],
     };
-    const dbPlayer2 = {
-      ...player2,
-      code: 222,
-      fixtures: [{ stats: [5, 5, 5, 5] }],
+    const players = [player1];
+    mockingoose.Player.toReturn([dbPlayer1], 'aggregate');
+    const expected1 = {
+      ...player1,
+      gameWeeks: [
+        { fixtures: [{ date, stats: points1 }], stats: points1 },
+        { fixtures: [{ date: date2, stats: zeroPoints }], stats: zeroPoints }],
+      season: points1,
     };
-    const players = [player1, player2];
-    mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
-    return upsert(players).then(() => {
-      expect(playerSchema.prototype.save).toHaveBeenCalled();
-      expect(playerSchema.findByIdAndUpdate).not.toHaveBeenCalled();
+    return upsert({ players, gameWeeks }).then(() => {
+      expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expected1);
     });
   });
 });

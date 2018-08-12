@@ -79,33 +79,6 @@ describe('calculatePoints', () => {
       const points = calculatePoints.calculateTotalPoints({ stats, pos: position });
       expect(points.total).toEqual(22);
     });
-
-    it('return a correct gameWeek points', () => {
-      const externalSeasonStats = {
-        apps: 3, subs: 3, mom: 3, gls: 3, tb: 3, sb: 3, asts: 3, cs: 3, con: 3, pensv: 3, ycard: 3, rcard: 3,
-      };
-      const savedSeasonStats = {
-        apps: 2, subs: 2, mom: 2, gls: 2, tb: 2, sb: 2, asts: 2, cs: 2, con: 2, pensv: 2, ycard: 2, rcard: 2,
-      };
-      const savedGameWeekStats = {
-        apps: 1, subs: 1, mom: 1, gls: 1, tb: 1, sb: 1, asts: 1, cs: 1, con: 1, pensv: 1, ycard: 1, rcard: 1,
-      };
-      const gameWeek = calculatePoints
-        .calculateGameWeek(externalSeasonStats, savedSeasonStats, savedGameWeekStats, position);
-      expect(gameWeek.apps).toEqual(2);
-      expect(gameWeek.subs).toEqual(2);
-      expect(gameWeek.mom).toEqual(2);
-      expect(gameWeek.gls).toEqual(2);
-      expect(gameWeek.asts).toEqual(2);
-      expect(gameWeek.sb).toEqual(2);
-      expect(gameWeek.tb).toEqual(2);
-      expect(gameWeek.cs).toEqual(2);
-      expect(gameWeek.con).toEqual(2);
-      expect(gameWeek.pensv).toEqual(2);
-      expect(gameWeek.ycard).toEqual(2);
-      expect(gameWeek.rcard).toEqual(2);
-      expect(gameWeek.points).toEqual(44);
-    });
   });
 
   describe('when a FB has points calculated', () => {

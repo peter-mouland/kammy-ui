@@ -3,16 +3,34 @@ const GraphQLJSON = require('graphql-type-json');
 const schemaString = `
   scalar JSON
 
-  input StatsSummaryInput {
-      week: [Int]
-      month: [Int]
-      season: [Int]
+  input StatsInput {
+    apps: Int
+    asts: Int
+    con: Int
+    cs: Int
+    gls: Int
+    pensv: Int
+    points: Int
+    rcard: Int
+    sb: Int
+    subs: Int
+    tb: Int
+    ycard: Int
   }
 
-  type StatsSummary {
-      week: [Int]
-      month: [Int]
-      season: [Int]
+  type Stats {
+    apps: Int
+    asts: Int
+    con: Int
+    cs: Int
+    gls: Int
+    pensv: Int
+    points: Int
+    rcard: Int
+    sb: Int
+    subs: Int
+    tb: Int
+    ycard: Int
   }
 
   input FixtureInput {
@@ -36,6 +54,16 @@ const schemaString = `
     status: String
     stats: [Int]
   }
+  
+  input GameWeekInput {
+      fixtures: [FixtureInput]
+      stats: StatsInput
+  }
+  
+  type GameWeek {
+      fixtures: [Fixture]
+      stats: Stats
+  }
 
   type Player {
     _id: String!
@@ -48,8 +76,9 @@ const schemaString = `
     skySportsClub: String
     isHidden: Boolean
     new: Boolean
-    stats: StatsSummary
     fixtures: [Fixture]
+    gameWeeks: [GameWeek]
+    season: Stats
   }
 
   type UpdatedPlayer { 
@@ -64,7 +93,8 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
-    stats: StatsSummary
+    gameWeeks: [GameWeek]
+    season: Stats
   }
 
   input PlayerUpdates {
@@ -79,7 +109,8 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [FixtureInput]
-    stats: StatsSummaryInput
+    gameWeeks: [GameWeekInput]
+    season: StatsInput
   }
   
   type Query {

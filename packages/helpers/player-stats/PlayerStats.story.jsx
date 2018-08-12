@@ -20,7 +20,7 @@ stories.add('PlayerStats', () => (
         gameWeek: 2, start: new Date('2018-04-02 10:00:00'), end: new Date('2018-04-08 16:00:00'),
       },
     ])}
-    data={degea}
+    player={degea}
   >
     {(player) => (
       <Fragment>

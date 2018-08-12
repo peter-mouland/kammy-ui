@@ -29,9 +29,9 @@ export const totalUpStats = (fixtures) => (
 );
 
 // exported for tests
-export const getGameWeekFixtures = (data, gameWeeks) => (
+export const getGameWeekFixtures = (player, gameWeeks) => (
   jsonQuery('fixtures[*status!=PENDING][*:date]', {
-    data,
+    data: player,
     locals: {
       date(item) {
         const fixtureDate = new Date(item.date);
@@ -45,21 +45,21 @@ export const getGameWeekFixtures = (data, gameWeeks) => (
 
 export const calculatePoints = calculateTotalPoints;
 
-export const playerStats = ({ data, gameWeeks }) => {
-  if (!data) return {};
-  const playerFixtures = getGameWeekFixtures(data, gameWeeks);
-  const fixturesWithinTeam = playerFixtures.map((fixture) => addPointsToFixtures(fixture, data.pos));
-  const stats = totalUpStats(fixturesWithinTeam);
+export const playerStats = ({ player, gameWeeks }) => {
+  if (!player) return {};
+  const playerFixtures = getGameWeekFixtures(player, gameWeeks);
+  const gameWeekFixtures = playerFixtures.map((fixture) => addPointsToFixtures(fixture, player.pos));
+  const stats = totalUpStats(gameWeekFixtures);
   const gameWeekStats = {
     ...stats,
-    points: calculateTotalPoints({ stats, pos: data.pos }).total,
+    points: calculateTotalPoints({ stats, pos: player.pos }).total,
   };
-  const fixtures = data.fixtures.map((fixture) => addPointsToFixtures(fixture, data.pos));
+  const fixtures = player.fixtures.map((fixture) => addPointsToFixtures(fixture, player.pos));
   return {
-    ...data, fixtures, fixturesWithinTeam, gameWeekStats,
+    ...player, fixtures, gameWeekFixtures, gameWeekStats,
   };
 };
 
-export default ({ children, gameWeeks, data }) => (
-  children(playerStats({ data, gameWeeks }))
+export default ({ children, gameWeeks, player }) => (
+  children(playerStats({ player, gameWeeks }))
 );

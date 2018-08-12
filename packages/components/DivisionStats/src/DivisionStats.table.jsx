@@ -40,13 +40,9 @@ class TeamsPage extends React.Component {
     playerTimelineProps: {},
   }
 
-  constructor(props) {
-    super(props);
-    const currentGameWeek = props.gameWeeks.filter((gw) => (
-      new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
-    )).length;
-    this.state.displayGw = String(currentGameWeek);
-  }
+  //   const { gameWeek } = (loaded && props.gameWeeks.find((gw) => (
+  //   new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
+  // ))) || { gameWeek: '1' };
 
   showPositionTimeline = (e, {
     position, gameWeeks, season, total,

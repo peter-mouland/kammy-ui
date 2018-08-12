@@ -16,15 +16,13 @@ import Chart from './components/chart';
 const bem = bemHelper({ block: 'division-stats' });
 
 class DivisionRankings extends React.Component {
-  state = { }
-
-  constructor(props) {
-    super(props);
-    const currentGameWeek = props.gameWeeks.filter((gw) => (
-      new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
-    )).length;
-    this.state.displayGw = String(currentGameWeek + 1);
+  state = {
+    displayGw: '1',
   }
+
+  //   const { gameWeek } = (loaded && props.gameWeeks.find((gw) => (
+  //   new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
+  // ))) || { gameWeek: '1' };
 
   componentDidMount() {
     const {

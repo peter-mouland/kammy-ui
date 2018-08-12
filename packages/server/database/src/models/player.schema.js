@@ -1,5 +1,20 @@
 const mongoose = require('mongoose');
 
+const statsSchema = {
+  apps: Number,
+  asts: Number,
+  con: Number,
+  cs: Number,
+  gls: Number,
+  pensv: Number,
+  points: Number,
+  rcard: Number,
+  sb: Number,
+  subs: Number,
+  tb: Number,
+  ycard: Number,
+};
+
 const fixtureSchema = {
   aScore: Number, // 2
   aTname: String, // Tottenham Hotspur
@@ -8,13 +23,16 @@ const fixtureSchema = {
   hScore: Number, // 0
   hTname: String, // Newcastle United
   status: String, // PLAYED
-  stats: Array, // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  stats: statsSchema,
 };
 
-const summaryStatsSchema = {
-  week: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  month: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  season: [Number], // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+const gameWeeksSchema = {
+  fixtures: {
+    type: Array,
+    schema: new mongoose.Schema(fixtureSchema),
+    default: { stats: [] },
+  },
+  stats: statsSchema,
 };
 
 const mongooseSchema = {
@@ -38,7 +56,12 @@ const mongooseSchema = {
   },
   value: Number,
   fixtures: { type: Array, schema: new mongoose.Schema(fixtureSchema), default: { stats: [] } },
-  stats: new mongoose.Schema(summaryStatsSchema),
+  gameWeeks: {
+    type: Array,
+    schema: new mongoose.Schema(gameWeeksSchema),
+    default: { fixtures: [] },
+  },
+  season: statsSchema,
 };
 
 

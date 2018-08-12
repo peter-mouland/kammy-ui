@@ -166,8 +166,6 @@ describe('TeamSeason', () => {
       teamSeason = new TeamSeason({
         gameWeeks, players, transfers, team,
       });
-      expect(teamSeason.getSeason()[0].gameWeeks[0]).toHaveProperty('fixturesWithinTeam');
-      expect(teamSeason.getSeason()[0].gameWeeks[0]).toHaveProperty('fixturesWithinTeam');
       expect(teamSeason.getSeason()[0].gameWeeks[0]).toHaveProperty('stats');
       expect(teamSeason.getSeason()[0].gameWeeks[0]).toHaveProperty('gameWeekStats');
       expect(teamSeason.getSeason()[0].gameWeeks[0]).toHaveProperty('name', 'de Gea, David');

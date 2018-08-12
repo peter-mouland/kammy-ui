@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/data-player-stats": "^0.0.18",
     "bunyan": "^2.0.2",
     "debug": "^3.1.0",
     "mongoose": "^4.13.14"

@@ -412,10 +412,10 @@ describe('playerStats', () => {
         end: '2016-08-18 18:00:00',
       },
     ];
-    const playerWithStats = playerStats({ data: player, gameWeeks });
+    const playerWithStats = playerStats({ player, gameWeeks });
     expect(playerWithStats.fixtures).toHaveLength(fixtures.length);
     expect(playerWithStats.pos).toEqual(player.pos);
-    expect(playerWithStats.fixturesWithinTeam).toEqual([]);
+    expect(playerWithStats.gameWeekFixtures).toEqual([]);
     expect(playerWithStats.gameWeekStats).toEqual({
       apps: 0, asts: 0, con: 0, cs: 0, gls: 0, pensv: 0, points: 0, rcard: 0, sb: 0, subs: 0, tb: 0, ycard: 0,
     });
@@ -432,7 +432,7 @@ describe('playerStats', () => {
         end: '2017-08-18 18:00:00',
       },
     ];
-    const playerWithStats = playerStats({ data: player, gameWeeks });
+    const playerWithStats = playerStats({ player, gameWeeks });
     expect(playerWithStats.fixtures).toHaveLength(fixtures.length);
     expect(playerWithStats.fixtures[0]).toEqual({
       ...fixtures[0],
@@ -442,7 +442,7 @@ describe('playerStats', () => {
       },
     });
     expect(playerWithStats.pos).toEqual(player.pos);
-    expect(playerWithStats.fixturesWithinTeam).toEqual([
+    expect(playerWithStats.gameWeekFixtures).toEqual([
       {
         ...fixtures[0],
         stats: {
@@ -472,7 +472,7 @@ describe('playerStats', () => {
         end: '2017-08-23 18:00:00',
       },
     ];
-    const playerWithStats = playerStats({ data: player, gameWeeks });
+    const playerWithStats = playerStats({ player, gameWeeks });
     expect(playerWithStats.fixtures).toHaveLength(3);
     expect(playerWithStats.fixtures).toEqual([
       {
@@ -495,7 +495,7 @@ describe('playerStats', () => {
       },
     ]);
     expect(playerWithStats.pos).toEqual(player.pos);
-    expect(playerWithStats.fixturesWithinTeam).toEqual([
+    expect(playerWithStats.gameWeekFixtures).toEqual([
       {
         ...fixtures[0],
         stats: {

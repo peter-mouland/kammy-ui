@@ -54,7 +54,6 @@ const parseJson = (url, json) => {
     return JSON.parse(json);
   } catch (e) {
     console.info(url);
-    // console.log(json);
     console.error(e);
     return {};
   }
