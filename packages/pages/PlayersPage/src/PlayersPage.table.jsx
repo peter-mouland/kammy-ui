@@ -25,7 +25,7 @@ class PlayersPageTable extends React.Component {
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
-                hiddenColumns={['new', 'isHidden', 'code', 'value']}
+                hiddenColumns={['new', 'isHidden', 'value']}
                 visibleStats={[
                   'apps',
                   'subs',

@@ -52,7 +52,6 @@ class DivisionRankings extends React.Component {
     const pointsLastWeek = loaded && teams && gameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeek - 1);
     const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
     const rankChange = getRankChange(rankLastWeek, rank);
-
     return (
       <section id="division-ranking-page" className={bem(null, null, 'page-content')}>
         <h1>{label}</h1>
@@ -76,7 +75,7 @@ class DivisionRankings extends React.Component {
               <h2>Overall Standings</h2>
               <Chart
                 teams={teams}
-                gameWeeks={gameWeeks}
+                gameWeeks={gameWeeks.slice(0, gameWeek + 1)}
                 managersSeason={managersSeason}
               />
               <Table
