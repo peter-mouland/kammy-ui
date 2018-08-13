@@ -74,15 +74,15 @@ class DivisionRankings extends React.Component {
               />
               <FormattedGameWeekDate gameWeek={gameWeeks[gameWeek]}/>
               <h2>Overall Standings</h2>
-              <Table
-                points={points}
-                rank={rank}
-                type='season'
-              />
               <Chart
                 teams={teams}
                 gameWeeks={gameWeeks}
                 managersSeason={managersSeason}
+              />
+              <Table
+                points={points}
+                rank={rank}
+                type='season'
               />
               <h2>Weekly Scores</h2>
               <Table

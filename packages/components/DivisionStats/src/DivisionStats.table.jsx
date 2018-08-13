@@ -136,6 +136,7 @@ class TeamsPage extends React.Component {
                     <tr className={'row row--header'}>
                       <th className={'cell cell--team-position'}>Team Position</th>
                       <th className={'cell cell--player'}>Player</th>
+                      <th className={'cell cell--position'}>Position</th>
                       <th className={'cell cell--club'}>Club</th>
                       {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
                     </tr>
@@ -173,6 +174,7 @@ class TeamsPage extends React.Component {
                             >
                               {player.name}
                             </a></td>
+                          <td className={'cell cell--position'}>{player.pos}</td>
                           <td className={'cell cell--club'}>{player.club}</td>
                           {
                             player && (
