@@ -22,6 +22,9 @@ const getGameWeeksWithFixtures = ({ player, gameWeeks }) => (
 );
 
 const getPlayerWithStats = ({ player, dbPlayer, gameWeeks }) => {
+  const gameWeek = (gameWeeks.findIndex((gw) => (
+    new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
+  ))) || 0;
   const playerWithNonZeroFixtures = {
     ...player,
     fixtures: (player.fixtures || []).map((fixture, i) => {
@@ -39,6 +42,7 @@ const getPlayerWithStats = ({ player, dbPlayer, gameWeeks }) => {
   return {
     ...playerWithNonZeroFixtures,
     gameWeeks: gameWeeksWithFixtures,
+    gameWeek: gameWeeksWithFixtures[gameWeek].stats,
     season,
   };
 };

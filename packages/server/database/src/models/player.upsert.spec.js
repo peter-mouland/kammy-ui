@@ -201,11 +201,13 @@ describe('upsert()', () => {
       ...dbPlayer1,
       gameWeeks: [{ fixtures: [{ date, stats: points1 }], stats: points1 }, { fixtures: [], stats: zeroPoints }],
       season: points1,
+      gameWeek: points1,
     };
     const expect2 = {
       ...dbPlayer2,
       gameWeeks: [{ fixtures: [{ date, stats: points2 }], stats: points2 }, { fixtures: [], stats: zeroPoints }],
       season: points2,
+      gameWeek: points2,
     };
     return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();

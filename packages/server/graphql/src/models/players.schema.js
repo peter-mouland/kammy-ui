@@ -79,6 +79,7 @@ const schemaString = `
     fixtures: [Fixture]
     gameWeeks: [GameWeek]
     season: Stats
+    gameWeek: Stats
   }
 
   type UpdatedPlayer { 
@@ -95,6 +96,7 @@ const schemaString = `
     fixtures: [Fixture]
     gameWeeks: [GameWeek]
     season: Stats
+    gameWeek: Stats
   }
 
   input PlayerUpdates {
@@ -111,6 +113,7 @@ const schemaString = `
     fixtures: [FixtureInput]
     gameWeeks: [GameWeekInput]
     season: StatsInput
+    gameWeek: StatsInput
   }
   
   type Query {

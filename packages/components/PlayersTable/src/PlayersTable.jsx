@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 import Svg from '@kammy-ui/svg';
@@ -13,9 +13,9 @@ const isSortDown = (sort, id) => sort.includes(`-${id}`);
 const isNotSorted = (sort, id) => !isSortUp(sort, id) && !isSortDown(sort, id);
 
 const SortableHeader = ({
-  id, label, sort, handleSort, className = '',
+  id, label, sort, handleSort, className = '', ...attrs
 }) => (
-  <th className={`cell cell--${id} ${className}`}>
+  <th className={`cell cell--${id} ${className}`} {...attrs}>
     <a className={ bem('sort-link') } onClick={() => handleSort(id)}>
       {isSortUp(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortUpIcon}</Svg>}
       {isSortDown(sort, id) && <Svg className={ bem('sort-icon', 'selected')}>{SortDownIcon}</Svg>}
@@ -68,7 +68,15 @@ class PlayerTable extends React.Component {
             )}
             { additionalColumns.map((col) => (<th key={col} className={`cell cell--${col}`} >{col}</th>))}
             { visibleStats.map((stat) => (
-              <SortableHeader id={`season.${stat}`} label={stat} key={stat} sort={sort} handleSort={this.handleSort} className={'cell--stat'} />
+              <SortableHeader
+                id={`season.${stat}`}
+                label={stat}
+                key={stat}
+                sort={sort}
+                handleSort={this.handleSort}
+                className={'cell--stat'}
+                colspan={2}
+              />
             ))}
           </tr>
         </thead>
@@ -104,9 +112,14 @@ class PlayerTable extends React.Component {
                       </td>
                     ))}
                     { visibleStats.map((stat) => (
-                      <td key={stat} className={ bem('stat', null, 'cell')}>
-                        {player.season && player.season[stat]}
-                      </td>
+                      <Fragment key={stat}>
+                        <td key={stat} className={ bem('stat', null, 'cell')}>
+                          {player.season && player.season[stat]}
+                        </td>
+                        <td className={`cell cell--pair cell--${stat}`}>
+                          {player.season && player.season[stat]}
+                        </td>
+                      </Fragment>
                     ))}
                   </tr>
                 );

@@ -61,6 +61,7 @@ const mongooseSchema = {
     schema: new mongoose.Schema(gameWeeksSchema),
     default: { fixtures: [] },
   },
+  gameWeek: statsSchema,
   season: statsSchema,
 };
 
