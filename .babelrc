@@ -11,12 +11,12 @@
         "ios_saf >= 9",
         "ie_mob 11",
         "Android >= 4"
-      ],
-      "debug": false,
-      "loose": false,
-      "modules": false,
-      "useBuiltIns": true
-    }
+      ]
+    },
+    "debug": false,
+    "loose": false,
+    "modules": false,
+    "useBuiltIns": true
   }]],
   "plugins": [
     "recharts",
