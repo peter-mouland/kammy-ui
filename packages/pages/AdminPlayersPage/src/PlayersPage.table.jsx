@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
 import bemHelper from '@kammy-ui/bem';
-import PlayersFilters from '@kammy-ui/players-table/src/PlayersFilters';
-import PlayersTable from '@kammy-ui/players-table/src/PlayersTable';
+import { PlayersFilters, PlayersTable } from '@kammy-ui/players-table';
 
 const bem = bemHelper({ block: 'players-page-table' });
 

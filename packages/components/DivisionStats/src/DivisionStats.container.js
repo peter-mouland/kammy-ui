@@ -1,27 +1,26 @@
 import { connect } from 'react-redux';
 import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
+import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 
 import DivisionStats from './DivisionStats';
 import calculateManagerSeason from './lib/manager-season';
 
-const {
-  fetchGameWeeks, fetchTransfers, fetchDivision,
-} = spreadsheetActions;
+const { fetchTransfers, fetchDivision } = spreadsheetActions;
 const { fetchPlayers: fetchDbPlayers } = dbActions;
+const { fetchGameWeeks } = gameWeekActions;
 
 function mapStateToProps(state, ownProps) {
+  const { data: gameWeeks, selectedGameWeek } = gameWeekSelectors.getData(state);
+  const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const props = {
+    selectedGameWeek,
+    gameWeeksLoaded,
     players: state.players.data,
     playersCount: state.players.count,
     playersLoading: state.players.loading,
     playersLoaded: state.players.loaded,
     playersErrors: state.players.errors,
-    gameWeeks: state.spreadsheet.gameWeeks,
-    gameWeeksCount: state.spreadsheet.gameWeeksCount,
-    gameWeeksLoading: state.spreadsheet.gameWeeksLoading,
-    gameWeeksLoaded: state.spreadsheet.gameWeeksLoaded,
-    gameWeeksErrors: state.spreadsheet.gameWeeksErrors,
     transfers: state.spreadsheet.transfers,
     transfersCount: state.spreadsheet.transfersCount,
     transfersLoading: state.spreadsheet.transfersLoading,
@@ -33,14 +32,14 @@ function mapStateToProps(state, ownProps) {
 
   const loaded = (
     state.players.loaded
-    && state.spreadsheet.gameWeeksLoaded
     && state.spreadsheet.transfersLoaded
+    && gameWeeksLoaded
     && divisionLoaded
   );
 
   const managersSeason = loaded ? calculateManagerSeason({
     teams: division,
-    gameWeeks: props.gameWeeks,
+    gameWeeks,
     players: props.players,
     transfers: props.transfers,
     withStats: true,
@@ -55,6 +54,7 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
+
 const mapDispatchToProps = (dispatch) => ({
   fetchGameWeeks: () => dispatch(fetchGameWeeks()),
   fetchTransfers: () => dispatch(fetchTransfers()),
@@ -62,8 +62,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDivision: (division) => dispatch(fetchDivision(division)),
 });
 
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DivisionStats);
+export default connect(mapStateToProps, mapDispatchToProps)(DivisionStats);

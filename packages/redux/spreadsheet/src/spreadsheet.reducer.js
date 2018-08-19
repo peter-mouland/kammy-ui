@@ -23,7 +23,7 @@ const rejected = (state, type, data, errors) => ({
   [`${type}Loaded`]: false,
 });
 
-export default function players(state = {}, action) {
+export default function spreadSheetReducer(state = {}, action) {
   const data = action.payload && action.payload.data;
   const errors = action.payload && action.payload.errors;
   switch (action.type) {

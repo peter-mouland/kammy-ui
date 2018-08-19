@@ -40,7 +40,9 @@ function getPackageInfo({ packageName, category }) {
   const fileName = file.replace('src', '').replace(/\.jsx?/, '');
   const name = `${category}/${packageName}/dist${fileName}.min`;
   const entry = { [name]: `${PACKAGES}/${category}/${packageName}/${file}` };
-  return { entry, packageName, file, category, version };
+  return {
+    entry, packageName, file, category, version,
+  };
 }
 
 const entries = CATEGORIES
@@ -51,6 +53,7 @@ const entries = CATEGORIES
 module.exports = entries.map(({
   entry, packageName, category, version,
 }) => ({
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: PACKAGES,
   externals: [nodeExternals()],
   target: category === 'server' ? 'node' : 'web',

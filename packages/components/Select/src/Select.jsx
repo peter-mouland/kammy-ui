@@ -7,7 +7,7 @@ class Select extends React.Component {
 
   render() {
     const {
-      defaultValue, options, warn = [], disabled = [],
+      defaultValue, options, warn, disabled,
     } = this.props;
     return (
       <select onChange={this.onChange} defaultValue={defaultValue}>
@@ -28,7 +28,12 @@ class Select extends React.Component {
 
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({ _id: PropTypes.string, name: PropTypes.string }),
+      PropTypes.string,
+    ]),
+  ).isRequired,
   defaultValue: PropTypes.string,
   warn: PropTypes.array,
   disabled: PropTypes.array,

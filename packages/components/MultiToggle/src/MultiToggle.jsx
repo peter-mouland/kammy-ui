@@ -9,7 +9,7 @@ import './multi-toggle.scss';
 const bem = bemHelper({ block: 'multi-toggle' });
 
 const MultiToggle = ({
-  id, checked, options = [], label, className, onChange, contextualHelp, ...props
+  id, checked, options, disabledOptions, label, className, onChange, contextualHelp, ...props
 }) => (
   <span className={bem(null, null, className)} id={ id } { ...props }>
     {label && <span className={bem('label')}>{label}</span>}
@@ -23,7 +23,8 @@ const MultiToggle = ({
               name={ id }
               type={'radio'}
               value={option}
-              onChange={ () => onChange(option) }
+              onChange={disabledOptions.includes(option) ? null : () => onChange(option)}
+              disabled={disabledOptions.includes(option)}
             />
             {contextualHelp && (
               <ContextualHelp body={contextualHelp(option)} Trigger={(
@@ -43,14 +44,17 @@ const MultiToggle = ({
 MultiToggle.propTypes = {
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  disabledOptions: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   className: PropTypes.string,
-  checked: PropTypes.string,
+  checked: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
   contextualHelp: PropTypes.func,
 };
 
 MultiToggle.defaultProps = {
+  disabledOptions: [],
+  options: [],
   checked: null,
   label: null,
   contextualHelp: null,

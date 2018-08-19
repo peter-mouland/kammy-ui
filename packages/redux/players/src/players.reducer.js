@@ -12,7 +12,7 @@ const arrayToObj = (arr) => (
     }), {})
 );
 
-export default function players(state = {}, action) {
+export default function playersReducer(state = {}, action) {
   const data = action.payload && action.payload.data;
 
   switch (action.type) {

@@ -2,7 +2,20 @@
 
  > Components for the Kammy App
  
-##
+## Dev
+
+### WebApp
+ * `yarn watch`
+ * `yarn start:webapp:dev`
+
+### StoryBook
+ * `yarn start`
+
+## Prod
+
+### WebApp
+ * `yarn build`
+ * `yarn start:webapp:prod`
 
 ## Todo:
 

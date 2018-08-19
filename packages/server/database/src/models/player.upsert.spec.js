@@ -10,9 +10,13 @@ const chance = new Chance();
 
 const date = '2018-08-12 17:30:00';
 const date2 = '2018-08-20 17:30:00';
+
+const myDate = new Date(date);
+const RealDate = Date;
+
 const gameWeeks = [
   {
-    gameWeek: 1,
+    gameWeek: '1',
     start: '2018-08-10 19:00:00',
     end: '2018-08-18 10:59:59',
   },
@@ -43,12 +47,21 @@ describe('upsert()', () => {
   beforeEach(() => {
     saveSpy = jest.spyOn(playerSchema.prototype, 'save');
     findSpy = jest.spyOn(playerSchema, 'findByIdAndUpdate').mockReturnValue({ exec: jest.fn() });
+    global.Date = jest.fn((...props) => {
+      const mockDate = props.length
+        ? new RealDate(...props)
+        : new RealDate(myDate);
+      return mockDate;
+    });
+    global.Date.now = jest.fn(() => myDate.getTime());
+    Object.assign(Date, RealDate);
   });
 
   afterEach(() => {
     mockingoose.Player.reset();
     saveSpy.mockReset();
     findSpy.mockReset();
+    global.Date = RealDate;
   });
 
   it('returns a player object', () => {
@@ -209,12 +222,16 @@ describe('upsert()', () => {
       season: points2,
       gameWeek: points2,
     };
+
     return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expect1);
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, expect2);
     });
   });
+
+  it.skip('saves the current gameweek stats, not next-weeks gameweek', () => {});
+  it.skip('saves the current gameweek stats, not previous-weeks gameweek', () => {});
 
   it('marks players with club as skySportsClub', () => {
     const player = {

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './nav-item.scss';
 
 const propTypes = {
-  label: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  label: PropTypes.string,
   className: PropTypes.string,
 };
 

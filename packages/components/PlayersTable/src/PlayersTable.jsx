@@ -30,7 +30,7 @@ SortableHeader.propTypes = {
   label: PropTypes.string.isRequired,
   sort: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleSort: PropTypes.func.isRequired,
-  className: PropTypes.func,
+  className: PropTypes.string,
 };
 
 class PlayerTable extends React.Component {
@@ -75,7 +75,7 @@ class PlayerTable extends React.Component {
                 sort={sort}
                 handleSort={this.handleSort}
                 className={'cell--stat'}
-                colspan={2}
+                colSpan={2}
               />
             ))}
           </tr>

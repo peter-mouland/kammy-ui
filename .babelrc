@@ -20,14 +20,25 @@
   }]],
   "plugins": [
     "recharts",
+    "react-loadable/babel",
     "transform-class-properties",
     "transform-object-rest-spread",
     "transform-object-assign",
+    "syntax-dynamic-import",
     ["transform-runtime", {
       "helpers": false,
       "polyfill": false,
       "regenerator": true,
       "moduleName": "babel-runtime"
     }]
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "react", [ "env", {
+          "targets": { "node": "9" }
+        }]
+      ]
+    }
+  }
 }

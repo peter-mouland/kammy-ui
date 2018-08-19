@@ -20,6 +20,9 @@
       "node": {
         "extensions": [".js", ".jsx", ".json"]
       }
+    },
+    "react": {
+      "version": "16.4.2"
     }
   },
   "plugins": ["react"],

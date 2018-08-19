@@ -2,10 +2,8 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import bemHelper from '@kammy-ui/bem';
-import MultiToggle from '@kammy-ui/multi-toggle';
 import Modal from '@kammy-ui/modal';
 
-import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
@@ -13,7 +11,6 @@ import './divisionStats.scss';
 
 const bem = bemHelper({ block: 'table' });
 
-// team = managersSeason[manager]
 const validateClub = (team, intGameWeek) => {
   const players = team.map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]);
   return players.reduce((acc, player) => {
@@ -31,7 +28,6 @@ const validateClub = (team, intGameWeek) => {
 
 class TeamsPage extends React.Component {
   state = {
-    displayGw: '1',
     seasonStats: null,
     gameWeekStats: null,
     showPositionTimeline: false,
@@ -39,10 +35,6 @@ class TeamsPage extends React.Component {
     positionTimelineProps: {},
     playerTimelineProps: {},
   }
-
-  //   const { gameWeek } = (loaded && props.gameWeeks.find((gw) => (
-  //   new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
-  // ))) || { gameWeek: '1' };
 
   showPositionTimeline = (e, {
     position, gameWeeks, season, total,
@@ -71,19 +63,14 @@ class TeamsPage extends React.Component {
     this.setState({ showPositionTimeline: false, showPlayerTimeline: false });
   }
 
-  updateDisplayGw = (displayGw) => {
-    this.setState({ displayGw });
-  }
-
   render() {
-    const { teams, gameWeeks, managersSeason } = this.props;
+    const { teams, managersSeason, selectedGameWeek } = this.props;
     const {
-      displayGw,
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
     } = this.state;
-    const intGameWeek = parseInt(displayGw, 10) - 1 < 0 ? 0 : parseInt(displayGw, 10) - 1;
-    const previousGameWeek = intGameWeek - 1 > -1 ? intGameWeek - 1 : 0;
+    const selectedGameWeekIdx = selectedGameWeek - 1;
+    const previousGameWeek = selectedGameWeekIdx - 1 > -1 ? selectedGameWeekIdx - 1 : 0;
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -111,21 +98,13 @@ class TeamsPage extends React.Component {
             <PlayerTimeline { ...playerTimelineProps } />
           </Modal>
         )}
-        <MultiToggle
-          label={'GameWeek'}
-          id={'GameWeek'}
-          checked={displayGw}
-          options={gameWeeks.map((gw) => gw.gameWeek)}
-          onChange={this.updateDisplayGw}
-          contextualHelp={(value) => <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
-        />
-        <FormattedGameWeekDate gameWeek={gameWeeks[intGameWeek]}/>
+
         <table className={'table'}>
           {Object
             .keys(teams)
             .sort()
             .map((manager) => {
-              const { warnings } = validateClub(managersSeason[manager], intGameWeek);
+              const { warnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
               return (
                 <Fragment key={manager} className={'table'}>
                   <thead>
@@ -143,8 +122,8 @@ class TeamsPage extends React.Component {
                   </thead>
                   <tbody>
                     {managersSeason[manager].map((teamSheetItem) => {
-                      const player = teamSheetItem.gameWeeks[intGameWeek];
-                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[intGameWeek];
+                      const player = teamSheetItem.gameWeeks[selectedGameWeekIdx];
+                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeekIdx];
                       const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
                       const className = playerLastGW.name !== player.name ? bem('transfer') : '';
                       const warningClassName = warnings.indexOf(player.club) > -1 ? 'row row--warning' : 'row';
@@ -205,13 +184,13 @@ class TeamsPage extends React.Component {
 }
 
 TeamsPage.propTypes = {
-  gameWeeks: PropTypes.array,
+  selectedGameWeek: PropTypes.number,
   teams: PropTypes.object,
   managersSeason: PropTypes.object,
 };
 
 TeamsPage.defaultProps = {
-  gameWeeks: [],
+  selectedGameWeek: 1,
   teams: {},
   managersSeason: {},
 };

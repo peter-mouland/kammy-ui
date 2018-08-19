@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/players-table",
+  "name": "@kammy-ui/game-week-switcher",
   "version": "0.0.17",
-  "description": "Kammy UI Component: Players Table",
+  "description": "Kammy UI Component: GameWeekSwitcher",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
@@ -20,22 +20,17 @@
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/errors": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/multi-toggle": "^0.0.17",
-    "@kammy-ui/redux-players": "^0.0.17",
-    "@kammy-ui/select": "^0.0.17",
-    "@kammy-ui/sort-columns": "^0.0.17",
-    "@kammy-ui/svg": "^0.0.17",
-    "@kammy-ui/toggle": "^0.0.17",
+    "@kammy-ui/redux.game-weeks": "^0.0.17",
+    "@kammy-ui/redux-store": "^0.0.17",
     "react-redux": "^5.0.7"
   },
   "peerDependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.4.2"
+    "prop-types": "^15.6.1",
+    "react": "^16.4.1"
   },
   "devDependencies": {
-    "@kammy-ui/redux-store": "^0.0.17",
     "redux": "^4.0.0"
   }
 }

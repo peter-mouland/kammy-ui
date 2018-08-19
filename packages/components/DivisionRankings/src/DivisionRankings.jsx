@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
-import MultiToggle from '@kammy-ui/multi-toggle';
+import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
 
 import Table from './DivisionRankings.table';
-import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 import getDivisionPoints from './lib/calculate-division-points';
 import getDivisionRank from './lib/calculate-division-rank';
 import getRankChange from './lib/calculate-rank-change';
@@ -16,14 +15,6 @@ import Chart from './components/chart';
 const bem = bemHelper({ block: 'division-stats' });
 
 class DivisionRankings extends React.Component {
-  state = {
-    displayGw: '1',
-  }
-
-  //   const { gameWeek } = (loaded && props.gameWeeks.find((gw) => (
-  //   new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
-  // ))) || { gameWeek: '1' };
-
   componentDidMount() {
     const {
       divisionId,
@@ -36,20 +27,14 @@ class DivisionRankings extends React.Component {
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
-  updateDisplayGw = (displayGw) => {
-    this.setState({ displayGw });
-  }
-
   render() {
     const {
-      loaded, gameWeeks, label, teams, managersSeason,
+      loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek,
     } = this.props;
-    const { displayGw } = this.state;
-    const gameWeek = parseInt(displayGw, 10) - 1 < 0 ? 0 : parseInt(displayGw, 10) - 1;
 
-    const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeek);
+    const points = loaded && teams && getDivisionPoints(teams, managersSeason, selectedGameWeek);
     const rank = points && getDivisionRank(points);
-    const pointsLastWeek = loaded && teams && gameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeek - 1);
+    const pointsLastWeek = selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, selectedGameWeek - 1);
     const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
     const rankChange = getRankChange(rankLastWeek, rank);
     return (
@@ -61,21 +46,15 @@ class DivisionRankings extends React.Component {
           </Fragment>
         )}
         {
+          loaded && <GameWeekSwitcher />
+        }
+        {
           loaded && teams && points && rank && (
             <Fragment>
-              <MultiToggle
-                label={'GameWeek'}
-                id={'GameWeek'}
-                checked={displayGw}
-                options={gameWeeks.map((gw) => gw.gameWeek)}
-                onChange={this.updateDisplayGw}
-                contextualHelp={(value) => <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
-              />
-              <FormattedGameWeekDate gameWeek={gameWeeks[gameWeek]}/>
               <h2>Overall Standings</h2>
               <Chart
                 teams={teams}
-                gameWeeks={gameWeeks.slice(0, gameWeek + 1)}
+                gameWeeks={gameWeeks.slice(0, selectedGameWeek)}
                 managersSeason={managersSeason}
               />
               <Table
@@ -98,6 +77,7 @@ class DivisionRankings extends React.Component {
 }
 
 DivisionRankings.propTypes = {
+  selectedGameWeek: PropTypes.number,
   loaded: PropTypes.bool,
   players: PropTypes.object,
   transfers: PropTypes.object,
@@ -119,6 +99,7 @@ DivisionRankings.propTypes = {
 };
 
 DivisionRankings.defaultProps = {
+  selectedGameWeek: 0,
   loaded: false,
   playersLoaded: false,
   gameWeeksLoaded: false,
