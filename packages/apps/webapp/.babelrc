@@ -1,6 +1,6 @@
 {
   "presets": ["react", ["env", {
-     "targets": { "node": "9" }
+     "targets": { "node": "10" }
   }]],
   "plugins": [
     "transform-object-rest-spread",

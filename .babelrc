@@ -36,7 +36,7 @@
     "test": {
       "presets": [
         "react", [ "env", {
-          "targets": { "node": "9" }
+          "targets": { "node": "10" }
         }]
       ]
     }
