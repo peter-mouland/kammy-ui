@@ -39,11 +39,12 @@
     "@kammy-ui/select": "^0.0.17",
     "json-query": "^2.2.2",
     "react-redux": "^5.0.7",
+    "react-loadable": "^5.5.0",
     "recharts": "^1.1.0"
   },
   "peerDependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^16.4.1"
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
   },
   "devDependencies": {
     "redux": "^4.0.0"

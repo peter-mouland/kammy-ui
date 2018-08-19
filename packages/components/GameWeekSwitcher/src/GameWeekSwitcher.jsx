@@ -46,13 +46,14 @@ GameWeekSwitcher.propTypes = {
   handleUpdate: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
   currentGameWeek: PropTypes.number.isRequired,
-  selectedGameWeek: PropTypes.number.isRequired,
+  selectedGameWeek: PropTypes.number,
   gameWeeks: PropTypes.array,
   gameWeeksLoading: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
 };
 
 GameWeekSwitcher.defaultProps = {
+  selectedGameWeek: null,
   gameWeeksLoading: false,
   gameWeeksLoaded: false,
   gameWeeks: [],

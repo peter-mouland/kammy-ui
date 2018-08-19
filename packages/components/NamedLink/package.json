@@ -23,8 +23,8 @@
     "react-router-dom": "^4.2.2"
   },
   "peerDependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^16.4.1"
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
   },
   "devDependencies": {
     "@kammy-ui/app-config-provider": "^0.0.17"

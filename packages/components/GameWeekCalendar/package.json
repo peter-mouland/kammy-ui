@@ -26,8 +26,8 @@
     "react-yearly-calendar": "^1.2.1"
   },
   "peerDependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^16.4.1"
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
   },
   "devDependencies": {
     "@kammy-ui/redux-fixtures": "^0.0.17",

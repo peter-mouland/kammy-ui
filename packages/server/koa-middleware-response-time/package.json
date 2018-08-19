@@ -1,5 +1,5 @@
 {
-  "name": "@kammy-ui/koa-middleware-logger",
+  "name": "@kammy-ui/koa-middleware-response-time",
   "version": "0.0.17",
   "description": "Kammy UI Component: Store",
   "main": "dist/response-time.min.js",

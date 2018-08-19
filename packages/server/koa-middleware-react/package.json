@@ -21,7 +21,7 @@
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/map-webpack-assets": "^0.0.17",
     "@kammy-ui/app-config-provider": "^0.0.17",
-    "react-dom": "^16.3.0",
+    "react-dom": "^16.4.2",
     "react-router-dom": "^4.2.2"
   }
 }
