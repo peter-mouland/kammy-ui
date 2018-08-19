@@ -9,7 +9,13 @@ const prodConfig = merge(defaultConfig, {
   entry: {
     app: [`${SRC}/client-entry.jsx`],
     polyfills: [`${SRC}/polyfills.js`],
-    vendor: [`${SRC}/vendor.js`],
+  },
+  optimization: {
+    splitChunks: {
+      // dont split polyfills
+      chunks: (chunk) => (chunk.name && chunk.name.indexOf('polyfills') < 0),
+      minSize: 0,
+    },
   },
   plugins: [
     new AssetsPlugin({ filename: 'compiled/webpack-assets.json' }),

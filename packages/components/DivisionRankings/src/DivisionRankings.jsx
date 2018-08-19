@@ -5,14 +5,26 @@ import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
+import ErrorBoundary from '@kammy-ui/error-boundary';
 
 import Table from './DivisionRankings.table';
 import getDivisionPoints from './lib/calculate-division-points';
 import getDivisionRank from './lib/calculate-division-rank';
 import getRankChange from './lib/calculate-rank-change';
-import Chart from './components/chart';
+import LoadableChart from './components/LoadableChart';
 
 const bem = bemHelper({ block: 'division-stats' });
+
+const makeLineChartData = (teams, gameWeeks, managersSeason) => (
+  gameWeeks.map(({ gameWeek }, i) => {
+    const points = getDivisionPoints(teams, managersSeason, i);
+    const rank = getDivisionRank(points);
+    return {
+      gameWeek: `gw${gameWeek}`,
+      ...rank.total,
+    };
+  })
+);
 
 class DivisionRankings extends React.Component {
   componentDidMount() {
@@ -33,8 +45,10 @@ class DivisionRankings extends React.Component {
     } = this.props;
 
     const points = loaded && teams && getDivisionPoints(teams, managersSeason, selectedGameWeek);
+    const pointsLastWeek = loaded
+      && selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, selectedGameWeek - 1);
+    const data = loaded && makeLineChartData(teams, gameWeeks.slice(0, selectedGameWeek), managersSeason);
     const rank = points && getDivisionRank(points);
-    const pointsLastWeek = selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, selectedGameWeek - 1);
     const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
     const rankChange = getRankChange(rankLastWeek, rank);
     return (
@@ -52,11 +66,13 @@ class DivisionRankings extends React.Component {
           loaded && teams && points && rank && (
             <Fragment>
               <h2>Overall Standings</h2>
-              <Chart
-                teams={teams}
-                gameWeeks={gameWeeks.slice(0, selectedGameWeek)}
-                managersSeason={managersSeason}
-              />
+              <ErrorBoundary>
+                <LoadableChart
+                  data={data}
+                  lines={Object.keys(managersSeason)}
+                  xAxis={'gameWeek'}
+                />
+              </ErrorBoundary>
               <Table
                 points={points}
                 rank={rank}
@@ -85,7 +101,7 @@ DivisionRankings.propTypes = {
   teams: PropTypes.object,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  managersSeason: PropTypes.object.isRequired,
+  managersSeason: PropTypes.object,
 
   fetchDbPlayers: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,

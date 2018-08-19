@@ -4,7 +4,7 @@ function mapWebpackAssets(assetsObj) {
   const assets = { js: [], css: [] };
   Object.keys(assetsObj).forEach((key) => {
     const { js, css } = assetsObj[key];
-    if (js && key === 'polyfills') {
+    if (js && key.indexOf('polyfills') > -1) {
       assets.js.unshift(`
         <script>
         // synchronously polyfill stuff needed for the app in old browsers
@@ -17,7 +17,7 @@ function mapWebpackAssets(assetsObj) {
       `);
     } else if (js && key === 'vendor') {
       assets.js.unshift(`<script src="${rootPath(js)}"></script>`);
-    } else if (js) {
+    } else if (js && key) { // empty keys are promised imports
       assets.js.push(`<script src="${rootPath(js)}"></script>`);
     }
     if (css) assets.css.push(`<link href="${rootPath(css)}" rel="stylesheet" />`);

@@ -1,16 +1,17 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const { SRC, DIST } = require('./src/config/paths');
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: SRC,
+  // always web. yup. This webpack is for compiling solely for the bwoser.
+  target: 'web',
   output: {
     path: DIST,
-    filename: '[name]_[hash].js',
+    filename: '[name]_[chunkhash].js',
     publicPath: '/',
   },
   plugins: [
@@ -24,9 +25,6 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.GA_KEY': JSON.stringify(process.env.GA_KEY),
     }),
-    // new CopyWebpackPlugin([
-    //   { from: 'assets', to: '.' }
-    // ]),
   ],
   resolve: {
     modules: ['node_modules', SRC],
@@ -37,15 +35,12 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: [/src/, /kammy/],
+        include: [/src/],
         loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-        },
       },
       {
         test: /\.scss$/,
-        include: [/src/, /kammy/],
+        include: [/src/],
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
@@ -53,7 +48,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        include: [/src/, /kammy/],
+        include: [/src/],
         loader: 'svg-inline-loader',
         options: {
           removeSVGTagAttrs: false,

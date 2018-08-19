@@ -56,12 +56,17 @@ module.exports = entries.map(({
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: PACKAGES,
   externals: [nodeExternals()],
-  target: category === 'server' ? 'node' : 'web',
+  // always node. yup. This webpack is for compiling solely for the webapp.
+  target: 'node', // category === 'server' ? 'node' : 'web',
   entry,
   output: {
     path: PACKAGES,
     filename: '[name].js',
-    libraryTarget: packageName === 'vendor' ? 'umd' : 'commonjs2',
+    libraryTarget: 'commonjs2',
+  },
+  resolve: {
+    mainFields: ['src', 'browser', 'module', 'main'],
+    extensions: ['.mjs', '.js', '.jsx'],
   },
   plugins: [
     new CleanWebpackPlugin(`packages/${category}/${packageName}/dist`),
@@ -69,7 +74,6 @@ module.exports = entries.map(({
     new ProgressBarPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin('[name].css'),
-    // new Visualizer({ filename: 'webpack-stats.html' }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
@@ -106,9 +110,5 @@ module.exports = entries.map(({
         loader: 'file-loader?name=../../fonts/[name].[ext]',
       },
     ],
-  },
-  resolve: {
-    mainFields: ['src', 'browser', 'module', 'main'],
-    extensions: ['.mjs', '.js', '.jsx'],
   },
 }));

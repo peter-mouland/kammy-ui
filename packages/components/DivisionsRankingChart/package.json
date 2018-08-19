@@ -1,0 +1,27 @@
+{
+  "name": "@kammy-ui/division-rankings-chart",
+  "version": "0.0.17",
+  "description": "Kammy UI Component: DivisionRankingsChart",
+  "main": "dist/chart.min.js",
+  "src": "src/chart.jsx",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "recharts": "^1.1.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
+  }
+}

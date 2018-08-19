@@ -11,7 +11,7 @@
     "build": "rm -rf compiled && npm run build:server && npm run build:app",
     "build:app": "NODE_ENV=production webpack --config webpack.config.prod.js -p",
     "build:server": "NODE_ENV=production babel src -d compiled",
-    "start:dev": "NODE_ENV=development DEBUG=kammy,kammy:* webpack-dev-server --config webpack.config.dev-server.js",
+    "start:dev": "NODE_ENV=development DEBUG=kammy,kammy:* webpack-serve --config webpack.config.dev-server.js",
     "start:prod": "NODE_ENV=production node compiled/server-entry.js"
   },
   "dependencies": {
@@ -43,10 +43,11 @@
     "@kammy-ui/redux.game-weeks": "0.0.17",
     "@kammy-ui/rules-page": "0.0.17",
     "@kammy-ui/transfers-page": "0.0.17",
-    "@kammy-ui/vendor": "0.0.17",
-    "react-hot-loader": "3.0.0-beta.6",
-    "koa": "2.5.1",
-    "koa-bodyparser": "^4.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-hot-loader": "4.3.4",
+    "koa": "2.5.2",
+    "koa-bodyparser": "^4.2.1",
     "koa-compress": "3.0.0",
     "koa-convert": "1.2.0",
     "koa-jwt": "^3.2.2",
@@ -61,11 +62,12 @@
     "react-router-redux": "4.0.8"
   },
   "devDependencies": {
-    "react-hot-loader": "3.0.0-beta.6",
     "nodemon": "^1.18.2",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-serve-ssr-helper": "^0.2.1",
+    "http-proxy-middleware": "^0.18.0",
+    "webpack-serve": "^2.0.2",
     "webpack-merge": "^4.1.3"
   }
 }
