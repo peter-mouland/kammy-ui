@@ -1,5 +1,5 @@
-const GoogleSpreadsheet = require('./GoogleSpreadsheet');
-const GoogleSpreadsheetCred = require('./google-generated-creds.json');
+import GoogleSpreadsheet from './GoogleSpreadsheet';
+import GoogleSpreadsheetCred from './google-generated-creds.json';
 
 /* PLAYERS */
 const formatPlayer = ({
@@ -116,4 +116,5 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
       return data;
     })
 );
-module.exports = fetchGsheet;
+
+export default fetchGsheet;

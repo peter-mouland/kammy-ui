@@ -1,8 +1,8 @@
 /* eslint-disable global-require, no-console */
-const mongoose = require('mongoose');
-const debug = require('debug');
+import mongoose from 'mongoose';
+import debug from 'debug';
 
-const logger = require('./logger');
+import logger from './logger';
 
 const log = debug('kammyui:models');
 let connected = false;
@@ -38,4 +38,4 @@ const connect = (uri) => {
   require('./models/player.schema');
 };
 
-module.exports = connect;
+export default connect;

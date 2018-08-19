@@ -1,8 +1,8 @@
-const getPlayersQuery = `
+export const getPlayersQuery = `
 query { 
   getPlayers{ 
     _id code pos name club skySportsPosition isHidden new value
-     fixtures { 
+   fixtures { 
       aScore aTname date event hScore hTname status stats
     }
     season {
@@ -15,7 +15,7 @@ query {
 } 
 `;
 
-const getPlayerQuery = `
+export const getPlayerQuery = `
 query ($code: Int) { 
   getPlayers(code: $code){
     _id code pos name club skySportsPosition isHidden new value
@@ -32,16 +32,10 @@ query ($code: Int) {
 } 
 `;
 
-const mergePlayersMutation = `
+export const mergePlayersMutation = `
   mutation { 
     mergePlayers{
       _id code pos name club isHidden new skySportsPosition value
     }   
   }
 `;
-
-module.exports = {
-  getPlayersQuery,
-  getPlayerQuery,
-  mergePlayersMutation,
-};

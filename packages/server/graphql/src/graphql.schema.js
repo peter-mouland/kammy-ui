@@ -1,5 +1,5 @@
-const { makeExecutableSchema } = require('graphql-tools');
-const { playersSchema, resolveFunctions: playerResolvers } = require('./models/players.schema');
+import { makeExecutableSchema } from 'graphql-tools';
+import { playersSchema, resolveFunctions as playerResolvers } from './models/players.schema';
 
 const schemaString = `
   ${playersSchema}
@@ -11,4 +11,4 @@ const resolveFunctions = {
 
 const jsSchema = makeExecutableSchema({ typeDefs: schemaString, resolvers: resolveFunctions });
 
-module.exports = jsSchema;
+export default jsSchema;

@@ -1,4 +1,4 @@
-const GoogleSpreadsheet = require('google-spreadsheet');
+import GoogleSpreadsheet from 'google-spreadsheet';
 
 const setAuth = (doc, creds) => new Promise((resolve) => {
   doc.useServiceAccountAuth(creds, () => resolve(doc));
@@ -196,4 +196,4 @@ Connect.prototype.toJson = function toJson(creator) {
   return this;
 };
 
-module.exports = Connect;
+export default Connect;

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { playerStats } = require('@kammy-ui/data-player-stats');
+import mongoose from 'mongoose';
+import { playerStats } from '@kammy-ui/data-player-stats';
 
-const getPlayers = require('./player.getPlayers');
+import getPlayers from './player.getPlayers';
 
 const Player = mongoose.model('Player');
 
@@ -67,4 +67,4 @@ const upsertPlayers = async ({ players, gameWeeks }) => {
   return Promise.all(updatePromises).catch(console.error);
 };
 
-module.exports = upsertPlayers;
+export default upsertPlayers;

@@ -1,16 +1,16 @@
 /* eslint-disable global-require */
-const connect = require('./connect');
+import connect from './connect';
 
 const rootActions = () => {
-  const upsertPlayers = require('./models/player.upsert');
-  const getPlayers = require('./models/player.getPlayers');
+  const upsertPlayers = require('./models/player.upsert').default;
+  const getPlayers = require('./models/player.getPlayers').default;
   return {
     upsertPlayers,
     getPlayers,
   };
 };
 
-module.exports = {
+export {
   connect,
   rootActions,
 };

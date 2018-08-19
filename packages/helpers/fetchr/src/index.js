@@ -1,4 +1,4 @@
-const { getLocalUrl } = require('./localUrl');
+import { getLocalUrl } from './localUrl';
 
 function queryParams(params) {
   return Object.keys(params)
@@ -6,7 +6,7 @@ function queryParams(params) {
     .join('&');
 }
 
-function checkStatus(response) {
+export function checkStatus(response) {
   if (response.status < 200 || response.status >= 500) {
     const error = new Error(response.statusText);
     error.response = response;
@@ -35,7 +35,7 @@ const graphQLOpts = (query, variables) => ({
   body: JSON.stringify({ query, variables }),
 });
 
-const fetchUrl = (endpoint, opts = {}) => {
+export const fetchUrl = (endpoint, opts = {}) => {
   let url = endpoint.indexOf('//') > -1 ? endpoint : `${getLocalUrl(opts.port)}${endpoint}`;
 
   if (opts.params) {
@@ -59,22 +59,12 @@ const parseJson = (url, json) => {
   }
 };
 
-const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, options)).then((response) => parseJson(url, response));
+export const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, options)).then((response) => parseJson(url, response));
 
-const postJSON = (url, data, options) => fetchUrl(url, jsonOpts('POST', data, options));
+export const postJSON = (url, data, options) => fetchUrl(url, jsonOpts('POST', data, options));
 
-const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => parseJson(data, response));
+export const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => parseJson(data, response));
 
-const fetchSpreadsheet = (docId, worksheet, options) => getJSON(`/google-spreadsheet/${docId}/${worksheet}`, options);
+export const fetchSpreadsheet = (doc, worksheet, opts) => getJSON(`/google-spreadsheet/${doc}/${worksheet}`, opts);
 
-const fetchSkySports = (url, options) => getJSON(`/skysports/${url}`, options);
-
-module.exports = {
-  checkStatus,
-  fetchUrl,
-  getJSON,
-  postJSON,
-  fetchGraphQL,
-  fetchSpreadsheet,
-  fetchSkySports,
-};
+export const fetchSkySports = (url, options) => getJSON(`/skysports/${url}`, options);

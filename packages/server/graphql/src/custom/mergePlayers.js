@@ -1,8 +1,8 @@
-const { fetchPlayersFull } = require('@kammy-ui/fetch-sky-sports');
-const fetchGsheet = require('@kammy-ui/fetch-google-sheets');
-const { rootActions } = require('@kammy-ui/database');
+import { fetchPlayersFull } from '@kammy-ui/fetch-sky-sports';
+import fetchGsheet from '@kammy-ui/fetch-google-sheets';
+import { rootActions } from '@kammy-ui/database';
 
-const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
+export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   const allPlayers = {
     ...spreadsheetPlayers,
     ...skySportsPlayers,
@@ -30,7 +30,7 @@ const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   return {};
 };
 
-const mergePlayers = () => (
+export const mergePlayers = () => (
   Promise.all([
     fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'GameWeeks' }),
     fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),
@@ -48,6 +48,3 @@ const mergePlayers = () => (
       gameWeeks,
     }))
 );
-
-module.exports = mergePlayers;
-module.exports.mergePlayersData = mergePlayersData;

@@ -1,4 +1,4 @@
-const GraphQLJSON = require('graphql-type-json');
+import GraphQLJSON from 'graphql-type-json';
 
 const schemaString = `
   scalar JSON
@@ -73,7 +73,6 @@ const schemaString = `
     club: String
     value: Float
     skySportsPosition: String
-    skySportsClub: String
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
@@ -89,7 +88,6 @@ const schemaString = `
     pos: String
     club: String
     value: Float
-    skySportsClub: String
     skySportsPosition: String
     isHidden: Boolean
     new: Boolean
@@ -106,7 +104,6 @@ const schemaString = `
     pos: String
     club: String
     value: Float
-    skySportsClub: String
     skySportsPosition: String
     isHidden: Boolean
     new: Boolean
@@ -127,9 +124,8 @@ const schemaString = `
   }
 `;
 
-const resolveFunctions = {
+export const resolveFunctions = {
   JSON: GraphQLJSON,
 };
 
-module.exports.playersSchema = schemaString;
-module.exports.resolveFunctions = resolveFunctions;
+export const playersSchema = schemaString;

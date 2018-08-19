@@ -1,10 +1,6 @@
 /* eslint-env jest */
 import { mergePlayersData } from './mergePlayers';
 
-jest.mock('@kammy-ui/fetch-sky-sports');
-jest.mock('@kammy-ui/fetch-google-sheets');
-jest.mock('@kammy-ui/database');
-
 const gameWeeks = [
   {
     gameWeek: 1,

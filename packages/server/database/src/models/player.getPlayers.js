@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Player = mongoose.model('Player');
 
 const getPlayers = (playerDetails = {}) => Player.aggregate({ $match: playerDetails }).exec();
 
-module.exports = getPlayers;
+export default getPlayers;

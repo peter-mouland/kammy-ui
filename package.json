@@ -47,16 +47,25 @@
     "clean:yarn": "rimraf yarn.lock && rimraf packages/**/yarn.lock",
     "init": "yarn && yarn precommit",
     "precommit": "yarn lint && yarn test",
-    "postinstall": "yarn bootstrap && yarn build && yarn bootstrap",
+    "postinstall": "yarn build",
     "pre-publish": "git fetch && git pull -r && yarn lint && yarn test",
     "nuke": "yarn clean && yarn clean:pms && rm -rf node_modules && yarn run init",
     "--------- LERNA ----------": "",
     "linkAll": "lerna exec yarn link",
     "npmLinkAll": "lerna exec npm link",
     "lerna": "lerna",
-    "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes"
   },
+  "workspaces": [
+    "packages/apps/*",
+    "packages/components/*",
+    "packages/data-helpers/*",
+    "packages/global/*",
+    "packages/helpers/*",
+    "packages/pages/*",
+    "packages/redux/*",
+    "packages/server/*"
+  ],
   "dependencies": {
     "mongoose": "^4.13.14",
     "prop-types": "^15.6.2",

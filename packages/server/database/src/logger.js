@@ -1,4 +1,4 @@
-const bunyan = require('bunyan');
+import bunyan from 'bunyan';
 
 const getToday = () => {
   const now = new Date();
@@ -32,7 +32,7 @@ const log = bunyan.createLogger({
   },
 });
 
-module.exports = function logger(coll, method, query, doc, options) {
+export default function logger(coll, method, query, doc, options) {
   if (1 === 2 && process.env.NODE_ENV !== 'production') {
     log.info({
       dbQuery: {
@@ -44,4 +44,4 @@ module.exports = function logger(coll, method, query, doc, options) {
       },
     });
   }
-};
+}

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const statsSchema = {
   apps: Number,
@@ -23,7 +23,7 @@ const fixtureSchema = {
   hScore: Number, // 0
   hTname: String, // Newcastle United
   status: String, // PLAYED
-  stats: statsSchema,
+  stats: [Number],
 };
 
 const gameWeeksSchema = {
@@ -45,7 +45,6 @@ const mongooseSchema = {
   pos: String,
   club: String,
   skySportsPosition: String,
-  skySportsClub: String,
   isHidden: {
     type: Boolean,
     default: false,
@@ -55,7 +54,11 @@ const mongooseSchema = {
     default: false,
   },
   value: Number,
-  fixtures: { type: Array, schema: new mongoose.Schema(fixtureSchema), default: { stats: [] } },
+  fixtures: {
+    type: Array,
+    schema: new mongoose.Schema(fixtureSchema),
+    default: { stats: [] },
+  },
   gameWeeks: {
     type: Array,
     schema: new mongoose.Schema(gameWeeksSchema),
@@ -65,6 +68,4 @@ const mongooseSchema = {
   season: statsSchema,
 };
 
-
-module.exports = mongoose.model('Player', new mongoose.Schema(mongooseSchema));
-module.exports.mongooseSchema = mongooseSchema;
+export default mongoose.model('Player', new mongoose.Schema(mongooseSchema));

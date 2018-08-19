@@ -1,15 +1,6 @@
 {
   "lerna": "2.9.*",
   "npmClient": "yarn",
-  "packages": [
-    "packages/apps/*",
-    "packages/components/*",
-    "packages/data-helpers/*",
-    "packages/global/*",
-    "packages/helpers/*",
-    "packages/pages/*",
-    "packages/redux/*",
-    "packages/server/*"
-  ],
+  "useWorkspaces": true,
   "version": "independent"
 }

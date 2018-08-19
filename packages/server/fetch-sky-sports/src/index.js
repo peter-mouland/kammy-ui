@@ -1,4 +1,4 @@
-const { getJSON } = require('@kammy-ui/fetchr');
+import { getJSON } from '@kammy-ui/fetchr';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const getFixtures = (code) => getJSON(`https://fantasyfootball.skysports.com/cache/json_player_stats_${code}.json`);
@@ -22,19 +22,19 @@ const mapToFFDataStructure = (prev, curr) => ({
   },
 });
 
-const fetchFixtures = () => (
+export const fetchFixtures = () => (
   getJSON('https://fantasyfootball.skysports.com/cache/json_fixtures.json')
     .then((data) => ({ data }))
     .catch(console.error)
 );
 
-const fetchPlayersSummary = () => (
+export const fetchPlayersSummary = () => (
   getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
     .then((data) => ({ data: data.players.reduce(mapToFFDataStructure, {}) }))
     .catch(console.error)
 );
 
-const fetchPlayersFull = () => {
+export const fetchPlayersFull = () => {
   const start = new Date();
   return getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
     .then(async (data) => {
@@ -54,16 +54,9 @@ const fetchPlayersFull = () => {
     .catch(console.error);
 };
 
-const fetchPlayer = (code) => (
+export const fetchPlayer = (code) => (
   getFixtures(code)
     .then((fixtures) => ({ ...fixtures, code }))
     .then((data) => ({ data: mapToFFDataStructure({}, data) }))
     .catch(console.error)
 );
-
-module.exports = {
-  fetchFixtures,
-  fetchPlayersSummary,
-  fetchPlayersFull,
-  fetchPlayer,
-};
