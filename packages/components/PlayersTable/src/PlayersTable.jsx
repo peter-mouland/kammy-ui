@@ -117,7 +117,7 @@ class PlayerTable extends React.Component {
                           {player.season && player.season[stat]}
                         </td>
                         <td className={`cell cell--pair cell--${stat}`}>
-                          {player.season && player.season[stat]}
+                          {player.gameWeek && player.gameWeek[stat]}
                         </td>
                       </Fragment>
                     ))}
