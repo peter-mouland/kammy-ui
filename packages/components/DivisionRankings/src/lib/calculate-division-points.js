@@ -16,12 +16,12 @@ const getTotal = (posPoints) => (
   }))
 );
 
-const getPoints = (team, intGameWeek) => {
+const getPoints = (team, gameWeekIdx) => {
   const posPoints = team
     .reduce((prev, teamSheetItem) => {
       const { gameWeeks, seasonToGameWeek } = teamSheetItem;
-      const player = gameWeeks[intGameWeek] || gameWeeks[gameWeeks.length - 1];
-      const seasonToDate = seasonToGameWeek[intGameWeek] || seasonToGameWeek[seasonToGameWeek.length - 1];
+      const player = gameWeeks[gameWeekIdx] || gameWeeks[gameWeeks.length - 1];
+      const seasonToDate = seasonToGameWeek[gameWeekIdx] || seasonToGameWeek[seasonToGameWeek.length - 1];
       const key = getPositionLabel(teamSheetItem.teamPos).label;
       const gameWeekPoints = player.gameWeekStats.points;
       const gameWeek = prev[key] ? prev[key].gameWeek + gameWeekPoints : gameWeekPoints;
@@ -39,12 +39,12 @@ const getPoints = (team, intGameWeek) => {
   };
 };
 
-const getTeamPoints = (teams, managersSeason, intGameWeek) => (
+const getTeamPoints = (teams, managersSeason, gameWeekIdx) => (
   Object.keys(teams).map((manager) => ({
     manager,
     points: {
       ...INITIAL_POINTS,
-      ...getPoints(managersSeason[manager], intGameWeek),
+      ...getPoints(managersSeason[manager], gameWeekIdx),
     },
   }))
 );

@@ -44,26 +44,26 @@ class DivisionRankings extends React.Component {
       loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek,
     } = this.props;
 
-    const points = loaded && teams && getDivisionPoints(teams, managersSeason, selectedGameWeek);
+    const gameWeekIdx = selectedGameWeek - 1;
+    const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeekIdx);
     const pointsLastWeek = loaded
-      && selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, selectedGameWeek - 1);
+      && selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeekIdx - 1);
     const data = loaded && makeLineChartData(teams, gameWeeks.slice(0, selectedGameWeek), managersSeason);
     const rank = points && getDivisionRank(points);
     const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
     const rankChange = getRankChange(rankLastWeek, rank);
+    const showData = loaded && teams && points && rank;
     return (
       <section id="division-ranking-page" className={bem(null, null, 'page-content')}>
         <h1>{label}</h1>
-        {!loaded && (
-          <Fragment>
-            <Interstitial /> Data Gathering...
-          </Fragment>
-        )}
+        {
+          !loaded && <Interstitial message='Data Gathering...' />
+        }
         {
           loaded && <GameWeekSwitcher />
         }
         {
-          loaded && teams && points && rank && (
+          showData && (
             <Fragment>
               <h2>Overall Standings</h2>
               <ErrorBoundary>
