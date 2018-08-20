@@ -8,10 +8,11 @@ import upsert from './player.upsert';
 
 const chance = new Chance();
 
+const dateDuringGameWeek1 = '2018-08-13 17:00:00';
 const date = '2018-08-12 17:30:00';
 const date2 = '2018-08-20 17:30:00';
 
-const myDate = new Date(date);
+const myDate = new Date(dateDuringGameWeek1);
 const RealDate = Date;
 
 const gameWeeks = [
@@ -160,7 +161,7 @@ describe('upsert()', () => {
       gameWeek: points2,
       season: points2,
     };
-    const players = [player1, dbPlayer2];
+    const players = [player1, player2];
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
     return upsert({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
@@ -230,9 +231,6 @@ describe('upsert()', () => {
     });
   });
 
-  it.skip('saves the current gameweek stats, not next-weeks gameweek', () => {});
-  it.skip('saves the current gameweek stats, not previous-weeks gameweek', () => {});
-
   it('saves fixtures even if they have not yet been played', () => {
     const player1 = {
       _id: mongoose.Types.ObjectId('217f191e810c19729de860ea'),
@@ -263,6 +261,7 @@ describe('upsert()', () => {
     mockingoose.Player.toReturn([dbPlayer1], 'aggregate');
     const expected1 = {
       ...player1,
+      fixtures: dbPlayer1.fixtures,
       gameWeeks: [
         { fixtures: [{ date, stats: points1 }], stats: points1 },
         { fixtures: [{ date: date2, stats: zeroPoints }], stats: zeroPoints }],
@@ -273,4 +272,7 @@ describe('upsert()', () => {
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expected1);
     });
   });
+
+  it.skip('saves the current gameweek stats, not next-weeks gameweek', () => {});
+  it.skip('saves the current gameweek stats, not previous-weeks gameweek', () => {});
 });
