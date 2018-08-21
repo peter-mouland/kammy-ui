@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import positions from './lib/positions';
 
+import './division-rankings.scss';
+
 const DivisionRankingsTable = ({ rank, points, type }) => (
   <table className='table'>
     <thead>
@@ -33,16 +35,19 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
         .map(({ manager, points: pos }) => (
           <tr key={manager} className={'row'}>
             <td className='cell cell--manager'>{manager}</td>
-            {positions.map((position) => (
-              <Fragment key={position.label}>
-                <td className={`cell cell--${position.key}`}>
-                  { rank[position.label][manager] }
-                </td>
-                <td className={`cell cell--pair cell--${position.key}`}>
-                  { pos[position.label][type] }
-                </td>
-              </Fragment>
-            ))}
+            {positions.map((position) => {
+              const gradient = `gradient_${parseInt(rank[position.label][manager], 10).toString().replace('.', '-')}`;
+              return (
+                <Fragment key={position.label}>
+                  <td className={`cell cell--${position.key} ${gradient}`}>
+                    { rank[position.label][manager] }
+                  </td>
+                  <td className={`cell cell--pair cell--${position.key} ${gradient}`}>
+                    { pos[position.label][type] }
+                  </td>
+                </Fragment>
+              );
+            })}
             <td className={'cell cell--total'}>{ rank.total[manager] }</td>
             <td className={'cell cell--pair cell--total'}>{ pos.total[type] }</td>
           </tr>

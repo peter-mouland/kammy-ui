@@ -13,12 +13,12 @@
     text-align: center;
     position: sticky;
     top: 0;
-    background-color: aliceblue;
+    background-color: rgb(220, 228, 245);
     z-index: 1;
   }
 
   tr.row:hover {
-    background-color: rgb(220, 228, 245);
+    background-color: aliceblue;
   }
 
   tr.row.row--header .cell { /* stylelint-disable-line no-descending-specificity */
@@ -36,7 +36,7 @@
   }
 
   .cell--pair {
-    opacity: .9;
+    color: rgba(0, 0, 0, .65);
     font-weight: 100;
     font-size: .9em;
     text-align: left;
