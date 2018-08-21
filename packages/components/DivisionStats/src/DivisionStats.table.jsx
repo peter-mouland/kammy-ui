@@ -11,19 +11,35 @@ import './divisionStats.scss';
 
 const bem = bemHelper({ block: 'table' });
 
+const validatePlayer = (managersSeason, intGameWeek) => {
+  const players = Object.keys(managersSeason).reduce((acc, manager) => ([
+    ...acc,
+    ...managersSeason[manager].map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]),
+  ]), []);
+  const cache = {};
+  return players.reduce((acc, player) => {
+    const dupe = [...acc];
+    if (cache[player.name] && !dupe.includes(player.name)) {
+      dupe.push(player.name);
+    }
+    cache[player.name] = true;
+    return dupe;
+  }, []);
+};
+
 const validateClub = (team, intGameWeek) => {
   const players = team.map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]);
   return players.reduce((acc, player) => {
     const count = (acc[player.club] || 0) + 1;
-    const warnings = count > 2 && acc.warnings.indexOf(player.club) < 0
-      ? [...acc.warnings, player.club]
-      : acc.warnings;
+    const clubWarnings = count > 2 && acc.clubWarnings.indexOf(player.club) < 0
+      ? [...acc.clubWarnings, player.club]
+      : acc.clubWarnings;
     return ({
       ...acc,
       [player.club]: count,
-      warnings,
+      clubWarnings,
     });
-  }, { warnings: [] });
+  }, { clubWarnings: [] });
 };
 
 class TeamsPage extends React.Component {
@@ -71,6 +87,7 @@ class TeamsPage extends React.Component {
     } = this.state;
     const selectedGameWeekIdx = selectedGameWeek - 1;
     const previousGameWeek = selectedGameWeekIdx - 1 > -1 ? selectedGameWeekIdx - 1 : 0;
+    const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeekIdx) || [];
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -98,15 +115,20 @@ class TeamsPage extends React.Component {
             <PlayerTimeline { ...playerTimelineProps } />
           </Modal>
         )}
+        {duplicatePlayers.length > 0 && (
+          <div className={'row row--warning'}>
+            This division has the following player(s) in more than 2 team: {duplicatePlayers.join(', ')}
+          </div>
+        )}
 
         <table className={'table'}>
           {Object
             .keys(teams)
             .sort()
             .map((manager) => {
-              const { warnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
+              const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
               return (
-                <Fragment key={manager} className={'table'}>
+                <Fragment key={manager}>
                   <thead>
                     <tr>
                       <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
@@ -126,7 +148,8 @@ class TeamsPage extends React.Component {
                       const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeekIdx];
                       const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
                       const className = playerLastGW.name !== player.name ? bem('transfer') : '';
-                      const warningClassName = warnings.indexOf(player.club) > -1 ? 'row row--warning' : 'row';
+                      const warningClassName = clubWarnings.indexOf(player.club) > -1
+                        || duplicatePlayers.indexOf(player.name) > -1 ? 'row row--warning' : 'row';
                       return (
                         <tr
                           key={player.name}
@@ -167,10 +190,10 @@ class TeamsPage extends React.Component {
                       );
                     })}
                   </tbody>
-                  {warnings.length > 0 && (
+                  {clubWarnings.length > 0 && (
                     <tr className={'row row--warning'}>
                       <td colSpan={30}>
-                        This team has more than 2 players within the following clubs: {warnings.join(', ')}
+                        This team has more than 2 players within the following clubs: {clubWarnings.join(', ')}
                       </td>
                     </tr>
                   )}

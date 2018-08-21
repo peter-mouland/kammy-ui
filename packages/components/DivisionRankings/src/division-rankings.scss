@@ -12,9 +12,9 @@
 .gradient_2    { background: #E0F3EA; }
 .gradient_1-5  { background: #F0F9F4; }
 .gradient_1    { background: #F0F9F4; }
-.gradient_0-5  { background: #FFFFFF; }
-.gradient_0    { background: #FFFFFF; }
-.gradient_-0-5 { background: #FFFFFF; }
+.gradient_0-5  { background: rgba(255, 255, 255, .5); }
+.gradient_0    { background: transparent; }
+.gradient_-0-5 { background: rgba(255, 255, 255, .5); }
 .gradient_-1   { background: #FCF3F2; }
 .gradient_-1-5 { background: #F9E6E5; }
 .gradient_-2   { background: #F6DAD7; }
