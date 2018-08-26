@@ -51,6 +51,7 @@ const formatTimeStamp = (timestamp) => {
   const time = dateTimeArray[1];
   return `${year}/${month}/${day} ${time}`;
 };
+
 const formatTransfer = (item) => ({
   status: item.status.trim(),
   timestamp: formatTimeStamp(item.timestamp),
@@ -61,6 +62,7 @@ const formatTransfer = (item) => ({
   codeOut: item.codeout,
   type: item.transfertype,
 });
+
 const formatTransfers = (data) => {
   const jsonData = {};
   Object.keys(data).forEach((key) => {
@@ -82,14 +84,8 @@ const formatGameWeek = (item) => ({
   start: item.start,
   end: item.end,
 });
-const formatGameWeeks = (data) => {
-  const gameWeeks = [];
-  Object.keys(data).forEach((key) => {
-    const gameWeek = data[key];
-    gameWeeks.push(formatGameWeek(gameWeek));
-  });
-  return gameWeeks;
-};
+
+const formatGameWeeks = (data) => Object.keys(data).map((key) => formatGameWeek(data[key]));
 
 const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
   new GoogleSpreadsheet(spreadsheetId, GoogleSpreadsheetCred)
@@ -98,22 +94,25 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
     .then((data) => {
       // note: headers from spreadsheets will be lowercase
       // i.e. column header isHidden will be data[0].ishidden
-      if (formatter) {
+      switch (true) {
+      case !!formatter:
         return formatter(data);
-      } if (worksheetName === 'Players') {
+      case worksheetName === 'Players':
         return formatPlayers(data);
-      } if (worksheetName === 'PremierLeague') {
+      case worksheetName === 'PremierLeague':
+      case worksheetName === 'Championship':
+      case worksheetName === 'LeagueOne':
         return formatTeams(data);
-      } if (worksheetName === 'Championship') {
-        return formatTeams(data);
-      } if (worksheetName === 'LeagueOne') {
-        return formatTeams(data);
-      } if (worksheetName === 'Transfers') {
+      case worksheetName === 'Transfers':
+      case worksheetName === 'PremierLeagueTransfers':
+      case worksheetName === 'ChampionshipTransfers':
+      case worksheetName === 'LeagueOneTransfers':
         return formatTransfers(data);
-      } if (worksheetName === 'GameWeeks') {
+      case worksheetName === 'GameWeeks':
         return formatGameWeeks(data);
+      default:
+        return data;
       }
-      return data;
     })
 );
 

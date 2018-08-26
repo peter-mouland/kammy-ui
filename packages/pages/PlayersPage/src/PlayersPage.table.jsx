@@ -8,6 +8,10 @@ import { PlayersFilters, PlayersTable } from '@kammy-ui/players-table';
 const bem = bemHelper({ block: 'players-page-table' });
 
 const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
+const hiddenColumns = ['new', 'isHidden', 'value'];
+const visibleStats = [
+  'apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'sb', 'tb', 'ycard', 'rcard', 'points',
+];
 
 class PlayersPageTable extends React.Component {
   render() {
@@ -24,21 +28,8 @@ class PlayersPageTable extends React.Component {
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
-                hiddenColumns={['new', 'isHidden', 'value']}
-                visibleStats={[
-                  'apps',
-                  'subs',
-                  'gls',
-                  'asts',
-                  'cs',
-                  'con',
-                  'pensv',
-                  'sb',
-                  'tb',
-                  'ycard',
-                  'rcard',
-                  'points',
-                ]}
+                hiddenColumns={hiddenColumns}
+                visibleStats={visibleStats}
               />
             )}
           </PlayersFilters>

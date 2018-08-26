@@ -14,8 +14,8 @@ import PlayersPage from './src/PlayersPage.container';
 const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
 
-storiesOf('Pages', module)
-  .add('Admin Players Page', () => (
+storiesOf('Pages/Admin', module)
+  .add('Players Page', () => (
     <Provider store={store}>
       <PlayersPage />
     </Provider>
