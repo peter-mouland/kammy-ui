@@ -15,7 +15,7 @@ const visibleStats = [
 
 class PlayersPageTable extends React.Component {
   render() {
-    const { players } = this.props;
+    const { players, disabledPlayers } = this.props;
 
     return (
       <section id="players-page" className={bem()}>
@@ -28,6 +28,7 @@ class PlayersPageTable extends React.Component {
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
+                disabledPlayers={disabledPlayers}
                 hiddenColumns={hiddenColumns}
                 visibleStats={visibleStats}
               />
@@ -41,10 +42,12 @@ class PlayersPageTable extends React.Component {
 
 PlayersPageTable.propTypes = {
   players: PropTypes.object,
+  disabledPlayers: PropTypes.object,
 };
 
 PlayersPageTable.defaultProps = {
   players: {},
+  disabledPlayers: {},
 };
 
 export default PlayersPageTable;

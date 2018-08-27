@@ -19,6 +19,9 @@ import PremierLeagueRankings from '@kammy-ui/premier-league-rankings';
 import ChampionshipRankings from '@kammy-ui/championship-rankings';
 import LeagueOneRankings from '@kammy-ui/league-one-rankings';
 import TransfersPage from '@kammy-ui/transfers-page';
+import PremierLeaguePlayersPage from '@kammy-ui/premier-league-players-page';
+import ChampionshipPlayersPage from '@kammy-ui/championship-players-page';
+import LeagueOnePlayersPage from '@kammy-ui/league-one-players-page';
 
 // todo import pages dynamically
 const pages = {
@@ -27,10 +30,13 @@ const pages = {
   PlayersPage,
   TransfersPage,
   PremierLeagueTeams,
-  ChampionshipTeams,
-  LeagueOneTeams,
   PremierLeagueRankings,
+  PremierLeaguePlayersPage,
+  ChampionshipTeams,
   ChampionshipRankings,
+  ChampionshipPlayersPage,
+  LeagueOneTeams,
+  LeagueOnePlayersPage,
   LeagueOneRankings,
 };
 

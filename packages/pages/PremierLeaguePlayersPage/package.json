@@ -1,5 +1,5 @@
 {
-  "name": "@kammy-ui/league-one-players-page",
+  "name": "@kammy-ui/premier-league-players-page",
   "version": "0.0.17",
   "description": "Kammy UI Component: PlayersPage",
   "main": "dist/index.min.js",

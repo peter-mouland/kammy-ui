@@ -53,10 +53,8 @@ query ($division: String) {
     division
     currentTeams {
       gameWeek
-      start
-      end
       players {
-        manager code pos name
+        manager pos name
       }
     }
  }

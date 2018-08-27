@@ -17,7 +17,7 @@ const rejected = (errors) => ({
   loaded: false,
 });
 
-export default function leagueOneReducer(state = {}, action) {
+export default function divisionReducer(state = {}, action) {
   const { payload } = action;
   const data = payload && payload.data;
   const errors = payload && payload.errors;
@@ -42,10 +42,7 @@ export default function leagueOneReducer(state = {}, action) {
   case `${actions.FETCH_DIVISION_CURRENT_TEAMS}_REJECTED`:
     return {
       ...state,
-      [data.division]: {
-        ...state[data.division],
-        status: rejected([action.payload]),
-      },
+      status: rejected([action.payload]),
     };
   default:
     return state;

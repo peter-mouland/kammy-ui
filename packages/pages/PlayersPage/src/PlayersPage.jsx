@@ -13,20 +13,23 @@ const bem = bemHelper({ block: 'players-page' });
 
 class PlayersPage extends React.Component {
   componentDidMount() {
-    const { fetchPlayers, loaded } = this.props;
-    if (!loaded) fetchPlayers();
+    const { fetchPlayers, playersLoaded } = this.props;
+    if (!playersLoaded) fetchPlayers();
   }
 
   render() {
-    const { loaded, players } = this.props;
+    const { playersLoaded, players, disabledPlayers } = this.props;
 
     return (
       <section id="players-page" className={bem(null, 'page-content')}>
         <h1>Players</h1>
-        {!loaded && <Interstitial />}
-        {loaded && (
+        {!playersLoaded && <Interstitial />}
+        {playersLoaded && (
           <ErrorBoundary>
-            <PlayersPageTable players={players} />
+            <PlayersPageTable
+              players={players}
+              disabledPlayers={disabledPlayers}
+            />
           </ErrorBoundary>
         )}
       </section>
@@ -35,15 +38,16 @@ class PlayersPage extends React.Component {
 }
 
 PlayersPage.propTypes = {
-  loaded: PropTypes.bool,
+  playersLoaded: PropTypes.bool,
   fetchPlayers: PropTypes.func,
   players: PropTypes.object,
+  disabledPlayers: PropTypes.object,
 };
 
 PlayersPage.defaultProps = {
   fetchPlayers: () => {},
-  loaded: false,
-  dbPlayers: {},
+  playersLoaded: false,
+  disabledPlayers: {},
 };
 
 export default PlayersPage;

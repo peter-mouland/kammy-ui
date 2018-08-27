@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 
-import LeagueOnePlayersPage from './LeagueOnePlayersPage';
+import PremierLeaguePlayersPage from './PremierLeaguePlayersPage';
 
 const { fetchCurrentTeams } = divisionActions;
 
 function mapStateToProps(state) {
-  const { byName: playersByName } = divisionSelectors.getCurrentPlayers(state, 'LeagueOne');
-  const { loaded } = divisionSelectors.getStatus(state, 'LeagueOne');
+  const { byName: playersByName } = divisionSelectors.getCurrentPlayers(state, 'PremierLeague');
+  const { loaded } = divisionSelectors.getStatus(state, 'PremierLeague');
   return {
     playersByName,
     loaded,
@@ -17,4 +17,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { fetchCurrentTeams },
-)(LeagueOnePlayersPage);
+)(PremierLeaguePlayersPage);

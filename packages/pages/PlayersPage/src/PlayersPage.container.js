@@ -7,7 +7,7 @@ const { fetchPlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
   return {
-    loaded: state.players.loaded,
+    playersLoaded: state.players.loaded,
     players: state.players.data,
   };
 }

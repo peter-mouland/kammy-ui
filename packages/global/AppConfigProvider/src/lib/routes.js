@@ -30,19 +30,6 @@ export default [
     template: 'default',
   },
   {
-    name: 'players',
-    exact: true,
-    path: '/players/',
-    meta: {
-      title: 'Kammy Admin - Players',
-      description: 'Kammy : Fantasy Football',
-    },
-    label: 'Players',
-    requiresAuthentication: false,
-    component: 'PlayersPage',
-    template: 'default',
-  },
-  {
     name: 'transfers',
     exact: true,
     path: '/admin/transfers/',
@@ -82,6 +69,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'premierLeague-players',
+    exact: true,
+    path: '/premier-league/players/',
+    meta: {
+      title: 'Kammy Admin - premier-league Players',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Players',
+    requiresAuthentication: false,
+    component: 'PremierLeaguePlayersPage',
+    template: 'default',
+  },
+  {
     name: 'championship-teams',
     exact: true,
     path: '/championship/teams',
@@ -108,6 +108,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'championship-players',
+    exact: true,
+    path: '/championship/players/',
+    meta: {
+      title: 'Kammy Admin - championship Players',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Players',
+    requiresAuthentication: false,
+    component: 'ChampionshipPlayersPage',
+    template: 'default',
+  },
+  {
     name: 'leagueOne-teams',
     exact: true,
     path: '/league-one/teams',
@@ -131,6 +144,19 @@ export default [
     label: 'League Table',
     requiresAuthentication: false,
     component: 'LeagueOneRankings',
+    template: 'default',
+  },
+  {
+    name: 'leagueOne-players',
+    exact: true,
+    path: '/league-one/players/',
+    meta: {
+      title: 'Kammy Admin - league-one Players',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Players',
+    requiresAuthentication: false,
+    component: 'LeagueOnePlayersPage',
     template: 'default',
   },
   {

@@ -10,10 +10,10 @@ import PlayersPageTable from '@kammy-ui/players-page';
 
 const bem = bemHelper({ block: 'players-page' });
 
-class LeagueOnePlayersPage extends React.Component {
+class ChampionshipPlayersPage extends React.Component {
   componentDidMount() {
     const { fetchCurrentTeams, loaded } = this.props;
-    if (!loaded) fetchCurrentTeams('LeagueOne');
+    if (!loaded) fetchCurrentTeams('Championship');
   }
 
   render() {
@@ -30,16 +30,16 @@ class LeagueOnePlayersPage extends React.Component {
   }
 }
 
-LeagueOnePlayersPage.propTypes = {
+ChampionshipPlayersPage.propTypes = {
   loaded: PropTypes.bool,
   fetchCurrentTeams: PropTypes.func,
   playersByName: PropTypes.object,
 };
 
-LeagueOnePlayersPage.defaultProps = {
+ChampionshipPlayersPage.defaultProps = {
   loaded: false,
   fetchCurrentTeams: () => {},
   playersByName: {},
 };
 
-export default LeagueOnePlayersPage;
+export default ChampionshipPlayersPage;

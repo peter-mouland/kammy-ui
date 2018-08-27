@@ -23,6 +23,7 @@ const NavBar = (__, { appConfig }) => (
             <NavItem label={division}>
               <NamedLink to={`${appConfig.divisionSheets[division]}-rankings`} className={linkClass} />
               <NamedLink to={`${appConfig.divisionSheets[division]}-teams`} className={linkClass} />
+              <NamedLink to={`${appConfig.divisionSheets[division]}-players`} className={linkClass} />
             </NavItem>
           </div>
         ))
