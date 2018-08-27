@@ -11,7 +11,9 @@ const getDivision = ({ division }) => (
     fetchSpreadsheet({ spreadsheetId, worksheetName: `${division}Transfers` }),
     fetchSpreadsheet({ spreadsheetId, worksheetName: 'GameWeeks' }),
   ]).then(([draft, transfers, gameWeeks]) => (
-    new DivisionByGameWeek({ draft, transfers, gameWeeks })
+    new DivisionByGameWeek({
+      division, draft, transfers, gameWeeks,
+    })
   ))
 );
 

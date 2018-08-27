@@ -13,13 +13,15 @@ const bem = bemHelper({ block: 'players-page' });
 
 class LeagueOnePlayersPage extends React.Component {
   componentDidMount() {
-    const { fetchPlayers, fetchDivision, loaded } = this.props;
-    if (!loaded) fetchPlayers();
-    if (!loaded) fetchDivision('LeagueOne');
+    const {
+      fetchPlayers, fetchCurrentTeams, leagueOneLoaded, playersLoaded,
+    } = this.props;
+    if (!playersLoaded) fetchPlayers();
+    if (!leagueOneLoaded) fetchCurrentTeams('LeagueOne');
   }
 
   render() {
-    const { loaded, players } = this.props;
+    const { loaded, players, leagueOnePlayersByName } = this.props;
 
     return (
       <section id="players-page" className={bem(null, 'page-content')}>
@@ -27,7 +29,10 @@ class LeagueOnePlayersPage extends React.Component {
         {!loaded && <Interstitial />}
         {loaded && (
           <ErrorBoundary>
-            <LeagueOnePlayersPageTable players={players} />
+            <LeagueOnePlayersPageTable
+              players={players}
+              disabledPlayers={leagueOnePlayersByName}
+            />
           </ErrorBoundary>
         )}
       </section>
@@ -37,16 +42,22 @@ class LeagueOnePlayersPage extends React.Component {
 
 LeagueOnePlayersPage.propTypes = {
   loaded: PropTypes.bool,
+  playersLoaded: PropTypes.bool,
+  leagueOneLoaded: PropTypes.bool,
   fetchPlayers: PropTypes.func,
-  fetchDivision: PropTypes.func,
+  fetchCurrentTeams: PropTypes.func,
   players: PropTypes.object,
+  leagueOnePlayersByName: PropTypes.object,
 };
 
 LeagueOnePlayersPage.defaultProps = {
   fetchPlayers: () => {},
-  fetchDivision: () => {},
+  fetchCurrentTeams: () => {},
   loaded: false,
+  playersLoaded: false,
+  leagueOneLoaded: false,
   dbPlayers: {},
+  leagueOnePlayersByName: {},
 };
 
 export default LeagueOnePlayersPage;

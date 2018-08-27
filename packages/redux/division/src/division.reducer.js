@@ -18,24 +18,34 @@ const rejected = (errors) => ({
 });
 
 export default function leagueOneReducer(state = {}, action) {
-  const data = action.payload && action.payload.data;
-  const errors = action.payload && action.payload.errors;
+  const { payload } = action;
+  const data = payload && payload.data;
+  const errors = payload && payload.errors;
   switch (action.type) {
-  case `${actions.FETCH_DIVISION}_PENDING`:
+  case `${actions.FETCH_DIVISION_CURRENT_TEAMS}_PENDING`:
     return {
       ...state,
-      status: pending(),
+      [data.division]: {
+        ...state[data.division],
+        status: pending(),
+      },
     };
-  case `${actions.FETCH_DIVISION}_FULFILLED`:
+  case `${actions.FETCH_DIVISION_CURRENT_TEAMS}_FULFILLED`:
     return {
       ...state,
-      data,
-      status: fulfilled(errors),
+      [data.getDivision.division]: {
+        ...state[data.getDivision.division],
+        players: data.getDivision.currentTeams.players,
+        status: fulfilled(errors),
+      },
     };
-  case `${actions.FETCH_DIVISION}_REJECTED`:
+  case `${actions.FETCH_DIVISION_CURRENT_TEAMS}_REJECTED`:
     return {
       ...state,
-      status: rejected([action.payload]),
+      [data.division]: {
+        ...state[data.division],
+        status: rejected([action.payload]),
+      },
     };
   default:
     return state;

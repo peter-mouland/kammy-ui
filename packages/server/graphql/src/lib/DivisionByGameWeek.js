@@ -1,40 +1,50 @@
+/* eslint-disable prefer-spread */
 import TeamByGameWeek from './TeamByGameWeek';
 
 class Division {
   // see packages/server/fetch-google-sheets/src/index.js for shapes
-  constructor({ draft, transfers, gameWeeks }) {
-    this.transfers = transfers; // { [manager] :[{ status, timestamp, manager, transferIn/Out, codeIn/Out, type }] }
-    this.gameWeeks = gameWeeks; // [{ start, end, gameWeek }]
+  // @transfers: { [manager] :[{ status, timestamp, manager, transferIn/Out, codeIn/Out, type }] }
+  // @gameWeeks: [{ start, end, gameWeek }]
+  constructor({
+    division, draft, transfers, gameWeeks,
+  }) {
     const currentGameWeekIndex = (gameWeeks.findIndex((gw) => (
       new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
     )));
-    this.currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
-
-    // public api
-    this.managers = [...new Set(Object.keys(draft).map((manager) => manager))]; // [ manager ]
+    const currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
     const drafts = Object.keys(draft).map((manager) => draft[manager]);
     const transferLists = Object.keys(transfers).map((manager) => transfers[manager]);
+
+    // public api
+    this.division = division;
+    this.managers = [...new Set(Object.keys(draft).map((manager) => manager))]; // [ manager ]
     this.draft = [].concat.apply([], drafts); // [{ manager, code, pos, name }]
     this.transfers = [].concat.apply([], transferLists);
-    this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ draft });
-    this.currentTeams = this.teamsByGameWeek.filter(({ gameWeek }) => (
-      parseInt(gameWeek, 10) === this.currentGameWeek),
+    this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ draft, gameWeeks, transfers });
+    this.currentTeams = this.teamsByGameWeek.find(({ gameWeek }) => (
+      parseInt(gameWeek, 10) === currentGameWeek),
     );
   }
 
-  calculateTeamsByGameWeeks = ({ draft }) => {
-    const {
-      gameWeeks, transfers, managers,
-    } = this;
-    return managers.reduce((prev, manager) => {
+  calculateTeamsByGameWeeks = ({ draft, gameWeeks, transfers }) => {
+    const allTeams = this.managers.reduce((prev, manager) => {
       const team = new TeamByGameWeek({
         draft: draft[manager], transfers: transfers[manager], gameWeeks,
       });
-      return [
+      return {
         ...prev,
-        ...team.getSeason(),
-      ];
-    }, []);
+        [manager]: team.getSeason(),
+      };
+    }, {});
+    return gameWeeks.map((gameWeek) => {
+      const allTeamPlayers = Object.keys(allTeams).map((manager) => (
+        allTeams[manager].find((week) => gameWeek.gameWeek === week.gameWeek).players
+      ));
+      return ({
+        ...gameWeek,
+        players: [].concat.apply([], allTeamPlayers),
+      });
+    });
   };
 }
 

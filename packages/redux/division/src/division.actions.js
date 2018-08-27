@@ -1,6 +1,7 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_DIVISION = 'FETCH_DIVISION';
+export const FETCH_DIVISION_CURRENT_TEAMS = 'FETCH_DIVISION_CURRENT_TEAMS';
 
 export function fetchDivision(division) {
   return {
@@ -39,5 +40,29 @@ query ($division: String) {
  }
 } 
 `, division ? { division } : undefined),
+  };
+}
+
+export function fetchCurrentTeams(division) {
+  return {
+    type: FETCH_DIVISION_CURRENT_TEAMS,
+    payload: {
+      promise: fetchGraphQL(`
+query ($division: String) { 
+  getDivision(division: $division) {
+    division
+    currentTeams {
+      gameWeek
+      start
+      end
+      players {
+        manager code pos name
+      }
+    }
+ }
+} 
+`, division ? { division } : undefined),
+      data: { data: { division } },
+    },
   };
 }

@@ -50,7 +50,7 @@ class PlayerTable extends React.Component {
 
   render() {
     const {
-      players, visibleStats, additionalColumns, hiddenColumns, myTeam, positions,
+      players, visibleStats, additionalColumns, hiddenColumns, myTeam, positions, disabledPlayers,
     } = this.props;
     const { sort } = this.state;
     return (
@@ -87,7 +87,15 @@ class PlayerTable extends React.Component {
               .map((player) => {
                 const isOnMyTeam = myTeam && myTeam[player.code];
                 return (
-                  <tr key={player.code} id={player.code} className={ bem('player', { selected: isOnMyTeam, new: !!player.new }, 'row')}>
+                  <tr
+                    key={player.code}
+                    id={player.code}
+                    className={ bem('player', {
+                      selected: isOnMyTeam,
+                      new: !!player.new,
+                      disabled: !!disabledPlayers[player.name],
+                    }, 'row')}
+                  >
                     { !hiddenColumns.includes('isHidden') && (<td className={'cell'}>{ player.isHidden && 'hidden' }</td>) }
                     { !hiddenColumns.includes('new') && (
                       <td className={'cell'}>
@@ -136,6 +144,7 @@ PlayerTable.propTypes = {
   positions: PropTypes.array.isRequired,
   visibleStats: PropTypes.array,
   hiddenColumns: PropTypes.arrayOf(PropTypes.string),
+  disabledPlayers: PropTypes.object,
   additionalColumns: PropTypes.arrayOf(PropTypes.string),
   myTeam: PropTypes.object,
 };
@@ -143,6 +152,7 @@ PlayerTable.propTypes = {
 PlayerTable.defaultProps = {
   myTeam: null,
   hiddenColumns: [],
+  disabledPlayers: {},
   visibleStats: [],
   additionalColumns: [],
 };

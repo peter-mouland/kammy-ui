@@ -9,6 +9,12 @@
     background-color: lavender;
   }
 
+  .row.disabled,
+  &__player--disabled {
+    background-color: grey;
+    font-style: italic;
+  }
+
   th.cell {
     text-align: center;
     position: sticky;

@@ -5,19 +5,21 @@ import { actions as divisionActions, selectors as divisionSelectors } from '@kam
 import LeagueOnePlayersPage from './LeagueOnePlayersPage';
 
 const { fetchPlayers } = dbPlayerActions;
-const { fetchDivision } = divisionActions;
+const { fetchCurrentTeams } = divisionActions;
 
 function mapStateToProps(state) {
-  const { data: leagueOne } = divisionSelectors.getData(state);
-  const { loaded } = divisionSelectors.getStatus(state);
+  const { byName: leagueOnePlayersByName } = divisionSelectors.getCurrentPlayers(state, 'LeagueOne');
+  const { loaded: leagueOneLoaded } = divisionSelectors.getStatus(state, 'LeagueOne');
   return {
-    loaded,
-    leagueOne,
+    leagueOnePlayersByName,
+    leagueOneLoaded,
     players: state.players.data,
+    playersLoaded: state.players.loaded,
+    loaded: leagueOneLoaded && state.players.loaded,
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchPlayers, fetchDivision },
+  { fetchPlayers, fetchCurrentTeams },
 )(LeagueOnePlayersPage);

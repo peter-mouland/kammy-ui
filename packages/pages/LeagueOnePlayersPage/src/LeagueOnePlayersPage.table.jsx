@@ -15,7 +15,7 @@ const visibleStats = [
 
 class LeagueOnePlayersPage extends React.Component {
   render() {
-    const { players } = this.props;
+    const { players, disabledPlayers } = this.props;
 
     return (
       <section id="players-page" className={bem()}>
@@ -28,6 +28,7 @@ class LeagueOnePlayersPage extends React.Component {
               <PlayersTable
                 positions={positions}
                 players={playersFiltered}
+                disabledPlayers={disabledPlayers}
                 hiddenColumns={hiddenColumns}
                 visibleStats={visibleStats}
               />
@@ -41,10 +42,12 @@ class LeagueOnePlayersPage extends React.Component {
 
 LeagueOnePlayersPage.propTypes = {
   players: PropTypes.object,
+  disabledPlayers: PropTypes.object,
 };
 
 LeagueOnePlayersPage.defaultProps = {
   players: {},
+  disabledPlayers: {},
 };
 
 export default LeagueOnePlayersPage;

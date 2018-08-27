@@ -25,11 +25,12 @@ const schemaString = `
   }
   
   type Division {
+    division: String
     managers: [String]
     draft: [TeamPlayer]
     transfers: [Transfer]
     teamsByGameWeek: [GameWeek]
-    currentTeams: [GameWeek]
+    currentTeams: GameWeek
   }
 `;
 
