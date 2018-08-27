@@ -29,7 +29,7 @@ const formatTeam = (item) => ({
   pos: item.position,
   name: item.player.trim(),
 });
-const formatTeams = (data) => {
+const formatDivision = (data) => {
   const jsonData = {};
   Object.keys(data).forEach((key) => {
     const player = data[key];
@@ -102,7 +102,7 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
       case worksheetName === 'PremierLeague':
       case worksheetName === 'Championship':
       case worksheetName === 'LeagueOne':
-        return formatTeams(data);
+        return formatDivision(data);
       case worksheetName === 'Transfers':
       case worksheetName === 'PremierLeagueTransfers':
       case worksheetName === 'ChampionshipTransfers':

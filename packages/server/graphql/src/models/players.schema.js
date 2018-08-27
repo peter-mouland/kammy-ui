@@ -60,7 +60,7 @@ const schemaString = `
       stats: StatsInput
   }
   
-  type GameWeek {
+  type GameWeekFixtures {
       fixtures: [Fixture]
       stats: Stats
   }
@@ -76,7 +76,7 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
-    gameWeeks: [GameWeek]
+    gameWeeks: [GameWeekFixtures]
     season: Stats
     gameWeek: Stats
   }
@@ -92,7 +92,7 @@ const schemaString = `
     isHidden: Boolean
     new: Boolean
     fixtures: [Fixture]
-    gameWeeks: [GameWeek]
+    gameWeeks: [GameWeekFixtures]
     season: Stats
     gameWeek: Stats
   }
@@ -111,16 +111,6 @@ const schemaString = `
     gameWeeks: [GameWeekInput]
     season: StatsInput
     gameWeek: StatsInput
-  }
-  
-  type Query {
-    getPlayers: [Player]
-    getPlayer(code: Int): Player
-  }
-  
-  type Mutation {
-    upsertPlayers(playerUpdates: [PlayerUpdates]): [UpdatedPlayer]
-    mergePlayers: [UpdatedPlayer]
   }
 `;
 

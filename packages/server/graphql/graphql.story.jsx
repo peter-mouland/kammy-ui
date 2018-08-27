@@ -32,10 +32,40 @@ class GetGraphQL extends React.Component {
  */
 storiesOf('Data Sources/GraphQL', module)
   .add('Players', () => (
-    <GetGraphQL query={text('query', 'getPlayersQuery')}/>
+    <GetGraphQL query={text('query', `
+query {
+  getPlayers{
+    _id code pos name club skySportsPosition isHidden new value
+   fixtures {
+      aScore aTname date event hScore hTname status stats
+    }
+    season {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+    gameWeek {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+ }
+}
+    `)}/>
   ))
   .add('Player', () => (
-    <GetGraphQL query={text('query', 'getPlayerQuery')} code={text('code', '1001')} />
+    <GetGraphQL query={text('query', `
+query ($code: Int) {
+  getPlayers(code: $code){
+    _id code pos name club skySportsPosition isHidden new value
+    fixtures {
+      aScore aTname date event hScore hTname status stats
+    }
+    season {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+    gameWeek {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+ }
+}
+    `)} code={text('code', '1001')} />
   ))
   .add('Fixtures', () => (
     <GetGraphQL query={text('query', 'getFixturesQuery')}/>

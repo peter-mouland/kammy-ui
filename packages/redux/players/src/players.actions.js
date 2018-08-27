@@ -7,7 +7,22 @@ export const INIT_PLAYERS = 'INIT_PLAYERS';
 export function fetchPlayers(player) {
   return {
     type: FETCH_PLAYERS,
-    payload: fetchGraphQL('getPlayersQuery', player ? { player } : undefined),
+    payload: fetchGraphQL(`
+query {
+  getPlayers{ 
+    _id code pos name club skySportsPosition isHidden new value
+   fixtures { 
+      aScore aTname date event hScore hTname status stats
+    }
+    season {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+    gameWeek {
+      apps asts con cs gls pensv points rcard sb subs tb ycard
+    }
+ }
+}
+`, player ? { player } : undefined),
   };
 }
 
@@ -21,6 +36,12 @@ export function fetchPlayerFixtures({ code }) {
 export function mergePlayers() {
   return {
     type: INIT_PLAYERS,
-    payload: fetchGraphQL('mergePlayersMutation'),
+    payload: fetchGraphQL(`
+  mutation { 
+    mergePlayers{
+      _id code pos name club isHidden new skySportsPosition value
+    }   
+  }
+    `),
   };
 }
