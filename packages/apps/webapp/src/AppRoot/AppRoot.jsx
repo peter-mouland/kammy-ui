@@ -11,7 +11,6 @@ import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
 import RulesPage from '@kammy-ui/rules-page';
 import AdminPlayersPage from '@kammy-ui/admin-players-page';
-import PlayersPage from '@kammy-ui/players-page';
 import PremierLeagueTeams from '@kammy-ui/premier-league-teams';
 import ChampionshipTeams from '@kammy-ui/championship-teams';
 import LeagueOneTeams from '@kammy-ui/league-one-teams';
@@ -27,7 +26,6 @@ import LeagueOnePlayersPage from '@kammy-ui/league-one-players-page';
 const pages = {
   RulesPage,
   AdminPlayersPage,
-  PlayersPage,
   TransfersPage,
   PremierLeagueTeams,
   PremierLeagueRankings,

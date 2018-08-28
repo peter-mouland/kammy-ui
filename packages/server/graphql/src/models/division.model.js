@@ -1,4 +1,5 @@
 import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import { rootActions } from '@kammy-ui/database';
 
 import DivisionByGameWeek from '../lib/DivisionByGameWeek';
 
@@ -9,14 +10,16 @@ const getDivision = ({ division }) => {
   if (!['LeagueOne', 'PremierLeague', 'Championship'].includes(division)) {
     throw Error(`Division not found: ${division}`);
   }
+  const { getPlayers } = rootActions();
   return (
     Promise.all([
       fetchSpreadsheet({ spreadsheetId, worksheetName: division }),
       fetchSpreadsheet({ spreadsheetId, worksheetName: `${division}Transfers` }),
       fetchSpreadsheet({ spreadsheetId, worksheetName: 'GameWeeks' }),
-    ]).then(([draft, transfers, gameWeeks]) => (
+      getPlayers(), // needed for position of transfers checking
+    ]).then(([draft, transfers, gameWeeks, players]) => (
       new DivisionByGameWeek({
-        division, draft, transfers, gameWeeks,
+        division, draft, transfers, gameWeeks, players,
       })
     ))
   );

@@ -1,13 +1,30 @@
+export const UNKNOWN_PLAYER = (name) => ({
+  name: `UNKNOWN: ${name}`,
+  club: '',
+  code: 0,
+});
+
 class TeamByGameWeek {
   constructor({
-    gameWeeks, transfers, draft,
+    gameWeeks, players, transfers, draft
   }) {
     this.transfers = transfers || []; // not all managers would have made transfers
     this.gameWeeks = gameWeeks;
+    this.players = players;
     this.draft = draft;
     this.endOfSeason = new Date(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
     this.startOfSeason = new Date(gameWeeks[0].start).setHours(0, 0, 0, 0);
   }
+
+  getPlayer = (Player) => {
+    const player = { ...(this.players[Player.name] || UNKNOWN_PLAYER(Player.name)) };
+    return {
+      name: player.name,
+      club: player.club,
+      code: player.code,
+      pos: player.pos,
+    };
+  };
 
   /*
    PURPOSE: to find a transfer list of players
@@ -16,7 +33,7 @@ class TeamByGameWeek {
   */
   findPlayerThisGw = ({ transferList, gameWeek }) => {
     const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(gameWeek.start));
-    return gwPlayers[gwPlayers.length - 1].player;
+    return gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
   };
 
   /*
@@ -28,9 +45,9 @@ class TeamByGameWeek {
   */
   getTransferList = (player) => {
     const {
-      startOfSeason, endOfSeason, transfers,
+      players, startOfSeason, endOfSeason, transfers,
     } = this;
-    let playerInPosition = player;
+    let playerInPosition = this.getPlayer(player);
     const playerTransfers = [{
       player: playerInPosition,
       playerOut: null,
@@ -41,28 +58,28 @@ class TeamByGameWeek {
     transfers
       .filter((transfer) => (
         transfer.type !== 'Waiver Request'
-        && transfer.transferIn
-        && transfer.transferOut
+        && players[transfer.transferIn]
+        && players[transfer.transferOut]
       ))
       .forEach((transfer) => {
-        if (transfer.type === 'Swap' && transfer.transferIn === playerInPosition) {
+        if (transfer.type === 'Swap' && transfer.transferIn === playerInPosition.name) {
           playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
           playerTransfers.push({
-            player: transfer.transferOut,
-            playerOut: transfer.transferIn,
+            player: players[transfer.transferOut],
+            playerOut: players[transfer.transferIn],
             start: new Date(transfer.timestamp),
             type: transfer.type,
           });
-          playerInPosition = transfer.transferOut;
-        } else if (transfer.transferOut === playerInPosition) {
+          playerInPosition = players[transfer.transferOut];
+        } else if (transfer.transferOut === playerInPosition.name) {
           playerTransfers[playerTransfers.length - 1].end = new Date(transfer.timestamp);
           playerTransfers.push({
-            player: transfer.transferIn,
-            playerOut: transfer.transferOut,
+            player: players[transfer.transferIn],
+            playerOut: players[transfer.transferOut],
             start: new Date(transfer.timestamp),
             type: transfer.type,
           });
-          playerInPosition = transfer.transferIn;
+          playerInPosition = players[transfer.transferIn];
         }
       });
 
@@ -75,7 +92,15 @@ class TeamByGameWeek {
     return gameWeeks.map((gameWeek) => {
       const players = draft.map((teamPlayer) => {
         const transferList = this.getTransferList(teamPlayer);
-        return this.findPlayerThisGw({ transferList, gameWeek });
+        const player = this.findPlayerThisGw({ transferList, gameWeek });
+        return {
+          teamPos: teamPlayer.pos,
+          pos: this.getPlayer(player).pos,
+          code: player.code,
+          name: player.name,
+          club: player.club,
+          manager: teamPlayer.manager,
+        };
       });
       return {
         ...gameWeek,
