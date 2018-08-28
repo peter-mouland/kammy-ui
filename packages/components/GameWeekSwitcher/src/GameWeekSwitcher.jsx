@@ -36,7 +36,7 @@ class GameWeekSwitcher extends React.Component {
           onChange={this.updateGameWeek}
           contextualHelp={(value) => gameWeeks[value - 1] && <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>}
         />
-        {gameWeeks[gameWeek] && <FormattedGameWeekDate gameWeek={gameWeeks[gameWeek]}/>}
+        {gameWeeks[gameWeek] && <FormattedGameWeekDate gameWeek={gameWeeks[gameWeek - 1]}/>}
       </section>
     );
   }
