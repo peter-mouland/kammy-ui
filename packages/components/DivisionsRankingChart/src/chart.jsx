@@ -17,7 +17,7 @@ const strokes = [
 ];
 
 const Chart = ({
-  data, xAxis, lines, highlightManager,
+  data, xAxis, lines, highlightManager, lineType,
 }) => (
   <LineChart width={800} height={300} data={data} style={{ margin: '0 auto' }}>
     <Legend verticalAlign="bottom" width={800} height={30} />
@@ -26,7 +26,7 @@ const Chart = ({
         <Line
           key={line}
           strokeWidth={highlightManager === line ? 5 : 1}
-          type="monotone"
+          type={lineType}
           dataKey={line}
           stroke={strokes[i]}
         />
@@ -39,15 +39,19 @@ const Chart = ({
   </LineChart>
 );
 
+Chart.lineTypes = ['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter'];
+
 Chart.propTypes = {
   xAxis: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
   lines: PropTypes.array.isRequired,
   highlightManager: PropTypes.string,
+  lineType: PropTypes.oneOf(Chart.lineTypes),
 };
 
 Chart.propTypes = {
   highlightManager: '',
+  lineType: 'basis',
 };
 
 export default Chart;

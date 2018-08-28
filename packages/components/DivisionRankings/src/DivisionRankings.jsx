@@ -47,7 +47,7 @@ class DivisionRankings extends React.Component {
 
   render() {
     const {
-      loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek,
+      loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek, lineType,
     } = this.props;
     const { highlightManager } = this.state;
 
@@ -79,6 +79,7 @@ class DivisionRankings extends React.Component {
                   lines={Object.keys(managersSeason)}
                   xAxis={'gameWeek'}
                   highlightManager={highlightManager}
+                  lineType={lineType}
                 />
               </ErrorBoundary>
               <Table
@@ -102,6 +103,7 @@ class DivisionRankings extends React.Component {
 }
 
 DivisionRankings.propTypes = {
+  lineType: PropTypes.string,
   selectedGameWeek: PropTypes.number,
   loaded: PropTypes.bool,
   players: PropTypes.object,
@@ -124,6 +126,7 @@ DivisionRankings.propTypes = {
 };
 
 DivisionRankings.defaultProps = {
+  lineType: '0',
   selectedGameWeek: 0,
   loaded: false,
   playersLoaded: false,

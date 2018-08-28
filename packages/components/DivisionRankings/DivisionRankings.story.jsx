@@ -2,7 +2,7 @@ import React from 'react';
 import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, select } from '@storybook/addon-knobs';
 import configureStore from '@kammy-ui/redux-store';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
 
@@ -19,6 +19,7 @@ const managersSeason = require('./test-fixtures/manager-season.json');
 const preloadedState = { };
 const store = configureStore(preloadedState, combineReducers(reducer));
 const teams = { Olly: 'Manager details', Nick: 'Manager details', Pete: 'Manager details' };
+const lineTypes = ['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter'];
 
 storiesOf('Components/DivisionRankings', module)
   .addDecorator(withKnobs)
@@ -28,12 +29,14 @@ storiesOf('Components/DivisionRankings', module)
         <DivisionRankings
           divisionId={'premierLeague'}
           label={text('label', 'Premier League')}
+          lineType={select('lineType', lineTypes, 'linear')}
         />
       </AppConfigProvider>
     </Provider>
   ))
   .add('Premier League (Table with fixtures)', () => (
     <Component
+      lineType={select('lineType', lineTypes, 'linear')}
       loaded={true}
       label={'Demo'}
       gameWeeks={gameWeeks}
