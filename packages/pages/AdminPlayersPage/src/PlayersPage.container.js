@@ -7,7 +7,7 @@ import PlayersPage from './PlayersPage';
 
 const { fetchPlayers: fetchSpreadsheetPlayers } = spreadsheetActions;
 const { fetchPlayers: fetchSkySportsPlayers } = skySportActions;
-const { fetchPlayers: fetchDbPlayers, mergePlayers } = dbPlayerActions;
+const { fetchAllPlayerData: fetchDbPlayers, mergePlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
   const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);

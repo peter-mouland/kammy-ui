@@ -6,7 +6,7 @@ export const UNKNOWN_PLAYER = (name) => ({
 
 class TeamByGameWeek {
   constructor({
-    gameWeeks, players, transfers, draft
+    gameWeeks, players, transfers, draft,
   }) {
     this.transfers = transfers || []; // not all managers would have made transfers
     this.gameWeeks = gameWeeks;

@@ -8,7 +8,7 @@ import calculateManagerSeason from './lib/manager-season';
 
 const { fetchTransfers, fetchDivision } = spreadsheetActions;
 const { fetchGameWeeks } = gameWeekActions;
-const { fetchPlayers: fetchDbPlayers } = dbActions;
+const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 
 function mapStateToProps(state, ownProps) {
   const { selectedGameWeek, data: gameWeeks } = gameWeekSelectors.getData(state);

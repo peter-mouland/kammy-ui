@@ -27,6 +27,8 @@ const makeLineChartData = (teams, gameWeeks, managersSeason) => (
 );
 
 class DivisionRankings extends React.Component {
+  state = { highlightManager: '' }
+
   componentDidMount() {
     const {
       divisionId,
@@ -39,10 +41,15 @@ class DivisionRankings extends React.Component {
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
+  handleRowHover = (manager) => {
+    this.setState({ highlightManager: manager });
+  }
+
   render() {
     const {
       loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek,
     } = this.props;
+    const { highlightManager } = this.state;
 
     const gameWeekIdx = selectedGameWeek - 1;
     const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeekIdx);
@@ -71,12 +78,14 @@ class DivisionRankings extends React.Component {
                   data={data}
                   lines={Object.keys(managersSeason)}
                   xAxis={'gameWeek'}
+                  highlightManager={highlightManager}
                 />
               </ErrorBoundary>
               <Table
                 points={points}
                 rank={rank}
                 type='season'
+                handleRowHover={this.handleRowHover}
               />
               <h2>Weekly Scores</h2>
               <Table

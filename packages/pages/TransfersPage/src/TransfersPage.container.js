@@ -7,7 +7,7 @@ import TransfersPageLoader from './TransfersPage.loader';
 const {
   fetchGameWeeks, fetchTransfers, fetchPremierLeague, fetchLeagueOne, fetchChampionship,
 } = spreadsheetActions;
-const { fetchPlayers: fetchDbPlayers } = dbActions;
+const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 
 function mapStateToProps(state) {
   const props = {

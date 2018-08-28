@@ -16,12 +16,20 @@ const strokes = [
   '#f781bf',
 ];
 
-const Chart = ({ data, xAxis, lines }) => (
+const Chart = ({
+  data, xAxis, lines, highlightManager,
+}) => (
   <LineChart width={800} height={300} data={data} style={{ margin: '0 auto' }}>
     <Legend verticalAlign="bottom" width={800} height={30} />
     {lines
       .map((line, i) => (
-        <Line key={line} type="monotone" dataKey={line} stroke={strokes[i]} />
+        <Line
+          key={line}
+          strokeWidth={highlightManager === line ? 5 : 1}
+          type="monotone"
+          dataKey={line}
+          stroke={strokes[i]}
+        />
       ))
     }
     <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
@@ -35,6 +43,11 @@ Chart.propTypes = {
   xAxis: PropTypes.string.isRequired,
   data: PropTypes.array.isRequired,
   lines: PropTypes.array.isRequired,
+  highlightManager: PropTypes.string,
+};
+
+Chart.propTypes = {
+  highlightManager: '',
 };
 
 export default Chart;

@@ -5,7 +5,9 @@ import positions from './lib/positions';
 
 import './division-rankings.scss';
 
-const DivisionRankingsTable = ({ rank, points, type }) => (
+const DivisionRankingsTable = ({
+  rank, points, type, handleRowHover,
+}) => (
   <table className='table'>
     <thead>
       <tr className='row row--header'>
@@ -33,7 +35,7 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
       {points
         .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
         .map(({ manager, points: pos }) => (
-          <tr key={manager} className={'row'}>
+          <tr key={manager} className={'row'} onMouseEnter={() => handleRowHover(manager)} onMouseLeave={() => handleRowHover(manager)}>
             <td className='cell cell--manager'>{manager}</td>
             {positions.map((position) => {
               const gradient = `gradient_${parseInt(rank[position.label][manager], 10).toString().replace('.', '-')}`;
@@ -57,12 +59,14 @@ const DivisionRankingsTable = ({ rank, points, type }) => (
 );
 
 DivisionRankingsTable.propTypes = {
+  handleRowHover: PropTypes.func,
   rank: PropTypes.object,
   points: PropTypes.array,
   type: PropTypes.oneOf(['season', 'gameWeek']).isRequired,
 };
 
 DivisionRankingsTable.defaultProps = {
+  handleRowHover: () => {},
   rank: {},
   points: [],
 };

@@ -32,7 +32,9 @@ class Division {
     );
   }
 
-  calculateTeamsByGameWeeks = ({ draft, gameWeeks, transfers, playersByName }) => {
+  calculateTeamsByGameWeeks = ({
+    draft, gameWeeks, transfers, playersByName,
+  }) => {
     const allTeams = this.managers.reduce((prev, manager) => {
       const team = new TeamByGameWeek({
         draft: draft[manager], transfers: transfers[manager], gameWeeks, players: playersByName,

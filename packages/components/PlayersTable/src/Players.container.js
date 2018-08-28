@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { actions } from '@kammy-ui/redux-players';
 import Players from './Players';
 
-const { fetchPlayers, fetchPositions } = actions;
+const { fetchAllPlayerData: fetchPlayers, fetchPositions } = actions;
 
 function mapStateToProps(state) {
   const {

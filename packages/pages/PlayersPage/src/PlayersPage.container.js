@@ -3,7 +3,7 @@ import { actions as dbPlayerActions } from '@kammy-ui/redux-players';
 
 import PlayersPage from './PlayersPage';
 
-const { fetchPlayers } = dbPlayerActions;
+const { fetchAllPlayerData: fetchPlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
   return {
