@@ -11,7 +11,7 @@ const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 const { fetchGameWeeks } = gameWeekActions;
 
 function mapStateToProps(state, ownProps) {
-  const { data: gameWeeks, selectedGameWeek } = gameWeekSelectors.getData(state);
+  const { gameWeeks, selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const props = {
     selectedGameWeek,

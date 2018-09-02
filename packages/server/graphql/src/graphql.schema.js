@@ -2,10 +2,12 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { playersSchema, resolveFunctions as playerResolvers } from './models/players.schema';
 import cupSchema from './models/cup.schema';
 import divisionSchema from './models/division.schema';
+import gameWeekSchema from './models/game-week.schema';
 
 const schemaString = `
   ${cupSchema}
   ${divisionSchema}
+  ${gameWeekSchema}
   ${playersSchema}
 
   type Query {
@@ -13,6 +15,7 @@ const schemaString = `
     getPlayer(code: Int): Player
     getDivision(division: String): Division
     getCup: Cup
+    getGameWeeks: GameWeeks
   }
   
   type Mutation {

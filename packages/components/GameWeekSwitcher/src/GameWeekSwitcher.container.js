@@ -7,8 +7,8 @@ const { fetchGameWeeks, updateGameWeekIndex } = gameWeekActions;
 
 function mapStateToProps(state) {
   const {
-    currentGameWeek, selectedGameWeek, data: gameWeeks, count: gameWeeksCount,
-  } = gameWeekSelectors.getData(state);
+    currentGameWeek, selectedGameWeek, gameWeeks, count: gameWeeksCount,
+  } = gameWeekSelectors.getGameWeeks(state);
   const {
     loading: gameWeeksLoading, loaded: gameWeeksLoaded, errors: gameWeeksErrors,
   } = gameWeekSelectors.getStatus(state);
