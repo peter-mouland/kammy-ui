@@ -41,6 +41,19 @@ const formatDivision = (data) => {
   return jsonData;
 };
 
+/* CUP */
+const formatCupPlayer = (item) => ({
+  group: item.group.trim(),
+  gameWeek: item.gameweek,
+  round: item.round.trim(),
+  manager: item.manager.trim(),
+  player1: item.player1.trim(),
+  player2: item.player2.trim(),
+  player3: item.player3.trim(),
+  player4: item.player4.trim(),
+});
+const formatCup = (data) => Object.keys(data).map((key) => formatCupPlayer(data[key]));
+
 /* TRANSFERS */
 const formatTimeStamp = (timestamp) => {
   const dateTimeArray = timestamp.split(' ');
@@ -110,6 +123,8 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
         return formatTransfers(data);
       case worksheetName === 'GameWeeks':
         return formatGameWeeks(data);
+      case worksheetName === 'Cup':
+        return formatCup(data);
       default:
         return data;
       }

@@ -6,16 +6,12 @@ class Division {
   // @transfers: { [manager] :[{ status, timestamp, manager, transferIn/Out, codeIn/Out, type }] }
   // @gameWeeks: [{ start, end, gameWeek }]
   constructor({
-    division, draft, transfers, gameWeeks, players,
+    division, draft, transfers = {}, gameWeeks, players, currentGameWeek,
   }) {
-    const currentGameWeekIndex = (gameWeeks.findIndex((gw) => (
-      new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
-    )));
     const playersByName = players.reduce((prev, player) => ({
       ...prev,
       [player.name]: { ...player },
     }), {});
-    const currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
     const drafts = Object.keys(draft).map((manager) => draft[manager]);
     const transferLists = Object.keys(transfers).map((manager) => transfers[manager]);
 

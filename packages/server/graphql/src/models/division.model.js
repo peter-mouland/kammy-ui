@@ -17,11 +17,17 @@ const getDivision = ({ division }) => {
       fetchSpreadsheet({ spreadsheetId, worksheetName: `${division}Transfers` }),
       fetchSpreadsheet({ spreadsheetId, worksheetName: 'GameWeeks' }),
       getPlayers(), // needed for position of transfers checking
-    ]).then(([draft, transfers, gameWeeks, players]) => (
-      new DivisionByGameWeek({
-        division, draft, transfers, gameWeeks, players,
-      })
-    ))
+    ]).then(([draft, transfers, gameWeeks, players]) => {
+      const currentGameWeekIndex = (gameWeeks.findIndex((gw) => (
+        new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
+      )));
+      const currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
+      return (
+        new DivisionByGameWeek({
+          division, draft, transfers, gameWeeks, players, currentGameWeek,
+        })
+      );
+    })
   );
 };
 

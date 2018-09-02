@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
+import Cup from '@kammy-ui/cup';
 import RulesPage from '@kammy-ui/rules-page';
 import AdminPlayersPage from '@kammy-ui/admin-players-page';
 import PremierLeagueTeams from '@kammy-ui/premier-league-teams';
@@ -24,6 +25,7 @@ import LeagueOnePlayersPage from '@kammy-ui/league-one-players-page';
 
 // todo import pages dynamically
 const pages = {
+  Cup,
   RulesPage,
   AdminPlayersPage,
   TransfersPage,

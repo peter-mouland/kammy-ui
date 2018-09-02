@@ -17,6 +17,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'cup',
+    exact: true,
+    path: '/cup',
+    meta: {
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Cup',
+    requiresAuthentication: false,
+    component: 'Cup',
+    template: 'default',
+  },
+  {
     name: 'transfers',
     exact: true,
     path: '/admin/transfers/',

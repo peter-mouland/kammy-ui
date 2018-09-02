@@ -1,0 +1,38 @@
+{
+  "name": "@kammy-ui/cup",
+  "version": "0.0.17",
+  "description": "Kammy UI Component: Cup",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kammy-ui/app-config-provider": "0.0.17",
+    "@kammy-ui/bem": "^0.0.17",
+    "@kammy-ui/bootstrap": "^0.0.17",
+    "@kammy-ui/error-boundary": "^0.0.14",
+    "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/interstitial": "^0.0.17",
+    "@kammy-ui/modal": "^0.0.17",
+    "@kammy-ui/redux.cup": "^0.0.17",
+    "react-redux": "^5.0.7"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2"
+  },
+  "devDependencies": {
+    "redux": "^4.0.0"
+  }
+}
