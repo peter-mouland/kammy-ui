@@ -1,8 +1,8 @@
 /* eslint-env jest */
-import DivisionByGameWeek from './DivisionByGameWeek';
+import Division from './Division';
 
-const team = require('../fixtures/team.json');
-const gameWeeksFixture = require('../fixtures/gameweeks.json');
+const team = require('../../fixtures/team.json');
+const gameWeeksFixture = require('../../fixtures/gameweeks.json');
 
 let gameWeeks;
 let transfers;
@@ -13,7 +13,7 @@ let divisionByGameWeek;
 let currentGameWeek;
 let division;
 
-describe('DivisionByGameWeek', () => {
+describe('Division', () => {
   beforeEach(() => {
     players = [
       {
@@ -87,35 +87,35 @@ describe('DivisionByGameWeek', () => {
   });
 
   it('returns division to help out client-side reducers', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('division', division);
   });
 
   it('returns transfers to help out client-side reducers', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('transfers', [transfer]);
   });
 
   it('returns a list of managers', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('managers', ['Olly']);
   });
 
   it('returns a list of drafted players', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('draft', team);
   });
 
   it('returns a list of currentTeams', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('currentTeams');
@@ -125,7 +125,7 @@ describe('DivisionByGameWeek', () => {
   });
 
   it('returns a list of teamsByGameWeek', () => {
-    divisionByGameWeek = new DivisionByGameWeek({
+    divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('teamsByGameWeek');

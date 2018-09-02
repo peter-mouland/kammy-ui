@@ -1,6 +1,6 @@
 import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
 
-import GameWeeks from '../lib/GameWeeks';
+import GameWeeks from './GameWeeks';
 
 const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 

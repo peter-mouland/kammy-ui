@@ -30,7 +30,7 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   return {};
 };
 
-export const mergePlayers = () => (
+export default () => (
   Promise.all([
     fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'GameWeeks' }),
     fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),

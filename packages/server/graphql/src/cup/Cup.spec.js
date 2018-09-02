@@ -2,8 +2,8 @@
 /* eslint-env jest */
 import Cup from './Cup';
 
-const team = require('../fixtures/team.json');
-const gameWeeksFixture = require('../fixtures/gameweeks.json');
+const team = require('../../fixtures/team.json');
+const gameWeeksFixture = require('../../fixtures/gameweeks.json');
 
 let gameWeeks;
 let transfers;

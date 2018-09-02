@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { playersSchema, resolveFunctions as playerResolvers } from './models/players.schema';
-import cupSchema from './models/cup.schema';
-import divisionSchema from './models/division.schema';
-import gameWeekSchema from './models/game-week.schema';
+import { playersSchema, resolveFunctions as playerResolvers } from './players/players.schema';
+import cupSchema from './cup/cup.schema';
+import divisionSchema from './division/division.schema';
+import gameWeekSchema from './game-weeks/game-week.schema';
 
 const schemaString = `
   ${cupSchema}
