@@ -1,8 +1,10 @@
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const { SRC, DIST } = require('./src/config/paths');
+
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -17,7 +19,10 @@ module.exports = {
   plugins: [
     new ProgressBarPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new ExtractTextPlugin('[name]_[hash].css'),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(process.env.PORT),
@@ -41,10 +46,13 @@ module.exports = {
       {
         test: /\.scss$/,
         include: [/src/],
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
-        }),
+        use: [
+          devMode ? 'style-loader' : { loader: MiniCssExtractPlugin.loader, options: {} },
+          'css-loader',
+          'postcss-loader',
+          'resolve-url-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.svg$/,

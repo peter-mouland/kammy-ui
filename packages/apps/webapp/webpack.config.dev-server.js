@@ -1,6 +1,5 @@
 const nodemon = require('nodemon');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const convert = require('koa-connect');
 const proxy = require('http-proxy-middleware');
 const Router = require('koa-router');
@@ -28,9 +27,6 @@ module.exports = merge(baseConfig, {
     filename: '[name].js',
     publicPath: '/',
   },
-  plugins: [
-    new ExtractTextPlugin('[name].css'),
-  ],
   serve: {
     devMiddleware: {
       hot: isHot,

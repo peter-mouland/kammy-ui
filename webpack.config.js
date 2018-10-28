@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const ROOT = path.join(process.cwd());
 const PACKAGES = path.join(ROOT, 'packages');
@@ -14,6 +14,7 @@ const CATEGORIES = ['components', 'global', 'helpers', 'pages', 'redux', 'server
 
 const timestamp = new Date();
 const BUILD_TIME = `${timestamp.toLocaleDateString()} ${timestamp.toLocaleTimeString()}`;
+const devMode = process.env.NODE_ENV !== 'production';
 
 function getPackages(category) {
   const srcPath = path.join(PACKAGES, category);
@@ -51,6 +52,7 @@ const entries = CATEGORIES
   .filter(getPackage)
   .map(getPackageInfo);
 
+
 module.exports = entries.map(({
   entry, packageName, category, version,
 }) => ({
@@ -74,7 +76,10 @@ module.exports = entries.map(({
     new webpack.HashedModuleIdsPlugin(),
     new ProgressBarPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
@@ -93,10 +98,13 @@ module.exports = entries.map(({
       {
         test: /\.scss$/,
         include: [/packages/],
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'resolve-url-loader', 'sass-loader'],
-        }),
+        use: [
+          devMode ? 'style-loader' : { loader: MiniCssExtractPlugin.loader, options: {} },
+          'css-loader',
+          'postcss-loader',
+          'resolve-url-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.svg$/,
