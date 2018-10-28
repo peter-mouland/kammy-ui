@@ -1,7 +1,7 @@
 import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
 import { rootActions } from '@kammy-ui/database';
 
-import Cup from '../lib/Cup';
+import Cup from './Cup';
 
 const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 

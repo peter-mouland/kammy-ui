@@ -4,6 +4,8 @@ const schemaString = `
     code: Int
     pos: String
     name: String
+    season: Stats
+    gameWeek: Stats
   }
   
   type Transfer {
@@ -17,11 +19,17 @@ const schemaString = `
     type: String
   }
   
-  type GameWeek {
+  type GameWeekPlayers {
     gameWeek: Int
     start: String
     end: String
     players: [TeamPlayer]
+    seasonToGameWeek: Stats
+  }
+  
+  type ManagersSeason {
+    manager: String
+    stats: Stats
   }
   
   type Division {
@@ -29,8 +37,9 @@ const schemaString = `
     managers: [String]
     draft: [TeamPlayer]
     transfers: [Transfer]
-    teamsByGameWeek: [GameWeek]
-    currentTeams: GameWeek
+    teamsByGameWeek: [GameWeekPlayers]
+    currentTeams: GameWeekPlayers
+    seasonStats: [ManagersSeason]
   }
 `;
 

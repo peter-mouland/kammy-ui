@@ -21,7 +21,7 @@ class Cup extends React.Component {
     } = this.props;
 
     return (
-      <section id="teams-page" className={bem()}>
+      <section id="cup-page" className={bem()}>
         <h1>{label}</h1>
         {!cupLoaded && (
           <Fragment>
@@ -30,13 +30,16 @@ class Cup extends React.Component {
         )}
         <table className={'table'}>
           {
-            groups.map((group) => (
-              <Fragment key={`${group}`} >
+            rounds.map((round) => (
+              <Fragment key={`${round}`}>
+                <tr className={'row'}>
+                  <th className={'cell'} colSpan={11}>Round {round}</th>
+                </tr>
                 {
-                  rounds.map((round) => (
-                    <Fragment key={`${group}-${round}`}>
+                  groups.map((group) => (
+                    <Fragment key={`${group}-${round}`} >
                       <tr className={'row'}>
-                        <th className={'cell'} colSpan={11}>{group}: Round {round}</th>
+                        <th className={'cell'} colSpan={11}>{group}</th>
                       </tr>
                       <tr className={'row'}>
                         <th className={'cell'}>Manager</th>

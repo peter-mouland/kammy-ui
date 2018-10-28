@@ -2,9 +2,10 @@ import { graphql } from 'graphql';
 import { rootActions, connect } from '@kammy-ui/database';
 
 import schema from './graphql.schema';
-import { mergePlayers } from './custom/mergePlayers';
-import getCup from './models/cup.model';
-import getDivision from './models/division.model';
+import mergePlayers from './players/mergePlayers.query';
+import getCup from './cup/getCup.query';
+import getDivision from './division/getDivision.query';
+import getGameWeeks from './game-weeks/getGameWeeks.query';
 
 connect(process.env.MONGODB_URI || 'mongodb://localhost/kammy-ui');
 
@@ -16,6 +17,7 @@ const root = {
   upsertPlayers,
   getDivision,
   getCup,
+  getGameWeeks,
 };
 
 export default ({ query, variables }) => graphql(schema, query, root, {}, variables);

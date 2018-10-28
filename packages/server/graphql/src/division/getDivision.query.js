@@ -1,7 +1,7 @@
 import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
 import { rootActions } from '@kammy-ui/database';
 
-import DivisionByGameWeek from '../lib/DivisionByGameWeek';
+import Division from './Division';
 
 const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 
@@ -23,7 +23,7 @@ const getDivision = ({ division }) => {
       )));
       const currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
       return (
-        new DivisionByGameWeek({
+        new Division({
           division, draft, transfers, gameWeeks, players, currentGameWeek,
         })
       );

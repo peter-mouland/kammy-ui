@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { mergePlayersData } from './mergePlayers';
+import { mergePlayersData } from './mergePlayers.query';
 
 const gameWeeks = [
   {

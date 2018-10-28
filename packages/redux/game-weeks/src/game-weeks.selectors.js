@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
-const gameWeeksSelector = (state) => get(state, 'gameWeeks') || {};
+const selectedGameWeekSelector = (state) => get(state, 'gameWeeks.selectedGameWeek') || 0;
+const gameWeeksSelector = (state) => get(state, 'gameWeeks.data.gameWeeks') || [];
 const statusSelector = (state) => get(state, 'gameWeeks.status') || {};
 
 export const getStatus = createSelector(
@@ -13,18 +14,19 @@ export const getStatus = createSelector(
   }),
 );
 
-export const getData = createSelector(
+export const getGameWeeks = createSelector(
   gameWeeksSelector,
-  ({ data = [], selectedGameWeek }) => {
-    const currentGameWeekIndex = (data.findIndex((gw) => (
+  selectedGameWeekSelector,
+  (gameWeeks, selectedGameWeek) => {
+    const currentGameWeekIndex = (gameWeeks.findIndex((gw) => (
       new Date() < new Date(gw.end) && new Date() > new Date(gw.start)
     )));
     const currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
     return {
-      data,
+      gameWeeks,
       selectedGameWeek: selectedGameWeek || currentGameWeek,
       currentGameWeek,
-      count: data.length,
+      count: gameWeeks.length,
     };
   },
 );

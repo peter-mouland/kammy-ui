@@ -41,12 +41,12 @@ class Division {
       };
     }, {});
     return gameWeeks.map((gameWeek) => {
-      const allTeamPlayers = Object.keys(allTeams).map((manager) => (
+      const gameWeekPlayers = Object.keys(allTeams).map((manager) => (
         allTeams[manager].find((week) => gameWeek.gameWeek === week.gameWeek).players
       ));
       return ({
         ...gameWeek,
-        players: [].concat.apply([], allTeamPlayers),
+        players: [].concat.apply([], gameWeekPlayers),
       });
     });
   };

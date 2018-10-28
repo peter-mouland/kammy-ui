@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@kammy-ui/database": "^0.0.17",
+    "@kammy-ui/data-player-stats": "^0.0.18",
     "@kammy-ui/fetch-google-sheets": "^0.0.18",
     "@kammy-ui/fetch-sky-sports": "^0.0.18",
     "@kammy-ui/fetchr": "^0.0.17",
