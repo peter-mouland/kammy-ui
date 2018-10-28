@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
-import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
+// import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 
 import DivisionStats from './DivisionStats';
 import calculateManagerSeason from './lib/manager-season';
