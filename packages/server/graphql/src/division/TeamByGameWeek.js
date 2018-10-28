@@ -23,6 +23,10 @@ class TeamByGameWeek {
       club: player.club,
       code: player.code,
       pos: player.pos,
+      season: player.season, // Stats: { points, sb, tb, rcard, ycard, pensv, con, cs, asts, gls, subs, apps
+      gameWeek: player.gameWeek, // Stats: { points, sb, tb, rcard, ycard, pensv, con, cs, asts, gls, subs, apps }
+      gameWeeks: player.gameWeeks, // [ { stats: {}, fixtures: [] } ]
+      // fixtures: player.fixtures, // [Fixture: { hScore... } ]
     };
   };
 
@@ -93,9 +97,10 @@ class TeamByGameWeek {
       const players = draft.map((teamPlayer) => {
         const transferList = this.getTransferList(teamPlayer);
         const player = this.findPlayerThisGw({ transferList, gameWeek });
+        const Player = this.getPlayer(player);
         return {
           teamPos: teamPlayer.pos,
-          pos: this.getPlayer(player).pos,
+          pos: Player.pos,
           code: player.code,
           name: player.name,
           club: player.club,

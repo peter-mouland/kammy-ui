@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
-const currentTeamSelector = (state, division) => get(state, `division.${division}.players`) || [];
+const currentTeamSelector = (state, division) => get(state, `division.${division}.currentTeams`) || {};
 const statusSelector = (state, division) => get(state, `division.${division}.status`) || {};
 
 export const getStatus = createSelector(
@@ -11,7 +11,7 @@ export const getStatus = createSelector(
 
 export const getCurrentPlayers = createSelector(
   currentTeamSelector,
-  (players) => ({
+  ({ players = [] }) => ({
     data: players,
     byName: players.reduce((prev, player) => ({
       ...prev,
@@ -23,7 +23,7 @@ export const getCurrentPlayers = createSelector(
 
 export const getCurrentTeams = createSelector(
   currentTeamSelector,
-  (players) => ({
+  ({ players = [] }) => ({
     data: players.reduce((prev, player) => ({
       ...prev,
       [player.manager]: [...prev[player.manager], player],

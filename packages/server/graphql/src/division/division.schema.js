@@ -4,6 +4,8 @@ const schemaString = `
     code: Int
     pos: String
     name: String
+    season: Stats
+    gameWeek: Stats
   }
   
   type Transfer {
@@ -22,6 +24,12 @@ const schemaString = `
     start: String
     end: String
     players: [TeamPlayer]
+    seasonToGameWeek: Stats
+  }
+  
+  type ManagersSeason {
+    manager: String
+    stats: Stats
   }
   
   type Division {
@@ -31,6 +39,7 @@ const schemaString = `
     transfers: [Transfer]
     teamsByGameWeek: [GameWeekPlayers]
     currentTeams: GameWeekPlayers
+    seasonStats: [ManagersSeason]
   }
 `;
 
