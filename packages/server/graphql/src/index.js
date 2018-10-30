@@ -1,5 +1,5 @@
 import { graphql } from 'graphql';
-import { rootActions, connect } from '@kammy-ui/database';
+import { connect } from '@kammy-ui/database';
 
 import schema from './graphql.schema';
 import mergePlayers from './players/mergePlayers.query';
@@ -7,17 +7,16 @@ import getCup from './cup/getCup.query';
 import getDivision from './division/getDivision.query';
 import getGameWeeks from './game-weeks/getGameWeeks.query';
 
-connect(process.env.MONGODB_URI || 'mongodb://localhost/kammy-ui');
+export default async ({ query, variables }) => {
+  const { getPlayers, upsertPlayers } = await connect();
+  const root = {
+    mergePlayers,
+    getPlayers,
+    upsertPlayers,
+    getDivision,
+    getCup,
+    getGameWeeks,
+  };
 
-const { getPlayers, upsertPlayers } = rootActions();
-
-const root = {
-  mergePlayers,
-  getPlayers,
-  upsertPlayers,
-  getDivision,
-  getCup,
-  getGameWeeks,
+  return graphql(schema, query, root, {}, variables);
 };
-
-export default ({ query, variables }) => graphql(schema, query, root, {}, variables);

@@ -1,16 +1,16 @@
 import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
-import { rootActions } from '@kammy-ui/database';
+import { connect } from '@kammy-ui/database';
 
 import Division from './Division';
 
 const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 
 // division = 'LeagueOne', 'PremierLeague', 'Championship'
-const getDivision = ({ division }) => {
+const getDivision = async ({ division }) => {
   if (!['LeagueOne', 'PremierLeague', 'Championship'].includes(division)) {
     throw Error(`Division not found: ${division}`);
   }
-  const { getPlayers } = rootActions();
+  const { getPlayers } = await connect();
   return (
     Promise.all([
       fetchSpreadsheet({ spreadsheetId, worksheetName: division }),

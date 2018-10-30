@@ -1,6 +1,6 @@
 import { fetchPlayersFull } from '@kammy-ui/fetch-sky-sports';
 import fetchGsheet from '@kammy-ui/fetch-google-sheets';
-import { rootActions } from '@kammy-ui/database';
+import { connect } from '@kammy-ui/database';
 
 export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   const allPlayers = {
@@ -30,21 +30,24 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   return {};
 };
 
-export default () => (
-  Promise.all([
-    fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'GameWeeks' }),
-    fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),
-    fetchPlayersFull(),
-  ])
-    .then(([gameWeeks, spreadsheetPlayers, skySportsPlayers]) => ({
-      players: mergePlayersData({
-        spreadsheetPlayers,
-        skySportsPlayers: skySportsPlayers.data,
-      }),
-      gameWeeks,
-    }))
-    .then(({ players, gameWeeks }) => rootActions().upsertPlayers({
-      players: Object.values(players),
-      gameWeeks,
-    }))
-);
+export default async () => {
+  const { upsertPlayers } = await connect();
+  return (
+    Promise.all([
+      fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'GameWeeks' }),
+      fetchGsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),
+      fetchPlayersFull(),
+    ])
+      .then(([gameWeeks, spreadsheetPlayers, skySportsPlayers]) => ({
+        players: mergePlayersData({
+          spreadsheetPlayers,
+          skySportsPlayers: skySportsPlayers.data,
+        }),
+        gameWeeks,
+      }))
+      .then(({ players, gameWeeks }) => upsertPlayers({
+        players: Object.values(players),
+        gameWeeks,
+      }))
+  );
+};

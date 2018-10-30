@@ -1,24 +1,18 @@
 const nodemon = require('nodemon');
 const merge = require('webpack-merge');
-const convert = require('koa-connect');
-const proxy = require('http-proxy-middleware');
-const Router = require('koa-router');
 
 const nodemonConfig = require('./nodemon.json');
 const baseConfig = require('./webpack.common');
 const { SRC, DIST } = require('./src/config/paths');
+
+process.env.NODE_ENV = 'development';
+
 require('./src/config/config');
 
-const isHot = true;
-const router = new Router();
-
-router.get('*', convert(proxy({ target: 'http://localhost:9090' })));
-
 module.exports = merge(baseConfig, {
-  devtool: 'inline-source-map',
+  mode: 'development',
   entry: {
     app: [
-      'react-hot-loader/patch',
       `${SRC}/client-entry.jsx`,
     ],
   },
@@ -27,35 +21,39 @@ module.exports = merge(baseConfig, {
     filename: '[name].js',
     publicPath: '/',
   },
-  serve: {
-    devMiddleware: {
-      hot: isHot,
-      compress: false,
-      watchOptions: {
-        aggregateTimeout: 300,
-      },
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      publicPath: '/',
-      stats: { colors: true, cached: false },
-    },
-    port: 3000,
+  devServer: {
+    port: 3005,
+    publicPath: baseConfig.output.publicPath,
+    stats: { colors: true },
     host: 'localhost',
-    clipboard: false,
-    hotClient: {
-      hot: isHot,
-      port: 8081,
+    historyApiFallback: true,
+    watchOptions: {
+      aggregateTimeout: 1000,
     },
-    add: async (app, middleware) => {
-      await middleware.webpack();
-      await middleware.content();
-      app.use(router.routes());
-
-      nodemon(nodemonConfig).on('start', () => {
-        console.log('start nodemon');
-      });
+    proxy: {
+      '**': 'http://localhost:5000',
+    },
+    hot: false,
+    overlay: {
+      // Shows a full-screen overlay in the browser when there are compiler errors or warnings
+      warnings: true, // default false
+      errors: true, // default false
+    },
+    open: true,
+    before() {
+      process.env.DEV_PORT = 5000;
+      nodemonConfig.script = 'src/server-entry.js';
+      nodemon(nodemonConfig)
+        .on('crash', () => { console.log('CRASH'); })
+        .on('exit', () => { console.log('EXIT'); })
+        .on('start', () => {
+          console.log('start nodemon');
+        });
       // workaround for nodemon
-      process.once('SIGINT', () => {
-        process.exit(0);
+      process.once('SIGUSR2', () => {
+        // gracefulShutdown(function () {
+        process.kill(process.pid, 'SIGUSR2');
+        // });
       });
     },
   },

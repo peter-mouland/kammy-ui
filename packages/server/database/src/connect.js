@@ -5,15 +5,13 @@ import debug from 'debug';
 import logger from './logger';
 
 const log = debug('kammyui:models');
-let connected = false;
+let connection;
 
-const connect = (uri) => {
-  if (connected) return;
-  connected = true;
-  mongoose.set('debug', logger);
-  mongoose.connect(uri);
-  mongoose.Promise = global.Promise;
+const connect = (uri, options) => {
   log(uri);
+  mongoose.Promise = global.Promise;
+  mongoose.set('debug', logger);
+  connection = mongoose.connect(uri, options);
   mongoose.connection.on('error', (err) => {
     log(`Mongoose connection error: ${err}`);
     process.exit(1);
@@ -33,9 +31,14 @@ const connect = (uri) => {
       process.exit(0);
     });
   });
-
-  // load models
-  require('./models/player.schema');
 };
 
-export default connect;
+export default async (uri) => {
+  if (!connection && uri) {
+    connection = connect(uri);
+    require('./models/player.schema');
+  }
+
+  // load models
+  return require('./models/player');
+};

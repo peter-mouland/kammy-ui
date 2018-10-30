@@ -9,14 +9,14 @@ import koaStatic from 'koa-static';
 
 import Html from '@kammy-ui/html';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
-import headers from '@kammy-ui/koa-middleware-headers';
+// import headers from '@kammy-ui/koa-middleware-headers';
 import responseTime from '@kammy-ui/koa-middleware-response-time';
-import logger from '@kammy-ui/koa-middleware-logger';
+// import logger from '@kammy-ui/koa-middleware-logger';
 import react from '@kammy-ui/koa-middleware-react';
 
 import Root from '../AppRoot/AppRoot';
-import skySportsRouter from './routes/routes.skysports';
 import graphQlRouter from './routes/routes.graphql';
+import skySportsRouter from './routes/routes.skysports';
 import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';
 import { DIST } from '../config/paths';
 
@@ -44,8 +44,8 @@ server.use(passport.session());
 server.use(handleError('render500'));
 server.use(responseTime());
 // server.use(compress());
-server.use(logger());
-server.use(headers());
+// server.use(logger());
+// server.use(headers());
 
 export default ({
   preDispatch, reducers, assetsConfig,

@@ -1,7 +1,7 @@
 {
   "verbose": true,
-  "ignore": ["compiled/", "mongodb"],
-  "watch": ["src"],
+  "ignore": ["compiled/", "mongodb", "node_modules"],
+  "watch": ["src", "../../"],
   "ext": "svg js json",
   "exec": "babel-node"
 }

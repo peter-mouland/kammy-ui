@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import Chance from 'chance';
 
 import playerSchema from './player.schema';
-import upsert from './player.upsert';
+import { upsertPlayers } from './player';
 
 const chance = new Chance();
 
@@ -41,7 +41,7 @@ const points2 = {
   apps: 5, asts: 5, con: 5, cs: 5, gls: 5, pensv: 5, points: 25, rcard: 5, sb: 10, subs: 5, tb: 10, ycard: 5,
 };
 
-describe('upsert()', () => {
+describe('upsertPlayers()', () => {
   let saveSpy;
   let findSpy;
 
@@ -73,7 +73,7 @@ describe('upsert()', () => {
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
     mockingoose.Player.toReturn([], 'aggregate');
-    return upsert({ players, gameWeeks }).then((response) => {
+    return upsertPlayers({ players, gameWeeks }).then((response) => {
       expect(response[0]).toHaveProperty('_id', player._id);
       expect(response[0]).toHaveProperty('code', player.code);
       expect(response[0]).toHaveProperty('dateCreated');
@@ -92,7 +92,7 @@ describe('upsert()', () => {
     const players = [player];
     mockingoose.Player.toReturn(player, 'save');
     mockingoose.Player.toReturn([], 'aggregate');
-    return upsert({ players, gameWeeks }).then(() => {
+    return upsertPlayers({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).not.toHaveBeenCalled();
     });
@@ -116,7 +116,7 @@ describe('upsert()', () => {
       season: zeroPoints,
       gameWeek: zeroPoints,
     };
-    return upsert({ players, gameWeeks }).then(() => {
+    return upsertPlayers({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player._id, expected);
     });
@@ -163,7 +163,7 @@ describe('upsert()', () => {
     };
     const players = [player1, player2];
     mockingoose.Player.toReturn([dbPlayer1, dbPlayer2], 'aggregate');
-    return upsert({ players, gameWeeks }).then(() => {
+    return upsertPlayers({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expected1);
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, expected2);
@@ -224,7 +224,7 @@ describe('upsert()', () => {
       gameWeek: points2,
     };
 
-    return upsert({ players, gameWeeks }).then(() => {
+    return upsertPlayers({ players, gameWeeks }).then(() => {
       expect(playerSchema.prototype.save).not.toHaveBeenCalled();
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expect1);
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player2._id, expect2);
@@ -268,7 +268,7 @@ describe('upsert()', () => {
       season: points1,
       gameWeek: points1,
     };
-    return upsert({ players, gameWeeks }).then(() => {
+    return upsertPlayers({ players, gameWeeks }).then(() => {
       expect(playerSchema.findByIdAndUpdate).toHaveBeenCalledWith(player1._id, expected1);
     });
   });

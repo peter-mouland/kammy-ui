@@ -1,7 +1,10 @@
 import bodyparser from 'koa-bodyparser';
 import Router from 'koa-router';
+import { connect } from '@kammy-ui/database';
 import graphQL from '@kammy-ui/graphql';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
+
+connect(process.env.MONGODB_URI || 'mongodb://localhost/kammy-ui');
 
 export default () => {
   const router = Router({ prefix: '/graphql' });

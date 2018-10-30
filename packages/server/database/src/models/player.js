@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 import { playerStats } from '@kammy-ui/data-player-stats';
 
-import getPlayers from './player.getPlayers';
-
 const Player = mongoose.model('Player');
 
 const calculateSeasonStats = (gameWeeksWithFixtures) => (
@@ -48,6 +46,8 @@ const getPlayerWithStats = ({ player, dbPlayer, gameWeeks }) => {
   };
 };
 
+const getPlayers = (playerDetails = {}) => Player.aggregate([{ $match: playerDetails }]).exec();
+
 const upsertPlayers = async ({ players, gameWeeks }) => {
   const dbPlayers = await getPlayers().then(
     (playrs) => (playrs.reduce((prev, dbPlayer) => ({ ...prev, [dbPlayer.code]: dbPlayer }), {})),
@@ -68,4 +68,6 @@ const upsertPlayers = async ({ players, gameWeeks }) => {
   return Promise.all(updatePromises).catch(console.error);
 };
 
-export default upsertPlayers;
+export {
+  upsertPlayers, getPlayers,
+};

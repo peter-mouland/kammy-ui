@@ -47,7 +47,7 @@ module.exports = {
         test: /\.scss$/,
         include: [/src/],
         use: [
-          devMode ? 'style-loader' : { loader: MiniCssExtractPlugin.loader, options: {} },
+          { loader: MiniCssExtractPlugin.loader, options: {} },
           'css-loader',
           'postcss-loader',
           'resolve-url-loader',

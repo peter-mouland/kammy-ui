@@ -11,7 +11,8 @@
     "build": "rm -rf compiled && npm run build:server && npm run build:app",
     "build:app": "NODE_ENV=production webpack --config webpack.config.prod.js -p",
     "build:server": "NODE_ENV=production babel src -d compiled",
-    "start:dev": "NODE_ENV=development DEBUG=kammy,kammy:* webpack-serve --config webpack.config.dev-server.js",
+    "start:dev": "NODE_ENV=development DEBUG=kammy,kammy:* webpack-dev-server --config webpack.config.dev-server.js",
+    "start": "nodemon src/server-entry.js --config nodemon.json",
     "start:prod": "NODE_ENV=production node compiled/server-entry.js"
   },
   "dependencies": {
@@ -54,6 +55,7 @@
     "koa": "2.6.1",
     "koa-bodyparser": "4.2.1",
     "koa-compress": "3.0.0",
+    "koa-connect": "2.0.1",
     "koa-convert": "1.2.0",
     "koa-jwt": "3.5.1",
     "koa-session": "5.9.0",
@@ -70,7 +72,7 @@
     "nodemon": "1.18.5",
     "webpack": "4.23.1",
     "webpack-cli": "3.1.2",
-    "webpack-serve-ssr-helper": "0.2.1",
+    "webpack-dev-server": "3.1.10",
     "http-proxy-middleware": "0.19.0",
     "webpack-serve": "2.0.2",
     "webpack-merge": "4.1.4"
