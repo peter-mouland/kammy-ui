@@ -1,5 +1,4 @@
 /* eslint-disable prefer-spread */
-
 const getTeamPoints = (team) => team.player1.points + team.player2.points + team.player3.points + team.player4.points;
 
 class Cup {
@@ -8,7 +7,7 @@ class Cup {
   // @players: [Player]
   // @currentGameWeek: String
   constructor({
-    cup, players,
+    cup, players, divisions,
   }) {
     this.playersByName = players.reduce((prev, player) => ({
       ...prev,
@@ -19,6 +18,8 @@ class Cup {
     this.managers = [...new Set(cup.map((team) => team.manager))]; // [ manager ]
     this.groups = [...new Set(cup.map((team) => team.group))]; // [ groups ]
     this.rounds = [...new Set(cup.map((team) => team.round))]; // [ rounds ]
+    this.divisionsPlayers = divisions;
+
     this.teams = cup.map((team) => {
       const teamWithPlayers = ({
         ...team,

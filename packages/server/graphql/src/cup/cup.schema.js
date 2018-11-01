@@ -20,7 +20,23 @@ const schemaString = `
     rank: Int
   }
   
+  type DivisionPlayers {
+    teamPos: String,
+    pos: String,
+    code: Int,
+    name: String,
+    club: String,
+    manager: String 
+  }
+  
+  type DivisionsPlayers {
+    leagueOne: [DivisionPlayers]
+    championship: [DivisionPlayers]
+    premierLeague: [DivisionPlayers]
+  }
+  
   type Cup {
+    divisionsPlayers: DivisionsPlayers
     teams: [Team]
     managers: [String]
     groups: [String]

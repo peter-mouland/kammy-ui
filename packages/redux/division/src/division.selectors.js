@@ -26,7 +26,7 @@ export const getCurrentTeams = createSelector(
   ({ players = [] }) => ({
     data: players.reduce((prev, player) => ({
       ...prev,
-      [player.manager]: [...prev[player.manager], player],
+      [player.manager]: [...prev[player.manager] || {}, player],
     }), {}),
     count: players.length,
   }),

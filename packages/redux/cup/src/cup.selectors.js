@@ -2,8 +2,9 @@ import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
 const cupSelector = (state) => get(state, 'cup') || [];
-const cupTeamSelector = (state) => get(state, 'cup.teams') || [];
-const statusSelector = (state) => get(state, 'cup.status') || {};
+const cupTeamSelector = (state) => get(state, 'cup.teams');
+const statusSelector = (state) => get(state, 'cup.status');
+const divisionsPlayersSelector = (state) => get(state, 'cup.divisionsPlayers');
 
 export const getStatus = createSelector(
   statusSelector,
@@ -38,4 +39,42 @@ export const cupGroups = createSelector(
     }), {}),
     count: teams.length,
   }),
+);
+
+export const teams = createSelector(
+  getCupMetaData,
+  cupTeamSelector,
+  divisionsPlayersSelector,
+  ({ managers }, cupTeams, divisionsPlayers) => {
+    const players = []
+      .concat(divisionsPlayers.leagueOne)
+      .concat(divisionsPlayers.championship)
+      .concat(divisionsPlayers.premierLeague);
+
+    const pickedPlayers = !managers.length ? [] : managers.reduce((prev, manager) => {
+      const groupTeams = cupTeams
+        .filter((teamPlayer) => teamPlayer.manager === manager)
+        .reduce((arr, team) => ([
+          ...arr,
+          team.player1.name,
+          team.player2.name,
+          team.player3.name,
+          team.player4.name,
+        ]), []);
+      return {
+        ...prev,
+        [manager]: groupTeams,
+      };
+    }, {});
+
+    return ({
+      data: players.reduce((prev, player = {}) => {
+        const picked = pickedPlayers[player.manager].includes(player.name);
+        return ({
+          ...prev,
+          [player.manager]: [...prev[player.manager] || {}, { ...player, picked }],
+        });
+      }, {}),
+    });
+  },
 );

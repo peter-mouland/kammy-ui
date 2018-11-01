@@ -17,6 +17,7 @@ query {
       player3 { code pos name points rank }
       player4 { code pos name points rank }
     }
+    divisionsPlayers { leagueOne { name manager } championship { name manager } premierLeague { name manager } }
  }
 } 
 `),

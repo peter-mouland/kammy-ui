@@ -17,7 +17,18 @@ const rejected = (errors) => ({
   loaded: false,
 });
 
-export default function divisionReducer(state = {}, action) {
+const initialState = {
+  managers: [],
+  teams: [],
+  status: {},
+  divisionsPlayers: {
+    leagueOne: [],
+    championship: [],
+    premierLeague: [],
+  },
+};
+
+export default function divisionReducer(state = initialState, action) {
   const { payload } = action;
   const data = payload && payload.data;
   const errors = payload && payload.errors;
@@ -34,6 +45,7 @@ export default function divisionReducer(state = {}, action) {
       groups: data.getCup.groups,
       rounds: data.getCup.rounds,
       managers: data.getCup.managers,
+      divisionsPlayers: data.getCup.divisionsPlayers,
       status: fulfilled(errors),
     };
   case `${actions.FETCH_CUP}_REJECTED`:

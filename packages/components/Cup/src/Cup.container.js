@@ -9,12 +9,15 @@ function mapStateToProps(state) {
   const { data: cupGroups } = cupSelectors.cupGroups(state);
   const { managers, groups, rounds } = cupSelectors.getCupMetaData(state);
   const { loaded: cupLoaded } = cupSelectors.getStatus(state);
+  const { data: teams } = cupSelectors.teams(state);
+
   return {
     managers,
     groups,
     rounds,
     cupLoaded,
     cupGroups,
+    teams,
   };
 }
 
