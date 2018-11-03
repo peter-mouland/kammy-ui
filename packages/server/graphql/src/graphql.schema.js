@@ -21,6 +21,7 @@ const schemaString = `
   type Mutation {
     upsertPlayers(playerUpdates: [PlayerUpdates]): [UpdatedPlayer]
     mergePlayers: [UpdatedPlayer]
+    saveCupTeam(): String
   }
 `;
 

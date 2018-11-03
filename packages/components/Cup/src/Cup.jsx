@@ -4,25 +4,61 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
+import Modal from '@kammy-ui/modal';
 import PlayerPicker from './components/player-picker';
 
 const bem = bemHelper({ block: 'division-stats' });
 
-const Player = ({ team, cupTeam, player }) => {
-  const { name, points } = cupTeam[`player${player}`];
-  return name
-    ? (
-      <React.Fragment>
-        <td className={'cell'}>{name}</td>
-        <td className={'cell'}>{points}</td>
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <td className={'cell'}><PlayerPicker team={team} /></td>
-        <td></td>
-      </React.Fragment>
-    );
+const PickCupTeam = ({
+  team, manager, handleChange, handleSubmit,
+}) => (
+  <section>
+    {([1, 2, 3, 4]).map((index) => {
+      const id = `manager-${manager}-player-${index}`;
+      return (
+        <div key={id}>
+          <label htmlFor={id}>
+            <span>Player {index}: </span>
+            <PlayerPicker
+              id={id}
+              team={team} handleChange={(e) => handleChange(e, index)} />
+          </label>
+        </div>
+      );
+    })}
+    <div>
+      <button onClick={handleSubmit}>Save Cup Team</button>
+    </div>
+  </section>
+);
+
+PickCupTeam.propTypes = {
+  team: PropTypes.arrayOf(PropTypes.shape({
+    picked: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  manager: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
+
+const requiresPicker = (cupTeam) => [1, 2, 3, 4].filter((index) => cupTeam[`player${index}`].name).length === 0;
+
+const insultGenerator = (manager) => `${manager}, pick a god damn team!`;
+
+const CupPlayers = ({ cupTeam, handleClick }) => (
+  requiresPicker(cupTeam)
+    ? <td colSpan={8} style={{ textAlign: 'center' }}><button onClick={handleClick}>{insultGenerator(cupTeam.manager)}</button></td>
+    : [1, 2, 3, 4].map((index) => {
+      const { name, points } = cupTeam[`player${index}`];
+      return (
+        <React.Fragment key={index}>
+          <td className={'cell'}>{name}</td>
+          <td className={'cell'}>{points}</td>
+        </React.Fragment>
+      );
+    })
+);
 
 const PlayerProps = {
   code: PropTypes.number,
@@ -31,33 +67,60 @@ const PlayerProps = {
   rank: PropTypes.number,
 };
 
-Player.propTypes = {
+CupPlayers.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   cupTeam: PropTypes.shape({
     player1: PropTypes.shape(PlayerProps),
     player2: PropTypes.shape(PlayerProps),
     player3: PropTypes.shape(PlayerProps),
     player4: PropTypes.shape(PlayerProps),
   }).isRequired,
-  player: PropTypes.number.isRequired,
-  manager: PropTypes.string,
-  team: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    picked: PropTypes.bool,
-  })),
 };
 
 class Cup extends React.Component {
-  state = { }
+  state = {
+    showModal: false, team: null, manager: null, pickedCup: {},
+  };
 
   componentDidMount() {
     const { cupLoaded, fetchCup } = this.props;
     if (!cupLoaded) fetchCup();
   }
 
+  pickCupTeam = (team, manager) => {
+    this.setState({ showModal: true, pickCup: { team, manager } });
+  };
+
+  pickPlayer = (e, playerNumber) => {
+    const player = e.target.value;
+    this.setState((currState) => ({
+      pickedCup: {
+        ...currState.pickedCup,
+        [`player${playerNumber}`]: player,
+      },
+    }));
+  };
+
+  saveCupTeam = () => {
+    const { pickedCup, manager } = this.state;
+    this.props.saveCupTeam({ ...pickedCup, manager })
+      .then(() => {
+        this.setState({
+          showModal: false, team: null, manager: null, pickedCup: {},
+        });
+      }).catch((e) => {
+        console.error(e);
+        this.setState({
+          showModal: false, team: null, manager: null, pickedCup: {},
+        });
+      });
+  };
+
   render() {
     const {
       cupLoaded, cupGroups, label = 'Cup', groups, rounds, teams,
     } = this.props;
+    const { showModal, pickCup } = this.state;
 
     return (
       <section id="cup-page" className={bem()}>
@@ -66,6 +129,22 @@ class Cup extends React.Component {
           <Fragment>
             <Interstitial /> Data Gathering...
           </Fragment>
+        )}
+        {showModal && (
+          <Modal
+            key={'teamPicker'}
+            id={'teamPicker'}
+            wide
+            title={`${pickCup.manager} Pick your cup team`}
+            open={showModal}
+            onClose={this.closeModal}
+          >
+            <PickCupTeam
+              { ...pickCup }
+              handleChange={this.pickPlayer}
+              handleSubmit={this.saveCupTeam}
+            />
+          </Modal>
         )}
         <table className={'table'}>
           {
@@ -97,10 +176,10 @@ class Cup extends React.Component {
                           .map((team) => (
                             <tr key={`${group}-${round}-${team.manager}`} className={'row'}>
                               <td className={'cell'}>{team.manager}</td>
-                              <Player team={teams[team.manager]} cupTeam={team} player={1} />
-                              <Player team={teams[team.manager]} cupTeam={team} player={2} />
-                              <Player team={teams[team.manager]} cupTeam={team} player={3} />
-                              <Player team={teams[team.manager]} cupTeam={team} player={4} />
+                              <CupPlayers
+                                cupTeam={team}
+                                handleClick={() => this.pickCupTeam(teams[team.manager], team.manager)}
+                              />
                               <td className={'cell'}>{team.points}</td>
                               <td className={'cell'}>{team.rank}</td>
                             </tr>

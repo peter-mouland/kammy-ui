@@ -3,8 +3,6 @@ import { actions as cupActions, selectors as cupSelectors } from '@kammy-ui/redu
 
 import Cup from './Cup';
 
-const { fetchCup } = cupActions;
-
 function mapStateToProps(state) {
   const { data: cupGroups } = cupSelectors.cupGroups(state);
   const { managers, groups, rounds } = cupSelectors.getCupMetaData(state);
@@ -22,7 +20,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCup: () => dispatch(fetchCup()),
+  fetchCup: () => dispatch(cupActions.fetchCup()),
+  saveCupTeam: (args) => dispatch(cupActions.saveCupTeam(args)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cup);
