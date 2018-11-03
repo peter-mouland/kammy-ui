@@ -79,7 +79,7 @@ CupPlayers.propTypes = {
 
 class Cup extends React.Component {
   state = {
-    showModal: false, team: null, manager: null, pickedCup: {},
+    showModal: false, pickCup: {}, pickedCup: {},
   };
 
   componentDidMount() {
@@ -87,8 +87,15 @@ class Cup extends React.Component {
     if (!cupLoaded) fetchCup();
   }
 
-  pickCupTeam = (team, manager) => {
-    this.setState({ showModal: true, pickCup: { team, manager } });
+  pickCupTeam = ({
+    team, manager, group, round,
+  }) => {
+    this.setState({
+      showModal: true,
+      pickCup: {
+        team, manager, group, round,
+      },
+    });
   };
 
   pickPlayer = (e, playerNumber) => {
@@ -96,22 +103,25 @@ class Cup extends React.Component {
     this.setState((currState) => ({
       pickedCup: {
         ...currState.pickedCup,
+        manager: currState.pickCup.manager,
+        group: currState.pickCup.group,
+        round: currState.pickCup.round,
         [`player${playerNumber}`]: player,
       },
     }));
   };
 
   saveCupTeam = () => {
-    const { pickedCup, manager } = this.state;
-    this.props.saveCupTeam({ ...pickedCup, manager })
+    const { pickedCup } = this.state;
+    this.props.saveCupTeam(pickedCup)
       .then(() => {
         this.setState({
-          showModal: false, team: null, manager: null, pickedCup: {},
+          showModal: false, pickCup: {}, pickedCup: {},
         });
       }).catch((e) => {
         console.error(e);
         this.setState({
-          showModal: false, team: null, manager: null, pickedCup: {},
+          showModal: false, pickCup: {}, pickedCup: {},
         });
       });
   };
@@ -178,7 +188,9 @@ class Cup extends React.Component {
                               <td className={'cell'}>{team.manager}</td>
                               <CupPlayers
                                 cupTeam={team}
-                                handleClick={() => this.pickCupTeam(teams[team.manager], team.manager)}
+                                handleClick={() => this.pickCupTeam({
+                                  team: teams[team.manager], manager: team.manager, group, round,
+                                })}
                               />
                               <td className={'cell'}>{team.points}</td>
                               <td className={'cell'}>{team.rank}</td>

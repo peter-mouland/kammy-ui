@@ -56,6 +56,7 @@ const upsertPlayers = async ({ players, gameWeeks }) => {
     const dbPlayer = dbPlayers[player.code];
     try {
       const playerWithStats = getPlayerWithStats({ player, dbPlayer, gameWeeks });
+      // todo: replace with findOneAndUpdate!!
       return (!dbPlayer)
         ? new Player(playerWithStats).save()
         : Player.findByIdAndUpdate(dbPlayer._id, playerWithStats).exec();

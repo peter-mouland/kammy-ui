@@ -1,4 +1,14 @@
 const schemaString = `
+  input CupTeamInput {
+    player1: String
+    player2: String
+    player3: String
+    player4: String
+    manager: String
+    group: String
+    round: Int
+  }
+
   type CupPlayer {
     code: Int
     pos: String
@@ -33,6 +43,11 @@ const schemaString = `
     leagueOne: [DivisionPlayers]
     championship: [DivisionPlayers]
     premierLeague: [DivisionPlayers]
+  }
+  
+  type MutateResponse {
+      success: Boolean
+      message: String
   }
   
   type Cup {

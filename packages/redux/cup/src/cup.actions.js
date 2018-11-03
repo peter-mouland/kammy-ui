@@ -26,25 +26,18 @@ query {
   };
 }
 
-export function saveCupTeam({
-  player1, player2, player3, player4, manager,
-}) {
-  console.log(player1, player2, player3, player4, manager);
+export function saveCupTeam(cupTeamInput) {
   return {
     type: SAVE_CUP,
     payload: {
       promise: fetchGraphQL(`
-mutation SaveCupTeam($player1: String, $player2: String, $player3: String, $player4: String, $manager: String) { 
+mutation SaveCupTeam($cupTeamInput: CupTeamInput) { 
   saveCupTeam(
-    player1: $player1,
-    player2: $player2,
-    player3: $player3,
-    player4: $player4,
-    manager: $manager
-  ) { message }   
+    cupTeamInput: $cupTeamInput,
+  ) { success message }
 }
     `, {
-        player1, player2, player3, player4, manager,
+        cupTeamInput,
       }),
     },
   };

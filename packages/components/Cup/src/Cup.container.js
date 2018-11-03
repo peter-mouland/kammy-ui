@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCup: () => dispatch(cupActions.fetchCup()),
-  saveCupTeam: (args) => dispatch(cupActions.saveCupTeam(args)),
+  saveCupTeam: (cupTeamInput) => dispatch(cupActions.saveCupTeam(cupTeamInput)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cup);
