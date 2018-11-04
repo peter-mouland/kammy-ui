@@ -9,43 +9,9 @@ import { Provider } from 'react-redux';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
-import AdminCup from '@kammy-ui/admin-cup-page';
-import Cup from '@kammy-ui/cup-page';
-import RulesPage from '@kammy-ui/rules-page';
-import AdminPlayersPage from '@kammy-ui/admin-players-page';
-import PremierLeagueTeams from '@kammy-ui/premier-league-teams';
-import ChampionshipTeams from '@kammy-ui/championship-teams';
-import LeagueOneTeams from '@kammy-ui/league-one-teams';
-import PremierLeagueRankings from '@kammy-ui/premier-league-rankings';
-import ChampionshipRankings from '@kammy-ui/championship-rankings';
-import LeagueOneRankings from '@kammy-ui/league-one-rankings';
-import TransfersPage from '@kammy-ui/transfers-page';
-import PremierLeaguePlayersPage from '@kammy-ui/premier-league-players-page';
-import ChampionshipPlayersPage from '@kammy-ui/championship-players-page';
-import LeagueOnePlayersPage from '@kammy-ui/league-one-players-page';
-
-// todo import pages dynamically
-const pages = {
-  AdminCup,
-  Cup,
-  RulesPage,
-  AdminPlayersPage,
-  TransfersPage,
-  PremierLeagueTeams,
-  PremierLeagueRankings,
-  PremierLeaguePlayersPage,
-  ChampionshipTeams,
-  ChampionshipRankings,
-  ChampionshipPlayersPage,
-  LeagueOneTeams,
-  LeagueOnePlayersPage,
-  LeagueOneRankings,
-};
+import * as pages from './pages';
 
 const navigator = global.navigator && global.navigator.userAgent;
-// hasWindow = true for tests + client
-export const hasWindow = typeof window !== 'undefined';
-// isBrowser = true for client only
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 export const Router = isBrowser ? BrowserRouter : StaticRouter;
 
