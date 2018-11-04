@@ -19,6 +19,4 @@ const mongooseSchema = {
   round: Number,
 };
 
-console.log('CREATE CUP SCHEMA');
-
 export default mongoose.model('Cup', new mongoose.Schema(mongooseSchema));

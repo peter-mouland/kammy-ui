@@ -15,6 +15,7 @@ const schemaString = `
     getPlayer(code: Int): Player
     getDivision(division: String): Division
     getCup: Cup
+    getDraftCup: [CupTeam]
     getGameWeeks: GameWeeks
   }
   

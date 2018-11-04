@@ -18,5 +18,14 @@ const saveCupTeam = async ({ cupTeamInput: team } = {}) => {
   }
 };
 
+const getDraftCup = async () => {
+  try {
+    return await getCupTeam();
+  } catch (e) {
+    console.error(e);
+    return {};
+  }
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export { saveCupTeam };
+export { saveCupTeam, getDraftCup };

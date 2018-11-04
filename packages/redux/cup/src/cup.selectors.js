@@ -3,8 +3,15 @@ import get from '@kammy-ui/helpers.get';
 
 const cupSelector = (state) => get(state, 'cup') || [];
 const cupTeamSelector = (state) => get(state, 'cup.teams');
+const cupDraftSelector = (state) => get(state, 'cup.draftCup');
+const cupDraftLoadedSelector = (state) => get(state, 'cup.draftCupLoaded');
 const statusSelector = (state) => get(state, 'cup.status');
 const divisionsPlayersSelector = (state) => get(state, 'cup.divisionsPlayers');
+
+export const getDraftCup = createSelector(
+  cupDraftSelector,
+  cupDraftLoadedSelector,
+  (draftCup, loaded) => ({ draftCup, loaded }));
 
 export const getStatus = createSelector(
   statusSelector,

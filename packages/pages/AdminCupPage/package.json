@@ -1,5 +1,5 @@
 {
-  "name": "@kammy-ui/cup",
+  "name": "@kammy-ui/admin-cup-page",
   "version": "0.0.17",
   "description": "Kammy UI Component: Cup",
   "main": "dist/index.min.js",

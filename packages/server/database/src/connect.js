@@ -36,7 +36,6 @@ const connect = (uri, options) => {
 export default async (uri) => {
   if (!connection && uri) {
     connection = connect(uri);
-    console.log('CONNECT!');
     require('./models/player.schema');
     require('./models/cup.schema');
   }

@@ -21,6 +21,7 @@ const initialState = {
   managers: [],
   teams: [],
   status: {},
+  draftCupLoaded: false,
   divisionsPlayers: {
     leagueOne: [],
     championship: [],
@@ -47,6 +48,17 @@ export default function divisionReducer(state = initialState, action) {
       managers: data.getCup.managers,
       divisionsPlayers: data.getCup.divisionsPlayers,
       status: fulfilled(errors),
+    };
+  case actions.FETCH_DRAFT_CUP:
+    return {
+      ...state,
+      draftCupLoaded: false,
+    };
+  case `${actions.FETCH_DRAFT_CUP}_FULFILLED`:
+    return {
+      ...state,
+      draftCup: data.getDraftCup,
+      draftCupLoaded: true,
     };
   case `${actions.FETCH_CUP}_REJECTED`:
     return {

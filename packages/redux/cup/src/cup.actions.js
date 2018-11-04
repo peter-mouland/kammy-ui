@@ -1,6 +1,7 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_CUP = 'FETCH_CUP';
+export const FETCH_DRAFT_CUP = 'FETCH_DRAFT_CUP';
 export const SAVE_CUP = 'SAVE_CUP';
 
 export function fetchCup() {
@@ -19,6 +20,21 @@ query {
       player4 { code pos name points rank }
     }
     divisionsPlayers { leagueOne { name manager } championship { name manager } premierLeague { name manager } }
+ }
+} 
+`),
+    },
+  };
+}
+
+export function fetchDraftCup() {
+  return {
+    type: FETCH_DRAFT_CUP,
+    payload: {
+      promise: fetchGraphQL(`
+query { 
+  getDraftCup {
+    round group manager player1 player2 player3 player4 
  }
 } 
 `),

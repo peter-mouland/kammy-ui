@@ -1,4 +1,14 @@
 const schemaString = `
+  type CupTeam {
+    player1: String
+    player2: String
+    player3: String
+    player4: String
+    manager: String
+    group: String
+    round: Int
+  }
+
   input CupTeamInput {
     player1: String
     player2: String

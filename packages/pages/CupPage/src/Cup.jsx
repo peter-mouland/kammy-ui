@@ -144,7 +144,6 @@ class Cup extends React.Component {
           <Modal
             key={'teamPicker'}
             id={'teamPicker'}
-            wide
             title={`${pickCup.manager} Pick your cup team`}
             open={showModal}
             onClose={this.closeModal}

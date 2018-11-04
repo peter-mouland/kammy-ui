@@ -172,4 +172,17 @@ export default [
     component: 'AdminPlayersPage',
     template: 'default',
   },
+  {
+    name: 'admin-cup',
+    exact: true,
+    path: '/admin/cup/',
+    meta: {
+      title: 'Kammy Admin - Admin Cup',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Cup',
+    requiresAuthentication: false,
+    component: 'AdminCup',
+    template: 'default',
+  },
 ];
