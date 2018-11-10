@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import MultiToggle from '@kammy-ui/multi-toggle';
 
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
@@ -8,6 +9,7 @@ import Modal from '@kammy-ui/modal';
 import PlayerPicker from './components/player-picker';
 
 const bem = bemHelper({ block: 'division-stats' });
+const ALL = 'All';
 
 const PickCupTeam = ({
   team, manager, handleChange, handleSubmit,
@@ -42,13 +44,35 @@ PickCupTeam.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 };
 
+const RoundHeader = ({ round, selectedRound }) => (
+  selectedRound === ALL && (
+    <thead>
+      <tr className={'row'}>
+        <th className={'cell'} colSpan={11}>Round {round}</th>
+      </tr>
+    </thead>
+  )
+);
+
+const GroupHeader = ({ group, selectedGroup }) => (
+  selectedGroup === ALL && (
+    <tr className={'row'}>
+      <th className={'cell'} colSpan={11}>Group {group}</th>
+    </tr>
+  )
+);
+
 const requiresPicker = (cupTeam) => [1, 2, 3, 4].filter((index) => cupTeam[`player${index}`].name).length === 0;
 
 const insultGenerator = (manager) => `${manager}, pick a god damn team!`;
 
 const CupPlayers = ({ cupTeam, handleClick }) => (
   requiresPicker(cupTeam)
-    ? <td colSpan={8} style={{ textAlign: 'center' }}><button onClick={handleClick}>{insultGenerator(cupTeam.manager)}</button></td>
+    ? (
+      <td colSpan={8} style={{ textAlign: 'center' }}>
+        <button onClick={handleClick}>{insultGenerator(cupTeam.manager)}</button>
+      </td>
+    )
     : [1, 2, 3, 4].map((index) => {
       const { name, points } = cupTeam[`player${index}`];
       return (
@@ -79,12 +103,32 @@ CupPlayers.propTypes = {
 
 class Cup extends React.Component {
   state = {
-    showModal: false, pickCup: {}, pickedCup: {},
+    showModal: false, pickCup: {}, pickedCup: {}, selectedRound: ALL, selectedGroup: ALL,
   };
 
   componentDidMount() {
     const { cupLoaded, fetchCup } = this.props;
     if (!cupLoaded) fetchCup();
+  }
+
+  get filteredRounds() {
+    const { rounds } = this.props;
+    const { selectedRound } = this.state;
+    return selectedRound && selectedRound !== ALL ? rounds.filter((round) => round === selectedRound) : rounds;
+  }
+
+  get filteredGroups() {
+    const { groups } = this.props;
+    const { selectedGroup } = this.state;
+    return selectedGroup && selectedGroup !== ALL ? groups.filter((group) => group === selectedGroup) : groups;
+  }
+
+  selectGroup = (option) => {
+    this.setState({ selectedGroup: option });
+  }
+
+  selectRound = (option) => {
+    this.setState({ selectedRound: option });
   }
 
   pickCupTeam = ({
@@ -130,14 +174,16 @@ class Cup extends React.Component {
     const {
       cupLoaded, cupGroups, label = 'Cup', groups, rounds, teams,
     } = this.props;
-    const { showModal, pickCup } = this.state;
+    const {
+      showModal, pickCup, selectedRound, selectedGroup,
+    } = this.state;
 
     return (
       <section id="cup-page" className={bem()}>
         <h1>{label}</h1>
         {!cupLoaded && (
           <Fragment>
-            <Interstitial /> Data Gathering...
+            <Interstitial/> Data Gathering...
           </Fragment>
         )}
         {showModal && (
@@ -149,27 +195,39 @@ class Cup extends React.Component {
             onClose={this.closeModal}
           >
             <PickCupTeam
-              { ...pickCup }
+              {...pickCup}
               handleChange={this.pickPlayer}
               handleSubmit={this.saveCupTeam}
             />
           </Modal>
         )}
+        <div>
+          <MultiToggle
+            label={'Rounds'}
+            id={'rounds-filter'}
+            onChange={this.selectRound}
+            checked={selectedRound}
+            options={[ALL].concat(rounds)}
+          />
+        </div>
+        <div>
+          <MultiToggle
+            label={'Groups'}
+            id={'groups-filter'}
+            onChange={this.selectGroup}
+            checked={selectedGroup}
+            options={[ALL].concat(groups)}
+          />
+        </div>
         <table className={'table'}>
           {
-            rounds.map((round) => (
+            this.filteredRounds.map((round) => (
               <Fragment key={`${round}`}>
-                <thead>
-                  <tr className={'row'}>
-                    <th className={'cell'} colSpan={11}>Round {round}</th>
-                  </tr>
-                </thead>
+                <RoundHeader selectedRound={selectedRound} round={round} />
                 {
-                  groups.map((group) => (
-                    <tbody key={`${group}-${round}`} >
-                      <tr className={'row'}>
-                        <th className={'cell'} colSpan={11}>{group}</th>
-                      </tr>
+                  this.filteredGroups.map((group) => (
+                    <tbody key={`${group}-${round}`}>
+                      <GroupHeader selectedGroup={selectedGroup} group={group} />
                       <tr className={'row'}>
                         <th className={'cell'}>Manager</th>
                         <th colSpan={2} className={'cell'}>player1</th>

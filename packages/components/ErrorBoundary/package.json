@@ -16,6 +16,6 @@
   "license": "ISC",
   "peerDependencies": {
     "prop-types": "^15.6.2",
-    "react": "^16.4.2"
+    "react": "^16.6.0"
   }
 }
