@@ -33,15 +33,16 @@ class TransfersPage extends React.Component {
   }
 
   updatePlayerOut = (playerOut) => {
-    this.setState({ playerOut: this.state.playerOut ? null : playerOut });
+    this.setState({ playerOut: this.state.playerOut === playerOut ? null : playerOut });
   }
 
   updatePlayerIn = (playerIn) => {
-    this.setState({ playerIn: this.state.playerIn ? null : playerIn });
+    this.setState({ playerIn });
   }
 
-  swapPlayer = (swapPlayer) => {
-    this.setState({ swapPlayer });
+  confirmTransfer = () => {
+    const { playerIn, playerOut, changeType } = this.state;
+    console.log({ playerIn, playerOut, changeType });
   }
 
   getStep = () => {
@@ -67,7 +68,6 @@ class TransfersPage extends React.Component {
 
     const intGameWeek = 39;
     const step = this.getStep();
-    // const invalidTeams = this.getInvalidTeams();
 
     return (
       <div className={bem(null, null, 'page-content')}>
@@ -104,6 +104,16 @@ class TransfersPage extends React.Component {
             searchString={searchString}
             players={players}
           />
+        )}
+        {playerIn && playerOut && changeType && (
+          <div>
+            <p><strong>{playerIn.label}</strong> for <strong>{playerOut.name}</strong></p>
+            <div>
+              <button type='button' onClick={this.confirmTransfer}>
+                Confirm {changeType}?
+              </button>
+            </div>
+          </div>
         )}
       </div>
     );

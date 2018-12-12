@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Svg from '@kammy-ui/svg';
 import bemHelper from '@kammy-ui/bem';
 
-import changeIcon from '../lib/change.svg';
+import exit from '../lib/exit.svg';
 
 const bem = bemHelper({ block: 'transfers-page' });
 
@@ -19,11 +19,6 @@ class Team extends React.Component {
         <table className='table'>
           <tbody>
             {team
-              .filter((teamSheetItem) => {
-                const player = teamSheetItem.gameWeeks[intGameWeek];
-                const selected = changePlayer && (player.name === changePlayer.name);
-                return !changePlayer ? true : selected;
-              })
               .map((teamSheetItem) => {
                 const player = teamSheetItem.gameWeeks[intGameWeek];
                 const selected = changePlayer && (player.name === changePlayer.name);
@@ -41,12 +36,17 @@ class Team extends React.Component {
                     </td>
                     <td className={'cell cell--club'}>{player.club}</td>
                     <td>
-                      <Svg
-                        className={'change-icon'}
+                      <button
+                        type='button'
                         onClick={() => onSelect(player)}
+                        className={'change-icon-button'}
                       >
-                        {changeIcon}
-                      </Svg>
+                        <Svg
+                          className={'change-icon'}
+                        >
+                          {exit}
+                        </Svg>
+                      </button>
                     </td>
                   </tr>
                 );

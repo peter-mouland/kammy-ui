@@ -12,7 +12,9 @@ class Players extends React.Component {
     return (
       <Fragment>
         <h3>Who is in?</h3>
-        <DataListInput placeholder={'Search by player name...'} items={players} onSelect={onSelect} />
+        <div className='transfer-player__input'>
+          <DataListInput placeholder={'Search by player name...'} items={players} onSelect={onSelect} />
+        </div>
       </Fragment>
     );
   }

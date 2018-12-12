@@ -1,6 +1,27 @@
 .change-icon {
   display: block;
   width: 20px;
+  height: 29px;
+  background: white;
+}
+
+button:not(:disabled).change-icon-button {
+  transition: background-color 200ms;
+  background-color: black;
+
+  &:focus,
+  &:hover {
+    background-color: green;
+
+    svg {
+      fill: green;
+    }
+  }
+
+  svg { /* stylelint-disable-line no-descending-specificity */
+    fill: black;
+    transition: fill 200ms;
+  }
 }
 
 .transfers-page {
@@ -8,5 +29,13 @@
     &--selected {
       font-weight: bold;
     }
+  }
+}
+
+.transfer-player__input {
+  max-width: 450px;
+
+  input {
+    font-size: 1.25em;
   }
 }
