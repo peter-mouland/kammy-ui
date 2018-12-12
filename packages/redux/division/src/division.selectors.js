@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
-const currentTeamSelector = (state, division) => get(state, `division.${division}.currentTeams`) || {};
-const statusSelector = (state, division) => get(state, `division.${division}.status`) || {};
+import formatDivision from './format-division';
+
+const currentTeamSelector = (state, division) => get(state, `division.${formatDivision(division)}.currentTeams`) || {};
+const statusSelector = (state, division) => get(state, `division.${formatDivision(division)}.status`) || {};
 
 export const getStatus = createSelector(
   statusSelector,

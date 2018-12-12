@@ -21,7 +21,10 @@ class TransfersPageLoader extends React.Component {
     const {
       fetchDbPlayers, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
       playersLoaded, premierLeagueLoaded, championshipLoaded, leagueOneLoaded, transfersLoaded, gameWeeksLoaded,
+      fetchCurrentTeams, division, divisionTeamsLoaded,
     } = this.props;
+
+    if (!divisionTeamsLoaded) fetchCurrentTeams(division);
     if (!playersLoaded) fetchDbPlayers();
     if (!premierLeagueLoaded) fetchPremierLeague();
     if (!championshipLoaded) fetchChampionship();
@@ -32,7 +35,7 @@ class TransfersPageLoader extends React.Component {
 
   getTransferPageProps = () => {
     const {
-      premierLeague, championship, leagueOne, gameWeeks, players, transfers, division,
+      premierLeague, championship, leagueOne, gameWeeks, players, transfers, division, divisionTeams,
     } = this.props;
 
     const divisions = {
@@ -49,7 +52,7 @@ class TransfersPageLoader extends React.Component {
     });
 
     return {
-      gameWeeks, managersSeason, teams, players: playersArray(players),
+      gameWeeks, managersSeason, teams, players: playersArray(players), divisionTeams,
     };
   };
 
@@ -84,7 +87,7 @@ class TransfersPageLoader extends React.Component {
 TransfersPageLoader.propTypes = {
   division: PropTypes.string.isRequired,
   loaded: PropTypes.bool,
-  players: PropTypes.object,
+  players: PropTypes.array,
   transfers: PropTypes.object,
   managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
@@ -136,7 +139,7 @@ TransfersPageLoader.defaultProps = {
   leagueOneLoading: false,
   premierLeagueSeason: {},
   transfers: {},
-  Players: {},
+  Players: [],
   PlayersCount: null,
   gameWeeks: [],
   gameWeeksCount: null,

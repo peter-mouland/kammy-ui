@@ -10,7 +10,7 @@ const bem = bemHelper({ block: 'transfers-page' });
 class Team extends React.Component {
   render() {
     const {
-      changePlayer, intGameWeek, onSelect, team,
+      changePlayer, onSelect, team,
     } = this.props;
 
     return (
@@ -19,8 +19,7 @@ class Team extends React.Component {
         <table className='table'>
           <tbody>
             {team
-              .map((teamSheetItem) => {
-                const player = teamSheetItem.gameWeeks[intGameWeek];
+              .map((player, i) => {
                 const selected = changePlayer && (player.name === changePlayer.name);
                 return (
                   <tr
@@ -28,8 +27,8 @@ class Team extends React.Component {
                     className={bem('item', { selected })}
                   >
                     <td className={'cell cell--team-position'}>
-                      {teamSheetItem.pos}
-                      {teamSheetItem.teamPos === 'SUB' && ' (SUB)'}
+                      {player.pos}
+                      {i === 11 && ' (SUB)'}
                     </td>
                     <td className={'cell cell--player'}>
                       {player.name}

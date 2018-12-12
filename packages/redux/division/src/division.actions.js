@@ -1,5 +1,7 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
+import formatDivision from './format-division';
+
 export const FETCH_DIVISION = 'FETCH_DIVISION';
 export const FETCH_DIVISION_CURRENT_TEAMS = 'FETCH_DIVISION_CURRENT_TEAMS';
 
@@ -44,6 +46,7 @@ query ($division: String) {
 }
 
 export function fetchCurrentTeams(division) {
+  const formattedDivision = formatDivision(division);
   return {
     type: FETCH_DIVISION_CURRENT_TEAMS,
     payload: {
@@ -59,8 +62,8 @@ query ($division: String) {
     }
  }
 } 
-`, division ? { division } : undefined),
-      data: { data: { division } },
+`, formattedDivision ? { division: formattedDivision } : undefined),
+      data: { data: { division: formattedDivision } },
     },
   };
 }
