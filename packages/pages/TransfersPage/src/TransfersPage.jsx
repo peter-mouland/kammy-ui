@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
 
-import Swap from './components/Sub';
 import Team from './components/Team';
+import Players from './components/Players';
+
 import './transferPage.scss';
 
 const bem = bemHelper({ block: 'transfers-page' });
@@ -14,7 +15,9 @@ class TransfersPage extends React.Component {
   state = {
     displayManager: null,
     changeType: null,
-    changePlayer: null,
+    playerIn: null,
+    playerOut: null,
+    searchString: '',
   }
 
   updateDisplayManager = (displayManager) => {
@@ -25,8 +28,16 @@ class TransfersPage extends React.Component {
     this.setState({ changeType });
   }
 
-  updateChangePlayer = (changePlayer) => {
-    this.setState({ changePlayer });
+  updateSearch = (searchString) => {
+    this.setState({ searchString });
+  }
+
+  updatePlayerOut = (playerOut) => {
+    this.setState({ playerOut: this.state.playerOut ? null : playerOut });
+  }
+
+  updatePlayerIn = (playerIn) => {
+    this.setState({ playerIn: this.state.playerIn ? null : playerIn });
   }
 
   swapPlayer = (swapPlayer) => {
@@ -34,9 +45,12 @@ class TransfersPage extends React.Component {
   }
 
   getStep = () => {
-    const { displayManager, changeType, changePlayer } = this.state;
+    const {
+      displayManager, changeType, playerOut, playerIn,
+    } = this.state;
     switch (true) {
-    case !!changePlayer: return 4;
+    case !!playerIn: return 4;
+    case !!playerOut: return 4;
     case !!changeType: return 3;
     case !!displayManager: return 2;
     default: return 1;
@@ -46,8 +60,10 @@ class TransfersPage extends React.Component {
   getInvalidTeams = () => null;
 
   render() {
-    const { teams, managersSeason } = this.props;
-    const { displayManager, changeType, changePlayer } = this.state;
+    const { teams, managersSeason, players } = this.props;
+    const {
+      displayManager, changeType, playerOut, playerIn, searchString,
+    } = this.state;
 
     const intGameWeek = 39;
     const step = this.getStep();
@@ -64,35 +80,29 @@ class TransfersPage extends React.Component {
         />
         {step > 1 && (
           <MultiToggle
-            label={'What type of team-sheet change?'}
+            label={'What are you doing?'}
             id={'change-type'}
             options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
             checked={changeType}
             onChange={this.updateChangeType}
           />
         )}
-        {step > 2 && changeType !== 'Swap' && (
+        {step > 2 && (
           <Team
-            changePlayer={changePlayer}
-            changeType={changeType}
+            changePlayer={playerOut}
             intGameWeek={intGameWeek}
-            updateChangePlayer={this.updateChangePlayer}
+            onSelect={this.updatePlayerOut}
             team={managersSeason[displayManager]}
           />
         )}
-        {step > 2 && changeType === 'Swap' && (
-          <Swap
-            intGameWeek={intGameWeek}
-            updateChangePlayer={this.swapPlayer}
-            team={managersSeason[displayManager]}
-          />
-        )}
-        {step > 3 && (
-          <Swap
-            changePlayer={changePlayer}
-            intGameWeek={intGameWeek}
-            updateChangePlayer={this.swapPlayer}
-            team={managersSeason[displayManager]}
+        {step > 3 && players && (
+          <Players
+            playerOut={playerOut}
+            playerIn={playerIn}
+            onSelect={this.updatePlayerIn}
+            onSearch={this.updateSearch}
+            searchString={searchString}
+            players={players}
           />
         )}
       </div>
@@ -102,6 +112,7 @@ class TransfersPage extends React.Component {
 
 TransfersPage.propTypes = {
   gameWeeks: PropTypes.array,
+  players: PropTypes.array,
   teams: PropTypes.object,
   managersSeason: PropTypes.object,
 };

@@ -5,6 +5,7 @@
 ## Dev
 
 ### WebApp
+ * `yarn mongo`
  * `yarn watch`
  * `yarn start:webapp:dev`
 

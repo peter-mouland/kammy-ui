@@ -30,19 +30,6 @@ export default [
     template: 'default',
   },
   {
-    name: 'transfers',
-    exact: true,
-    path: '/admin/transfers/',
-    meta: {
-      title: 'Kammy Admin - Transfers',
-      description: 'Kammy : Fantasy Football',
-    },
-    label: 'Transfers',
-    requiresAuthentication: false,
-    component: 'TransfersPage',
-    template: 'default',
-  },
-  {
     name: 'premierLeague-teams',
     exact: true,
     path: '/premier-league/teams',
@@ -79,6 +66,22 @@ export default [
     label: 'Players',
     requiresAuthentication: false,
     component: 'PremierLeaguePlayersPage',
+    template: 'default',
+  },
+  {
+    name: 'premierLeague-transfers',
+    exact: true,
+    path: '/premier-league/transfers/',
+    meta: {
+      title: 'Kammy premier-league - Transfers',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Transfers',
+    props: {
+      division: 'premierLeague',
+    },
+    requiresAuthentication: false,
+    component: 'TransfersPage',
     template: 'default',
   },
   {
@@ -121,6 +124,22 @@ export default [
     template: 'default',
   },
   {
+    name: 'championship-transfers',
+    exact: true,
+    path: '/championship/transfers/',
+    meta: {
+      title: 'Kammy Championship - Transfers',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Transfers',
+    props: {
+      division: 'championship',
+    },
+    requiresAuthentication: false,
+    component: 'TransfersPage',
+    template: 'default',
+  },
+  {
     name: 'leagueOne-teams',
     exact: true,
     path: '/league-one/teams',
@@ -157,6 +176,22 @@ export default [
     label: 'Players',
     requiresAuthentication: false,
     component: 'LeagueOnePlayersPage',
+    template: 'default',
+  },
+  {
+    name: 'leagueOne-transfers',
+    exact: true,
+    path: '/league-one/transfers/',
+    meta: {
+      title: 'Kammy League One - Transfers',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Transfers',
+    props: {
+      division: 'leagueOne',
+    },
+    requiresAuthentication: false,
+    component: 'TransfersPage',
     template: 'default',
   },
   {

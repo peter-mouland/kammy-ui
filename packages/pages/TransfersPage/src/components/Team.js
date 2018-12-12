@@ -10,40 +10,47 @@ const bem = bemHelper({ block: 'transfers-page' });
 class Team extends React.Component {
   render() {
     const {
-      changePlayer, changeType, intGameWeek, updateChangePlayer, team,
+      changePlayer, intGameWeek, onSelect, team,
     } = this.props;
+
     return (
       <Fragment>
-        <h3>Who would you like to <em>{changeType}</em> out?</h3>
+        <h3>Who is out?</h3>
         <table className='table'>
           <tbody>
-            {team.map((teamSheetItem) => {
-              const player = teamSheetItem.gameWeeks[intGameWeek];
-              const selected = changePlayer && (player.name === changePlayer.name);
-              return (
-                <tr
-                  key={player.name}
-                  className={bem('item', { selected })}
-                >
-                  <td className={'cell cell--team-position'}>
-                    {teamSheetItem.teamPos}
-                  </td>
-                  <td className={'cell cell--player'}>
-                    {player.name}
-                  </td>
-                  <td className={'cell cell--position'}>{player.pos}</td>
-                  <td className={'cell cell--club'}>{player.club}</td>
-                  <td>
-                    <Svg
-                      className={'change-icon'}
-                      onClick={() => updateChangePlayer(player)}
-                    >
-                      {changeIcon}
-                    </Svg>
-                  </td>
-                </tr>
-              );
-            })}
+            {team
+              .filter((teamSheetItem) => {
+                const player = teamSheetItem.gameWeeks[intGameWeek];
+                const selected = changePlayer && (player.name === changePlayer.name);
+                return !changePlayer ? true : selected;
+              })
+              .map((teamSheetItem) => {
+                const player = teamSheetItem.gameWeeks[intGameWeek];
+                const selected = changePlayer && (player.name === changePlayer.name);
+                return (
+                  <tr
+                    key={player.name}
+                    className={bem('item', { selected })}
+                  >
+                    <td className={'cell cell--team-position'}>
+                      {teamSheetItem.pos}
+                      {teamSheetItem.teamPos === 'SUB' && ' (SUB)'}
+                    </td>
+                    <td className={'cell cell--player'}>
+                      {player.name}
+                    </td>
+                    <td className={'cell cell--club'}>{player.club}</td>
+                    <td>
+                      <Svg
+                        className={'change-icon'}
+                        onClick={() => onSelect(player)}
+                      >
+                        {changeIcon}
+                      </Svg>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </Fragment>
@@ -52,11 +59,10 @@ class Team extends React.Component {
 }
 
 Team.propTypes = {
-  changeType: PropTypes.string.isRequired,
   intGameWeek: PropTypes.number.isRequired,
-  changePlayer: PropTypes.object.isRequired,
+  changePlayer: PropTypes.object,
   team: PropTypes.array.isRequired,
-  updateChangePlayer: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default Team;

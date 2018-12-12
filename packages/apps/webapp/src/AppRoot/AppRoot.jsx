@@ -18,12 +18,14 @@ export const Router = isBrowser ? BrowserRouter : StaticRouter;
 export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>
-      {appConfig.routes.map(({ name, component, ...routeProps }) => (
+      {appConfig.routes.map(({
+        name, component, props: componentProps, ...routeProps
+      }) => (
         <Route key={name} {...routeProps} render={(matchProps) => {
           const Component = pages[component];
           return (
             <DefaultTemplate>
-              <Component {...matchProps} />
+              <Component {...matchProps} {...componentProps} />
             </DefaultTemplate>
           );
         }}/>
