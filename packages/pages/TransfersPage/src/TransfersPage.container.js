@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
+import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 
 import TransfersPageLoader from './TransfersPage.loader';
 
@@ -11,14 +12,21 @@ const {
 const { fetchGameWeeks } = gameWeekActions;
 
 const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
+const { fetchCurrentTeams } = divisionActions;
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
+  const { data: divisionTeams } = divisionSelectors.getCurrentTeams(state, division);
+  const { loaded: divisionTeamsLoaded } = divisionSelectors.getStatus(state, division);
+
   const {
     loading: gameWeeksLoading, loaded: gameWeeksLoaded, errors: gameWeeksErrors,
   } = gameWeekSelectors.getStatus(state);
+
   const props = {
-    players: state.players.data,
+    divisionTeams,
+    divisionTeamsLoaded,
+    players: state.players.data ? Object.values(state.players.data) : null,
     playersCount: state.players.count,
     playersLoading: state.players.loading,
     playersLoaded: state.players.loaded,
@@ -68,6 +76,12 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    fetchGameWeeks, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchDbPlayers,
+    fetchGameWeeks,
+    fetchPremierLeague,
+    fetchChampionship,
+    fetchLeagueOne,
+    fetchTransfers,
+    fetchDbPlayers,
+    fetchCurrentTeams,
   },
 )(TransfersPageLoader);

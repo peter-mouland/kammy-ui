@@ -61,12 +61,11 @@ class TransfersPage extends React.Component {
   getInvalidTeams = () => null;
 
   render() {
-    const { teams, managersSeason, players } = this.props;
+    const { teams, players, divisionTeams } = this.props;
     const {
       displayManager, changeType, playerOut, playerIn, searchString,
     } = this.state;
 
-    const intGameWeek = 39;
     const step = this.getStep();
 
     return (
@@ -90,9 +89,8 @@ class TransfersPage extends React.Component {
         {step > 2 && (
           <Team
             changePlayer={playerOut}
-            intGameWeek={intGameWeek}
             onSelect={this.updatePlayerOut}
-            team={managersSeason[displayManager]}
+            team={divisionTeams[displayManager]}
           />
         )}
         {step > 3 && players && (
@@ -124,13 +122,13 @@ TransfersPage.propTypes = {
   gameWeeks: PropTypes.array,
   players: PropTypes.array,
   teams: PropTypes.object,
-  managersSeason: PropTypes.object,
+  divisionTeams: PropTypes.object,
 };
 
 TransfersPage.defaultProps = {
   gameWeeks: [],
   teams: {},
-  managersSeason: {},
+  divisionTeams: {},
 };
 
 export default TransfersPage;
