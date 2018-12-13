@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/data-team-season",
+  "name": "@kammy-ui/helpers-to-date",
   "version": "0.0.18",
-  "description": "Kammy UI Data: Team Season",
+  "description": "Kammy UI Helper: toDate",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {
@@ -16,9 +16,5 @@
   "license": "ISC",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@kammy-ui/data-player-stats": "^0.0.18",
-    "@kammy-ui/helpers-to-date": "^0.0.18"
   }
 }

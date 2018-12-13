@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/helpers-to-date": "^0.0.18",
     "google-spreadsheet": "^2.0.5"
   }
 }

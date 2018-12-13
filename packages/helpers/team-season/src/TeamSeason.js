@@ -1,4 +1,5 @@
 import { playerStats } from '@kammy-ui/data-player-stats';
+import toDate from '@kammy-ui/helpers-to-date';
 
 import calculateSeasonStats from './calculateSeason';
 
@@ -8,16 +9,6 @@ export const UNKNOWN_PLAYER = (name) => ({
   club: '',
   code: 0,
 });
-
-export const toDate = (string = '') => {
-  const SEPARATOR = '-';
-  const newDateString = string.replace(/\//g, SEPARATOR).replace(/ /g, 'T');
-  const dateWithTwoDigits = newDateString
-    .split(SEPARATOR)
-    .map((part) => (part.length === 1 ? `0${part}` : part))
-    .join(SEPARATOR);
-  return new Date(dateWithTwoDigits); // needed to fix safari
-};
 
 class TeamSeason {
   constructor({

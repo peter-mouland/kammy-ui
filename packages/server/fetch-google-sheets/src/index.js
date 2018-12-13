@@ -1,3 +1,5 @@
+import toDate from '@kammy-ui/helpers-to-date';
+
 import GoogleSpreadsheet from './GoogleSpreadsheet';
 import GoogleSpreadsheetCred from './google-generated-creds.json';
 
@@ -62,7 +64,7 @@ const formatTimeStamp = (timestamp) => {
   const month = dateArray[1];
   const day = dateArray[0];
   const time = dateTimeArray[1];
-  return `${year}/${month}/${day} ${time}`;
+  return toDate(`${year}/${month}/${day} ${time}`);
 };
 
 const formatTransfer = (item) => ({
@@ -94,8 +96,8 @@ const formatTransfers = (data) => {
 /* GAMEWEEKS */
 const formatGameWeek = (item) => ({
   gameWeek: item.gameweek,
-  start: item.start,
-  end: item.end,
+  start: toDate(item.start),
+  end: toDate(item.end),
 });
 
 const formatGameWeeks = (data) => Object.keys(data).map((key) => formatGameWeek(data[key]));

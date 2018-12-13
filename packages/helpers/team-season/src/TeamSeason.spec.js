@@ -1,5 +1,7 @@
 /* eslint-env jest */
-import TeamSeason, { UNKNOWN_PLAYER, toDate } from './TeamSeason';
+import toDate from '@kammy-ui/helpers-to-date';
+
+import TeamSeason, { UNKNOWN_PLAYER } from './TeamSeason';
 
 let gameWeeks;
 let transfers;
