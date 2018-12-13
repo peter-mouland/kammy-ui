@@ -1,7 +1,9 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_PLAYERS = 'FETCH_PLAYERS';
+// export const FETCH_PLAYERS_DEPRECATED = 'FETCH_PLAYERS_DEPRECATED';
 export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';
+// export const FETCH_PLAYER_STATS = 'FETCH_PLAYER_STATS';
 export const INIT_PLAYERS = 'INIT_PLAYERS';
 
 export function fetchPlayers(player) {

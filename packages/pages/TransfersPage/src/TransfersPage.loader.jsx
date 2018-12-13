@@ -87,7 +87,7 @@ class TransfersPageLoader extends React.Component {
 TransfersPageLoader.propTypes = {
   division: PropTypes.string.isRequired,
   loaded: PropTypes.bool,
-  players: PropTypes.object,
+  players: PropTypes.array,
   transfers: PropTypes.object,
   managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
@@ -139,7 +139,7 @@ TransfersPageLoader.defaultProps = {
   leagueOneLoading: false,
   premierLeagueSeason: {},
   transfers: {},
-  Players: {},
+  Players: [],
   PlayersCount: null,
   gameWeeks: [],
   gameWeeksCount: null,

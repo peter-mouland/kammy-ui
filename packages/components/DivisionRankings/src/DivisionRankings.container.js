@@ -13,6 +13,7 @@ const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 function mapStateToProps(state, ownProps) {
   const { selectedGameWeek, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
   const { loading: gameWeeksLoading, loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
+
   const props = {
     players: state.players.data,
     playersCount: state.players.count,
@@ -29,13 +30,14 @@ function mapStateToProps(state, ownProps) {
     transfersLoaded: state.spreadsheet.transfersLoaded,
     transfersErrors: state.spreadsheet.transfersErrors,
   };
+
   const teams = state.spreadsheet[ownProps.divisionId];
   const divisionLoaded = state.spreadsheet[`${ownProps.divisionId}Loaded`];
 
   const loaded = (
-    state.players.loaded
+    props.playersLoaded
+    && props.transfersLoaded
     && gameWeeksLoaded
-    && state.spreadsheet.transfersLoaded
     && divisionLoaded
   );
 
