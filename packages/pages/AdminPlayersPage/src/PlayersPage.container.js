@@ -13,12 +13,12 @@ function mapStateToProps(state) {
   const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
   return {
     loaded,
-    dbPlayers: state.players.data,
-    dbPlayersCount: state.players.count,
-    dbImporting: state.players.importing,
-    dbLoading: state.players.loading,
-    dbLoaded: state.players.loaded,
-    dbErrors: state.players.errors,
+    dbPlayers: state.players.dataDeprecated,
+    dbPlayersCount: state.players.countDeprecated,
+    dbImporting: state.players.importingDeprecated,
+    dbLoading: state.players.loadingDeprecated,
+    dbLoaded: state.players.loadedDeprecated,
+    dbErrors: state.players.errorsDeprecated,
     skySportsPlayers: state.skySports.data,
     skySportsPlayersCount: state.skySports.count,
     skySportsLoading: state.skySports.loading,

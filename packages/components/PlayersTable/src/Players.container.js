@@ -7,9 +7,9 @@ const { fetchAllPlayerData: fetchPlayers, fetchPositions } = actions;
 
 function mapStateToProps(state) {
   const {
-    loading,
-    errors,
-    data,
+    loadingDeprecated: loading,
+    errorsDeprecated: errors,
+    dataDeprecated: data,
   } = state.players;
   return {
     players: data, loading, errors,

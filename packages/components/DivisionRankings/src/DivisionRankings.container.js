@@ -13,12 +13,13 @@ const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 function mapStateToProps(state, ownProps) {
   const { selectedGameWeek, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
   const { loading: gameWeeksLoading, loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
+
   const props = {
-    players: state.players.data,
-    playersCount: state.players.count,
-    playersLoading: state.players.loading,
-    playersLoaded: state.players.loaded,
-    playersErrors: state.players.errors,
+    players: state.players.dataDeprecated,
+    playersCount: state.players.countDeprecated,
+    playersLoading: state.players.loadingDeprecated,
+    playersLoaded: state.players.loadedDeprecated,
+    playersErrors: state.players.errorsDeprecated,
     selectedGameWeek,
     gameWeeks,
     gameWeeksLoading,
@@ -29,13 +30,14 @@ function mapStateToProps(state, ownProps) {
     transfersLoaded: state.spreadsheet.transfersLoaded,
     transfersErrors: state.spreadsheet.transfersErrors,
   };
+
   const teams = state.spreadsheet[ownProps.divisionId];
   const divisionLoaded = state.spreadsheet[`${ownProps.divisionId}Loaded`];
 
   const loaded = (
-    state.players.loaded
+    props.playersLoaded
+    && props.transfersLoaded
     && gameWeeksLoaded
-    && state.spreadsheet.transfersLoaded
     && divisionLoaded
   );
 

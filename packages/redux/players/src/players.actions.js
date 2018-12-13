@@ -1,7 +1,9 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_PLAYERS = 'FETCH_PLAYERS';
+export const FETCH_PLAYERS_DEPRECATED = 'FETCH_PLAYERS_DEPRECATED';
 export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';
+export const FETCH_PLAYER_STATS = 'FETCH_PLAYER_STATS';
 export const INIT_PLAYERS = 'INIT_PLAYERS';
 
 export function fetchPlayers(player) {
@@ -19,7 +21,7 @@ query {
 
 export function fetchPlayerFixtures(player) {
   return {
-    type: FETCH_PLAYERS,
+    type: FETCH_PLAYER_FIXTURES,
     payload: fetchGraphQL(`
 query {
   getPlayers{ 
@@ -35,7 +37,7 @@ query {
 
 export function fetchPlayerStats(player) {
   return {
-    type: FETCH_PLAYERS,
+    type: FETCH_PLAYER_STATS,
     payload: fetchGraphQL(`
 query {
   getPlayers{ 
@@ -55,7 +57,7 @@ query {
 // todo: remove!
 export function fetchAllPlayerData(player) {
   return {
-    type: FETCH_PLAYERS,
+    type: FETCH_PLAYERS_DEPRECATED,
     payload: fetchGraphQL(`
 query {
   getPlayers{ 

@@ -10,8 +10,8 @@ const {
   fetchTransfers, fetchPremierLeague, fetchLeagueOne, fetchChampionship,
 } = spreadsheetActions;
 const { fetchGameWeeks } = gameWeekActions;
-// const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
-const { fetchPlayers: fetchDbPlayers } = dbActions; // todo: this!
+
+const { fetchPlayers: fetchDbPlayers } = dbActions;
 const { fetchCurrentTeams } = divisionActions;
 
 function mapStateToProps(state, { division }) {
@@ -22,7 +22,7 @@ function mapStateToProps(state, { division }) {
   const {
     loading: gameWeeksLoading, loaded: gameWeeksLoaded, errors: gameWeeksErrors,
   } = gameWeekSelectors.getStatus(state);
-  console.log({ divisionTeams, division, state });
+
   const props = {
     divisionTeams,
     divisionTeamsLoaded,

@@ -7,8 +7,8 @@ const { fetchAllPlayerData: fetchPlayers } = dbPlayerActions;
 
 function mapStateToProps(state) {
   return {
-    playersLoaded: state.players.loaded,
-    players: state.players.data,
+    playersLoaded: state.players.loadedDeprecated,
+    players: state.players.dataDeprecated,
   };
 }
 
