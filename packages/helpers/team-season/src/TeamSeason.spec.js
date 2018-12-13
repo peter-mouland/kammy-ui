@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import TeamSeason, { UNKNOWN_PLAYER } from './TeamSeason';
+import TeamSeason, { UNKNOWN_PLAYER, toDate } from './TeamSeason';
 
 let gameWeeks;
 let transfers;
@@ -27,14 +27,14 @@ describe('TeamSeason', () => {
         codeOut: '',
         manager: 'Olly',
         status: 'Y',
-        timestamp: '2018/08/12 18:00:00',
+        timestamp: '2018-08-12 18:00:00',
         transferIn: 'Zarate, Mauro',
         transferOut: 'Lukaku, Romelu',
         type: 'Transfer',
       },
     ];
-    startOfSeason = new Date(gameWeeks[0].start).setHours(0, 0, 0, 0);
-    endOfSeason = new Date(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
+    startOfSeason = toDate(gameWeeks[0].start).setHours(0, 0, 0, 0);
+    endOfSeason = toDate(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
   });
 
   it('returns data', () => {
@@ -96,10 +96,10 @@ describe('TeamSeason', () => {
       });
       expect(teamSeason.getPlayerTransfers({ name: 'de Gea, David' })).toEqual([
         {
-          end: new Date(transfers[0].timestamp), player: { name: 'de Gea, David' }, playerOut: null, start: startOfSeason, type: 'draft',
+          end: toDate(transfers[0].timestamp), player: { name: 'de Gea, David' }, playerOut: null, start: startOfSeason, type: 'draft',
         },
         {
-          end: endOfSeason, player: { name: 'Hernandez, Javier' }, playerOut: { name: 'de Gea, David' }, start: new Date(transfers[0].timestamp), type: 'Transfer',
+          end: endOfSeason, player: { name: 'Hernandez, Javier' }, playerOut: { name: 'de Gea, David' }, start: toDate(transfers[0].timestamp), type: 'Transfer',
         },
       ]);
     });
@@ -123,10 +123,10 @@ describe('TeamSeason', () => {
         });
         expect(teamSeason.getPlayerTransfers({ name: 'de Gea, David' })).toEqual([
           {
-            end: new Date(transfers[0].timestamp), player: { name: 'de Gea, David' }, playerOut: null, start: startOfSeason, type: 'draft',
+            end: toDate(transfers[0].timestamp), player: { name: 'de Gea, David' }, playerOut: null, start: startOfSeason, type: 'draft',
           },
           {
-            end: endOfSeason, player: { name: 'Hernandez, Javier' }, playerOut: { name: 'de Gea, David' }, start: new Date(transfers[0].timestamp), type: 'Swap',
+            end: endOfSeason, player: { name: 'Hernandez, Javier' }, playerOut: { name: 'de Gea, David' }, start: toDate(transfers[0].timestamp), type: 'Swap',
           },
         ]);
       });
