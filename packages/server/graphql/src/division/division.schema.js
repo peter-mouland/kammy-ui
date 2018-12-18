@@ -2,21 +2,11 @@ const schemaString = `
   type TeamPlayer {
     manager: String!
     code: Int
+    club: String
     pos: String
     name: String
     season: Stats
     gameWeek: Stats
-  }
-  
-  type Transfer {
-    status: String
-    timestamp: String
-    manager: String
-    transferIn: String
-    codeIn: Int
-    transferOut: String
-    codeOut: Int
-    type: String
   }
   
   type GameWeekPlayers {

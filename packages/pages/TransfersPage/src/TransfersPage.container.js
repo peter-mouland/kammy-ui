@@ -3,19 +3,26 @@ import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 
 import TransfersPageLoader from './TransfersPage.loader';
 
 const {
-  fetchTransfers, fetchPremierLeague, fetchLeagueOne, fetchChampionship,
+  fetchPremierLeague, fetchLeagueOne, fetchChampionship,
 } = spreadsheetActions;
 const { fetchGameWeeks } = gameWeekActions;
 
 const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 const { fetchCurrentTeams } = divisionActions;
+const { fetchTransfers } = transferActions;
 
 function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
+  const { transfers } = transferSelectors.getTransfers(state, division);
+  const {
+    loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
+  } = transferSelectors.getStatus(state, division);
+  console.log({ transfersLoaded, transfersLoading, transfersErrors });
   const { data: divisionTeams } = divisionSelectors.getCurrentTeams(state, division);
   const { loaded: divisionTeamsLoaded } = divisionSelectors.getStatus(state, division);
 
@@ -36,11 +43,11 @@ function mapStateToProps(state, { division }) {
     gameWeeksLoading,
     gameWeeksLoaded,
     gameWeeksErrors,
-    transfers: state.spreadsheet.transfers,
-    transfersCount: state.spreadsheet.transfersCount,
-    transfersLoading: state.spreadsheet.transfersLoading,
-    transfersLoaded: state.spreadsheet.transfersLoaded,
-    transfersErrors: state.spreadsheet.transfersErrors,
+    transfers,
+    transfersCount: transfers.length,
+    transfersLoading,
+    transfersLoaded,
+    transfersErrors,
     premierLeague: state.spreadsheet.premierLeague,
     premierLeagueCount: state.spreadsheet.premierLeagueCount,
     premierLeagueLoading: state.spreadsheet.premierLeagueLoading,
@@ -61,7 +68,7 @@ function mapStateToProps(state, { division }) {
   const loaded = (
     state.players.loaded
     && gameWeeksLoaded
-    && state.spreadsheet.transfersLoaded
+    && transfersLoaded
     && state.spreadsheet.premierLeagueLoaded
     && state.spreadsheet.championshipLoaded
     && state.spreadsheet.leagueOneLoaded

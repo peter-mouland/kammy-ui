@@ -80,17 +80,34 @@ const formatTransfer = (item) => ({
 
 const formatTransfers = (data) => {
   const jsonData = {};
-  Object.keys(data).forEach((key) => {
-    const player = data[key];
-    if (!jsonData[player.manager.trim()]) {
-      jsonData[player.manager.trim()] = [];
-    }
-    const transfer = formatTransfer(player);
-    if (transfer.status === 'Y') {
-      jsonData[player.manager.trim()].push(formatTransfer(player));
-    }
-  });
+  try {
+    Object.keys(data).forEach((key) => {
+      const player = data[key];
+      if (!jsonData[player.manager.trim()]) {
+        jsonData[player.manager.trim()] = [];
+      }
+      const transfer = formatTransfer(player);
+      if (transfer.status === 'Y') {
+        jsonData[player.manager.trim()].push(formatTransfer(player));
+      }
+    });
+  } catch (e) {
+    console.error('formatTransfers error');
+    console.error(e);
+  }
   return jsonData;
+};
+
+const formatDivisionTransfers = (data) => {
+  try {
+    return Object.keys(data)
+      .filter((key) => data[key].status === 'Y')
+      .map((key) => formatTransfer(data[key]));
+  } catch (e) {
+    console.error('formatDivisionTransfers error');
+    console.error(e);
+    return [];
+  }
 };
 
 /* GAMEWEEKS */
@@ -119,10 +136,11 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
       case worksheetName === 'LeagueOne':
         return formatDivision(data);
       case worksheetName === 'Transfers':
+        return formatTransfers(data);
       case worksheetName === 'PremierLeagueTransfers':
       case worksheetName === 'ChampionshipTransfers':
       case worksheetName === 'LeagueOneTransfers':
-        return formatTransfers(data);
+        return formatDivisionTransfers(data);
       case worksheetName === 'GameWeeks':
         return formatGameWeeks(data);
       case worksheetName === 'Cup':
@@ -131,6 +149,11 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
         return data;
       }
     })
+);
+
+export const saveGsheet = ({ spreadsheetId, worksheetName }) => (
+  new GoogleSpreadsheet(spreadsheetId, GoogleSpreadsheetCred)
+    .addRowsBulk({ worksheetName })
 );
 
 export default fetchGsheet;

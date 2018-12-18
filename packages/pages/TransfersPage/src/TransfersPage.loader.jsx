@@ -11,7 +11,9 @@ import TransfersPage from './TransfersPage';
 const bem = bemHelper({ block: 'transfers-page' });
 
 const playersArray = (players) => (
-  Object.values(players).map((player) => ({ value: player.name, label: player.name, key: player.name }))
+  Object.values(players).map((player) => (
+    { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
+  ))
 );
 
 class TransfersPageLoader extends React.Component {
@@ -29,7 +31,7 @@ class TransfersPageLoader extends React.Component {
     if (!premierLeagueLoaded) fetchPremierLeague();
     if (!championshipLoaded) fetchChampionship();
     if (!leagueOneLoaded) fetchLeagueOne();
-    if (!transfersLoaded) fetchTransfers();
+    if (!transfersLoaded) fetchTransfers(division);
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
@@ -88,7 +90,7 @@ TransfersPageLoader.propTypes = {
   division: PropTypes.string.isRequired,
   loaded: PropTypes.bool,
   players: PropTypes.array,
-  transfers: PropTypes.object,
+  transfers: PropTypes.array,
   managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
   premierLeague: PropTypes.object,
@@ -138,7 +140,7 @@ TransfersPageLoader.defaultProps = {
   championshipLoaded: false,
   leagueOneLoading: false,
   premierLeagueSeason: {},
-  transfers: {},
+  transfers: [],
   Players: [],
   PlayersCount: null,
   gameWeeks: [],

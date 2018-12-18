@@ -105,7 +105,7 @@ class TransfersPage extends React.Component {
         )}
         {playerIn && playerOut && changeType && (
           <div>
-            <p><strong>{playerIn.label}</strong> for <strong>{playerOut.name}</strong></p>
+            <p><strong>{playerIn.label}</strong> for <strong>{playerOut.name} ({playerOut.pos})</strong></p>
             <div>
               <button type='button' onClick={this.confirmTransfer}>
                 Confirm {changeType}?

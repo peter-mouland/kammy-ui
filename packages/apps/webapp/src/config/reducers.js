@@ -7,6 +7,7 @@ import { reducer as dbReducer } from '@kammy-ui/redux-players';
 import { reducer as gameWeeksReducer } from '@kammy-ui/redux.game-weeks';
 import { reducer as cupReducer } from '@kammy-ui/redux.cup';
 import { reducer as divisionReducer } from '@kammy-ui/redux.division';
+import { reducer as transfersReducer } from '@kammy-ui/redux.transfers';
 
 const reducer = combineReducers({
   ...playersPageReducers,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   gameWeeks: gameWeeksReducer,
   division: divisionReducer,
   cup: cupReducer,
+  transfers: transfersReducer,
   routing,
 });
 

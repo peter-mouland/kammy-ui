@@ -1,7 +1,7 @@
 import bodyParser from 'koa-bodyparser';
 import Router from 'koa-router';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
-import fetchGoogleSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
 
 export default () => {
   const router = Router({ prefix: '/google-spreadsheet' });
@@ -16,7 +16,7 @@ export default () => {
 
   router.get('/:spreadsheetId/:worksheetName', (ctx, next) => {
     const { spreadsheetId, worksheetName } = ctx.params;
-    return fetchGoogleSpreadsheet({ spreadsheetId, worksheetName })
+    return fetchSpreadsheet({ spreadsheetId, worksheetName })
       .then((data) => {
         ctx.type = 'json';
         ctx.status = 200;
