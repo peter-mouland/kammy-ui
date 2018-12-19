@@ -26,6 +26,7 @@
     "@kammy-ui/error-boundary": "^0.0.14",
     "@kammy-ui/fetchr": "^0.0.17",
     "@kammy-ui/redux.game-weeks": "^0.0.17",
+    "@kammy-ui/redux.transfers": "^0.0.17",
     "@kammy-ui/game-week-switcher": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/modal": "^0.0.17",

@@ -4,7 +4,6 @@ export const FETCH_SPREADSHEET_PLAYERS = 'FETCH_SPREADSHEET_PLAYERS';
 export const FETCH_SPREADSHEET_PREMIERLEAGUE = 'FETCH_SPREADSHEET_PREMIERLEAGUE';
 export const FETCH_SPREADSHEET_CHAMPIONSHIP = 'FETCH_SPREADSHEET_CHAMPIONSHIP';
 export const FETCH_SPREADSHEET_LEAGUEONE = 'FETCH_SPREADSHEET_LEAGUEONE';
-export const FETCH_SPREADSHEET_TRANSFERS = 'FETCH_SPREADSHEET_TRANSFERS';
 
 export function fetchPlayers() {
   return {
@@ -42,11 +41,4 @@ export function fetchDivision(division) {
   case 'leagueOne':
     return fetchLeagueOne();
   }
-}
-
-export function fetchTransfers() {
-  return {
-    type: FETCH_SPREADSHEET_TRANSFERS,
-    payload: fetchSpreadsheet('1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', 'Transfers'),
-  };
 }

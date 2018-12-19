@@ -51,15 +51,6 @@ export default function spreadSheetReducer(state = {}, action) {
     return fulfilled(state, 'leagueOne', data, errors);
   case `${actions.FETCH_SPREADSHEET_LEAGUEONE}_REJECTED`:
     return rejected(state, 'leagueOne', data, [action.payload]);
-  case `${actions.FETCH_SPREADSHEET_TRANSFERS}_PENDING`:
-    return pending(state, 'transfers');
-  case `${actions.FETCH_SPREADSHEET_TRANSFERS}_FULFILLED`:
-    return {
-      ...fulfilled(state, 'transfers', data, errors),
-      transfersCount: data ? Object.values(data).reduce((acc, val) => acc.concat(val), []).length : 0,
-    };
-  case `${actions.FETCH_SPREADSHEET_TRANSFERS}_REJECTED`:
-    return rejected(state, 'transfers', data, [action.payload]);
   default:
     return state;
   }
