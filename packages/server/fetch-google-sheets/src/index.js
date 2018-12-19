@@ -100,9 +100,7 @@ const formatTransfers = (data) => {
 
 const formatDivisionTransfers = (data) => {
   try {
-    return Object.keys(data)
-      .filter((key) => data[key].status === 'Y')
-      .map((key) => formatTransfer(data[key]));
+    return Object.keys(data).map((key) => formatTransfer(data[key]));
   } catch (e) {
     console.error('formatDivisionTransfers error');
     console.error(e);

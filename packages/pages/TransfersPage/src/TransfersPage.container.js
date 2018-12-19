@@ -18,11 +18,12 @@ const { fetchTransfers } = transferActions;
 
 function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
+  const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInCurrentGameWeek(state);
   const { transfers } = transferSelectors.getTransfers(state, division);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
   } = transferSelectors.getStatus(state, division);
-  console.log({ transfersLoaded, transfersLoading, transfersErrors });
+
   const { data: divisionTeams } = divisionSelectors.getCurrentTeams(state, division);
   const { loaded: divisionTeamsLoaded } = divisionSelectors.getStatus(state, division);
 
@@ -31,6 +32,7 @@ function mapStateToProps(state, { division }) {
   } = gameWeekSelectors.getStatus(state);
 
   const props = {
+    dateIsInCurrentGameWeek,
     divisionTeams,
     divisionTeamsLoaded,
     players: state.players.data ? Object.values(state.players.data) : null,

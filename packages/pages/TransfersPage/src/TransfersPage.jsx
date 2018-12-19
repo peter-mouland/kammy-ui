@@ -61,15 +61,46 @@ class TransfersPage extends React.Component {
   getInvalidTeams = () => null;
 
   render() {
-    const { teams, players, divisionTeams } = this.props;
+    const {
+      teams, players, divisionTeams, transfers, dateIsInCurrentGameWeek,
+    } = this.props;
     const {
       displayManager, changeType, playerOut, playerIn, searchString,
     } = this.state;
 
     const step = this.getStep();
+    const currentTransfers = transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
 
     return (
       <div className={bem(null, null, 'page-content')}>
+        <h2>Current Transfers</h2>
+        <table className={'table'}>
+          <thead>
+            <tr>
+              <td>Timestamp</td>
+              <td>Manager</td>
+              <td>Comment</td>
+              <td>Status</td>
+              <td>Transfer In</td>
+              <td>Transfer Out</td>
+              <td>Type</td>
+            </tr>
+          </thead>
+          <tbody>
+            {currentTransfers.map((transfer) => (
+              <tr key={transfer.timestamp}>
+                <td>{transfer.timestamp}</td>
+                <td>{transfer.status}</td>
+                <td>{transfer.manager}</td>
+                <td>{transfer.comment}</td>
+                <td>{transfer.transferIn}</td>
+                <td>{transfer.transferOut}</td>
+                <td>{transfer.type}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <h2>New Transfers</h2>
         <MultiToggle
           label={'Who are you?'}
           id={'manager'}
@@ -119,13 +150,16 @@ class TransfersPage extends React.Component {
 }
 
 TransfersPage.propTypes = {
+  transfers: PropTypes.array,
   gameWeeks: PropTypes.array,
   players: PropTypes.array,
   teams: PropTypes.object,
   divisionTeams: PropTypes.object,
+  dateIsInCurrentGameWeek: PropTypes.func.isRequired,
 };
 
 TransfersPage.defaultProps = {
+  transfers: [],
   gameWeeks: [],
   teams: {},
   divisionTeams: {},

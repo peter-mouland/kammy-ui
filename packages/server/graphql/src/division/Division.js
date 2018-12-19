@@ -3,23 +3,22 @@ import TeamByGameWeek from './TeamByGameWeek';
 
 class Division {
   // see packages/server/fetch-google-sheets/src/index.js for shapes
-  // @transfers: { [manager] :[{ status, timestamp, manager, transferIn/Out, codeIn/Out, type }] }
+  // @transfers: [{ status, timestamp, manager, transferIn/Out, codeIn/Out, type }]
   // @gameWeeks: [{ start, end, gameWeek }]
   constructor({
-    division, draft, transfers = {}, gameWeeks, players, currentGameWeek,
+    division, draft, transfers = [], gameWeeks, players, currentGameWeek,
   }) {
     const playersByName = players.reduce((prev, player) => ({
       ...prev,
       [player.name]: { ...player },
     }), {});
     const drafts = Object.keys(draft).map((manager) => draft[manager]);
-    const transferLists = Object.keys(transfers).map((manager) => transfers[manager]);
 
     // public api
     this.division = division;
     this.managers = [...new Set(Object.keys(draft).map((manager) => manager))]; // [ manager ]
     this.draft = [].concat.apply([], drafts); // [{ manager, code, pos, name }]
-    this.transfers = [].concat.apply([], transferLists);
+    this.transfers = [].concat.apply([], transfers);
     this.teamsByGameWeek = this.calculateTeamsByGameWeeks({
       draft, gameWeeks, transfers, playersByName,
     });
@@ -32,8 +31,9 @@ class Division {
     draft, gameWeeks, transfers, playersByName,
   }) => {
     const allTeams = this.managers.reduce((prev, manager) => {
+      const managerTransfers = transfers.filter((transfer) => transfer.manager === manager);
       const team = new TeamByGameWeek({
-        draft: draft[manager], transfers: transfers[manager], gameWeeks, players: playersByName,
+        draft: draft[manager], transfers: managerTransfers, gameWeeks, players: playersByName,
       });
       return {
         ...prev,

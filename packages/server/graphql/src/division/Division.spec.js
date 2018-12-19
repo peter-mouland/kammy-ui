@@ -76,9 +76,7 @@ describe('Division', () => {
       transferOut: 'Lukaku, Romelu',
       type: 'Transfer',
     };
-    transfers = {
-      Olly: [transfer],
-    };
+    transfers = [transfer];
     draft = {
       Olly: team,
     };

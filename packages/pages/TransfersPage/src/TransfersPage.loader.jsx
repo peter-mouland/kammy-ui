@@ -37,7 +37,7 @@ class TransfersPageLoader extends React.Component {
 
   getTransferPageProps = () => {
     const {
-      premierLeague, championship, leagueOne, gameWeeks, players, transfers, division, divisionTeams,
+      premierLeague, championship, leagueOne, gameWeeks, players, transfers, division,
     } = this.props;
 
     const divisions = {
@@ -54,7 +54,7 @@ class TransfersPageLoader extends React.Component {
     });
 
     return {
-      gameWeeks, managersSeason, teams, players: playersArray(players), divisionTeams,
+      ...this.props, managersSeason, teams, players: playersArray(players),
     };
   };
 
