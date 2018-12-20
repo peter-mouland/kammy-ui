@@ -8,6 +8,7 @@ export function fetchTransfers(division) {
   return {
     type: FETCH_TRANSFERS,
     payload: {
+      data: { variables },
       promise: fetchGraphQL(`
 query GetTransfers($division: String) { 
   getTransfers(division: $division) {
@@ -20,16 +21,18 @@ query GetTransfers($division: String) {
 }
 
 export function saveTransfers(division) {
+  const variables = division ? { division } : undefined;
   return {
     type: SAVE_TRANSFERS,
     payload: {
+      data: { variables },
       promise: fetchGraphQL(`
 query SaveTransfers($division: String, $transferIn: String, $transferOut: String, $type: String, $manager: String) { 
 getTransfers (division: $division, transferIn: $transferIn, transferOut: $transferOut, type: $type, manager: $manager) {
   division status manager transferOut transferIn type comment
 }
 } 
-`, division ? { division } : undefined),
+`, variables),
     },
   };
 }

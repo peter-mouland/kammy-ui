@@ -24,34 +24,31 @@ const initialState = {
   },
 };
 
-const formatTransfer = (transfers) => transfers.reduce((prev, transfer) => ({
-  ...prev,
-  [transfer.division]: [
-    ...prev[transfer.division] || [],
-    transfer,
-  ],
-}), {});
-
-export default function transfersReducer(state = initialState, action) {
-  const { payload } = action;
-  const data = payload && payload.data;
-  const errors = payload && payload.errors;
-  switch (action.type) {
+export default function transfersReducer(state = initialState, action = {}) {
+  const { payload = {}, type } = action;
+  const { data, variables, errors } = payload;
+  switch (type) {
   case `${actions.FETCH_TRANSFERS}_PENDING`:
     return {
       ...state,
-      status: pending(),
+      [variables.division]: {
+        status: pending(),
+      },
     };
   case `${actions.FETCH_TRANSFERS}_FULFILLED`:
     return {
       ...state,
-      ...data.getTransfers && formatTransfer(data.getTransfers),
-      status: fulfilled(errors),
+      [variables.division]: {
+        transfers: data.getTransfers,
+        status: fulfilled(errors),
+      },
     };
   case `${actions.FETCH_TRANSFERS}_REJECTED`:
     return {
       ...state,
-      status: rejected([action.payload]),
+      [variables.division]: {
+        status: rejected([payload]),
+      },
     };
   case `${actions.SAVE_TRANSFERS}_PENDING`:
     return {
@@ -66,7 +63,7 @@ export default function transfersReducer(state = initialState, action) {
   case `${actions.SAVE_TRANSFERS}_REJECTED`:
     return {
       ...state,
-      status: rejected([action.payload]),
+      status: rejected([payload]),
     };
   default:
     return state;

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
-const transfersSelector = (state, division) => get(state, `transfers.${division}`) || [];
-const statusSelector = (state, division) => get(state, 'transfers.status');
+const transfersSelector = (state, division) => get(state, `transfers.${division}.transfers`) || [];
+const statusSelector = (state, division) => get(state, `transfers.${division}.status`) || {};
 
 export const getTransfers = createSelector(
   transfersSelector,

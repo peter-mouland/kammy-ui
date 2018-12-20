@@ -16,7 +16,7 @@ const { fetchTransfers } = transferActions;
 function mapStateToProps(state, ownProps) {
   const { divisionId } = ownProps;
   const { gameWeeks, selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
-  const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state, );
+  const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const { transfers } = transferSelectors.getValidTransfers(state, divisionId);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,

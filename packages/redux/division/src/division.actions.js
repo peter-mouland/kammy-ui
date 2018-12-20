@@ -8,7 +8,9 @@ export const FETCH_DIVISION_CURRENT_TEAMS = 'FETCH_DIVISION_CURRENT_TEAMS';
 export function fetchDivision(division) {
   return {
     type: FETCH_DIVISION,
-    payload: fetchGraphQL(`
+    payload: {
+      data: { data: { division } },
+      promise: fetchGraphQL(`
 query ($division: String) { 
   getDivision(division: $division) {
     transfers {
@@ -42,6 +44,7 @@ query ($division: String) {
  }
 } 
 `, division ? { division } : undefined),
+    },
   };
 }
 
@@ -50,6 +53,7 @@ export function fetchCurrentTeams(division) {
   return {
     type: FETCH_DIVISION_CURRENT_TEAMS,
     payload: {
+      data: { data: { division: formattedDivision } },
       promise: fetchGraphQL(`
 query ($division: String) { 
   getDivision(division: $division) {
@@ -63,7 +67,6 @@ query ($division: String) {
  }
 } 
 `, formattedDivision ? { division: formattedDivision } : undefined),
-      data: { data: { division: formattedDivision } },
     },
   };
 }

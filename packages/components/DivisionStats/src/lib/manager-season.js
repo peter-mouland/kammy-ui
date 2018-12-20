@@ -4,7 +4,7 @@ const managerTeamSeason = ({
   teams, gameWeeks, transfers, players, withStats,
 }) => (
   Object.keys(teams).reduce((prev, manager) => {
-    const managerTransfers = transfers.filter((transfer) => console.log(transfer.manager, manager) || transfer.manager === manager);
+    const managerTransfers = transfers.filter((transfer) => transfer.manager === manager);
     const team = new TeamSeason({
       team: teams[manager], transfers: managerTransfers, gameWeeks, players,
     });
