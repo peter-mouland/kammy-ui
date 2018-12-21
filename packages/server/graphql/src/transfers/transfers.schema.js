@@ -1,4 +1,14 @@
 const schemaString = `
+  input TransferInput {
+    division: String
+    transferIn: String
+    transferOut: String
+    transferType: String
+    manager: String
+    status: String
+    timestamp: String
+  }
+  
   type Transfer {
     division: String
     manager: String
