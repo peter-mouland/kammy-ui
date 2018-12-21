@@ -7,7 +7,6 @@ import Modal from '@kammy-ui/modal';
 import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
 import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
-import './divisionStats.scss';
 
 const bem = bemHelper({ block: 'table' });
 

@@ -22,6 +22,7 @@ const initialState = {
     loading: false,
     loaded: false,
   },
+  saving: false,
 };
 
 export default function transfersReducer(state = initialState, action = {}) {
@@ -32,6 +33,7 @@ export default function transfersReducer(state = initialState, action = {}) {
     return {
       ...state,
       [variables.division]: {
+        ...(state[variables.division] || {}),
         status: pending(),
       },
     };
@@ -47,23 +49,24 @@ export default function transfersReducer(state = initialState, action = {}) {
     return {
       ...state,
       [variables.division]: {
+        ...(state[variables.division] || {}),
         status: rejected([payload]),
       },
     };
   case `${actions.SAVE_TRANSFERS}_PENDING`:
     return {
       ...state,
-      status: pending(),
+      saving: true,
     };
   case `${actions.SAVE_TRANSFERS}_FULFILLED`:
     return {
       ...state,
-      status: fulfilled(errors),
+      saving: false,
     };
   case `${actions.SAVE_TRANSFERS}_REJECTED`:
     return {
       ...state,
-      status: rejected([payload]),
+      saving: false,
     };
   default:
     return state;
