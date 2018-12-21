@@ -7,7 +7,7 @@ import MultiToggle from '@kammy-ui/multi-toggle';
 import Interstitial from '@kammy-ui/interstitial';
 import format from 'date-fns/format';
 
-// import Team, { Fragment } from './components/Team';
+// import Team from './components/Team';
 import Players from './components/Players';
 
 import './transferPage.scss';
@@ -15,6 +15,15 @@ import './transferPage.scss';
 const bem = bemHelper({ block: 'transfers-page' });
 
 const formatTimestamp = (ts) => format(ts, 'MMM Do, HH:mm:ss');
+
+const getEmoji = (status = '') => {
+  switch (status.toLowerCase()) {
+  case 'tbc': return '&#129300;';
+  case 'e': return '&#129324;';
+  case 'y': return '&#129303;';
+  default: return '';
+  }
+};
 
 class TransfersPage extends React.Component {
   state = {
@@ -70,7 +79,7 @@ class TransfersPage extends React.Component {
   render() {
     const {
       teams, players, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading,
-    } = this.props; /* divisionTeams, */
+    } = this.props; /* divisionTeams,  */
     const {
       manager, changeType, playerOut, playerIn, searchStringOut, searchStringIn,
     } = this.state;
@@ -83,24 +92,33 @@ class TransfersPage extends React.Component {
     return (
       <div className={bem(null, null, 'page-content')}>
         <h2>Make Transfers</h2>
-        <MultiToggle
-          label={'Who are you?'}
-          id={'manager'}
-          loading={Object.keys(teams).length === 0}
-          options={Object.keys(teams)}
-          checked={manager}
-          onChange={this.updateDisplayManager}
-        />
-        <MultiToggle
-          label={'What are you doing?'}
-          id={'change-type'}
-          options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
-          checked={changeType}
-          onChange={this.updateChangeType}
-        />
-        <div data-b-layout="row negative">
+        <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            <h3>Who is out?</h3>
+            <div>Who are you?</div>
+            <MultiToggle
+              id={'manager'}
+              loading={Object.keys(teams).length === 0}
+              loadingMessage={'loading teams...'}
+              options={Object.keys(teams)}
+              checked={manager}
+              onChange={this.updateDisplayManager}
+            />
+          </div>
+        </div>
+        <div data-b-layout="row negative v-space">
+          <div data-b-layout='col pad'>
+            <div>What are you doing?</div>
+            <MultiToggle
+              id={'change-type'}
+              options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
+              checked={changeType}
+              onChange={this.updateChangeType}
+            />
+          </div>
+        </div>
+        <div data-b-layout="row negative v-space">
+          <div data-b-layout='col pad'>
+            <div>Who is out?</div>
             {/* {divisionTeams && divisionTeams[manager] ? ( */}
             {/* <Team */}
             {/* changePlayer={playerOut} */}
@@ -119,9 +137,12 @@ class TransfersPage extends React.Component {
                 players={players}
               />
             )}
+            {!players && (<Interstitial message='loading players...' />)}
           </div>
-          <div data-b-layout='col pad' className='transfer__final-step'>
-            <h3>Who is in?</h3>
+        </div>
+        <div data-b-layout="row negative v-space">
+          <div data-b-layout='col pad'>
+            <div>Who is in?</div>
             {players && (
               <Players
                 playerOut={playerOut}
@@ -135,59 +156,67 @@ class TransfersPage extends React.Component {
             {!players && (<Interstitial message='loading players...' />)}
           </div>
         </div>
-        <div data-b-layout="row negative">
+        <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            <div className={'transfer__confirmation'}>
-              <h3 style={{ marginTop: '1em' }}>Submit Transfer Request</h3>
+            {allStepsComplete && (
               <p>
-                <strong>{playerOut ? playerOut.label : ' who? '}</strong>
-                {/* <strong>{playerOut ? `${playerOut.name} (${playerOut.pos})` : ' who? '}</strong> */}
-            for
-                <strong>{playerIn ? playerIn.label : ' who? '}</strong>
+                <strong>{playerOut.label}</strong>
+              for
+                <strong>{playerIn.label}</strong>
               </p>
-              <div style={{ display: 'inline-block' }}>
-                <Button onClick={this.confirmTransfer} state={buttonState}>
-              Confirm {changeType}?
-                </Button>
-              </div>
+            )}
+            <div style={{ display: 'inline-block' }}>
+              <Button onClick={this.confirmTransfer} state={buttonState}>
+              Confirm {changeType}
+              </Button>
             </div>
           </div>
         </div>
-
-        <h2 style={{ marginTop: '1em' }}>Requested Transfers</h2>
-        <table className={'table'}>
-          <thead>
-            <tr className={'row'}>
-              <th className={'cell'}>Timestamp</th>
-              <th className={'cell'}>Status</th>
-              <th className={'cell'}>Type</th>
-              <th className={'cell'}>Manager</th>
-              <th className={'cell'}>Transfer In</th>
-              <th className={'cell'}>Transfer Out</th>
-              <th className={'cell'}>Comment</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentTransfers.map((transfer) => (
-              <tr className={'row'} key={transfer.timestamp}>
-                <td className={'cell cell--left'}>{formatTimestamp(transfer.timestamp)}</td>
-                <td className={`cell cell-status cell-status--${transfer.status} cell--center`}>{transfer.status}</td>
-                <td className={'cell cell--center'}>{transfer.type}</td>
-                <td className={'cell cell--center'}>{transfer.manager}</td>
-                <td className={'cell cell--center'}>{transfer.transferIn}</td>
-                <td className={'cell cell--center'}>{transfer.transferOut}</td>
-                <td className={'cell cell--center'}>{transfer.comment}</td>
-              </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr className={'row row--interstitial'}><td colSpan={7}>
-              { (transfersSaving || transfersLoading) && (
-                <Interstitial message='loading transfers...' />
-              ) }
-            </td></tr>
-          </tfoot>
-        </table>
+        <div data-b-layout="row negative v-space">
+          <div data-b-layout='col pad'>
+            <h2 >Requested Transfers</h2>
+            <table className={'table'}>
+              <thead>
+                <tr className={'row'}>
+                  <th className={'cell'}>Timestamp</th>
+                  <th className={'cell'}>Status</th>
+                  <th className={'cell'}>Type</th>
+                  <th className={'cell'}>Manager</th>
+                  <th className={'cell'}>Transfer In</th>
+                  <th className={'cell'}>Transfer Out</th>
+                  <th className={'cell'}>Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentTransfers.map(({
+                  timestamp, status = '', type, manager: mgr, transferIn, transferOut, comment,
+                }) => (
+                  <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
+                    <td className={'cell cell--status cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
+                    <td className={'cell cell--left'}>{formatTimestamp(timestamp)}</td>
+                    <td className={'cell cell--center'}>{type}</td>
+                    <td className={'cell cell--center'}>{mgr}</td>
+                    <td className={'cell cell--center'}>{transferIn}</td>
+                    <td className={'cell cell--center'}>{transferOut}</td>
+                    <td className={'cell cell--center'}>{comment}</td>
+                  </tr>
+                ))}
+                {currentTransfers.length === 0 && !transfersSaving && !transfersLoading && (
+                  <tr className={'row'}>
+                    <td className={'cell cell--center'} colSpan={7}><em>no transfers have been requested</em></td>
+                  </tr>
+                )}
+              </tbody>
+              <tfoot>
+                <tr className={'row row--interstitial'}><td colSpan={7}>
+                  { (transfersSaving || transfersLoading) && (
+                    <Interstitial message='loading transfers...' />
+                  ) }
+                </td></tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }

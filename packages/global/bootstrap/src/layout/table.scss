@@ -23,17 +23,44 @@
     z-index: 1;
   }
 
+  .row {
+    &--tbc {
+      font-style: italic;
+    }
+
+    &--y {
+      background-color: #eee;
+
+      .cell--status {
+        color: #163;
+      }
+    }
+
+    &--e {
+      background-color: #eee;
+
+      .cell {
+        text-decoration: line-through;
+      }
+
+      .cell--status {
+        text-decoration: none;
+        color: #a52a2a;
+      }
+    }
+
+    &--interstitial {
+      text-align: center;
+      opacity: .8;
+    }
+  }
+
   tr.row:hover {
     background-color: aliceblue;
   }
 
   tr.row.row--header .cell { /* stylelint-disable-line no-descending-specificity */
     top: 1.7em;
-  }
-
-  .row--interstitial {
-    text-align: center;
-    opacity: .8;
   }
 
   td.cell {

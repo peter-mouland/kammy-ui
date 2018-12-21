@@ -9,6 +9,10 @@
   margin: 0 auto;
 }
 
+[#{$scope-prefix}layout~='v-space'] {
+  margin-top: 1em;
+}
+
 // rows
 
 [#{$scope-prefix}layout~='row'] {
@@ -20,7 +24,8 @@
 
 [#{$scope-prefix}layout~='negative'] {
   max-width: calc(100% + 30px);
-  margin: 0 -15px;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 [#{$scope-prefix}layout~='middle'] {

@@ -17,10 +17,10 @@
   &__group {
     display: flex;
     position: relative;
-    border: 2px solid currentcolor;
+    border: 1px solid currentcolor;
     color: $brand--dark;
     min-width: 200px;
-    border-radius: .8em;
+    border-radius: .4em;
     background: $sdarken;
     flex-wrap: wrap;
   }

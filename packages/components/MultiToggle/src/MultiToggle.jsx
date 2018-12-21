@@ -10,12 +10,12 @@ import './multi-toggle.scss';
 const bem = bemHelper({ block: 'multi-toggle' });
 
 const MultiToggle = ({
-  id, checked, options, disabledOptions, label, className, onChange, contextualHelp, loading, ...props
+  id, checked, options, disabledOptions, label, loadingMessage, className, onChange, contextualHelp, loading, ...props
 }) => (
   <span className={bem(null, null, className)} id={ id } { ...props }>
     {label && <span className={bem('label')}>{label}</span>}
     <span className={bem('group')} id={ id } { ...props }>
-      {loading && <div className={bem('interstitial')}><Interstitial/></div>}
+      {loading && <div className={bem('interstitial')}><Interstitial message={loadingMessage}/></div>}
       {options.map((option, i) => (
         <div className={ bem('option') } key={ `${id}-${i}` }>
           <input
@@ -50,6 +50,8 @@ MultiToggle.propTypes = {
   className: PropTypes.string,
   checked: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
+  loadingMessage: PropTypes.string,
+  loading: PropTypes.bool,
   contextualHelp: PropTypes.func,
 };
 
@@ -57,6 +59,8 @@ MultiToggle.defaultProps = {
   disabledOptions: [],
   options: [],
   checked: null,
+  loading: false,
+  loadingMessage: null,
   label: null,
   contextualHelp: null,
 };

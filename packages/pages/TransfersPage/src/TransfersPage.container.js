@@ -87,13 +87,13 @@ function mapStateToProps(state, { division }) {
     && state.spreadsheet.championshipLoaded
     && state.spreadsheet.leagueOneLoaded
   );
-  const managersSeason = loaded && calculateManagerSeason({
+  const managersSeason = loaded ? calculateManagerSeason({
     teams,
     gameWeeks,
     players,
     transfers,
     withStats: true,
-  });
+  }) : {};
 
   return {
     ...props,
