@@ -9,6 +9,7 @@ import saveCupTeam from './cup/saveCupTeam.query';
 import getDivision from './division/getDivision.query';
 import getGameWeeks from './game-weeks/getGameWeeks.query';
 import getTransfers from './transfers/getTransfers.query';
+import saveTransfers from './transfers/saveTransfers.query';
 
 export default async ({ query, variables }) => {
   const { getPlayers, upsertPlayers } = await connect();
@@ -22,6 +23,7 @@ export default async ({ query, variables }) => {
     saveCupTeam,
     getGameWeeks,
     getTransfers,
+    saveTransfers,
   };
 
   return graphql(schema, query, root, {}, variables);

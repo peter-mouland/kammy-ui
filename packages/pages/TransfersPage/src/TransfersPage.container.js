@@ -14,7 +14,7 @@ const { fetchGameWeeks } = gameWeekActions;
 
 const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 const { fetchCurrentTeams } = divisionActions;
-const { fetchTransfers } = transferActions;
+const { fetchTransfers, saveTransfers } = transferActions;
 
 function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks } = gameWeekSelectors.getGameWeeks(state);
@@ -33,6 +33,7 @@ function mapStateToProps(state, { division }) {
 
   const props = {
     dateIsInCurrentGameWeek,
+    division,
     divisionTeams,
     divisionTeamsLoaded,
     players: state.players.data ? Object.values(state.players.data) : null,
@@ -90,6 +91,7 @@ export default connect(
     fetchChampionship,
     fetchLeagueOne,
     fetchTransfers,
+    saveTransfers,
     fetchDbPlayers,
     fetchCurrentTeams,
   },

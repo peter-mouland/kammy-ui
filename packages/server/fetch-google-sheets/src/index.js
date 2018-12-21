@@ -149,9 +149,10 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
     })
 );
 
-export const saveGsheet = ({ spreadsheetId, worksheetName }) => (
+export const saveRow = ({ spreadsheetId, worksheetName, data }) => (
   new GoogleSpreadsheet(spreadsheetId, GoogleSpreadsheetCred)
-    .addRowsBulk({ worksheetName })
+    .getWorksheet(worksheetName)
+    .addRows([data])
 );
 
 export default fetchGsheet;

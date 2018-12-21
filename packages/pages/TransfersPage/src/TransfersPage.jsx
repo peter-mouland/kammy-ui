@@ -13,15 +13,15 @@ const bem = bemHelper({ block: 'transfers-page' });
 
 class TransfersPage extends React.Component {
   state = {
-    displayManager: null,
+    manager: null,
     changeType: null,
     playerIn: null,
     playerOut: null,
     searchString: '',
   }
 
-  updateDisplayManager = (displayManager) => {
-    this.setState({ displayManager });
+  updateDisplayManager = (manager) => {
+    this.setState({ manager });
   }
 
   updateChangeType = (changeType) => {
@@ -41,19 +41,24 @@ class TransfersPage extends React.Component {
   }
 
   confirmTransfer = () => {
-    const { playerIn, playerOut, changeType } = this.state;
-    console.log({ playerIn, playerOut, changeType });
+    const {
+      playerIn, playerOut, changeType, manager,
+    } = this.state;
+    const { division, saveTransfers } = this.props;
+    saveTransfers({
+      division, transferIn: playerIn.value, transferOut: playerOut.name, type: changeType, manager,
+    });
   }
 
   getStep = () => {
     const {
-      displayManager, changeType, playerOut, playerIn,
+      manager, changeType, playerOut, playerIn,
     } = this.state;
     switch (true) {
     case !!playerIn: return 4;
     case !!playerOut: return 4;
     case !!changeType: return 3;
-    case !!displayManager: return 2;
+    case !!manager: return 2;
     default: return 1;
     }
   }
@@ -65,7 +70,7 @@ class TransfersPage extends React.Component {
       teams, players, divisionTeams, transfers, dateIsInCurrentGameWeek,
     } = this.props;
     const {
-      displayManager, changeType, playerOut, playerIn, searchString,
+      manager, changeType, playerOut, playerIn, searchString,
     } = this.state;
 
     const step = this.getStep();
@@ -78,12 +83,12 @@ class TransfersPage extends React.Component {
           <thead>
             <tr>
               <td>Timestamp</td>
-              <td>Manager</td>
-              <td>Comment</td>
               <td>Status</td>
+              <td>Type</td>
+              <td>Manager</td>
               <td>Transfer In</td>
               <td>Transfer Out</td>
-              <td>Type</td>
+              <td>Comment</td>
             </tr>
           </thead>
           <tbody>
@@ -91,11 +96,11 @@ class TransfersPage extends React.Component {
               <tr key={transfer.timestamp}>
                 <td>{transfer.timestamp}</td>
                 <td>{transfer.status}</td>
+                <td>{transfer.type}</td>
                 <td>{transfer.manager}</td>
-                <td>{transfer.comment}</td>
                 <td>{transfer.transferIn}</td>
                 <td>{transfer.transferOut}</td>
-                <td>{transfer.type}</td>
+                <td>{transfer.comment}</td>
               </tr>
             ))}
           </tbody>
@@ -105,7 +110,7 @@ class TransfersPage extends React.Component {
           label={'Who are you?'}
           id={'manager'}
           options={Object.keys(teams)}
-          checked={displayManager}
+          checked={manager}
           onChange={this.updateDisplayManager}
         />
         {step > 1 && (
@@ -121,7 +126,7 @@ class TransfersPage extends React.Component {
           <Team
             changePlayer={playerOut}
             onSelect={this.updatePlayerOut}
-            team={divisionTeams[displayManager]}
+            team={divisionTeams[manager]}
           />
         )}
         {step > 3 && players && (
@@ -151,11 +156,13 @@ class TransfersPage extends React.Component {
 
 TransfersPage.propTypes = {
   transfers: PropTypes.array,
+  division: PropTypes.string.isRequired,
   gameWeeks: PropTypes.array,
   players: PropTypes.array,
   teams: PropTypes.object,
   divisionTeams: PropTypes.object,
   dateIsInCurrentGameWeek: PropTypes.func.isRequired,
+  saveTransfers: PropTypes.func.isRequired,
 };
 
 TransfersPage.defaultProps = {

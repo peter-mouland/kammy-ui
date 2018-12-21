@@ -26,6 +26,7 @@ const schemaString = `
     upsertPlayers(playerUpdates: [PlayerUpdates]): [UpdatedPlayer]
     mergePlayers: [UpdatedPlayer]
     saveCupTeam(cupTeamInput: CupTeamInput): MutateResponse
+    saveTransfers(transfer: TransferInput): MutateResponse
   }
 `;
 
