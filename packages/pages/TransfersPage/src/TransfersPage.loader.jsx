@@ -2,19 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
-import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 
-import calculateManagerSeason from './lib/manager-season';
 import TransfersPage from './TransfersPage';
 
 const bem = bemHelper({ block: 'transfers-page' });
-
-const playersArray = (players) => (
-  Object.values(players).map((player) => (
-    { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
-  ))
-);
 
 class TransfersPageLoader extends React.Component {
   state = { }
@@ -35,52 +27,11 @@ class TransfersPageLoader extends React.Component {
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
-  getTransferPageProps = () => {
-    const {
-      premierLeague, championship, leagueOne, gameWeeks, players, transfers, division,
-    } = this.props;
-
-    const divisions = {
-      premierLeague, championship, leagueOne,
-    };
-
-    const teams = divisions[division];
-    const managersSeason = calculateManagerSeason({
-      teams,
-      gameWeeks,
-      players,
-      transfers,
-      withStats: true,
-    });
-
-    return {
-      ...this.props, managersSeason, teams, players: playersArray(players),
-    };
-  };
-
   render() {
-    const {
-      loaded, playersLoading, playersCount, transfersLoading, transfersCount,
-    } = this.props;
     return (
       <section id="transfers-page" className={bem(null, 'page-content')}>
         <h1>Transfers</h1>
-        <p>
-          some stats while you wait...
-        </p>
-        <p>
-          Players :
-          {playersLoading ? <Interstitial /> : playersCount}
-        </p>
-        <p>
-          Transfers :
-          {transfersLoading ? <Interstitial /> : transfersCount}
-        </p>
-        {
-          loaded && (
-            <TransfersPage { ...this.getTransferPageProps()} />
-          )
-        }
+        <TransfersPage { ...this.props} />
       </section>
     );
   }

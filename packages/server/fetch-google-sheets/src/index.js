@@ -78,26 +78,6 @@ const formatTransfer = (item) => ({
   type: item.transfertype,
 });
 
-const formatTransfers = (data) => {
-  const jsonData = {};
-  try {
-    Object.keys(data).forEach((key) => {
-      const player = data[key];
-      if (!jsonData[player.manager.trim()]) {
-        jsonData[player.manager.trim()] = [];
-      }
-      const transfer = formatTransfer(player);
-      if (transfer.status === 'Y') {
-        jsonData[player.manager.trim()].push(formatTransfer(player));
-      }
-    });
-  } catch (e) {
-    console.error('formatTransfers error');
-    console.error(e);
-  }
-  return jsonData;
-};
-
 const formatDivisionTransfers = (data) => {
   try {
     return Object.keys(data).map((key) => formatTransfer(data[key]));
@@ -133,8 +113,6 @@ const fetchGsheet = ({ spreadsheetId, worksheetName, formatter }) => (
       case worksheetName === 'Championship':
       case worksheetName === 'LeagueOne':
         return formatDivision(data);
-      case worksheetName === 'Transfers':
-        return formatTransfers(data);
       case worksheetName === 'PremierLeagueTransfers':
       case worksheetName === 'ChampionshipTransfers':
       case worksheetName === 'LeagueOneTransfers':

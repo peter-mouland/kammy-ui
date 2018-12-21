@@ -31,6 +31,11 @@
     top: 1.7em;
   }
 
+  .row--interstitial {
+    text-align: center;
+    opacity: .8;
+  }
+
   td.cell {
     border-bottom: 1px solid rgba(0, 0, 0, .2);
   }
@@ -53,6 +58,16 @@
     background: rgb(255, 235, 205);
   }
 
+  .cell--cta,
+  .cell--team-position {
+    width: 75px;
+  }
+
+  .cell--left {
+    text-align: left;
+  }
+
+  .cell--center,
   .cell--manager,
   .cell--position,
   .cell--team-position {

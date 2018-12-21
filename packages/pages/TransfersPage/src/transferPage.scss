@@ -5,6 +5,19 @@
   background: white;
 }
 
+button.change-icon-button:disabled {
+  background-color: #eee;
+  color: grey;
+
+  svg {
+    fill: #eee;
+  }
+
+  .change-icon {
+    background-color: grey;
+  }
+}
+
 button:not(:disabled).change-icon-button {
   transition: background-color 200ms;
   background-color: black;
@@ -38,4 +51,8 @@ button:not(:disabled).change-icon-button {
   input {
     font-size: 1.25em;
   }
+}
+
+.transfer__final-step {
+  position: relative;
 }

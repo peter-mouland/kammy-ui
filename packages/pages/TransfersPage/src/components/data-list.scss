@@ -29,6 +29,11 @@ input[type=text] {
   top: 100%;
   left: 0;
   right: 0;
+
+  /* restrict height */
+  max-height: 355px;
+  overflow: auto;
+  box-shadow: rgba(0, 0, 0, .35) 5px 5px 13px;
 }
 
 .datalist-items div {

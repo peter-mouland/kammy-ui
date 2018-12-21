@@ -3,6 +3,7 @@ import get from '@kammy-ui/helpers.get';
 
 const transfersSelector = (state, division) => get(state, `transfers.${division}.transfers`) || [];
 const statusSelector = (state, division) => get(state, `transfers.${division}.status`) || {};
+const savingSelector = (state) => get(state, 'transfers.saving') || false;
 
 export const getTransfers = createSelector(
   transfersSelector,
@@ -14,5 +15,6 @@ export const getValidTransfers = createSelector(
 
 export const getStatus = createSelector(
   statusSelector,
-  (status) => status,
+  savingSelector,
+  (status, saving) => ({ ...status, saving }),
 );

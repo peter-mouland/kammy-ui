@@ -21,6 +21,7 @@
     "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
+    "@kammy-ui/button": "^0.0.17",
     "@kammy-ui/data-player-stats": "^0.0.18",
     "@kammy-ui/data-team-season": "^0.0.18",
     "@kammy-ui/error-boundary": "^0.0.14",
@@ -35,6 +36,7 @@
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/select": "^0.0.17",
     "@kammy-ui/svg": "^0.0.17",
+    "date-fns": "1.30.1",
     "json-query": "^2.2.2",
     "react-redux": "^5.0.7"
   },
