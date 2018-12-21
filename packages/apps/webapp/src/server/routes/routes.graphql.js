@@ -34,7 +34,7 @@ export default () => {
       .then((result) => {
         ctx.status = 200;
         ctx.type = 'json';
-        ctx.body = result;
+        ctx.body = { ...result, variables };
 
         if (result.errors) {
           ctx.status = 500;

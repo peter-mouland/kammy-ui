@@ -19,9 +19,10 @@ class DivisionStats extends React.Component {
       fetchDbPlayers, fetchDivision, fetchTransfers,
       playersLoaded, divisionLoaded, transfersLoaded,
     } = this.props;
+
     if (!playersLoaded) fetchDbPlayers();
     if (!divisionLoaded) fetchDivision(divisionId);
-    if (!transfersLoaded) fetchTransfers();
+    if (!transfersLoaded) fetchTransfers(divisionId);
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 

@@ -37,7 +37,7 @@ class DivisionRankings extends React.Component {
     } = this.props;
     if (!playersLoaded) fetchDbPlayers();
     if (!divisionLoaded) fetchDivision(divisionId);
-    if (!transfersLoaded) fetchTransfers();
+    if (!transfersLoaded) fetchTransfers(divisionId);
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 

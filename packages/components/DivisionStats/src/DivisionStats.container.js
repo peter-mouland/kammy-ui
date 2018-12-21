@@ -2,18 +2,26 @@ import { connect } from 'react-redux';
 import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
+import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 // import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 
 import DivisionStats from './DivisionStats';
 import calculateManagerSeason from './lib/manager-season';
 
-const { fetchTransfers, fetchDivision } = spreadsheetActions;
+const { fetchDivision } = spreadsheetActions;
 const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
 const { fetchGameWeeks } = gameWeekActions;
+const { fetchTransfers } = transferActions;
 
 function mapStateToProps(state, ownProps) {
+  const { divisionId } = ownProps;
   const { gameWeeks, selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
+  const { transfers } = transferSelectors.getValidTransfers(state, divisionId);
+  const {
+    loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
+  } = transferSelectors.getStatus(state, divisionId);
+
   const props = {
     selectedGameWeek,
     gameWeeksLoaded,
@@ -22,27 +30,27 @@ function mapStateToProps(state, ownProps) {
     playersLoading: state.players.loading,
     playersLoaded: state.players.loaded,
     playersErrors: state.players.errors,
-    transfers: state.spreadsheet.transfers,
-    transfersCount: state.spreadsheet.transfersCount,
-    transfersLoading: state.spreadsheet.transfersLoading,
-    transfersLoaded: state.spreadsheet.transfersLoaded,
-    transfersErrors: state.spreadsheet.transfersErrors,
+    divisionId,
+    transfers,
+    transfersCount: transfers.length,
+    transfersLoading,
+    transfersLoaded,
+    transfersErrors,
   };
-  const division = state.spreadsheet[ownProps.divisionId];
-  const divisionLoaded = state.spreadsheet[`${ownProps.divisionId}Loaded`];
+  const division = state.spreadsheet[divisionId];
+  const divisionLoaded = state.spreadsheet[`${divisionId}Loaded`];
 
   const loaded = (
     state.players.loaded
-    && state.spreadsheet.transfersLoaded
+    && transfersLoaded
     && gameWeeksLoaded
     && divisionLoaded
   );
-
   const managersSeason = loaded ? calculateManagerSeason({
     teams: division,
     gameWeeks,
     players: props.players,
-    transfers: props.transfers,
+    transfers,
     withStats: true,
   }) : null;
 
@@ -58,7 +66,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchGameWeeks: () => dispatch(fetchGameWeeks()),
-  fetchTransfers: () => dispatch(fetchTransfers()),
+  fetchTransfers: (division) => dispatch(fetchTransfers(division)),
   fetchDbPlayers: () => dispatch(fetchDbPlayers()),
   fetchDivision: (division) => dispatch(fetchDivision(division)),
 });
