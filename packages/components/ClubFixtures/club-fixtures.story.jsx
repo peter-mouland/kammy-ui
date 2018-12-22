@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 import { text, array, object } from '@storybook/addon-knobs';
-import { reducer } from '@kammy-ui/redux-players';
+import { reducer } from '@kammy-ui/redux.players';
 import configureStore from '@kammy-ui/redux-store';
 
 import fixtures from './club-fixtures.json';

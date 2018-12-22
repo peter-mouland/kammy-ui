@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 import { array } from '@storybook/addon-knobs';
 import configureStore from '@kammy-ui/redux-store';
-import { reducer } from '@kammy-ui/redux-players';
+import { reducer } from '@kammy-ui/redux.players';
 
 import fixtures from './players-table.fixtures.json';
 import Players from './src/Players';

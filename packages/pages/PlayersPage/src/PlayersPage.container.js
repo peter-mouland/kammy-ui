@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
-import { actions as dbPlayerActions } from '@kammy-ui/redux-players';
+import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 
 import PlayersPage from './PlayersPage';
 
-const { fetchAllPlayerData: fetchPlayers } = dbPlayerActions;
+const { fetchAllPlayerData } = playerActions;
 
 function mapStateToProps(state) {
+  const players = playerSelectors.getAllPlayerData(state);
   return {
-    playersLoaded: state.players.loaded,
-    players: state.players.data,
+    playersLoaded: players.loaded,
+    players: players.data,
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchPlayers },
+  { fetchAllPlayerData },
 )(PlayersPage);

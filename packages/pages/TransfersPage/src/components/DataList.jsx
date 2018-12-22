@@ -27,15 +27,23 @@ class DataListInput extends React.Component {
 
     this.state = {
       /*  last valid item that was selected from the drop down menu */
-      lastValidItem: undefined,
+      lastValidItem: {},
       /* current input text */
       currentInput: '',
+      /* current input text */
+      searchTerm: '',
       /* current set of matching items */
       matchingItems: [],
       /* visibility property of the drop down menu */
-      visible: false,
+      visible: props.alwaysShowItems,
       /* index of the currently focused item in the drop down menu */
-      focusIndex: 0,
+      focusIndex: -1,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return {
+      matchingItems: props.alwaysShowItems ? props.items : state.matchingItems,
     };
   }
 
@@ -45,14 +53,13 @@ class DataListInput extends React.Component {
    */
   onHandleInput = (event) => {
     const currentInput = event.target.value;
-    const matchingItems = this.props.items.filter((item) => {
-      if (typeof (this.props.match) === typeof (Function)) return this.props.match(currentInput, item);
-      return match(currentInput, item);
-    });
+    const matchingItems = this.props.items.filter((item) => this.props.match(currentInput, item));
+
     this.setState({
       currentInput,
+      searchTerm: currentInput,
       matchingItems,
-      focusIndex: 0,
+      focusIndex: -1,
       visible: true,
     });
   };
@@ -77,13 +84,13 @@ class DataListInput extends React.Component {
     } else if (event.keyCode === 38) {
       // If the arrow UP key is pressed, decrease the currentFocus variable:
       currentFocusIndex -= 1;
-      if (currentFocusIndex <= -1) currentFocusIndex = this.state.matchingItems.length - 1;
+      if (currentFocusIndex <= -2) currentFocusIndex = this.state.matchingItems.length - 1;
       this.setState({
         focusIndex: currentFocusIndex,
       });
     } else if (event.keyCode === 13) {
       // Enter pressed, similar to onClickItem
-      if (this.state.focusIndex > -1) {
+      if (this.state.focusIndex > -2) {
         // Simulate a click on the "active" item:
         const selectedItem = this.state.matchingItems[currentFocusIndex];
         this.onSelect(selectedItem);
@@ -114,7 +121,7 @@ class DataListInput extends React.Component {
       this.setState({
         currentInput: selectedItem.label,
         visible: false,
-        focusIndex: -1,
+        focusIndex: -2,
       });
       return;
     }
@@ -123,37 +130,46 @@ class DataListInput extends React.Component {
       currentInput: selectedItem.label,
       lastValidItem: selectedItem,
       visible: false,
-      focusIndex: -1,
+      focusIndex: -2,
     });
     // callback function onSelect
     this.props.onSelect(selectedItem);
   };
 
   render() {
-    const { currentInput, matchingItems: items } = this.state;
-    const { placeholder } = this.props;
+    const {
+      currentInput, matchingItems, searchTerm, visible,
+    } = this.state;
+    const { placeholder, alwaysShowItems } = this.props;
+    const inputClassName = alwaysShowItems || visible ? 'datalist datalist--on' : 'datalist';
+    const itemsClassName = alwaysShowItems || visible ? 'datalist-items datalist-items--on' : 'datalist-items';
+    const itemClassName = 'datalist-item';
 
     return (
-      <div className="datalist-input">
-        <input onKeyDown={this.onHandleKeydown} onInput={this.onHandleInput} type="text"
-          className="autocompleteInput"
+      <div className={inputClassName}>
+        <input
+          onKeyDown={this.onHandleKeydown}
+          onInput={this.onHandleInput}
+          type="search"
+          className="datalist__input"
           placeholder={placeholder} value={currentInput}/>
-        {(currentInput !== '' && this.state.visible
-          && (
-            <div className={'datalist-items'}>
-              {items.map((item, i) => (
-                <div onClick={this.onClickItem}
-                  className={this.state.focusIndex === i ? ' datalist-active-item' : undefined}
-                  key={item.key}>
-                  {item.label.substr(0, indexOfMatch(currentInput, item))}
-                  <strong>{item.label.substr(indexOfMatch(currentInput, item), currentInput.length)}</strong>
-                  {item.label.substr(indexOfMatch(currentInput, item) + currentInput.length)}
-                  <input type='hidden' value={item.key}/>
-                </div>
-              ))}
-            </div>
-          )
-        )}
+        <div className={itemsClassName}>
+          {(alwaysShowItems || visible) && matchingItems.map((item, i) => {
+            const isActive = this.state.focusIndex === i || currentInput === item.label;
+            return (
+              <div
+                onClick={this.onClickItem}
+                className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
+                key={item.key}
+              >
+                {item.label.substr(0, indexOfMatch(searchTerm, item))}
+                <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
+                {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
+                <input type='hidden' value={item.key}/>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -164,6 +180,12 @@ DataListInput.propTypes = {
   placeholder: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   match: PropTypes.func,
+  alwaysShowItems: PropTypes.bool,
+};
+
+DataListInput.defaultProps = {
+  match,
+  alwaysShowItems: false,
 };
 
 export default DataListInput;

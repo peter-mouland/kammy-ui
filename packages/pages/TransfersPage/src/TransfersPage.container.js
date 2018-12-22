@@ -1,32 +1,25 @@
 import { connect } from 'react-redux';
-import { actions as dbActions } from '@kammy-ui/redux-players';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
+import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 
 import TransfersPageLoader from './TransfersPage.loader';
-import calculateManagerSeason from './lib/manager-season';
 
 const {
   fetchPremierLeague, fetchLeagueOne, fetchChampionship,
 } = spreadsheetActions;
 const { fetchGameWeeks } = gameWeekActions;
 
-const { fetchAllPlayerData: fetchDbPlayers } = dbActions;
+const { fetchPlayers } = playerActions;
 const { fetchCurrentTeams } = divisionActions;
 const { fetchTransfers, saveTransfers } = transferActions;
-
-const playersArray = (players) => (
-  Object.values(players).map((player) => (
-    { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
-  ))
-);
-
 
 function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks, currentGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInCurrentGameWeek(state);
+  const players = playerSelectors.getPlayers(state);
   const { transfers } = transferSelectors.getTransfers(state, division);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors, saving: transfersSaving,
@@ -45,10 +38,11 @@ function mapStateToProps(state, { division }) {
     division,
     divisionTeams,
     divisionTeamsLoaded,
-    playersCount: state.players.count,
-    playersLoading: state.players.loading,
-    playersLoaded: state.players.loaded,
-    playersErrors: state.players.errors,
+    players: players.playersArray,
+    playersCount: players.count,
+    playersLoading: players.loading,
+    playersLoaded: players.loaded,
+    playersErrors: players.errors,
     gameWeeks,
     gameWeeksCount,
     gameWeeksLoading,
@@ -77,29 +71,19 @@ function mapStateToProps(state, { division }) {
     leagueOneErrors: state.spreadsheet.leagueOneErrors,
   };
   const teams = props[division];
-  const players = state.players.data ? Object.values(state.players.data) : null;
 
   const loaded = (
-    state.players.loaded
+    players.loaded
     && gameWeeksLoaded
     && transfersLoaded
     && state.spreadsheet.premierLeagueLoaded
     && state.spreadsheet.championshipLoaded
     && state.spreadsheet.leagueOneLoaded
   );
-  const managersSeason = loaded ? calculateManagerSeason({
-    teams,
-    gameWeeks,
-    players,
-    transfers,
-    withStats: true,
-  }) : {};
 
   return {
     ...props,
     teams,
-    players: players && playersArray(players),
-    managersSeason,
     loaded,
   };
 }
@@ -113,7 +97,7 @@ export default connect(
     fetchLeagueOne,
     fetchTransfers,
     saveTransfers,
-    fetchDbPlayers,
+    fetchPlayers,
     fetchCurrentTeams,
   },
 )(TransfersPageLoader);

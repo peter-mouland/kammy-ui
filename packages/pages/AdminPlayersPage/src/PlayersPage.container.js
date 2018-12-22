@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { actions as skySportActions } from '@kammy-ui/redux-skysports';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
-import { actions as dbPlayerActions } from '@kammy-ui/redux-players';
+import { actions as dbPlayerActions } from '@kammy-ui/redux.players';
 
 import PlayersPage from './PlayersPage';
 

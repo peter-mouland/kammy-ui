@@ -13,8 +13,8 @@ const bem = bemHelper({ block: 'players-page' });
 
 class PlayersPage extends React.Component {
   componentDidMount() {
-    const { fetchPlayers, playersLoaded } = this.props;
-    if (!playersLoaded) fetchPlayers();
+    const { fetchAllPlayerData, playersLoaded } = this.props;
+    if (!playersLoaded) fetchAllPlayerData();
   }
 
   render() {
@@ -39,13 +39,12 @@ class PlayersPage extends React.Component {
 
 PlayersPage.propTypes = {
   playersLoaded: PropTypes.bool,
-  fetchPlayers: PropTypes.func,
+  fetchAllPlayerData: PropTypes.func.isRequired,
   players: PropTypes.object,
   disabledPlayers: PropTypes.object,
 };
 
 PlayersPage.defaultProps = {
-  fetchPlayers: () => {},
   playersLoaded: false,
   disabledPlayers: {},
 };

@@ -23,7 +23,7 @@
     "@kammy-ui/errors": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/multi-toggle": "^0.0.17",
-    "@kammy-ui/redux-players": "^0.0.17",
+    "@kammy-ui/redux.players": "^0.0.17",
     "@kammy-ui/select": "^0.0.17",
     "@kammy-ui/sort-columns": "^0.0.17",
     "@kammy-ui/svg": "^0.0.17",
