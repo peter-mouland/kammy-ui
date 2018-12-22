@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@kammy-ui/app-config-provider": "0.0.17",
-    "@kammy-ui/redux-players": "^0.0.17",
+    "@kammy-ui/redux.players": "^0.0.17",
     "@kammy-ui/redux-skysports": "^0.0.17",
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",

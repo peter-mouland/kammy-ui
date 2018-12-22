@@ -1,5 +1,5 @@
 {
-  "name": "@kammy-ui/redux-players",
+  "name": "@kammy-ui/redux.players",
   "version": "0.0.17",
   "description": "Kammy UI Redux: Players",
   "main": "dist/index.min.js",

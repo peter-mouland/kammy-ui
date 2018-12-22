@@ -13,13 +13,13 @@ class TransfersPageLoader extends React.Component {
 
   componentDidMount() {
     const {
-      fetchDbPlayers, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
+      fetchPlayers, fetchPremierLeague, fetchChampionship, fetchLeagueOne, fetchTransfers, fetchGameWeeks,
       playersLoaded, premierLeagueLoaded, championshipLoaded, leagueOneLoaded, transfersLoaded, gameWeeksLoaded,
       fetchCurrentTeams, division, divisionTeamsLoaded,
     } = this.props;
 
     if (!divisionTeamsLoaded) fetchCurrentTeams(division);
-    if (!playersLoaded) fetchDbPlayers();
+    if (!playersLoaded) fetchPlayers();
     if (!premierLeagueLoaded) fetchPremierLeague();
     if (!championshipLoaded) fetchChampionship();
     if (!leagueOneLoaded) fetchLeagueOne();
@@ -42,13 +42,12 @@ TransfersPageLoader.propTypes = {
   loaded: PropTypes.bool,
   players: PropTypes.array,
   transfers: PropTypes.array,
-  managersSeason: PropTypes.object,
   gameWeeks: PropTypes.array,
   premierLeague: PropTypes.object,
   championship: PropTypes.object,
   leagueOne: PropTypes.object,
 
-  fetchDbPlayers: PropTypes.func.isRequired,
+  fetchPlayers: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
   fetchPremierLeague: PropTypes.func.isRequired,

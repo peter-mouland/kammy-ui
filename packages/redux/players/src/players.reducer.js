@@ -1,41 +1,106 @@
-/* eslint-disable no-underscore-dangle */
 import * as actions from './players.actions';
 
-const arrayToObj = (arr) => (
+const mergePlayers = (players = {}, arr) => (
   arr
     .filter((item) => !!item)
     .reduce((prev, curr) => ({
       ...prev,
       [curr.name]: {
+        ...prev[curr.name] || {},
         ...curr,
       },
-    }), {})
+    }), players)
 );
 
 export default function playersReducer(state = {}, action) {
-  const data = action.payload && action.payload.data;
-
-  switch (action.type) {
+  const { payload = {}, type } = action;
+  const { data, errors } = payload;
+  switch (type) {
   case `${actions.FETCH_PLAYERS}_PENDING`:
     return {
       ...state,
-      loaded: false,
-      loading: true,
+      players: {
+        ...state.players || {},
+        loaded: false,
+        loading: true,
+      },
     };
   case `${actions.FETCH_PLAYERS}_FULFILLED`:
     return {
       ...state,
-      data: data && arrayToObj(data.getPlayers),
-      count: data ? data.getPlayers.length : 0,
-      errors: action.payload.errors,
-      loaded: true,
-      loading: false,
+      players: {
+        ...state.players || {},
+        data: data && mergePlayers(state.players.data, data.getPlayers),
+        count: data ? data.getPlayers.length : 0,
+        errors,
+        loaded: true,
+        loading: false,
+      },
     };
   case `${actions.FETCH_PLAYERS}_REJECTED`:
     return {
       ...state,
-      errors: [action.payload],
-      loading: false,
+      players: {
+        errors: [payload],
+        loading: false,
+      },
+    };
+  case `${actions.FETCH_PLAYERS_ALL_DATA}_PENDING`:
+    return {
+      ...state,
+      allPlayersData: {
+        ...state.allPlayersData || {},
+        loaded: false,
+        loading: true,
+      },
+    };
+  case `${actions.FETCH_PLAYERS_ALL_DATA}_FULFILLED`:
+    return {
+      ...state,
+      allPlayersData: {
+        ...state.allPlayersData || {},
+        data: data && mergePlayers(state.allPlayersData.data, data.getPlayers),
+        count: data ? data.getPlayers.length : 0,
+        errors,
+        loaded: true,
+        loading: false,
+      },
+    };
+  case `${actions.FETCH_PLAYERS_ALL_DATA}_REJECTED`:
+    return {
+      ...state,
+      allPlayersData: {
+        errors: [payload],
+        loading: false,
+      },
+    };
+  case `${actions.FETCH_PLAYER_FIXTURES}_PENDING`:
+    return {
+      ...state,
+      playerFixtures: {
+        loaded: false,
+        loading: true,
+      },
+    };
+  case `${actions.FETCH_PLAYER_FIXTURES}_FULFILLED`:
+    return {
+      ...state,
+      playerFixtures: {
+        ...state.playerFixtures || {},
+        data: data && mergePlayers(state.playerFixtures.data, data.getPlayers),
+        count: data ? data.getPlayers.length : 0,
+        errors,
+        loaded: true,
+        loading: false,
+      },
+    };
+  case `${actions.FETCH_PLAYER_FIXTURES}_REJECTED`:
+    return {
+      ...state,
+      playerFixtures: {
+        errors: [payload],
+        loading: false,
+      },
     };
   case `${actions.INIT_PLAYERS}_PENDING`:
     return {
@@ -45,24 +110,14 @@ export default function playersReducer(state = {}, action) {
   case `${actions.INIT_PLAYERS}_FULFILLED`:
     return {
       ...state,
-      errors: action.payload.errors,
+      errors,
       importing: false,
     };
   case `${actions.INIT_PLAYERS}_REJECTED`:
     return {
       ...state,
-      errors: [action.payload],
+      errors: [payload],
       importing: false,
-    };
-  case `${actions.FETCH_PLAYER_FIXTURES}_FULFILLED`:
-    return {
-      ...state,
-      playerFixtures: data ? {
-        ...state.playerFixtures,
-        [data.getPlayerFixtures.code]: data.getPlayerFixtures,
-      } : null,
-      errors: action.payload.errors,
-      updating: false,
     };
   default:
     return state;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { actions } from '@kammy-ui/redux-players';
+import { actions } from '@kammy-ui/redux.players';
 import Players from './Players';
 
 const { fetchAllPlayerData: fetchPlayers, fetchPositions } = actions;

@@ -1,44 +1,55 @@
 import { fetchGraphQL } from '@kammy-ui/fetchr';
 
 export const FETCH_PLAYERS = 'FETCH_PLAYERS';
-// export const FETCH_PLAYERS_DEPRECATED = 'FETCH_PLAYERS_DEPRECATED';
+export const FETCH_PLAYERS_ALL_DATA = 'FETCH_PLAYERS_ALL_DATA';
 export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';
 // export const FETCH_PLAYER_STATS = 'FETCH_PLAYER_STATS';
 export const INIT_PLAYERS = 'INIT_PLAYERS';
 
 export function fetchPlayers(player) {
+  const variables = player ? { player } : undefined;
   return {
     type: FETCH_PLAYERS,
-    payload: fetchGraphQL(`
+    payload: {
+      data: { variables },
+      promise: fetchGraphQL(`
 query {
-  getPlayers{ 
-    _id code pos name club skySportsPosition isHidden new value
+  getPlayers {
+    code pos name club
  }
 }
-`, player ? { player } : undefined),
+`, variables),
+    },
   };
 }
 
 export function fetchPlayerFixtures(player) {
+  const variables = player ? { player } : undefined;
   return {
-    type: FETCH_PLAYERS,
-    payload: fetchGraphQL(`
+    type: FETCH_PLAYER_FIXTURES,
+    payload: {
+      data: { variables },
+      promise: fetchGraphQL(`
 query {
   getPlayers{ 
-    _id code pos name club skySportsPosition isHidden new value
+    code pos name club
    fixtures { 
       aScore aTname date event hScore hTname status stats
     }
  }
 }
-`, player ? { player } : undefined),
+`, variables),
+    },
   };
 }
 
 export function fetchPlayerStats(player) {
+  const variables = player ? { player } : undefined;
   return {
     type: FETCH_PLAYERS,
-    payload: fetchGraphQL(`
+    payload: {
+      data: { variables },
+      promise: fetchGraphQL(`
 query {
   getPlayers{ 
     _id code pos name club skySportsPosition isHidden new value
@@ -50,15 +61,19 @@ query {
     }
  }
 }
-`, player ? { player } : undefined),
+`, variables),
+    },
   };
 }
 
 // todo: remove!
 export function fetchAllPlayerData(player) {
+  const variables = player ? { player } : undefined;
   return {
-    type: FETCH_PLAYERS,
-    payload: fetchGraphQL(`
+    type: FETCH_PLAYERS_ALL_DATA,
+    payload: {
+      data: { variables },
+      promise: fetchGraphQL(`
 query {
   getPlayers{ 
     _id code pos name club skySportsPosition isHidden new value
@@ -73,16 +88,10 @@ query {
     }
  }
 }
-`, player ? { player } : undefined),
+`, variables),
+    },
   };
 }
-
-// export function fetchPlayerFixtures({ code }) {
-//   return {
-//     type: FETCH_PLAYER_FIXTURES,
-//     payload: fetchGraphQL('getPlayerFixturesQuery', { code }),
-//   };
-// }
 
 export function mergePlayers() {
   return {

@@ -22,7 +22,7 @@
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/modal": "^0.0.17",
-    "@kammy-ui/redux-players": "^0.0.17"
+    "@kammy-ui/redux.players": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.6.2",
