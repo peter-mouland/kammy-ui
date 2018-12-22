@@ -18,7 +18,7 @@ class PlayersPageTable extends React.Component {
       <section id="players-page" className={bem()}>
         <div className="page-content">
           <PlayersFilters
-            players={Object.values(players)}
+            players={players}
             positions={positions}
             showNewToggle={true}
             showHiddenToggle={true}
@@ -39,11 +39,11 @@ class PlayersPageTable extends React.Component {
 }
 
 PlayersPageTable.propTypes = {
-  players: PropTypes.object,
+  players: PropTypes.array,
 };
 
 PlayersPageTable.defaultProps = {
-  players: {},
+  players: [],
 };
 
 export default PlayersPageTable;

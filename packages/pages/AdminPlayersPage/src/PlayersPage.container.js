@@ -1,24 +1,28 @@
 import { connect } from 'react-redux';
 import { actions as skySportActions } from '@kammy-ui/redux-skysports';
 import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
-import { actions as dbPlayerActions } from '@kammy-ui/redux.players';
+import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 
 import PlayersPage from './PlayersPage';
 
 const { fetchPlayers: fetchSpreadsheetPlayers } = spreadsheetActions;
 const { fetchPlayers: fetchSkySportsPlayers } = skySportActions;
-const { fetchAllPlayerData: fetchDbPlayers, mergePlayers } = dbPlayerActions;
+const { fetchAllPlayerData: fetchDbPlayers, mergePlayers } = playerActions;
 
 function mapStateToProps(state) {
-  const loaded = (state.players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
+  const players = playerSelectors.getAllPlayerData(state);
+  const dbPlayersImporting = playerSelectors.getImporting(state);
+  const loaded = (players.loaded && state.skySports.loaded && state.spreadsheet.playersLoaded);
+
   return {
     loaded,
-    dbPlayers: state.players.data,
-    dbPlayersCount: state.players.count,
-    dbImporting: state.players.importing,
-    dbLoading: state.players.loading,
-    dbLoaded: state.players.loaded,
-    dbErrors: state.players.errors,
+    dbPlayers: players.data,
+    dbPlayersCount: players.count,
+    dbPlayersArray: players.playersArray,
+    dbImporting: dbPlayersImporting,
+    dbPlayersLoading: players.loading,
+    dbPlayersLoaded: players.loaded,
+    dbPlayersErrors: players.errors,
     skySportsPlayers: state.skySports.data,
     skySportsPlayersCount: state.skySports.count,
     skySportsLoading: state.skySports.loading,
