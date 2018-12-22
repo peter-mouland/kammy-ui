@@ -7,7 +7,6 @@ import MultiToggle from '@kammy-ui/multi-toggle';
 import Interstitial from '@kammy-ui/interstitial';
 import format from 'date-fns/format';
 
-// import Team from './components/Team';
 import Players from './components/Players';
 
 import './transferPage.scss';
@@ -15,6 +14,31 @@ import './transferPage.scss';
 const bem = bemHelper({ block: 'transfers-page' });
 
 const formatTimestamp = (ts) => format(ts, 'MMM Do, HH:mm:ss');
+
+const changeTypes = {
+  TRADE: 'Trade',
+  LOAN: 'Loan',
+  SWAP: 'Swap',
+  TRANSFER: 'Transfer',
+  WAIVER: 'Waiver',
+};
+
+const verbs = {
+  out: {
+    [changeTypes.LOAN]: 'being loaned',
+    [changeTypes.SWAP]: 'being swapped',
+    [changeTypes.TRADE]: 'being traded',
+    [changeTypes.TRANSFER]: 'being transferred',
+    [changeTypes.WAIVER]: 'being taken',
+  },
+  in: {
+    [changeTypes.LOAN]: 'being brought',
+    [changeTypes.SWAP]: 'being swapped',
+    [changeTypes.TRADE]: 'being traded',
+    [changeTypes.TRANSFER]: 'being transferred',
+    [changeTypes.WAIVER]: 'being brought',
+  },
+};
 
 const getEmoji = (status = '') => {
   switch (status.toLowerCase()) {
@@ -31,8 +55,8 @@ class TransfersPage extends React.Component {
     changeType: null,
     playerIn: null,
     playerOut: null,
-    searchStringIn: '',
-    searchStringOut: '',
+    playerDisplaced: null,
+    playerGapFiller: null,
   }
 
   componentDidUpdate = (prevProps) => {
@@ -50,43 +74,73 @@ class TransfersPage extends React.Component {
     this.setState({ changeType });
   }
 
-  updateSearchIn = (searchStringIn) => {
-    this.setState({ searchStringIn });
+  updateGapFiller = ({ value }) => {
+    const { players } = this.props;
+    const { playerGapFiller } = this.state;
+    this.setState({ playerGapFiller: playerGapFiller === players[value].name ? null : players[value] });
   }
 
-  updateSearchOut = (searchStringOut) => {
-    this.setState({ searchStringOut });
+  updateDisplaced = ({ value }) => {
+    const { players } = this.props;
+    const { playerDisplaced } = this.state;
+    this.setState({ playerDisplaced: playerDisplaced === players[value].name ? null : players[value] });
   }
 
-  updatePlayerOut = (playerOut) => {
-    this.setState({ playerOut: this.state.playerOut === playerOut ? null : playerOut });
+  updatePlayerOut = ({ value }) => {
+    const { players } = this.props;
+    const { playerOut } = this.state;
+    this.setState({ playerOut: playerOut === players[value].name ? null : players[value] });
   }
 
-  updatePlayerIn = (playerIn) => {
-    this.setState({ playerIn });
+  updatePlayerIn = ({ value }) => {
+    const { players } = this.props;
+    const { playerIn } = this.state;
+    this.setState({ playerIn: playerIn === players[value].name ? null : players[value] });
   }
 
   confirmTransfer = () => {
     const {
-      playerIn, playerOut, changeType, manager,
+      playerIn, playerOut, changeType, manager, playerDisplaced, playerGapFiller,
     } = this.state;
     const { division, saveTransfers } = this.props;
-    saveTransfers({
-      division, transferIn: playerIn.value, transferOut: playerOut.value, type: changeType, manager,
-    });
+    const timestamp = format(new Date(), 'DD/MM/YYYY HH:mm:ss');
+    const baseDetails = {
+      timestamp, division, manager, status: 'TBC', transferType: changeType,
+    };
+    const transfers = [];
+    if (playerDisplaced && playerGapFiller) {
+      // rearrange transfer to ensure positions match for the spreadsheet
+      transfers.push({
+        ...baseDetails, transferIn: playerGapFiller.name, transferOut: playerOut.name,
+      });
+      transfers.push({
+        ...baseDetails, transferIn: playerIn.name, transferOut: playerDisplaced.name,
+      });
+    } else {
+      transfers.push({
+        ...baseDetails, transferIn: playerIn.name, transferOut: playerOut.name,
+      });
+    }
+    saveTransfers(transfers);
   }
 
   render() {
     const {
-      teams, players, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading,
+      teams, playersArray, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading,
     } = this.props; /* divisionTeams,  */
     const {
-      manager, changeType, playerOut, playerIn, searchStringOut, searchStringIn,
+      manager, changeType, playerOut, playerIn, playerDisplaced, playerGapFiller,
     } = this.state;
 
     const currentTransfers = transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
-    const allStepsComplete = playerIn && playerOut && changeType && manager;
     const loadingState = (transfersSaving || transfersLoading) ? 'loading' : '';
+    const verbIn = changeType ? verbs.in[changeType] : '...';
+    const verbOut = changeType ? verbs.out[changeType] : '...';
+    const showTradeQuestions = (
+      playerOut && playerIn && changeType === changeTypes.TRADE && playerOut.pos !== playerIn.pos
+    );
+    const tradeQuestionsComplete = !showTradeQuestions || (showTradeQuestions && playerDisplaced && playerGapFiller);
+    const allStepsComplete = playerIn && playerOut && changeType && manager && tradeQuestionsComplete;
     const buttonState = !allStepsComplete ? 'disabled' : loadingState;
 
     return (
@@ -107,7 +161,7 @@ class TransfersPage extends React.Component {
         </div>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            <div>What are you doing?</div>
+            <div>What type of change are you making?</div>
             <MultiToggle
               id={'change-type'}
               options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
@@ -118,53 +172,56 @@ class TransfersPage extends React.Component {
         </div>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            <div>Who is out?</div>
-            {/* {divisionTeams && divisionTeams[manager] ? ( */}
-            {/* <Team */}
-            {/* changePlayer={playerOut} */}
-            {/* onSelect={this.updatePlayerOut} */}
-            {/* team={divisionTeams[manager]} */}
-            {/* /> */}
-            {/* ) */}
-            {/* : <Team placeholder />} */}
-            {players && (
+            <div>Who is {verbOut} out?</div>
+            {playersArray && (
               <Players
-                playerOut={playerOut}
-                playerIn={playerIn}
                 onSelect={this.updatePlayerOut}
-                onSearch={this.updateSearchOut}
-                searchString={searchStringOut}
-                players={players}
+                playersArray={playersArray}
               />
             )}
-            {!players && (<Interstitial message='loading players...' />)}
+            {!playersArray && (<Interstitial message='loading playersArray...' />)}
           </div>
         </div>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            <div>Who is in?</div>
-            {players && (
+            <div>Who is {verbIn} in?</div>
+            {playersArray && (
               <Players
-                playerOut={playerOut}
-                playerIn={playerIn}
                 onSelect={this.updatePlayerIn}
-                onSearch={this.updateSearchIn}
-                searchString={searchStringIn}
-                players={players}
+                playersArray={playersArray}
               />
             )}
-            {!players && (<Interstitial message='loading players...' />)}
+            {!playersArray && (<Interstitial message='loading playersArray...' />)}
           </div>
         </div>
+
+        {showTradeQuestions && (
+          <div>
+            <div data-b-layout="row negative v-space">
+              <div data-b-layout='col pad'>
+                <div>Who will fill the gap at {playerOut.pos}?</div>
+                <Players
+                  onSelect={this.updateGapFiller}
+                  playersArray={playersArray}
+                  playersFilter={({ pos }) => pos === playerOut.pos}
+                />
+              </div>
+            </div>
+            <div data-b-layout="row negative v-space">
+              <div data-b-layout='col pad'>
+                <div>Who will be displaced at {playerIn.pos}?</div>
+                <Players
+                  onSelect={this.updateDisplaced}
+                  playersArray={playersArray}
+                  playersFilter={({ pos }) => pos === playerIn.pos}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
-            {allStepsComplete && (
-              <p>
-                <strong>{playerOut.label}</strong>
-              for
-                <strong>{playerIn.label}</strong>
-              </p>
-            )}
             <div style={{ display: 'inline-block' }}>
               <Button onClick={this.confirmTransfer} state={buttonState}>
               Confirm {changeType}
@@ -172,6 +229,7 @@ class TransfersPage extends React.Component {
             </div>
           </div>
         </div>
+
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
             <h2 >Requested Transfers</h2>
@@ -226,7 +284,8 @@ TransfersPage.propTypes = {
   transfers: PropTypes.array,
   division: PropTypes.string.isRequired,
   gameWeeks: PropTypes.array,
-  players: PropTypes.array,
+  players: PropTypes.object,
+  playersArray: PropTypes.array,
   teams: PropTypes.object,
   divisionTeams: PropTypes.object,
   dateIsInCurrentGameWeek: PropTypes.func.isRequired,
@@ -243,6 +302,8 @@ TransfersPage.defaultProps = {
   transfersLoading: false,
   transfers: [],
   gameWeeks: [],
+  players: null,
+  playersArray: null,
   teams: {},
   divisionTeams: {},
 };

@@ -3,37 +3,41 @@ import PropTypes from 'prop-types';
 
 import DataListInput from './DataList';
 
-// const getPlayers = (type = '') => {
-//   switch (type.toLowerCase()) {
-//   case 'swap': return (team, players) => team;
-//   }
-// };
-
-const playerOptions = (players) => (
-  players.map((player) => (
-    { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
-  ))
-);
+const playerOptions = (players, playersFilter) => {
+  const filteredPlayers = playersFilter ? players.filter(playersFilter) : players;
+  return (
+    filteredPlayers.map((player) => (
+      { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
+    ))
+  );
+};
 
 class Players extends React.Component {
-  shouldComponentUpdate = (nextProps) => JSON.stringify(nextProps.players) !== JSON.stringify(this.props.players)
+  shouldComponentUpdate = (nextProps) => (
+    JSON.stringify(nextProps.playersArray) !== JSON.stringify(this.props.playersArray)
+  )
 
   render() {
     const {
-      onSelect, players,
+      onSelect, playersArray, playersFilter,
     } = this.props;
 
     return (
       <div className='transfer-player__input'>
-        <DataListInput placeholder={'Search by player name...'} alwaysShowItems items={playerOptions(players)} onSelect={onSelect} />
+        <DataListInput placeholder={'Search by player name...'} alwaysShowItems items={playerOptions(playersArray, playersFilter)} onSelect={onSelect} />
       </div>
     );
   }
 }
 
 Players.propTypes = {
-  players: PropTypes.array.isRequired,
+  playersArray: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
+  playersFilter: PropTypes.func,
+};
+
+Players.defaultProps = {
+  playersFilter: null,
 };
 
 export default Players;

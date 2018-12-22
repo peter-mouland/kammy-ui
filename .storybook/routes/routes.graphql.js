@@ -18,7 +18,8 @@ module.exports = (router) => {
 
   router.post('/graphql', async (request, res) => {
       const { query, variables } =  JSON.parse(request.body);
-      console.log('Fetching ' + query, variables);
+      console.log('Fetching ' + query);
+      console.log(variables);
 
       await graphQL({ query, variables })
         .then((result) => {
