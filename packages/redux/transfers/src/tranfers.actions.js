@@ -20,29 +20,19 @@ query GetTransfers($division: String) {
   };
 }
 
-export function saveTransfers({
-  division, transferIn, transferOut, type, manager, status = 'TBC',
-}) {
-  // 2018-12-21T01:33:49.525Z to 06/08/2018 09:24:07
-  const [date, time] = new Date().toISOString().split('T');
-  const [year, month, day] = date.split('-');
-  const [hour, min, split] = time.split(':');
-  const [second] = split.split('.');
-  const timestamp = `${day}/${month}/${year} ${hour}:${min}:${second}`;
-  const variables = {
-    division, transferIn, transferOut, transferType: type, manager, status, timestamp,
-  };
+export function saveTransfers(transfers) {
+  const variables = { transfers };
   return {
     type: SAVE_TRANSFERS,
     payload: {
       data: { variables },
       promise: fetchGraphQL(`
-mutation SaveTransfers($transfer: TransferInput) { 
-  saveTransfers (transfer: $transfer) {
+mutation SaveTransfers($transfers: [TransferInput]) { 
+  saveTransfers (transfers: $transfers) {
     success message
   }
 } 
-`, { transfer: variables }),
+`, variables),
     },
   };
 }

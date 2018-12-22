@@ -1,11 +1,11 @@
-import { saveRow } from '@kammy-ui/fetch-google-sheets';
+import { saveRows } from '@kammy-ui/fetch-google-sheets';
 
 import formatDivision from '../division/format-division';
 
 const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 
-export default async ({ transfer }) => saveRow({
+export default async ({ transfers, ...others }) => console.log(others) || saveRows({
   spreadsheetId,
-  worksheetName: `${formatDivision(transfer.division)}Transfers`,
-  data: transfer,
+  worksheetName: `${formatDivision(transfers[0].division)}Transfers`,
+  data: transfers,
 });
