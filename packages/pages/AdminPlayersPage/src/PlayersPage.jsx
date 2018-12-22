@@ -15,9 +15,9 @@ class PlayersPage extends React.Component {
   componentDidMount() {
     const {
       fetchDbPlayers, fetchSkySportsPlayers, fetchSpreadsheetPlayers,
-      dbLoaded, skySportsLoaded, spreadsheetLoaded,
+      dbPlayersLoaded, skySportsLoaded, spreadsheetLoaded,
     } = this.props;
-    if (!dbLoaded) fetchDbPlayers();
+    if (!dbPlayersLoaded) fetchDbPlayers();
     if (!skySportsLoaded) fetchSkySportsPlayers();
     if (!spreadsheetLoaded) fetchSpreadsheetPlayers();
   }
@@ -34,7 +34,7 @@ class PlayersPage extends React.Component {
 
   render() {
     const {
-      dbLoading, dbPlayersCount, loaded, dbImporting, dbPlayers,
+      dbPlayersLoading, dbPlayersCount, loaded, dbImporting, dbPlayersArray,
       spreadsheetLoading, spreadsheetPlayersCount,
       skySportsLoading, skySportsPlayersCount,
     } = this.props;
@@ -52,7 +52,7 @@ class PlayersPage extends React.Component {
         </p>
         <p>
           Players In DB :
-          {dbLoading ? <Interstitial /> : dbPlayersCount}
+          {dbPlayersLoading ? <Interstitial /> : dbPlayersCount}
         </p>
         <p>
           Players In SkySports :
@@ -81,7 +81,7 @@ class PlayersPage extends React.Component {
         )}
         {dbPlayersCount > 0 && (
           <ErrorBoundary>
-            <PlayersPageTable players={dbPlayers} />
+            <PlayersPageTable players={dbPlayersArray} />
           </ErrorBoundary>
         )}
       </section>
@@ -102,9 +102,9 @@ PlayersPage.propTypes = {
 
   fetchDbPlayers: PropTypes.func,
   dbImporting: PropTypes.bool,
-  dbLoading: PropTypes.bool,
-  dbLoaded: PropTypes.bool,
-  dbPlayers: PropTypes.object,
+  dbPlayersLoading: PropTypes.bool,
+  dbPlayersLoaded: PropTypes.bool,
+  dbPlayersArray: PropTypes.array,
   dbPlayersCount: PropTypes.number,
 
   fetchSpreadsheetPlayers: PropTypes.func,
@@ -121,9 +121,9 @@ PlayersPage.defaultProps = {
   mergedPlayers: {},
   loaded: false,
   dbImporting: false,
-  dbLoading: false,
-  dbLoaded: false,
-  dbPlayers: {},
+  dbPlayersLoading: false,
+  dbPlayersLoaded: false,
+  dbPlayersArray: [],
   dbPlayersCount: null,
   skySportsLoading: false,
   skySportsLoaded: false,

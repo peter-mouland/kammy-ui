@@ -7,7 +7,12 @@ const playerOptions = (players, playersFilter) => {
   const filteredPlayers = playersFilter ? players.filter(playersFilter) : players;
   return (
     filteredPlayers.map((player) => (
-      { value: player.name, label: `${player.name} (${player.pos}) `, key: player.name }
+      {
+        value: player.name,
+        label: `${player.name} (${player.pos}) `,
+        key: player.name,
+        img: `${`https://fantasyfootball.skysports.com/assets/img/players/${player.code}.png`}`,
+      }
     ))
   );
 };

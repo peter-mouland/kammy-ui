@@ -162,6 +162,7 @@ class DataListInput extends React.Component {
                 className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
                 key={item.key}
               >
+                {item.img && <img src={item.img} className='datalist-item__img' />}
                 {item.label.substr(0, indexOfMatch(searchTerm, item))}
                 <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
                 {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}

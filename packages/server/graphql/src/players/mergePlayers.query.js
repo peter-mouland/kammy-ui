@@ -30,7 +30,7 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   return {};
 };
 
-export default async () => {
+const mergePlayers = async () => {
   const { upsertPlayers } = await connect();
   return (
     Promise.all([
@@ -51,3 +51,5 @@ export default async () => {
       }))
   );
 };
+
+export default mergePlayers;

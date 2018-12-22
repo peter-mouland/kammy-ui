@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
+const importSelector = (state) => get(state, 'players.importing') || false;
+
 const playersSelector = (state) => get(state, 'players.players') || {};
 
 const fixturesSelector = (state) => get(state, 'players.playerFixtures') || {};
@@ -25,7 +27,6 @@ export const getFixtures = createSelector(
   }),
 );
 
-
 export const getAllPlayerData = createSelector(
   allDataSelector,
   ({
@@ -33,4 +34,9 @@ export const getAllPlayerData = createSelector(
   }) => ({
     data, playersArray: Object.values(data || {}), count, errors, loaded, loading,
   }),
+);
+
+export const getImporting = createSelector(
+  importSelector,
+  (importing) => (importing),
 );
