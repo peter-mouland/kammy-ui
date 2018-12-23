@@ -99,17 +99,6 @@ class DataListInput extends React.Component {
   };
 
   /**
-   * onClickItem gets called when onClick happens on one of the list elements
-   * @param event
-   */
-  onClickItem = (event) => {
-    // update the input value and close the dropdown again
-    const selectedKey = event.currentTarget.children[1].value;
-    const selectedItem = this.state.matchingItems.find((item) => item.key === selectedKey);
-    this.onSelect(selectedItem);
-  };
-
-  /**
    * onSelect is called onClickItem and onEnter upon an option of the drop down menu
    * does nothing if the key has not changed since the last onSelect event
    * @param selectedItem
@@ -158,15 +147,14 @@ class DataListInput extends React.Component {
             const isActive = this.state.focusIndex === i || currentInput === item.label;
             return (
               <div
-                onClick={this.onClickItem}
+                onClick={() => this.onSelect(item)}
                 className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
                 key={item.key}
               >
-                {item.img && <img src={item.img} className='datalist-item__img' />}
+                {/* {item.img && <img src={item.img} className='datalist-item__img' />} */}
                 {item.label.substr(0, indexOfMatch(searchTerm, item))}
                 <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
                 {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
-                <input type='hidden' value={item.key}/>
               </div>
             );
           })}
