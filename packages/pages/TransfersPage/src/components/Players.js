@@ -7,9 +7,15 @@ const playerOptions = (players) => (
   players.map((player) => (
     {
       value: player.name,
-      label: `${player.name} (${player.pos}) `,
+      label: player.name,
       key: player.name,
       img: `${`https://fantasyfootball.skysports.com/assets/img/players/${player.code}.png`}`,
+      additional: (
+        <small style={{ color: '#777' }}>
+          {` ${player.pos}`}
+          {player.teamPos && player.pos !== player.teamPos ? <small> (sub)</small> : null}
+        </small>
+      ),
     }
   ))
 );

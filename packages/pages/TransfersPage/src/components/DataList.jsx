@@ -36,6 +36,7 @@ const Item = ({
       {item.label.substr(0, indexOfMatch(searchTerm, item))}
       <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
       {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
+      {item.additional}
     </div>
   );
 };
