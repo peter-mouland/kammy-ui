@@ -61,7 +61,7 @@ query ($division: String) {
     currentTeams {
       gameWeek
       players {
-        manager pos name club
+        manager pos name club teamPos
       }
     }
  }

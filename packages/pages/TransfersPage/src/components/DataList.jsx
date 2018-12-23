@@ -41,19 +41,13 @@ class DataListInput extends React.Component {
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    return {
-      matchingItems: props.alwaysShowItems ? props.items : state.matchingItems,
-    };
-  }
-
   /**
    * gets called when someone starts to write in the input field
    * @param event
    */
   onHandleInput = (event) => {
     const currentInput = event.target.value;
-    const matchingItems = this.props.items.filter((item) => this.props.match(currentInput, item));
+    const matchingItems = currentInput === '' ? [] : this.props.items.filter((item) => this.props.match(currentInput, item));
 
     this.setState({
       currentInput,
@@ -126,6 +120,7 @@ class DataListInput extends React.Component {
   };
 
   render() {
+    const { items, emptyStateMessage } = this.props;
     const {
       currentInput, matchingItems, searchTerm, visible,
     } = this.state;
@@ -133,6 +128,7 @@ class DataListInput extends React.Component {
     const inputClassName = alwaysShowItems || visible ? 'datalist datalist--on' : 'datalist';
     const itemsClassName = alwaysShowItems || visible ? 'datalist-items datalist-items--on' : 'datalist-items';
     const itemClassName = 'datalist-item';
+    const itemsToShow = matchingItems.length === 0 && currentInput.length === 0 ? items : matchingItems;
 
     return (
       <div className={inputClassName}>
@@ -143,7 +139,8 @@ class DataListInput extends React.Component {
           className="datalist__input"
           placeholder={placeholder} value={currentInput}/>
         <div className={itemsClassName}>
-          {(alwaysShowItems || visible) && matchingItems.map((item, i) => {
+          {items.length === 0 && emptyStateMessage}
+          {(alwaysShowItems || visible) && itemsToShow.map((item, i) => {
             const isActive = this.state.focusIndex === i || currentInput === item.label;
             return (
               <div
@@ -166,6 +163,7 @@ class DataListInput extends React.Component {
 
 DataListInput.propTypes = {
   items: PropTypes.array.isRequired,
+  emptyStateMessage: PropTypes.node,
   placeholder: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   match: PropTypes.func,
@@ -174,6 +172,8 @@ DataListInput.propTypes = {
 
 DataListInput.defaultProps = {
   match,
+  placeholder: null,
+  emptyStateMessage: null,
   alwaysShowItems: false,
 };
 

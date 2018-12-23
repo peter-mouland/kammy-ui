@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 
 import DataListInput from './DataList';
 
-const playerOptions = (players, playersFilter) => {
-  const filteredPlayers = playersFilter ? players.filter(playersFilter) : players;
-  return (
-    filteredPlayers.map((player) => (
-      {
-        value: player.name,
-        label: `${player.name} (${player.pos}) `,
-        key: player.name,
-        img: `${`https://fantasyfootball.skysports.com/assets/img/players/${player.code}.png`}`,
-      }
-    ))
-  );
-};
+const playerOptions = (players) => (
+  players.map((player) => (
+    {
+      value: player.name,
+      label: `${player.name} (${player.pos}) `,
+      key: player.name,
+      img: `${`https://fantasyfootball.skysports.com/assets/img/players/${player.code}.png`}`,
+    }
+  ))
+);
+
+// eslint-disable-next-line react/prop-types
+const NoPlayersMessage = ({ children = '' }) => (
+  <div data-b-layout='col pad'><em><p><strong>wtf. no players?</strong></p><p>{children}</p></em></div>
+);
 
 class Players extends React.Component {
   shouldComponentUpdate = (nextProps) => (
@@ -24,12 +26,20 @@ class Players extends React.Component {
 
   render() {
     const {
-      onSelect, playersArray, playersFilter,
+      onSelect, playersArray, emptyStateMessage,
     } = this.props;
+    const items = playerOptions(playersArray);
+    if (!items) return null;
 
     return (
       <div className='transfer-player__input'>
-        <DataListInput placeholder={'Search by player name...'} alwaysShowItems items={playerOptions(playersArray, playersFilter)} onSelect={onSelect} />
+        <DataListInput
+          emptyStateMessage={<NoPlayersMessage>{emptyStateMessage}</NoPlayersMessage>}
+          placeholder={'Search by player name...'}
+          alwaysShowItems
+          items={items}
+          onSelect={onSelect}
+        />
       </div>
     );
   }
@@ -38,10 +48,11 @@ class Players extends React.Component {
 Players.propTypes = {
   playersArray: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
-  playersFilter: PropTypes.func,
+  emptyStateMessage: PropTypes.string,
 };
 
 Players.defaultProps = {
+  emptyStateMessage: null,
   playersFilter: null,
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '@kammy-ui/bootstrap';
 
 import Button from '@kammy-ui/button';
 import bemHelper from '@kammy-ui/bem';
@@ -8,46 +9,13 @@ import Interstitial from '@kammy-ui/interstitial';
 import format from 'date-fns/format';
 
 import Players from './components/Players';
+import GameWeekTransfers from './components/game-week-transfers';
+import { verbs, changeTypes } from './lib/consts';
+import createFilteredPlayers from './lib/create-filtered-players';
 
 import './transferPage.scss';
 
 const bem = bemHelper({ block: 'transfers-page' });
-
-const formatTimestamp = (ts) => format(ts, 'MMM Do, HH:mm:ss');
-
-const changeTypes = {
-  TRADE: 'Trade',
-  LOAN: 'Loan',
-  SWAP: 'Swap',
-  TRANSFER: 'Transfer',
-  WAIVER: 'Waiver',
-};
-
-const verbs = {
-  out: {
-    [changeTypes.LOAN]: 'being loaned',
-    [changeTypes.SWAP]: 'being swapped',
-    [changeTypes.TRADE]: 'being traded',
-    [changeTypes.TRANSFER]: 'being transferred',
-    [changeTypes.WAIVER]: 'being taken',
-  },
-  in: {
-    [changeTypes.LOAN]: 'being brought',
-    [changeTypes.SWAP]: 'being swapped',
-    [changeTypes.TRADE]: 'being traded',
-    [changeTypes.TRANSFER]: 'being transferred',
-    [changeTypes.WAIVER]: 'being brought',
-  },
-};
-
-const getEmoji = (status = '') => {
-  switch (status.toLowerCase()) {
-  case 'tbc': return '&#129300;';
-  case 'e': return '&#129324;';
-  case 'y': return '&#129303;';
-  default: return '';
-  }
-};
 
 class TransfersPage extends React.Component {
   state = {
@@ -61,7 +29,7 @@ class TransfersPage extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.transfersSaving && !this.props.transfersSaving) {
-    //  fetch updated transfers
+      //  fetch updated transfers
       this.props.fetchTransfers(this.props.division);
     }
   }
@@ -126,13 +94,15 @@ class TransfersPage extends React.Component {
 
   render() {
     const {
-      teams, playersArray, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading,
-    } = this.props; /* divisionTeams,  */
+      teams, playersArray, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading, gameWeeksLoading,
+    } = this.props;
     const {
       manager, changeType, playerOut, playerIn, playerDisplaced, playerGapFiller,
     } = this.state;
 
-    const currentTransfers = transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
+    const gameWeekTransfers = gameWeeksLoading
+      ? []
+      : transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
     const loadingState = (transfersSaving || transfersLoading) ? 'loading' : '';
     const verbIn = changeType ? verbs.in[changeType] : '...';
     const verbOut = changeType ? verbs.out[changeType] : '...';
@@ -142,9 +112,13 @@ class TransfersPage extends React.Component {
     const tradeQuestionsComplete = !showTradeQuestions || (showTradeQuestions && playerDisplaced && playerGapFiller);
     const allStepsComplete = playerIn && playerOut && changeType && manager && tradeQuestionsComplete;
     const buttonState = !allStepsComplete ? 'disabled' : loadingState;
+    const filteredPlayers = createFilteredPlayers({
+      players: playersArray, team: teams[manager], playerIn, playerOut,
+    });
 
     return (
       <div className={bem(null, null, 'page-content')}>
+        <h1>Transfers</h1>
         <h2>Make Transfers</h2>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
@@ -173,25 +147,29 @@ class TransfersPage extends React.Component {
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
             <div>Who is {verbOut} out?</div>
-            {playersArray && (
+            {playersArray.length > 0 && (
               <Players
                 onSelect={this.updatePlayerOut}
-                playersArray={playersArray}
+                playersArray={filteredPlayers.out[changeType]}
+                emptyStateMessage={'Let us know who you are first... and what type of change'}
               />
             )}
-            {!playersArray && (<Interstitial message='loading playersArray...' />)}
+            {playersArray.length === 0 && (
+              <Interstitial message='loading playersArray...' />
+            )}
           </div>
         </div>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
             <div>Who is {verbIn} in?</div>
-            {playersArray && (
+            {playersArray.length > 0 && (
               <Players
                 onSelect={this.updatePlayerIn}
-                playersArray={playersArray}
+                playersArray={filteredPlayers.in[changeType]}
+                emptyStateMessage={'Let us know who you are first... and what type of change'}
               />
             )}
-            {!playersArray && (<Interstitial message='loading playersArray...' />)}
+            {playersArray.length === 0 && (<Interstitial message='loading playersArray...' />)}
           </div>
         </div>
 
@@ -202,8 +180,7 @@ class TransfersPage extends React.Component {
                 <div>Who will fill the gap at {playerOut.pos}?</div>
                 <Players
                   onSelect={this.updateGapFiller}
-                  playersArray={playersArray}
-                  playersFilter={({ pos }) => pos === playerOut.pos}
+                  playersArray={filteredPlayers.gap[changeType]}
                 />
               </div>
             </div>
@@ -212,8 +189,7 @@ class TransfersPage extends React.Component {
                 <div>Who will be displaced at {playerIn.pos}?</div>
                 <Players
                   onSelect={this.updateDisplaced}
-                  playersArray={playersArray}
-                  playersFilter={({ pos }) => pos === playerIn.pos}
+                  playersArray={filteredPlayers.displaced[changeType]}
                 />
               </div>
             </div>
@@ -233,46 +209,10 @@ class TransfersPage extends React.Component {
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
             <h2 >Requested Transfers</h2>
-            <table className={'table'}>
-              <thead>
-                <tr className={'row'}>
-                  <th className={'cell'}>Timestamp</th>
-                  <th className={'cell'}>Status</th>
-                  <th className={'cell'}>Type</th>
-                  <th className={'cell'}>Manager</th>
-                  <th className={'cell'}>Transfer In</th>
-                  <th className={'cell'}>Transfer Out</th>
-                  <th className={'cell'}>Comment</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentTransfers.map(({
-                  timestamp, status = '', type, manager: mgr, transferIn, transferOut, comment,
-                }) => (
-                  <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
-                    <td className={'cell cell--status cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
-                    <td className={'cell cell--left'}>{formatTimestamp(timestamp)}</td>
-                    <td className={'cell cell--center'}>{type}</td>
-                    <td className={'cell cell--center'}>{mgr}</td>
-                    <td className={'cell cell--center'}>{transferIn}</td>
-                    <td className={'cell cell--center'}>{transferOut}</td>
-                    <td className={'cell cell--center'}>{comment}</td>
-                  </tr>
-                ))}
-                {currentTransfers.length === 0 && !transfersSaving && !transfersLoading && (
-                  <tr className={'row'}>
-                    <td className={'cell cell--center'} colSpan={7}><em>no transfers have been requested</em></td>
-                  </tr>
-                )}
-              </tbody>
-              <tfoot>
-                <tr className={'row row--interstitial'}><td colSpan={7}>
-                  { (transfersSaving || transfersLoading) && (
-                    <Interstitial message='loading transfers...' />
-                  ) }
-                </td></tr>
-              </tfoot>
-            </table>
+            <GameWeekTransfers
+              transfers={gameWeekTransfers}
+              isLoading={transfersSaving || transfersLoading || gameWeeksLoading}
+            />
           </div>
         </div>
       </div>
@@ -287,25 +227,25 @@ TransfersPage.propTypes = {
   players: PropTypes.object,
   playersArray: PropTypes.array,
   teams: PropTypes.object,
-  divisionTeams: PropTypes.object,
   dateIsInCurrentGameWeek: PropTypes.func.isRequired,
   saveTransfers: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
   transfersSaving: PropTypes.bool,
   playersLoaded: PropTypes.bool,
   transfersLoading: PropTypes.bool,
+  gameWeeksLoading: PropTypes.bool,
 };
 
 TransfersPage.defaultProps = {
   playersLoaded: false,
   transfersSaving: false,
   transfersLoading: false,
+  gameWeeksLoading: false,
   transfers: [],
   gameWeeks: [],
   players: null,
   playersArray: null,
   teams: {},
-  divisionTeams: {},
 };
 
 export default TransfersPage;

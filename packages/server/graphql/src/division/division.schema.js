@@ -4,6 +4,7 @@ const schemaString = `
     code: Int
     club: String
     pos: String
+    teamPos: String
     name: String
     season: Stats
     gameWeek: Stats

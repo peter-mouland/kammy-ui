@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
@@ -7,11 +6,7 @@ import { actions as transferActions, selectors as transferSelectors } from '@kam
 
 import TransfersPageLoader from './TransfersPage.loader';
 
-const {
-  fetchPremierLeague, fetchLeagueOne, fetchChampionship,
-} = spreadsheetActions;
 const { fetchGameWeeks } = gameWeekActions;
-
 const { fetchPlayers } = playerActions;
 const { fetchCurrentTeams } = divisionActions;
 const { fetchTransfers, saveTransfers } = transferActions;
@@ -25,8 +20,8 @@ function mapStateToProps(state, { division }) {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors, saving: transfersSaving,
   } = transferSelectors.getStatus(state, division);
 
-  const { data: divisionTeams } = divisionSelectors.getCurrentTeams(state, division);
-  const { loaded: divisionTeamsLoaded } = divisionSelectors.getStatus(state, division);
+  const { data: teams } = divisionSelectors.getCurrentTeams(state, division);
+  const { loaded: teamsLoaded } = divisionSelectors.getStatus(state, division);
 
   const {
     loading: gameWeeksLoading, loaded: gameWeeksLoaded, errors: gameWeeksErrors,
@@ -36,8 +31,8 @@ function mapStateToProps(state, { division }) {
     dateIsInCurrentGameWeek,
     currentGameWeek,
     division,
-    divisionTeams,
-    divisionTeamsLoaded,
+    teams,
+    teamsLoaded,
     players: players.data,
     playersArray: players.playersArray,
     playersCount: players.count,
@@ -55,31 +50,13 @@ function mapStateToProps(state, { division }) {
     transfersLoading,
     transfersLoaded,
     transfersErrors,
-    premierLeague: state.spreadsheet.premierLeague,
-    premierLeagueCount: state.spreadsheet.premierLeagueCount,
-    premierLeagueLoading: state.spreadsheet.premierLeagueLoading,
-    premierLeagueLoaded: state.spreadsheet.premierLeagueLoaded,
-    premierLeagueErrors: state.spreadsheet.premierLeagueErrors,
-    championship: state.spreadsheet.championship,
-    championshipCount: state.spreadsheet.championshipCount,
-    championshipLoading: state.spreadsheet.championshipLoading,
-    championshipLoaded: state.spreadsheet.championshipLoaded,
-    championshipErrors: state.spreadsheet.championshipErrors,
-    leagueOne: state.spreadsheet.leagueOne,
-    leagueOneCount: state.spreadsheet.leagueOneCount,
-    leagueOneLoading: state.spreadsheet.leagueOneLoading,
-    leagueOneLoaded: state.spreadsheet.leagueOneLoaded,
-    leagueOneErrors: state.spreadsheet.leagueOneErrors,
   };
-  const teams = props[division];
 
   const loaded = (
     players.loaded
     && gameWeeksLoaded
     && transfersLoaded
-    && state.spreadsheet.premierLeagueLoaded
-    && state.spreadsheet.championshipLoaded
-    && state.spreadsheet.leagueOneLoaded
+    && teamsLoaded
   );
 
   return {
@@ -93,9 +70,6 @@ export default connect(
   mapStateToProps,
   {
     fetchGameWeeks,
-    fetchPremierLeague,
-    fetchChampionship,
-    fetchLeagueOne,
     fetchTransfers,
     saveTransfers,
     fetchPlayers,
