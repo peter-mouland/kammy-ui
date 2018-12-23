@@ -42,28 +42,24 @@ class TransfersPage extends React.Component {
     this.setState({ changeType });
   }
 
-  updateGapFiller = ({ value }) => {
+  updateGapFiller = (player) => {
     const { players } = this.props;
-    const { playerGapFiller } = this.state;
-    this.setState({ playerGapFiller: playerGapFiller === players[value].name ? null : players[value] });
+    this.setState({ playerGapFiller: player && players[player.value] });
   }
 
-  updateDisplaced = ({ value }) => {
+  updateDisplaced = (player) => {
     const { players } = this.props;
-    const { playerDisplaced } = this.state;
-    this.setState({ playerDisplaced: playerDisplaced === players[value].name ? null : players[value] });
+    this.setState({ playerDisplaced: player && players[player.value] });
   }
 
-  updatePlayerOut = ({ value }) => {
+  updatePlayerOut = (player) => {
     const { players } = this.props;
-    const { playerOut } = this.state;
-    this.setState({ playerOut: playerOut === players[value].name ? null : players[value] });
+    this.setState({ playerOut: player && players[player.value] });
   }
 
-  updatePlayerIn = ({ value }) => {
+  updatePlayerIn = (player) => {
     const { players } = this.props;
-    const { playerIn } = this.state;
-    this.setState({ playerIn: playerIn === players[value].name ? null : players[value] });
+    this.setState({ playerIn: player && players[player.value] });
   }
 
   confirmTransfer = () => {

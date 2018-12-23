@@ -5,21 +5,49 @@ import './data-list.scss';
 
 /**
  * default function for matching the current input value (needle) and the values of the items array
- * @param currentInput
+ * @param searchTerm
  * @param item
  * @returns {boolean}
  */
-const match = (currentInput, item) => (
-  item.label.substr(0, currentInput.length).toUpperCase() === currentInput.toUpperCase()
+const match = (searchTerm, item) => (
+  item.label.substr(0, searchTerm.length).toUpperCase() === searchTerm.toUpperCase()
 );
 
 /**
  * function for getting the index of the currentValue inside a value of the values array
- * @param currentInput
+ * @param searchTerm
  * @param item
  * @returns {number}
  */
-const indexOfMatch = (currentInput, item) => item.label.toUpperCase().indexOf(currentInput.toUpperCase());
+const indexOfMatch = (searchTerm, item) => item.label.toUpperCase().indexOf(searchTerm.toUpperCase());
+
+const Item = ({
+  item, index, focusIndex, onSelect, searchTerm, selectedItem,
+}) => {
+  const itemClassName = 'datalist-item';
+  const isActive = focusIndex === index || (selectedItem && selectedItem.key === item.key);
+  return (
+    <div
+      onClick={() => onSelect(item)}
+      className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
+      key={item.key}
+    >
+      {/* {item.img && <img src={item.img} className='datalist-item__img' />} */}
+      {item.label.substr(0, indexOfMatch(searchTerm, item))}
+      <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
+      {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
+    </div>
+  );
+};
+
+Item.propTypes = {
+  item: PropTypes.shape({ key: PropTypes.string, label: PropTypes.string }).isRequired,
+  selectedItem: PropTypes.shape({ key: PropTypes.string, label: PropTypes.string }).isRequired,
+  index: PropTypes.number.isRequired,
+  focusIndex: PropTypes.number.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  searchTerm: PropTypes.string.isRequired,
+};
 
 class DataListInput extends React.Component {
   constructor(props) {
@@ -27,9 +55,7 @@ class DataListInput extends React.Component {
 
     this.state = {
       /*  last valid item that was selected from the drop down menu */
-      lastValidItem: {},
-      /* current input text */
-      currentInput: '',
+      selectedItem: {},
       /* current input text */
       searchTerm: '',
       /* current set of matching items */
@@ -46,12 +72,11 @@ class DataListInput extends React.Component {
    * @param event
    */
   onHandleInput = (event) => {
-    const currentInput = event.target.value;
-    const matchingItems = currentInput === '' ? [] : this.props.items.filter((item) => this.props.match(currentInput, item));
+    const searchTerm = event.target.value;
+    const matchingItems = searchTerm === '' ? [] : this.props.items.filter((item) => this.props.match(searchTerm, item));
 
     this.setState({
-      currentInput,
-      searchTerm: currentInput,
+      searchTerm,
       matchingItems,
       focusIndex: -1,
       visible: true,
@@ -97,64 +122,60 @@ class DataListInput extends React.Component {
    * does nothing if the key has not changed since the last onSelect event
    * @param selectedItem
    */
-  onSelect = (selectedItem) => {
-    if (this.state.lastValidItem !== undefined && selectedItem.key === this.state.lastValidItem.key) {
-      // do not trigger the callback function
-      // but still change state to fit new selection
-      this.setState({
-        currentInput: selectedItem.label,
-        visible: false,
-        focusIndex: -2,
-      });
-      return;
-    }
-    // change state to fit new selection
+  onSelect = (input) => {
+    // (this.state.selectedItem !== undefined && selectedItem.key === this.state.selectedItem.key)
+    const selectedItem = this.state.selectedItem && input.key === this.state.selectedItem.key ? null : input;
     this.setState({
-      currentInput: selectedItem.label,
-      lastValidItem: selectedItem,
+      selectedItem,
       visible: false,
       focusIndex: -2,
     });
-    // callback function onSelect
+
     this.props.onSelect(selectedItem);
   };
 
   render() {
     const { items, emptyStateMessage } = this.props;
     const {
-      currentInput, matchingItems, searchTerm, visible,
+      matchingItems, searchTerm, visible, selectedItem, focusIndex,
     } = this.state;
     const { placeholder, alwaysShowItems } = this.props;
-    const inputClassName = alwaysShowItems || visible ? 'datalist datalist--on' : 'datalist';
+    const dataListClassName = alwaysShowItems || visible ? 'datalist datalist--on' : 'datalist';
     const itemsClassName = alwaysShowItems || visible ? 'datalist-items datalist-items--on' : 'datalist-items';
-    const itemClassName = 'datalist-item';
-    const itemsToShow = matchingItems.length === 0 && currentInput.length === 0 ? items : matchingItems;
+    const itemsToShow = matchingItems.length === 0 && searchTerm.length === 0 ? items : matchingItems;
 
     return (
-      <div className={inputClassName}>
+      <div className={dataListClassName}>
         <input
           onKeyDown={this.onHandleKeydown}
-          onInput={this.onHandleInput}
+          onChange={this.onHandleInput}
           type="search"
           className="datalist__input"
-          placeholder={placeholder} value={currentInput}/>
+          placeholder={placeholder} value={searchTerm}/>
         <div className={itemsClassName}>
           {items.length === 0 && emptyStateMessage}
-          {(alwaysShowItems || visible) && itemsToShow.map((item, i) => {
-            const isActive = this.state.focusIndex === i || currentInput === item.label;
-            return (
-              <div
-                onClick={() => this.onSelect(item)}
-                className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
-                key={item.key}
-              >
-                {/* {item.img && <img src={item.img} className='datalist-item__img' />} */}
-                {item.label.substr(0, indexOfMatch(searchTerm, item))}
-                <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
-                {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
-              </div>
-            );
-          })}
+          {selectedItem && searchTerm && !itemsToShow.find((item) => item.key === selectedItem.key) && (
+            <Item
+              key={selectedItem.key}
+              item={selectedItem}
+              focusIndex={focusIndex}
+              index={0}
+              onSelect={this.onSelect}
+              searchTerm={searchTerm}
+              selectedItem={selectedItem}
+            />
+          )}
+          {(alwaysShowItems || visible) && itemsToShow.map((item, i) => (
+            <Item
+              key={item.key}
+              item={item}
+              focusIndex={focusIndex}
+              index={i}
+              onSelect={this.onSelect}
+              searchTerm={searchTerm}
+              selectedItem={selectedItem}
+            />
+          ))}
         </div>
       </div>
     );
