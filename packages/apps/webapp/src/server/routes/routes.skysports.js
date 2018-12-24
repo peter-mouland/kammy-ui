@@ -23,7 +23,11 @@ export default () => {
 
   router.get('/fixtures', (ctx, next) => fetchFixtures().then(responder(ctx, next)));
 
-  router.get('/players', (ctx, next) => fetchPlayersSummary().then(responder(ctx, next)));
+  router.get('/players', (ctx, next) => {
+    // todo: fix this
+    ctx.compress = false;
+    return fetchPlayersSummary().then(responder(ctx, next));
+  });
 
   router.get('/players-full', (ctx, next) => fetchPlayersFull().then(responder(ctx, next)));
 

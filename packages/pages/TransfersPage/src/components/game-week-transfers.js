@@ -18,12 +18,12 @@ const GameWeekTransfers = ({ transfers, isLoading }) => (
   <table className={'table'}>
     <thead>
       <tr className={'row'}>
-        <th className={'cell'}>Timestamp</th>
         <th className={'cell'}>Status</th>
+        <th className={'cell'}>Timestamp</th>
         <th className={'cell'}>Type</th>
         <th className={'cell'}>Manager</th>
-        <th className={'cell'}>Transfer In</th>
-        <th className={'cell'}>Transfer Out</th>
+        <th className={'cell'}>In</th>
+        <th className={'cell'}>Out</th>
         <th className={'cell'}>Comment</th>
       </tr>
     </thead>

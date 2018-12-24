@@ -30,14 +30,12 @@
 
     &--y {
       background-color: #eee;
-
-      .cell--status {
-        color: #163;
-      }
+      color: #163;
     }
 
     &--e {
       background-color: #eee;
+      color: #a52a2a;
 
       .cell {
         text-decoration: line-through;
@@ -45,7 +43,6 @@
 
       .cell--status {
         text-decoration: none;
-        color: #a52a2a;
       }
     }
 

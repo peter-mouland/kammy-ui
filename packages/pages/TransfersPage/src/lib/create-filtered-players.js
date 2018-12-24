@@ -11,20 +11,22 @@ const createFilteredPlayers = ({
   const sortedPlayers = players.sort(sortBy(['pos', 'name'], { pos: positionsOrder }));
   return ({
     out: {
-      [changeTypes.LOAN]: sortedTeam,
+      [changeTypes.LOAN_START]: sortedTeam,
+      [changeTypes.LOAN_END]: sortedTeam,
       [changeTypes.SWAP]: sortedTeam.filter(({ teamPos }) => teamPos !== 'SUB'),
       [changeTypes.TRADE]: sortedTeam,
       [changeTypes.TRANSFER]: sortedTeam,
-      [changeTypes.WAIVER]: sortedTeam,
+      [changeTypes.NEW_PLAYER]: sortedTeam,
       undefined: [],
       null: [],
     },
     in: {
-      [changeTypes.LOAN]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
+      [changeTypes.LOAN_START]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
+      [changeTypes.LOAN_END]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
       [changeTypes.SWAP]: sortedTeam.filter(({ teamPos }) => teamPos === 'SUB'),
       [changeTypes.TRADE]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
       [changeTypes.TRANSFER]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
-      [changeTypes.WAIVER]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
+      [changeTypes.NEW_PLAYER]: sortedPlayers.filter(({ name }) => !teamPlayers.includes(name)),
       undefined: [],
       null: [],
     },
@@ -32,9 +34,17 @@ const createFilteredPlayers = ({
       [changeTypes.TRADE]: sortedPlayers.filter(({ pos, name }) => (
         playerOut && pos === playerOut.pos && !teamPlayers.includes(name)),
       ),
+      [changeTypes.LOAN_END]: sortedPlayers.filter(({ pos, name }) => (
+        playerOut && pos === playerOut.pos && !teamPlayers.includes(name)),
+      ),
+      [changeTypes.LOAN_START]: sortedPlayers.filter(({ pos, name }) => (
+        playerOut && pos === playerOut.pos && !teamPlayers.includes(name)),
+      ),
     },
     displaced: {
       [changeTypes.TRADE]: sortedTeam.filter(({ pos }) => playerIn && pos === playerIn.pos),
+      [changeTypes.LOAN_START]: sortedTeam.filter(({ pos }) => playerIn && pos === playerIn.pos),
+      [changeTypes.LOAN_END]: sortedTeam.filter(({ pos }) => playerIn && pos === playerIn.pos),
     },
   });
 };

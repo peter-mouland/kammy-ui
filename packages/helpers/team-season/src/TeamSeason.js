@@ -68,7 +68,9 @@ class TeamSeason {
 
     transfers
       .filter((transfer) => (
-        transfer.type !== 'Waiver Request'
+        (transfer.type !== 'Waiver Request')
+        && (transfer.type !== 'Waiver')
+        && (transfer.type !== 'New Player')
         && players[transfer.transferIn]
         && players[transfer.transferOut]
       ))

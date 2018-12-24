@@ -6,6 +6,7 @@ import StaticRouter from 'react-router-dom/StaticRouter';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import { Provider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
@@ -41,7 +42,9 @@ Routes.contextTypes = {
 const AppRoot = ({ store, ...props }) => (
   <Provider store={store}>
     <AppConfigProvider>
-      <Routes { ...props } />
+      <CookiesProvider>
+        <Routes { ...props } />
+      </CookiesProvider>
     </AppConfigProvider>
   </Provider>
 );

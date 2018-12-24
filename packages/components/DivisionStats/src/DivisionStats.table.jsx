@@ -95,7 +95,7 @@ class TeamsPage extends React.Component {
             key={'timeline'}
             id={'timeline'}
             wide
-            title={`${positionTimelineProps.position} Time-line`}
+            title={`${positionTimelineProps.position} Timeline`}
             open={showPositionTimeline}
             onClose={this.closeModal}
           >
@@ -107,7 +107,7 @@ class TeamsPage extends React.Component {
             key={'player-timeline'}
             id={'player-timeline'}
             wide
-            title={`${playerTimelineProps.player.name} Time-line`}
+            title={`${playerTimelineProps.player.name} Timeline`}
             open={showPlayerTimeline}
             onClose={this.closeModal}
           >

@@ -2,6 +2,18 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
+export const AdminHomepage = Loadable.Map({
+  loader: {
+    Component: () => import('@kammy-ui/admin-page'),
+  },
+  loading() {
+    return ('Loading...');
+  },
+  render(loaded, props) {
+    return React.createElement(loaded.Component.default, props, null);
+  },
+});
+
 export const AdminCup = Loadable.Map({
   loader: {
     Component: () => import('@kammy-ui/admin-cup-page'),

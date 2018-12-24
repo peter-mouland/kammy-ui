@@ -21,6 +21,10 @@ export default () => {
         ctx.type = 'json';
         ctx.status = 200;
         ctx.response.body = { data };
+        if (worksheetName.toLowerCase() === 'players') {
+          // todo: fix this
+          ctx.compress = false;
+        }
         next();
       });
   });

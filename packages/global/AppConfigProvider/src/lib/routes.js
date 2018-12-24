@@ -208,6 +208,19 @@ export default [
     template: 'default',
   },
   {
+    name: 'admin',
+    exact: true,
+    path: '/admin/',
+    meta: {
+      title: 'Kammy Admin - Admin Homepage',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Admin',
+    requiresAuthentication: false,
+    component: 'AdminHomepage',
+    template: 'default',
+  },
+  {
     name: 'admin-cup',
     exact: true,
     path: '/admin/cup/',

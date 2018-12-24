@@ -11,9 +11,9 @@ const playerOptions = (players) => (
       key: player.name,
       img: `${`https://fantasyfootball.skysports.com/assets/img/players/${player.code}.png`}`,
       additional: (
-        <small style={{ color: '#777' }}>
+        <small>
           {` ${player.pos}`}
-          {player.teamPos && player.pos !== player.teamPos ? <small> (sub)</small> : null}
+          {player.teamPos && player.pos !== player.teamPos ? ' (sub)' : null}
         </small>
       ),
     }

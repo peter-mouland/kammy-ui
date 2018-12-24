@@ -21,11 +21,20 @@ const match = (searchTerm, item) => (
  */
 const indexOfMatch = (searchTerm, item) => item.label.toUpperCase().indexOf(searchTerm.toUpperCase());
 
+const labelWithBoldText = (item, searchTerm) => (
+  <span>
+    {item.label.substr(0, indexOfMatch(searchTerm, item))}
+    <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
+    {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
+  </span>
+);
+
 const Item = ({
   item, index, focusIndex, onSelect, searchTerm, selectedItem,
 }) => {
   const itemClassName = 'datalist-item';
   const isActive = focusIndex === index || (selectedItem && selectedItem.key === item.key);
+  const label = item.label.indexOf(searchTerm) < 0 ? item.label : labelWithBoldText(item, searchTerm);
   return (
     <div
       onClick={() => onSelect(item)}
@@ -33,21 +42,25 @@ const Item = ({
       key={item.key}
     >
       {/* {item.img && <img src={item.img} className='datalist-item__img' />} */}
-      {item.label.substr(0, indexOfMatch(searchTerm, item))}
-      <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
-      {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
-      {item.additional}
+      {label}
+      <span className='datalist-item__additional'>
+        {item.additional}
+      </span>
     </div>
   );
 };
 
 Item.propTypes = {
   item: PropTypes.shape({ key: PropTypes.string, label: PropTypes.string }).isRequired,
-  selectedItem: PropTypes.shape({ key: PropTypes.string, label: PropTypes.string }).isRequired,
+  selectedItem: PropTypes.shape({ key: PropTypes.string, label: PropTypes.string }),
   index: PropTypes.number.isRequired,
   focusIndex: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
   searchTerm: PropTypes.string.isRequired,
+};
+
+Item.defaultProps = {
+  selectedItem: null,
 };
 
 class DataListInput extends React.Component {
@@ -56,7 +69,7 @@ class DataListInput extends React.Component {
 
     this.state = {
       /*  last valid item that was selected from the drop down menu */
-      selectedItem: {},
+      selectedItem: null,
       /* current input text */
       searchTerm: '',
       /* current set of matching items */

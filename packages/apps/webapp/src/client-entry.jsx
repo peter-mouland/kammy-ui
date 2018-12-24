@@ -21,7 +21,7 @@ const App = (
 );
 
 try {
-  ReactDOM.render(App, rootEl);
+  ReactDOM.hydrate(App, rootEl);
   if (module.hot) {
     module.hot.accept('./AppRoot/AppRoot', () => {
       const NextApp = require('./AppRoot/AppRoot').default; // eslint-disable-line

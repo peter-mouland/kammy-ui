@@ -1,5 +1,5 @@
 import Koa from 'koa';
-// import compress from 'koa-compress';
+import compress from 'koa-compress';
 import session from 'koa-session';
 import convert from 'koa-convert';
 import passport from 'koa-passport';
@@ -9,7 +9,7 @@ import koaStatic from 'koa-static';
 
 import Html from '@kammy-ui/html';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
-// import headers from '@kammy-ui/koa-middleware-headers';
+import headers from '@kammy-ui/koa-middleware-headers';
 import responseTime from '@kammy-ui/koa-middleware-response-time';
 // import logger from '@kammy-ui/koa-middleware-logger';
 import react from '@kammy-ui/koa-middleware-react';
@@ -43,9 +43,9 @@ server.use(passport.initialize());
 server.use(passport.session());
 server.use(handleError('render500'));
 server.use(responseTime());
-// server.use(compress());
+server.use(compress());
 // server.use(logger());
-// server.use(headers());
+server.use(headers());
 
 export default ({
   preDispatch, reducers, assetsConfig,

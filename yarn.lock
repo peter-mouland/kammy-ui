@@ -1879,10 +1879,40 @@
     react-modal "^3.6.1"
     react-treebeard "^3.1.0"
 
+"@types/cookie@^0.3.1":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.3.2.tgz#453f4b14b25da6a8ea4494842dedcbf0151deef9"
+  integrity sha512-aHQA072E10/8iUQsPH7mQU/KUyQBZAGzTVRCUvnSz8mSvbrYsP4xEO2RSA0Pjltolzi0j8+8ixrm//Hr4umPzw==
+
+"@types/hoist-non-react-statics@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.0.1.tgz#dde7c53101912dae8f45a1807f9857a59ddf3919"
+  integrity sha512-3wTz66vV+WatOAjMST+hKCmo01KYPFgnsu+QeLcn0FuwPCoymX6aj1a4RvFCdVsfh2m0hfTPhE/zTv4M28ho1Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/node@*":
   version "10.12.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.12.tgz#e15a9d034d9210f00320ef718a50c4a799417c47"
   integrity sha512-Pr+6JRiKkfsFvmU/LK68oBRCQeEg36TyAbPhc2xpez24OOZZCuoIhWGTd39VZy6nGafSbxzGouFPTFD/rR1A0A==
+
+"@types/object-assign@^4.0.30":
+  version "4.0.30"
+  resolved "https://registry.yarnpkg.com/@types/object-assign/-/object-assign-4.0.30.tgz#8949371d5a99f4381ee0f1df0a9b7a187e07e652"
+  integrity sha1-iUk3HVqZ9Dge4PHfCpt6GH4H5lI=
+
+"@types/prop-types@*":
+  version "15.5.8"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
+  integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
+
+"@types/react@*":
+  version "16.7.18"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.18.tgz#f4ce0d539a893dd61e36cd11ae3a5e54f5a48337"
+  integrity sha512-Tx4uu3ppK53/iHk6VpamMP3f3ahfDLEVt3ZQc8TFm30a1H3v9lMsCntBREswZIW/SKrvJjkb3Hq8UwO6GREBng==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
@@ -5188,6 +5218,11 @@ cssstyle@^1.0.0:
   dependencies:
     cssom "0.3.x"
 
+csstype@^2.2.0:
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.8.tgz#4ce5aa16ea0d562ef9105fa3ae2676f199586a35"
+  integrity sha512-r4DbsyNJ7slwBSKoGesxDubRWJ71ghG8W2+1HcsDlAo12KGca9dDLv0u98tfdFw7ldBdoA7XmCnI6Q8LpAJXaQ==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -7627,7 +7662,7 @@ hoist-non-react-statics@^2.5.0:
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.1.0:
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
   integrity sha512-TFsu3TV3YLY+zFTZDrN8L2DTFanObwmBLpWvJs1qfUuEQ5bTAdFcwfx2T/bsCXfM9QHSLvjfP+nihEl0yvozxw==
@@ -12492,6 +12527,15 @@ react-color@^2.14.1:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
+react-cookie@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-3.0.8.tgz#fd413d9940d5f2397700548e3d1faed0330e8bfd"
+  integrity sha512-Gdop2Cf2pBFA0r4L9l5DRghKsPVMNKRM3x2aeyJ4JSaENpWWPP4v9LJvvtxXs3AboOGCuMj19oUw04Z9cVQQTg==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.0.1"
+    hoist-non-react-statics "^3.0.0"
+    universal-cookie "^3.0.7"
+
 react-dev-utils@^6.1.0:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"
@@ -15131,6 +15175,16 @@ universal-cookie@^2.1.2:
   resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-2.2.0.tgz#328dc3883cf0ebd5b4904902033ad4dfdb907ed2"
   integrity sha512-weEuvQvnMs74WGwqKSbeapCRv/7ATHDCqrfZtj579r3fQCxcwtoXYMoaZ8YOCQga/ctQTYy20xMOH1u7cAAU6w==
   dependencies:
+    cookie "^0.3.1"
+    object-assign "^4.1.0"
+
+universal-cookie@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-3.0.7.tgz#722e8bc455bb33ed3c74988344fad9d9bb88278e"
+  integrity sha512-wfZRbaEzFTDbP64fzTfGDfokB3pWkDNjtsuRAZQWaiuj/Up+3/0AEvN4IhFHPK24iGNtGJ6PNIxv1GQzMSiyMw==
+  dependencies:
+    "@types/cookie" "^0.3.1"
+    "@types/object-assign" "^4.0.30"
     cookie "^0.3.1"
     object-assign "^4.1.0"
 

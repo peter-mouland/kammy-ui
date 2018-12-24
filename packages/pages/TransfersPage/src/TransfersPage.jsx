@@ -88,26 +88,46 @@ class TransfersPage extends React.Component {
     saveTransfers(transfers);
   }
 
+  displacementQs = () => {
+    const {
+      changeType, playerOut, playerIn, playerDisplaced, playerGapFiller,
+    } = this.state;
+    const isTrade = changeType === changeTypes.TRADE;
+    const isLoan = changeType === changeTypes.LOAN_START || changeType === changeTypes.LOAN_END;
+    const show = (playerOut && playerIn && (isLoan || isTrade) && playerOut.pos !== playerIn.pos);
+    const complete = !show || (show && playerDisplaced && playerGapFiller);
+    return {
+      complete,
+      show,
+    };
+  }
+
+  buttonState = () => {
+    const { transfersSaving, transfersLoading } = this.props;
+    const {
+      manager, changeType, playerOut, playerIn,
+    } = this.state;
+    const { complete: displacementComplete } = this.displacementQs();
+    const allStepsComplete = playerIn && playerOut && changeType && manager && displacementComplete;
+    const loadingState = (transfersSaving || transfersLoading) ? 'loading' : '';
+    return !allStepsComplete ? 'disabled' : loadingState;
+  }
+
   render() {
     const {
       teams, playersArray, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading, gameWeeksLoading,
     } = this.props;
     const {
-      manager, changeType, playerOut, playerIn, playerDisplaced, playerGapFiller,
+      manager, changeType, playerOut, playerIn,
     } = this.state;
 
     const gameWeekTransfers = gameWeeksLoading
       ? []
       : transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
-    const loadingState = (transfersSaving || transfersLoading) ? 'loading' : '';
     const verbIn = changeType ? verbs.in[changeType] : '...';
     const verbOut = changeType ? verbs.out[changeType] : '...';
-    const showTradeQuestions = (
-      playerOut && playerIn && changeType === changeTypes.TRADE && playerOut.pos !== playerIn.pos
-    );
-    const tradeQuestionsComplete = !showTradeQuestions || (showTradeQuestions && playerDisplaced && playerGapFiller);
-    const allStepsComplete = playerIn && playerOut && changeType && manager && tradeQuestionsComplete;
-    const buttonState = !allStepsComplete ? 'disabled' : loadingState;
+    const { show: showDisplacementQuestions } = this.displacementQs();
+    const buttonState = this.buttonState();
     const filteredPlayers = createFilteredPlayers({
       players: playersArray, team: teams[manager], playerIn, playerOut,
     });
@@ -134,7 +154,7 @@ class TransfersPage extends React.Component {
             <div>What type of change are you making?</div>
             <MultiToggle
               id={'change-type'}
-              options={['Loan', 'Swap', 'Trade', 'Transfer', 'Waiver']}
+              options={Object.values(changeTypes)}
               checked={changeType}
               onChange={this.updateChangeType}
             />
@@ -169,7 +189,7 @@ class TransfersPage extends React.Component {
           </div>
         </div>
 
-        {showTradeQuestions && (
+        {showDisplacementQuestions && (
           <div>
             <div data-b-layout="row negative v-space">
               <div data-b-layout='col pad'>
@@ -196,7 +216,7 @@ class TransfersPage extends React.Component {
           <div data-b-layout='col pad'>
             <div style={{ display: 'inline-block' }}>
               <Button onClick={this.confirmTransfer} state={buttonState}>
-              Confirm {changeType}
+                Confirm {changeType}
               </Button>
             </div>
           </div>
