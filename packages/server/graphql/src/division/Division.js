@@ -1,6 +1,6 @@
 /* eslint-disable prefer-spread */
+import Transfers from '@kammy-ui/helpers.transfers';
 import TeamByGameWeek from './TeamByGameWeek';
-import Transfers from '../transfers/Transfers';
 
 class Division {
   // see packages/server/fetch-google-sheets/src/index.js for shapes
@@ -20,7 +20,15 @@ class Division {
     this.division = division;
     this.managers = [...new Set(Object.keys(draft).map((manager) => manager))]; // [ manager ]
     this.draft = [].concat.apply([], drafts); // [{ manager, code, pos, name }]
-    this.transfers = new Transfers({ transfers }); // [].concat.apply([], transfers); // flatternArray
+    this.Transfers = new Transfers({ transfers }); // [].concat.apply([], transfers); // flatternArray
+    this.transfers = this.Transfers.validRequests; // [].concat.apply([], transfers); // flatternArray
+    this.pendingTransfers = this.Transfers.pendingRequests.map((request) => ({
+      ...request,
+      clubIn: playersByName[request.transferIn].club,
+      clubOut: playersByName[request.transferOut].club,
+      posIn: playersByName[request.transferIn].pos,
+      posOut: playersByName[request.transferOut].pos,
+    })); // [].concat.apply([], transfers); // flatternArray
     this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ draft, gameWeeks, playersByName });
     this.currentTeams = this.teamsByGameWeek.find(({ gameWeek }) => (
       parseInt(gameWeek, 10) === currentGameWeek),
@@ -31,7 +39,7 @@ class Division {
     draft, gameWeeks, playersByName,
   }) => {
     const allTeams = this.managers.reduce((prev, manager) => {
-      const managerTransfers = this.transfers.validManagerRequests(manager);
+      const managerTransfers = this.Transfers.validManagerRequests(manager);
       const team = new TeamByGameWeek({
         draft: draft[manager], transfers: managerTransfers, gameWeeks, players: playersByName,
       });

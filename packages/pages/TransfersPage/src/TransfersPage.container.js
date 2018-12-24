@@ -15,12 +15,13 @@ function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks, currentGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInCurrentGameWeek(state);
   const players = playerSelectors.getPlayers(state);
-  const { transfers } = transferSelectors.getTransfers(state, division);
+  const { allRequests: transfers } = transferSelectors.getTransfers(state, division);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors, saving: transfersSaving,
   } = transferSelectors.getStatus(state, division);
 
   const { data: teams } = divisionSelectors.getCurrentTeams(state, division);
+  const { data: pendingTransfers } = divisionSelectors.getPendingTransfers(state, division);
   const { loaded: teamsLoaded } = divisionSelectors.getStatus(state, division);
 
   const {
@@ -28,6 +29,7 @@ function mapStateToProps(state, { division }) {
   } = gameWeekSelectors.getStatus(state);
 
   const props = {
+    pendingTransfers,
     dateIsInCurrentGameWeek,
     currentGameWeek,
     division,

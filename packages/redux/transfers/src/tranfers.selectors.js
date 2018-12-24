@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import Transfers from '@kammy-ui/helpers.transfers';
 import get from '@kammy-ui/helpers.get';
 
 const transfersSelector = (state, division) => get(state, `transfers.${division}.transfers`) || [];
@@ -7,11 +8,11 @@ const savingSelector = (state) => get(state, 'transfers.saving') || false;
 
 export const getTransfers = createSelector(
   transfersSelector,
-  (transfers) => ({ transfers }));
+  (transfers) => (new Transfers({ transfers })));
 
 export const getValidTransfers = createSelector(
-  transfersSelector,
-  (transfers) => ({ transfers: transfers.filter((transfer) => transfer.status === 'Y') }));
+  getTransfers,
+  (transfers) => ({ transfers: transfers.validRequests }));
 
 export const getStatus = createSelector(
   statusSelector,

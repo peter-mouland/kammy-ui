@@ -115,7 +115,8 @@ class TransfersPage extends React.Component {
 
   render() {
     const {
-      teams, playersArray, transfers, dateIsInCurrentGameWeek, transfersSaving, transfersLoading, gameWeeksLoading,
+      teams, playersArray, transfers, dateIsInCurrentGameWeek, pendingTransfers,
+      transfersSaving, transfersLoading, gameWeeksLoading,
     } = this.props;
     const {
       manager, changeType, playerOut, playerIn,
@@ -129,7 +130,11 @@ class TransfersPage extends React.Component {
     const { show: showDisplacementQuestions } = this.displacementQs();
     const buttonState = this.buttonState();
     const filteredPlayers = createFilteredPlayers({
-      players: playersArray, team: teams[manager], playerIn, playerOut,
+      pendingTransfers: pendingTransfers[manager],
+      playersArray,
+      team: teams[manager],
+      playerIn,
+      playerOut,
     });
 
     return (
@@ -243,6 +248,7 @@ TransfersPage.propTypes = {
   players: PropTypes.object,
   playersArray: PropTypes.array,
   teams: PropTypes.object,
+  pendingTransfers: PropTypes.object,
   dateIsInCurrentGameWeek: PropTypes.func.isRequired,
   saveTransfers: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
@@ -259,6 +265,7 @@ TransfersPage.defaultProps = {
   gameWeeksLoading: false,
   transfers: [],
   gameWeeks: [],
+  pendingTransfers: {},
   players: null,
   playersArray: null,
   teams: {},

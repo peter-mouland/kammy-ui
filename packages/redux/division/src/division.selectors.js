@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect';
 import get from '@kammy-ui/helpers.get';
 
-import formatDivision from './format-division';
+import formatDiv from './format-division';
 
-const currentTeamSelector = (state, division) => get(state, `division.${formatDivision(division)}.currentTeams`) || {};
-const statusSelector = (state, division) => get(state, `division.${formatDivision(division)}.status`) || {};
+const currentTeamSelector = (state, div) => get(state, `division.${formatDiv(div)}.currentTeams`) || {};
+const pendingTransfersSelector = (state, div) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
+const statusSelector = (state, div) => get(state, `division.${formatDiv(div)}.status`) || {};
 
 export const getStatus = createSelector(
   statusSelector,
@@ -31,5 +32,17 @@ export const getCurrentTeams = createSelector(
       [player.manager]: [...prev[player.manager] || {}, player],
     }), {}),
     count: players.length,
+  }),
+);
+
+
+export const getPendingTransfers = createSelector(
+  pendingTransfersSelector,
+  (transfers = []) => ({
+    data: transfers.reduce((prev, transfer) => ({
+      ...prev,
+      [transfer.manager]: [...prev[transfer.manager] || {}, transfer],
+    }), {}),
+    count: transfers.length,
   }),
 );

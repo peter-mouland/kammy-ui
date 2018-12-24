@@ -28,6 +28,7 @@ const schemaString = `
     managers: [String]
     draft: [TeamPlayer]
     transfers: [Transfer]
+    pendingTransfers: [Transfer]
     teamsByGameWeek: [GameWeekPlayers]
     currentTeams: GameWeekPlayers
     seasonStats: [ManagersSeason]

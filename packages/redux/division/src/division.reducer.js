@@ -36,6 +36,7 @@ export default function divisionReducer(state = {}, action) {
       [data.getDivision.division]: {
         ...state[data.getDivision.division],
         currentTeams: data.getDivision.currentTeams,
+        pendingTransfers: data.getDivision.pendingTransfers,
         status: fulfilled(errors),
       },
     };

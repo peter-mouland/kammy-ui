@@ -20,6 +20,10 @@ const schemaString = `
     transferOut: String
     codeOut: Int
     type: String
+    posIn: String
+    posOut: String
+    clubIn: String
+    clubOut: String
   }
 `;
 

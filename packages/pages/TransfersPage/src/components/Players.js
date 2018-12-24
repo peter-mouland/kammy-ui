@@ -14,6 +14,7 @@ const playerOptions = (players) => (
         <small>
           {` ${player.pos}`}
           {player.teamPos && player.pos !== player.teamPos ? ' (sub)' : null}
+          {player.isTransfer ? <em> (pending transfer request)</em> : null}
         </small>
       ),
     }

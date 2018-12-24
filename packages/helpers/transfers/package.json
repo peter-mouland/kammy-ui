@@ -1,0 +1,20 @@
+{
+  "name": "@kammy-ui/helpers.transfers",
+  "version": "0.0.18",
+  "description": "Kammy UI Helper: Transfers class",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  }
+}

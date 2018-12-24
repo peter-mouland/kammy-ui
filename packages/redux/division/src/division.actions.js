@@ -57,6 +57,18 @@ export function fetchCurrentTeams(division) {
       promise: fetchGraphQL(`
 query ($division: String) { 
   getDivision(division: $division) {
+    pendingTransfers {
+      status
+      timestamp
+      manager
+      transferIn
+      transferOut
+      clubIn
+      clubOut
+      posIn
+      posOut
+      type
+    }
     division
     currentTeams {
       gameWeek
