@@ -68,6 +68,7 @@ const formatTimeStamp = (timestamp) => {
 };
 
 const formatTransfer = (item) => ({
+  comment: item.comment.trim(),
   status: item.status.trim(),
   timestamp: formatTimeStamp(item.timestamp),
   manager: item.manager.trim(),

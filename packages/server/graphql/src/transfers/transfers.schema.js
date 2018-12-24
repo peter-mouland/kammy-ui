@@ -7,6 +7,7 @@ const schemaString = `
     manager: String
     status: String
     timestamp: String
+    comment: String
   }
   
   type Transfer {

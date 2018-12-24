@@ -25,6 +25,7 @@ class TransfersPage extends React.Component {
     playerOut: null,
     playerDisplaced: null,
     playerGapFiller: null,
+    comment: null,
   }
 
   componentDidUpdate = (prevProps) => {
@@ -36,6 +37,10 @@ class TransfersPage extends React.Component {
 
   updateDisplayManager = (manager) => {
     this.setState({ manager });
+  }
+
+  updateComment = (e) => {
+    this.setState({ comment: e.target.value });
   }
 
   updateChangeType = (changeType) => {
@@ -64,7 +69,7 @@ class TransfersPage extends React.Component {
 
   confirmTransfer = () => {
     const {
-      playerIn, playerOut, changeType, manager, playerDisplaced, playerGapFiller,
+      playerIn, playerOut, changeType, manager, playerDisplaced, playerGapFiller, comment,
     } = this.state;
     const { division, saveTransfers } = this.props;
     const timestamp = format(new Date(), 'DD/MM/YYYY HH:mm:ss');
@@ -75,14 +80,20 @@ class TransfersPage extends React.Component {
     if (playerDisplaced && playerGapFiller) {
       // rearrange transfer to ensure positions match for the spreadsheet
       transfers.push({
-        ...baseDetails, transferIn: playerGapFiller.name, transferOut: playerOut.name,
+        ...baseDetails,
+        transferIn: playerGapFiller.name,
+        transferOut: playerOut.name,
+        comment: `${comment} (note: requested player in: ${playerIn.name}.)`,
       });
       transfers.push({
-        ...baseDetails, transferIn: playerIn.name, transferOut: playerDisplaced.name,
+        ...baseDetails,
+        transferIn: playerIn.name,
+        transferOut: playerDisplaced.name,
+        comment: '(note: automated change)',
       });
     } else {
       transfers.push({
-        ...baseDetails, transferIn: playerIn.name, transferOut: playerOut.name,
+        ...baseDetails, transferIn: playerIn.name, transferOut: playerOut.name, comment,
       });
     }
     saveTransfers(transfers);
@@ -216,6 +227,13 @@ class TransfersPage extends React.Component {
             </div>
           </div>
         )}
+
+        <div data-b-layout="row negative v-space">
+          <div data-b-layout='col pad'>
+            <div>Banter Box</div>
+            <textarea className='transfers-page__comment' onChange={this.updateComment} />
+          </div>
+        </div>
 
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
