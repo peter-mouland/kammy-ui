@@ -68,34 +68,91 @@
     min-width: 25px;
     text-align: right;
     padding: .3em .2em;
-  }
 
-  .cell--pair {
-    color: rgba(0, 0, 0, .65);
-    font-weight: 100;
-    font-size: .9em;
-    text-align: left;
+    &--pair {
+      color: rgba(0, 0, 0, .65);
+      font-weight: 100;
+      font-size: .9em;
+      text-align: left;
+    }
+
+    &--left {
+      text-align: left;
+    }
+
+    &--center,
+    &--manager,
+    &--position,
+    &--team-position {
+      text-align: center;
+    }
+
+    &--cta,
+    &--team-position {
+      width: 75px;
+    }
+
+    &--show-1000,
+    &--show-925,
+    &--show-850,
+    &--show-750,
+    &--show-625,
+    &--show-550 {
+      display: none;
+    }
+
+    @media only screen and (min-width: 550px) {
+      &--show-550,
+      &--subs,
+      &--apps {
+        display: table-cell;
+      }
+    }
+
+    @media only screen and (min-width: 625px) {
+      &--show-625,
+      &--gls,
+      &--asts {
+        display: table-cell;
+      }
+    }
+
+    @media only screen and (min-width: 750px) {
+      &--show-750,
+      &--cs,
+      &--con,
+      &--pensv {
+        display: table-cell;
+      }
+    }
+
+    @media only screen and (min-width: 850px) {
+      &--show-850,
+      &--ycard,
+      &--rcard {
+        display: table-cell;
+      }
+    }
+
+    @media only screen and (min-width: 925px) {
+      &--show-925,
+      &--tb,
+      &--sb {
+        display: table-cell;
+      }
+    }
+
+    @media only screen and (min-width: 1000px) {
+      &--show-1000,
+      &--position {
+        display: table-cell;
+      }
+    }
   }
 
   .row--warning,
   .cell--warning {
     background: rgb(255, 235, 205);
-  }
-
-  .cell--cta,
-  .cell--team-position {
-    width: 75px;
-  }
-
-  .cell--left {
-    text-align: left;
-  }
-
-  .cell--center,
-  .cell--manager,
-  .cell--position,
-  .cell--team-position {
-    text-align: center;
   }
 
   &__new-icon {
@@ -117,48 +174,6 @@
 
     &--selected {
       fill: #0c509f;
-    }
-  }
-
-  @media only screen and (min-width: 550px) {
-    .cell--subs,
-    .cell--apps {
-      display: table-cell;
-    }
-  }
-
-  @media only screen and (min-width: 625px) {
-    .cell--gls,
-    .cell--asts {
-      display: table-cell;
-    }
-  }
-
-  @media only screen and (min-width: 750px) {
-    .cell--cs,
-    .cell--con,
-    .cell--pensv {
-      display: table-cell;
-    }
-  }
-
-  @media only screen and (min-width: 850px) {
-    .cell--ycard,
-    .cell--rcard {
-      display: table-cell;
-    }
-  }
-
-  @media only screen and (min-width: 925px) {
-    .cell--tb,
-    .cell--sb {
-      display: table-cell;
-    }
-  }
-
-  @media only screen and (min-width: 1000px) {
-    .cell--position {
-      display: table-cell;
     }
   }
 }

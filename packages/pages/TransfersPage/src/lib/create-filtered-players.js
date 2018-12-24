@@ -23,7 +23,7 @@ const createFilteredPlayers = ({
     out: {
       [changeTypes.LOAN_START]: teamAndRequests,
       [changeTypes.LOAN_END]: teamAndRequests,
-      [changeTypes.SWAP]: teamAndRequests.filter(({ teamPos }) => teamPos !== 'SUB'),
+      [changeTypes.SWAP]: sortedTeam.filter(({ teamPos }) => teamPos !== 'SUB'),
       [changeTypes.TRADE]: teamAndRequests,
       [changeTypes.TRANSFER]: teamAndRequests,
       [changeTypes.NEW_PLAYER]: teamAndRequests,
