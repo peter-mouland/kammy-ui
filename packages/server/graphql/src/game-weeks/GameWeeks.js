@@ -8,6 +8,10 @@ class GameWeeks {
     gameWeeks,
   }) {
     // public API
+    const currentGameWeekIndex = (
+      gameWeeks.findIndex(({ start, end }) => (new Date() < new Date(end) && new Date() > new Date(start)))
+    );
+    this.currentGameWeek = currentGameWeekIndex < 1 ? 1 : currentGameWeekIndex + 1;
     this.gameWeeks = gameWeeks.map(({ start, end, ...rest }) => ({ start: toDate(start), end: toDate(end), ...rest }));
     this.count = gameWeeks.length;
   }

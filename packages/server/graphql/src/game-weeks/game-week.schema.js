@@ -8,6 +8,7 @@ const schemaString = `
   type GameWeeks {
     gameWeeks: [GameWeek]
     count: Int
+    currentGameWeek: Int
   }
 `;
 

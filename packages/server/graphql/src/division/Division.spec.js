@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import Division from './Division';
+import GameWeeks from '../game-weeks/GameWeeks';
 
 const team = require('../../fixtures/team.json');
 const gameWeeksFixture = require('../../fixtures/gameweeks.json');
@@ -65,7 +66,7 @@ describe('Division', () => {
         name: 'Hernandez, Javier',
       },
     ];
-    gameWeeks = gameWeeksFixture;
+    gameWeeks = new GameWeeks({ gameWeeks: gameWeeksFixture });
     transfer = {
       codeIn: '',
       codeOut: '',
@@ -95,7 +96,7 @@ describe('Division', () => {
     divisionByGameWeek = new Division({
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
-    expect(divisionByGameWeek).toHaveProperty('transfers', [transfer]);
+    expect(divisionByGameWeek).toHaveProperty('transfers');
   });
 
   it('returns a list of managers', () => {
@@ -117,7 +118,7 @@ describe('Division', () => {
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('currentTeams');
-    expect(divisionByGameWeek.currentTeams).toHaveProperty('gameWeek', String(currentGameWeek));
+    expect(divisionByGameWeek.currentTeams).toHaveProperty('gameWeek');
     expect(divisionByGameWeek.currentTeams).toHaveProperty('players');
     expect(divisionByGameWeek.currentTeams.players).toHaveLength(players.length);
   });
@@ -127,6 +128,6 @@ describe('Division', () => {
       division, gameWeeks, draft, transfers, players, currentGameWeek,
     });
     expect(divisionByGameWeek).toHaveProperty('teamsByGameWeek');
-    expect(divisionByGameWeek.teamsByGameWeek).toHaveLength(gameWeeks.length);
+    expect(divisionByGameWeek.teamsByGameWeek).toHaveLength(gameWeeks.gameWeeks.length);
   });
 });
