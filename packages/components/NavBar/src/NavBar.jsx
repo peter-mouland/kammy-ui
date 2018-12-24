@@ -38,7 +38,7 @@ const NavBar = ({ cookies }, { appConfig }) => (
       {
         appConfig.divisionLabels.map((division) => (
           <div key={division} className={linkClass}>
-            <NavItem label={division}>
+            <NavItem label={division} openOnClick>
               <NamedLink to={`${appConfig.divisionSheets[division]}-rankings`} className={linkClass} />
               <NamedLink to={`${appConfig.divisionSheets[division]}-teams`} className={linkClass} />
               <NamedLink to={`${appConfig.divisionSheets[division]}-players`} className={linkClass} />

@@ -83,13 +83,13 @@ class TransfersPage extends React.Component {
         ...baseDetails,
         transferIn: playerGapFiller.name,
         transferOut: playerOut.name,
-        comment: `${comment} (note: requested player in: ${playerIn.name}.)`,
+        comment: `${comment} (note: ${changeType} deal is ${playerIn.name} for ${playerOut.name}.)`,
       });
       transfers.push({
         ...baseDetails,
         transferIn: playerIn.name,
         transferOut: playerDisplaced.name,
-        comment: '(note: automated change)',
+        comment: `(note: ${changeType} deal is ${playerIn.name} for ${playerOut.name}.)`,
       });
     } else {
       transfers.push({

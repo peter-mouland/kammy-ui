@@ -11,18 +11,44 @@ const propTypes = {
   to: PropTypes.string,
 };
 
+const defaultProps = {
+  openOnClick: false,
+};
+
 export default class NavItem extends Component {
   static propTypes = propTypes;
+
+  static defaultProps = defaultProps;
+
+  state = {
+    open: null,
+  }
+
+  close = () => {
+    this.setState({
+      open: null,
+    });
+  }
+
+  toggle = (label) => {
+    const currentOpen = this.state.open;
+    this.setState({
+      open: currentOpen === label ? null : label,
+    });
+  }
 
   render() {
     const {
       label, children, className = '', to,
     } = this.props;
+    const { open } = this.state;
+
     const links = Array.isArray(children) ? children : [children];
-    const TopLevelItem = to ? NamedLink : 'div';
+    const isOpenClassName = open === label ? 'nav-item--open' : '';
     return (
-      <div className={`nav-item ${className}`}>
-        {label && <TopLevelItem className='nav-item__label' to={to}>{label}</TopLevelItem>}
+      <div className={`nav-item ${className} ${isOpenClassName}`}>
+        {label && to && <NamedLink className='nav-item__label' to={to}>{label}</NamedLink>}
+        {label && !to && <div className='nav-item__label' onClick={() => this.toggle(label)} onMouseLeave={this.close}>{label}</div>}
         {links.length === 1 && (links[0])}
         {links.length > 1 && (
           <div className='nav-item__children'>

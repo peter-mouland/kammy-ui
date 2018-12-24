@@ -4,10 +4,6 @@
   position: relative;
   padding: .5em 1em;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, .25);
-  }
-
   &__children {
     display: none;
     position: absolute;
@@ -16,8 +12,13 @@
     min-width: 100%;
     background: $brand;
     z-index: 1;
+  }
 
-    :hover > & {
+  &--open,
+  &:hover {
+    background-color: rgba(0, 0, 0, .25);
+
+    .nav-item__children {
       display: block;
     }
   }
