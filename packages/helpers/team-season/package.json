@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@kammy-ui/data-player-stats": "^0.0.18",
-    "@kammy-ui/helpers-to-date": "^0.0.18"
+    "@kammy-ui/helpers-to-date": "^0.0.18",
+    "date-fns": "1.30.1"
   }
 }

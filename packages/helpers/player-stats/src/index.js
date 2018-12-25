@@ -1,4 +1,7 @@
 import jsonQuery from 'json-query';
+import isBefore from 'date-fns/is_before';
+import isAfter from 'date-fns/is_after';
+import isEqual from 'date-fns/is_equal';
 
 import extractFFStats from './extract-ff-stats';
 import { calculateTotalPoints } from './calculatePoints';
@@ -34,10 +37,14 @@ export const getGameWeekFixtures = (player, gameWeeks) => (
     data: player,
     locals: {
       date(item) {
-        const fixtureDate = new Date(item.date);
-        return gameWeeks.reduce((prev, gameWeek) => (
-          prev || (fixtureDate <= new Date(gameWeek.end) && fixtureDate >= new Date(gameWeek.start))
-        ), false);
+        const fixtureDate = item.date;
+        return gameWeeks.reduce((prev, gameWeek) => {
+          const beforeEnd = isBefore(fixtureDate, gameWeek.end) || isEqual(fixtureDate, gameWeek.end);
+          const afterStart = isAfter(fixtureDate, gameWeek.start) || isEqual(fixtureDate, gameWeek.start);
+          return (
+            prev || (afterStart && beforeEnd)
+          );
+        }, false);
       },
     },
   }).value || []

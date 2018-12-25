@@ -16,5 +16,8 @@
   "license": "ISC",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "date-fns": "1.30.1"
   }
 }

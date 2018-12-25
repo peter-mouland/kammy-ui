@@ -16,28 +16,61 @@ const strokes = [
   '#f781bf',
 ];
 
-const Chart = ({
-  data, xAxis, lines, highlightManager, lineType,
-}) => (
-  <LineChart width={800} height={300} data={data} style={{ margin: '0 auto' }}>
-    <Legend verticalAlign="bottom" width={800} height={30} />
-    {lines
-      .map((line, i) => (
-        <Line
-          key={line}
-          strokeWidth={highlightManager === line ? 5 : 1}
-          type={lineType}
-          dataKey={line}
-          stroke={strokes[i]}
-        />
-      ))
-    }
-    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-    <XAxis dataKey={xAxis} />
-    <YAxis />
-    <Tooltip />
-  </LineChart>
-);
+class Chart extends React.Component {
+  state = {
+    width: 300,
+    dataPoints: 5,
+  };
+
+  updateDimensions = () => {
+    const { width } = this.state;
+    if (window.screen.width < 400) {
+      if (width !== 300) this.setState({ width: 300, dataPoints: 5 });
+    } else if (window.screen.width < 500) {
+      if (width !== 450) this.setState({ width: 350, dataPoints: 10 });
+    } else if (window.screen.width < 700) {
+      if (width !== 650) this.setState({ width: 450, dataPoints: 15 });
+    } else if (window.screen.width < 800) {
+      if (width !== 750) this.setState({ width: 650, dataPoints: 25 });
+    } else if (width !== 800) this.setState({ width: 750, dataPoints: 50 });
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  render() {
+    const {
+      data, xAxis, lines, highlightManager, lineType,
+    } = this.props;
+    const { width, dataPoints } = this.state;
+    return (
+      <LineChart width={width} height={width / 2} data={data.slice(Math.max(0, data.length - dataPoints), data.length)} style={{ margin: '0 auto' }}>
+        <Legend verticalAlign="bottom" width={width} height={30} />
+        {lines
+          .map((line, i) => (
+            <Line
+              key={line}
+              strokeWidth={highlightManager === line ? 5 : 1}
+              type={lineType}
+              dataKey={line}
+              stroke={strokes[i]}
+            />
+          ))
+        }
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey={xAxis} />
+        <YAxis />
+        <Tooltip />
+      </LineChart>
+    );
+  }
+}
 
 Chart.lineTypes = ['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter'];
 

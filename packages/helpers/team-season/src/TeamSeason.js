@@ -1,5 +1,6 @@
 import { playerStats } from '@kammy-ui/data-player-stats';
 import toDate from '@kammy-ui/helpers-to-date';
+import isBefore from 'date-fns/is_before';
 
 import calculateSeasonStats from './calculateSeason';
 
@@ -18,8 +19,8 @@ class TeamSeason {
     this.gameWeeks = gameWeeks;
     this.players = players;
     this.team = team;
-    this.endOfSeason = toDate(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
-    this.startOfSeason = toDate(gameWeeks[0].start).setHours(0, 0, 0, 0);
+    this.endOfSeason = toDate(toDate(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999));
+    this.startOfSeason = toDate(toDate(gameWeeks[0].start).setHours(0, 0, 0, 0));
   }
 
   getPlayer = (player) => (
@@ -34,7 +35,7 @@ class TeamSeason {
     ]
   */
   findPlayerThisGw = ({ transferList, gameWeek }) => {
-    const gwPlayers = transferList.filter((transfer) => transfer.start < toDate(gameWeek.start));
+    const gwPlayers = transferList.filter((transfer) => isBefore(transfer.start, gameWeek.start));
     try {
       const transfer = gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
       return playerStats({ player: transfer, gameWeeks: [gameWeek] });

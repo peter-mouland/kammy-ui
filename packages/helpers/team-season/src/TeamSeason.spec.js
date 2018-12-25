@@ -35,8 +35,8 @@ describe('TeamSeason', () => {
         type: 'Transfer',
       },
     ];
-    startOfSeason = toDate(gameWeeks[0].start).setHours(0, 0, 0, 0);
-    endOfSeason = toDate(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999);
+    startOfSeason = toDate(toDate(gameWeeks[0].start).setHours(0, 0, 0, 0));
+    endOfSeason = toDate(toDate(gameWeeks[gameWeeks.length - 1].end).setHours(23, 59, 59, 999));
   });
 
   it('returns data', () => {
