@@ -2,7 +2,11 @@
 
 .nav-item {
   position: relative;
-  padding: .5em 1em;
+  padding: .2em .5em;
+
+  @media only screen and (min-width: 650px) {
+    padding: .4em .75em;
+  }
 
   &__children {
     display: none;

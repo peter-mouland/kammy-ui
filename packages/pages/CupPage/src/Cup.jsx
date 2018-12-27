@@ -179,88 +179,94 @@ class Cup extends React.Component {
     } = this.state;
 
     return (
-      <section id="cup-page" className={bem()}>
-        <h1>{label}</h1>
-        {!cupLoaded && (
-          <Fragment>
-            <Interstitial/> Data Gathering...
-          </Fragment>
-        )}
-        {showModal && (
-          <Modal
-            key={'teamPicker'}
-            id={'teamPicker'}
-            title={`${pickCup.manager} Pick your cup team`}
-            open={showModal}
-            onClose={this.closeModal}
-          >
-            <PickCupTeam
-              {...pickCup}
-              handleChange={this.pickPlayer}
-              handleSubmit={this.saveCupTeam}
+      <section id="cup-page" className={bem()} data-b-layout="container">
+        <div data-b-layout="row vpad">
+          <h1 data-b-layout="full">{label}</h1>
+          {!cupLoaded && (
+            <div data-b-layout="full">
+              <Interstitial/> Data Gathering...
+            </div>
+          )}
+          {showModal && (
+            <div data-b-layout="full">
+              <Modal
+                key={'teamPicker'}
+                id={'teamPicker'}
+                title={`${pickCup.manager} Pick your cup team`}
+                open={showModal}
+                onClose={this.closeModal}
+              >
+                <PickCupTeam
+                  {...pickCup}
+                  handleChange={this.pickPlayer}
+                  handleSubmit={this.saveCupTeam}
+                />
+              </Modal>
+            </div>
+          )}
+          <div data-b-layout="full">
+            <MultiToggle
+              label={'Rounds'}
+              id={'rounds-filter'}
+              onChange={this.selectRound}
+              checked={selectedRound}
+              options={[ALL].concat(rounds)}
             />
-          </Modal>
-        )}
-        <div>
-          <MultiToggle
-            label={'Rounds'}
-            id={'rounds-filter'}
-            onChange={this.selectRound}
-            checked={selectedRound}
-            options={[ALL].concat(rounds)}
-          />
+          </div>
+          <div data-b-layout="full">
+            <MultiToggle
+              label={'Groups'}
+              id={'groups-filter'}
+              onChange={this.selectGroup}
+              checked={selectedGroup}
+              options={[ALL].concat(groups)}
+            />
+          </div>
         </div>
-        <div>
-          <MultiToggle
-            label={'Groups'}
-            id={'groups-filter'}
-            onChange={this.selectGroup}
-            checked={selectedGroup}
-            options={[ALL].concat(groups)}
-          />
+        <div data-b-layout="row vpad">
+          <table className={'table'}>
+            {
+              this.filteredRounds.map((round) => (
+                <Fragment key={`${round}`}>
+                  <RoundHeader selectedRound={selectedRound} round={round} />
+                  {
+                    this.filteredGroups.map((group) => (
+                      <tbody key={`${group}-${round}`}>
+                        <GroupHeader selectedGroup={selectedGroup} group={group} />
+                        <tr className={'row'}>
+                          <th className={'cell'}>Manager</th>
+                          <th colSpan={2} className={'cell'}>player1</th>
+                          <th colSpan={2} className={'cell'}>player2</th>
+                          <th colSpan={2} className={'cell'}>player3</th>
+                          <th colSpan={2} className={'cell'}>player4</th>
+                          <th className={'cell'}>Points</th>
+                          <th className={'cell'}>Rank</th>
+                        </tr>
+                        {
+                          cupGroups[group]
+                            .filter((team) => team.round === round)
+                            .map((team) => (
+                              <tr key={`${group}-${round}-${team.manager}`} className={'row'}>
+                                <td className={'cell'}>{team.manager}</td>
+                                <CupPlayers
+                                  cupTeam={team}
+                                  handleClick={() => this.pickCupTeam({
+                                    team: teams[team.manager], manager: team.manager, group, round,
+                                  })}
+                                />
+                                <td className={'cell'}>{team.points}</td>
+                                <td className={'cell'}>{team.rank}</td>
+                              </tr>
+                            ))
+                        }
+                      </tbody>
+                    ))
+                  }
+                </Fragment>
+              ))
+            }
+          </table>
         </div>
-        <table className={'table'}>
-          {
-            this.filteredRounds.map((round) => (
-              <Fragment key={`${round}`}>
-                <RoundHeader selectedRound={selectedRound} round={round} />
-                {
-                  this.filteredGroups.map((group) => (
-                    <tbody key={`${group}-${round}`}>
-                      <GroupHeader selectedGroup={selectedGroup} group={group} />
-                      <tr className={'row'}>
-                        <th className={'cell'}>Manager</th>
-                        <th colSpan={2} className={'cell'}>player1</th>
-                        <th colSpan={2} className={'cell'}>player2</th>
-                        <th colSpan={2} className={'cell'}>player3</th>
-                        <th colSpan={2} className={'cell'}>player4</th>
-                        <th className={'cell'}>Points</th>
-                        <th className={'cell'}>Rank</th>
-                      </tr>
-                      {
-                        cupGroups[group]
-                          .filter((team) => team.round === round)
-                          .map((team) => (
-                            <tr key={`${group}-${round}-${team.manager}`} className={'row'}>
-                              <td className={'cell'}>{team.manager}</td>
-                              <CupPlayers
-                                cupTeam={team}
-                                handleClick={() => this.pickCupTeam({
-                                  team: teams[team.manager], manager: team.manager, group, round,
-                                })}
-                              />
-                              <td className={'cell'}>{team.points}</td>
-                              <td className={'cell'}>{team.rank}</td>
-                            </tr>
-                          ))
-                      }
-                    </tbody>
-                  ))
-                }
-              </Fragment>
-            ))
-          }
-        </table>
       </section>
     );
   }

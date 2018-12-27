@@ -23,7 +23,7 @@ describe('ContextualHelp component', () => {
 
   describe('defaultProps', () => {
     it('should set the default width to 310', () => {
-      expect(ContextualHelp.defaultProps.width).toBe(360);
+      expect(ContextualHelp.defaultProps.width).toBe(300);
     });
   });
 

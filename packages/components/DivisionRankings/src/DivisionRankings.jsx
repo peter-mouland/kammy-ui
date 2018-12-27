@@ -61,7 +61,7 @@ class DivisionRankings extends React.Component {
     const rankChange = getRankChange(rankLastWeek, rank);
     const showData = loaded && teams && points && rank;
     return (
-      <section id="division-ranking-page" className={bem(null, null, 'page-content')}>
+      <section id="division-ranking-page" className={bem(null, null, 'page-content')} data-b-layout="container">
         <h1>{label}</h1>
         {
           !loaded && <Interstitial message='Data Gathering...' />
@@ -72,28 +72,34 @@ class DivisionRankings extends React.Component {
         {
           showData && (
             <Fragment>
-              <h2>Overall Standings</h2>
               <ErrorBoundary>
-                <LoadableChart
-                  data={data}
-                  lines={Object.keys(managersSeason)}
-                  xAxis={'gameWeek'}
-                  highlightManager={highlightManager}
-                  lineType={lineType}
-                />
+                <div data-b-layout="row vpad">
+                  <h2>Overall Standings</h2>
+                  <LoadableChart
+                    data={data}
+                    lines={Object.keys(managersSeason)}
+                    xAxis={'gameWeek'}
+                    highlightManager={highlightManager}
+                    lineType={lineType}
+                  />
+                </div>
               </ErrorBoundary>
-              <Table
-                points={points}
-                rank={rank}
-                type='season'
-                handleRowHover={this.handleRowHover}
-              />
-              <h2>Weekly Scores</h2>
-              <Table
-                points={points}
-                rank={rankChange}
-                type='gameWeek'
-              />
+              <div data-b-layout="row vpad">
+                <Table
+                  points={points}
+                  rank={rank}
+                  type='season'
+                  handleRowHover={this.handleRowHover}
+                />
+              </div>
+              <div data-b-layout="row vpad">
+                <h2>Weekly Scores</h2>
+                <Table
+                  points={points}
+                  rank={rankChange}
+                  type='gameWeek'
+                />
+              </div>
             </Fragment>
           )
         }

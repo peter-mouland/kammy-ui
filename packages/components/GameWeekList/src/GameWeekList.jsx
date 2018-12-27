@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import format from 'date-fns/format';
+import addDays from 'date-fns/add_days';
 
 import bemHelper from '@kammy-ui/bem';
 import GameWeekFixtures from '@kammy-ui/game-week-fixtures';
@@ -9,14 +10,14 @@ import './game-week-list.scss';
 
 const bem = bemHelper({ block: 'game-week-list' });
 const firstGameDate = '2017-08-10';
-const formatDate = (date) => moment(date).format('YYYY-MM-DD');
+const formatDate = (date) => format(date, 'YYYY-MM-DD');
 
 const defaultGameWeekDates = (gameWeeksArray) => (
   gameWeeksArray.reduce((prev, curr, currentIndex) => ({
     ...prev,
     [`gw-${currentIndex + 1}`]: {
-      start: moment(firstGameDate).add(currentIndex * 7, 'days').format('YYYY-MM-DD'),
-      end: moment(firstGameDate).add(((currentIndex + 1) * 7) - 1, 'days').format('YYYY-MM-DD'),
+      start: formatDate(addDays(firstGameDate, currentIndex * 7)),
+      end: formatDate(addDays(firstGameDate, ((currentIndex + 1) * 7) - 1)),
     },
   }), {})
 );
@@ -36,14 +37,14 @@ class GameWeekCalendar extends React.Component {
     super(props);
 
     const { gameWeeks } = props;
-    const today = moment();
+    const today = formatDate(new Date());
     const weekend = 'Sat,Sun';
     const customCssClasses = { weekend, ...gameWeeks };
 
     this.state = {
       year: today.year(),
       selectedDay: today,
-      selectedRange: [today, moment(today).add(15, 'day')],
+      selectedRange: [today, addDays(today, 15)],
       showDaysOfWeek: true,
       showTodayBtn: true,
       showWeekSeparators: true,
@@ -52,28 +53,6 @@ class GameWeekCalendar extends React.Component {
       customCssClasses,
     };
   }
-
-  onPrevYear = () => {
-    this.setState((prevState) => ({
-      year: prevState.year - 1,
-    }));
-  };
-
-  onNextYear = () => {
-    this.setState((prevState) => ({
-      year: prevState.year + 1,
-    }));
-  };
-
-  goToToday = () => {
-    const today = moment();
-
-    this.setState({
-      selectedDay: today,
-      // selectedRange: [today, moment(today).add(15, 'day')],
-      year: today.year(),
-    });
-  };
 
   datePickedGW = (date, dayClasses) => {
     const { customCssClasses } = this.state;
@@ -91,7 +70,7 @@ class GameWeekCalendar extends React.Component {
       selectedGW: gw,
       selectedDay: date,
       selectedRange: selectedRange
-        ? [moment(selectedRange.start), moment(selectedRange.end)]
+        ? [format(selectedRange.start), format(selectedRange.end)]
         : null,
     });
   };

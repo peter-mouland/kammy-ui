@@ -149,7 +149,7 @@ class TransfersPage extends React.Component {
     });
 
     return (
-      <div className={bem(null, null, 'page-content')}>
+      <div className={bem(null, null, 'page-content')} data-b-layout="container">
         <h1>Transfers</h1>
         <h2>Make Transfers</h2>
         <div data-b-layout="row negative v-space">

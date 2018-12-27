@@ -32,25 +32,29 @@ class DivisionStats extends React.Component {
     } = this.props;
 
     return (
-      <section id="teams-page" className={bem()}>
+      <section id="teams-page" className={bem()} data-b-layout="container">
         <h1>{label}</h1>
-        {!loaded && (
-          <Fragment>
-            <Interstitial /> Data Gathering...
-          </Fragment>
-        )}
-        {
-          loaded && <GameWeekSwitcher />
-        }
-        {
-          loaded && division && (
-            <Table
-              selectedGameWeek={selectedGameWeek}
-              managersSeason={managersSeason}
-              teams={division}
-            />
-          )
-        }
+        <div data-b-layout="vpad">
+          {!loaded && (
+            <Fragment>
+              <Interstitial /> Data Gathering...
+            </Fragment>
+          )}
+          {
+            loaded && <GameWeekSwitcher />
+          }
+        </div>
+        <div data-b-layout="vpad">
+          {
+            loaded && division && (
+              <Table
+                selectedGameWeek={selectedGameWeek}
+                managersSeason={managersSeason}
+                teams={division}
+              />
+            )
+          }
+        </div>
       </section>
     );
   }
@@ -61,11 +65,11 @@ DivisionStats.propTypes = {
   loaded: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
   players: PropTypes.object,
-  transfers: PropTypes.object,
+  transfers: PropTypes.array,
   division: PropTypes.object,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  managersSeason: PropTypes.array.isRequired,
+  managersSeason: PropTypes.array,
 
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchAllPlayerData: PropTypes.func.isRequired,

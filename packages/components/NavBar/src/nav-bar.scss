@@ -4,6 +4,7 @@
   background-color: $brand;
   position: relative;
   z-index: 10;
+  overflow: visible;
 
   &__content {
     padding: 0 2.25%;
@@ -22,7 +23,6 @@
   display: inline-block;
   line-height: 1.25em;
   font-family: 'Roboto Slab', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: bold;
   letter-spacing: 1px;
   text-align: center;
   border-style: solid;

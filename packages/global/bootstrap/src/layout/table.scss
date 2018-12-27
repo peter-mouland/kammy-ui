@@ -21,6 +21,7 @@
     top: 0;
     background-color: rgb(220, 228, 245);
     z-index: 1;
+    font-size: .8em;
   }
 
   .row {
@@ -65,14 +66,13 @@
   }
 
   .cell { /* stylelint-disable-line no-descending-specificity */
-    min-width: 25px;
     text-align: right;
     padding: .3em .2em;
 
     &--pair {
-      color: rgba(0, 0, 0, .65);
+      color: rgba(0, 0, 0, .75);
       font-weight: 100;
-      font-size: .9em;
+      font-size: .75em;
       text-align: left;
     }
 
@@ -114,6 +114,10 @@
       &--gls,
       &--asts {
         display: table-cell;
+      }
+
+      .cell {
+        min-width: 25px;
       }
     }
 

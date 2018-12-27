@@ -166,6 +166,10 @@
     padding-right: 15px;
   }
 
+  [#{$scope-prefix}layout~='vpad#{$suffix}'] {
+    padding-bottom: 15px;
+  }
+
   [#{$scope-prefix}layout~='margin#{$suffix}'] {
     margin-left: 15px;
     margin-right: 15px;

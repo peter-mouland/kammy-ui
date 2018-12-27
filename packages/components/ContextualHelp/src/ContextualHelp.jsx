@@ -23,7 +23,7 @@ class ContextualHelp extends PureComponent {
     };
 
     static defaultProps = {
-      width: 360,
+      width: 300,
     };
 
     state = {
@@ -53,17 +53,17 @@ class ContextualHelp extends PureComponent {
       if (!this.boxRef) {
         return;
       }
-
+      const { width } = this.props;
       const containerElement = this.containerRef.getBoundingClientRect();
       const boxElement = this.boxRef.getBoundingClientRect();
 
       let x = containerElement.width / 2;
       let y = (boxElement.height + containerElement.height) * -1;
 
-      if ((containerElement.x - (this.props.width / 2)) < 0) {
-        x = this.props.width / 2;
-      } else if ((containerElement.x + (this.props.width / 2)) > window.innerWidth) {
-        x = ((this.props.width / 2) * -1) + containerElement.width;
+      if ((containerElement.x - (width / 2)) < 0) {
+        x = width / 2;
+      } else if ((containerElement.x + (width / 2)) > window.innerWidth) {
+        x = ((width / 2) * -1) + containerElement.width;
       }
 
       if (containerElement.y - (boxElement.height + containerElement.height) < 0) {

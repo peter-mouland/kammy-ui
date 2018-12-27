@@ -11,7 +11,7 @@ const DivisionRankingsTable = ({
   <table className='table'>
     <thead>
       <tr className='row row--header'>
-        <th className={'cell cell--team-manager'}>Manager</th>
+        <th className={'cell cell--team-manager'}></th>
         {
           positions.map((position) => (
             <th
