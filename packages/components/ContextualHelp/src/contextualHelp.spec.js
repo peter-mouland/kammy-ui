@@ -23,7 +23,7 @@ describe('ContextualHelp component', () => {
 
   describe('defaultProps', () => {
     it('should set the default width to 310', () => {
-      expect(ContextualHelp.defaultProps.width).toBe(300);
+      expect(ContextualHelp.defaultProps.width).toBe(250);
     });
   });
 
@@ -71,12 +71,12 @@ describe('ContextualHelp component', () => {
     });
   });
 
-  describe('calculateBoxPosition()', () => {
+  describe('getBoxPosition()', () => {
     it('should return when boxRef is undefined', () => {
       component = new ContextualHelp();
       component.setState = jest.fn();
       component.boxRef = undefined;
-      expect(component.calculateBoxPosition()).toBe(undefined);
+      expect(component.getBoxPosition()).toEqual({});
     });
 
     it('should set a positive x transform when box is outside the left side of viewport', () => {
@@ -96,8 +96,7 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      component.calculateBoxPosition();
-      expect(component.setState).toHaveBeenCalledWith({ x: 100, y: 0 });
+      expect(component.getBoxPosition()).toEqual({ x: 100, y: 0 });
     });
 
     it('should set a negative x transform when box is outside the right side of viewport', () => {
@@ -117,8 +116,7 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      component.calculateBoxPosition();
-      expect(component.setState).toHaveBeenCalledWith({ x: -50, y: 0 });
+      expect(component.getBoxPosition()).toEqual({ x: -50, y: 0 });
     });
 
     it('should set a negative y transform when box is outside viewport bottom', () => {
@@ -138,8 +136,7 @@ describe('ContextualHelp component', () => {
         }),
         style: {},
       };
-      component.calculateBoxPosition();
-      expect(component.setState).toHaveBeenCalledWith({ x: 100, y: -150 });
+      expect(component.getBoxPosition()).toEqual({ x: 100, y: -150 });
     });
   });
 });

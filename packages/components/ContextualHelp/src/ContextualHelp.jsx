@@ -23,23 +23,18 @@ class ContextualHelp extends PureComponent {
     };
 
     static defaultProps = {
-      width: 300,
+      width: 250,
     };
 
     state = {
       isOpen: false,
     };
 
-    componentDidMount() {
-      this.calculateBoxPosition();
-    }
-
-    componentDidUpdate() {
-      this.calculateBoxPosition();
-    }
-
     open = () => {
-      this.setState({ isOpen: true, opacity: 1 });
+      const { x, y } = this.getBoxPosition();
+      this.setState({
+        isOpen: true, opacity: 1, x, y,
+      });
     };
 
     close = () => {
@@ -49,9 +44,9 @@ class ContextualHelp extends PureComponent {
     /**
      * Determine and update the correct position of the popover box so as to ensure it's visibility in the viewport
      */
-    calculateBoxPosition = () => {
+    getBoxPosition = () => {
       if (!this.boxRef) {
-        return;
+        return {};
       }
       const { width } = this.props;
       const containerElement = this.containerRef.getBoundingClientRect();
@@ -70,7 +65,7 @@ class ContextualHelp extends PureComponent {
         y = 0;
       }
 
-      this.setState({ x, y });
+      return { x, y };
     };
 
     caretXTranslate = () => {
@@ -95,7 +90,7 @@ class ContextualHelp extends PureComponent {
       } = this.props;
 
       const boxStyle = {
-        width: `${width}px`,
+        width: `${isOpen ? width : 0}px`,
         left: `${(width / 2) * -1}px`,
         transform: `translate(${x || 0}px, ${y || 0}px)`,
       };

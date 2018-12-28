@@ -73,8 +73,8 @@ class DivisionRankings extends React.Component {
           showData && (
             <Fragment>
               <ErrorBoundary>
+                <h2 data-b-layout="v-space">Overall Standings</h2>
                 <div data-b-layout="row vpad">
-                  <h2>Overall Standings</h2>
                   <LoadableChart
                     data={data}
                     lines={Object.keys(managersSeason)}
