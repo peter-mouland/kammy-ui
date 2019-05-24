@@ -15,6 +15,7 @@ export default function reactMiddleWare({
   Html, // Html Component
   reducers,
   assetsConfig,
+  extractor,
   preDispatch = () => {}, // func to execute custom store.dispatch methods
 }) {
   return (ctx, next) => {
@@ -22,6 +23,14 @@ export default function reactMiddleWare({
     const context = {};
     const store = configureStore({}, reducers);
     preDispatch(store); // e.g. for import { actions } from '@redux/config'; store.dispatch(actions.setConfig(config));
+    const scriptTags = extractor.getScriptTags();
+    const linkTags = extractor.getLinkTags();
+    const styleTags = extractor.getStyleTags();
+    console.log({ scriptTags, linkTags, styleTags });
+    // const jsx = extractor.collectChunks(Root({
+    //   location: ctx.request.url, context, store,
+    // }));
+    // const htmlLoadable = renderToString(jsx);
     const body = renderToString(Root({
       location: ctx.request.url, context, store,
     }));

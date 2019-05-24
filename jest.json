@@ -1,9 +1,9 @@
 {
   "testEnvironment": "enzyme",
-  "setupTestFrameworkScriptFile": "jest-enzyme",
   "testEnvironmentOptions": {
     "enzymeAdapter": "react16"
   },
+  "setupFilesAfterEnv": ["jest-enzyme"],
   "coverageThreshold": {
     "global": {
       "statements": 15,

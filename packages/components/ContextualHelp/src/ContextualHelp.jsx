@@ -2,14 +2,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import Bem from '@kammy-ui/bem';
+import BemHelper from '@kammy-ui/bem';
 
 import Caret from './components/Caret';
 import Popover from './components/Popover';
 
 import './contextualHelp.scss';
 
-const bem = new Bem({ block: 'contextual-help' });
+const bem = BemHelper({ block: 'contextual-help' });
 
 class ContextualHelp extends PureComponent {
     static propTypes = {

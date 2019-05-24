@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Bem from '@kammy-ui/bem';
+import BemHelper from '@kammy-ui/bem';
 
 import './caret.scss';
 
-const bem = new Bem({ block: 'caret' });
+const bem = BemHelper({ block: 'caret' });
 
 export default function Caret(props) {
   const caretClass = bem(null, {

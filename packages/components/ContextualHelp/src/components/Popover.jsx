@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Bem from '@kammy-ui/bem';
+import BemHelper from '@kammy-ui/bem';
 
 import './popover.scss';
 
-const bem = new Bem({ block: 'popover' });
+const bem = BemHelper({ block: 'popover' });
 
 const Popover = ({
   header, body, hasShadow,

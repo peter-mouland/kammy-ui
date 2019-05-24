@@ -7,14 +7,15 @@ import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
+import loadable from '@loadable/component';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
-import * as pages from './pages';
 
 const navigator = global.navigator && global.navigator.userAgent;
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 export const Router = isBrowser ? BrowserRouter : StaticRouter;
+
 
 export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
@@ -23,7 +24,7 @@ export const Routes = ({ ...props }, { appConfig }) => (
         name, component, props: componentProps, ...routeProps
       }) => (
         <Route key={name} {...routeProps} render={(matchProps) => {
-          const Component = pages[component];
+          const Component = loadable(() => import(`../dynamic-pages/${component}.jsx`));
           return (
             <DefaultTemplate>
               <Component {...matchProps} {...componentProps} />

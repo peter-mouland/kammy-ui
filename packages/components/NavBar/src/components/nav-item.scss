@@ -11,11 +11,15 @@
   &__children {
     display: none;
     position: absolute;
-    top: 2em;
+    top: 1.6em;
     right: 0;
     min-width: 100%;
     background: $brand;
     z-index: 1;
+
+    @media only screen and (min-width: 650px) {
+      top: 1.85em;
+    }
   }
 
   &--open,
