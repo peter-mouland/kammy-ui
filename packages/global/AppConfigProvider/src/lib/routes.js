@@ -136,7 +136,7 @@ export default [
       division: 'championship',
     },
     requiresAuthentication: false,
-    component: 'TransfersPage',
+    component: 'ManagerChooser',
     template: 'default',
   },
   {
@@ -191,7 +191,7 @@ export default [
       division: 'leagueOne',
     },
     requiresAuthentication: false,
-    component: 'TransfersPage',
+    component: 'ManagerChooser',
     template: 'default',
   },
   {
