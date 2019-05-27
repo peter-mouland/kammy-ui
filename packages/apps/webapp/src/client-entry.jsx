@@ -24,18 +24,18 @@ const App = (
 try {
   loadableReady(() => {
     ReactDOM.hydrate(App, rootEl);
-    if (module.hot) {
-      module.hot.accept('./AppRoot/AppRoot', () => {
-      const NextApp = require('./AppRoot/AppRoot').default; // eslint-disable-line
-        ReactDOM.render(
-          <HmrContainer>
-            <NextApp store={store} />
-          </HmrContainer>,
-          rootEl,
-        );
-      });
-    }
   });
+  if (module.hot) {
+    module.hot.accept('./AppRoot/AppRoot', () => {
+      const NextApp = require('./AppRoot/AppRoot').default; // eslint-disable-line
+      ReactDOM.render(
+        <HmrContainer>
+          <NextApp store={store} />
+        </HmrContainer>,
+        rootEl,
+      );
+    });
+  }
 } catch (err) {
   console.log('Render error', err); // eslint-disable-line no-console
 }

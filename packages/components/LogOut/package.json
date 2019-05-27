@@ -24,7 +24,7 @@
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.6.0"
+    "react": "^16.8.6"
   },
   "devDependencies": {
     "@kammy-ui/app-config-provider": "^0.0.17",

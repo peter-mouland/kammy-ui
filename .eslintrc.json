@@ -4,7 +4,9 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:import/recommended",
-    "airbnb/base"
+    "airbnb/base",
+    "plugin:import/errors",
+    "plugin:import/warnings"
   ],
   "env": {
     "browser": true

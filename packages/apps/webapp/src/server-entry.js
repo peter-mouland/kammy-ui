@@ -11,7 +11,6 @@ const assetsConfig = (process.env.NODE_ENV === 'production')
   ? require('../compiled/webpack-assets.json') // eslint-disable-line global-require
   : { polyfills: { js: '/polyfills.js' }, app: { js: '/app.js', css: '/app.css' } };
 
-console.log(statsFile);
 const extractor = new ChunkExtractor({ statsFile, entrypoints: ['app', 'polyfills'] });
 
 createServer({ assetsConfig, reducers, extractor }).listen(process.env.DEV_PORT || process.env.PORT, () => {

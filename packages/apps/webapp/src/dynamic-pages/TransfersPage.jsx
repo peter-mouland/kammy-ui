@@ -1,1 +1,3 @@
-export default '@kammy-ui/transfers-page';
+import Comp from '@kammy-ui/transfers-page';
+
+export default Comp;

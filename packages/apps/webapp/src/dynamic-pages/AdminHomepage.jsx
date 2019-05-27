@@ -1,1 +1,3 @@
-export default '@kammy-ui/admin-page';
+import Comp from '@kammy-ui/admin-page';
+
+export default Comp;
