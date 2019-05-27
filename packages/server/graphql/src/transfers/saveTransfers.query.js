@@ -1,4 +1,4 @@
-import { saveRows } from '@kammy-ui/fetch-google-sheets';
+import { saveRows } from '@kammy-ui/save-kammy-sheets';
 
 import formatDivision from '../division/format-division';
 

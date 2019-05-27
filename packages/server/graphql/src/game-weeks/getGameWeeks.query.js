@@ -1,12 +1,10 @@
-import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import * as fetchSpreadsheet from '@kammy-ui/fetch-kammy-sheets';
 
 import GameWeeks from './GameWeeks';
 
-const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
-
 const getGameWeeks = () => (
   Promise.all([
-    fetchSpreadsheet({ spreadsheetId, worksheetName: 'GameWeeks' }),
+    (fetchSpreadsheet.default || fetchSpreadsheet).gameWeeks(),
   ]).then(([gameWeeks]) => (
     new GameWeeks({ gameWeeks })
   ))

@@ -25,6 +25,7 @@
     "@kammy-ui/admin-cup-page": "0.0.17",
     "@kammy-ui/cup-page": "0.0.17",
     "@kammy-ui/default-template": "0.0.17",
+    "@kammy-ui/fetch-kammy-sheets": "0.0.18",
     "@kammy-ui/fetch-google-sheets": "0.0.18",
     "@kammy-ui/fetch-sky-sports": "0.0.18",
     "@kammy-ui/graphql": "0.0.18",

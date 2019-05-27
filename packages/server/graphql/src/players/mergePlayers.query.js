@@ -1,5 +1,5 @@
 import { fetchPlayersFull } from '@kammy-ui/fetch-sky-sports';
-import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import * as fetchSpreadsheet from '@kammy-ui/fetch-kammy-sheets';
 import { connect } from '@kammy-ui/database';
 
 export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
@@ -34,8 +34,8 @@ const mergePlayers = async () => {
   const { upsertPlayers } = await connect();
   return (
     Promise.all([
-      fetchSpreadsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'GameWeeks' }),
-      fetchSpreadsheet({ spreadsheetId: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI', worksheetName: 'Players' }),
+      (fetchSpreadsheet.default || fetchSpreadsheet).gameWeeks(),
+      (fetchSpreadsheet.default || fetchSpreadsheet).players(),
       fetchPlayersFull(),
     ])
       .then(([gameWeeks, spreadsheetPlayers, skySportsPlayers]) => ({

@@ -1,12 +1,10 @@
-import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import * as fetchSpreadsheet from '@kammy-ui/fetch-kammy-sheets';
 import { connect } from '@kammy-ui/database';
 
 import Division from './Division';
 import getGameWeeks from '../game-weeks/getGameWeeks.query';
 import formatDivision from './format-division';
 import getTransfers from '../transfers/getTransfers.query';
-
-const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 
 // division = 'LeagueOne', 'PremierLeague', 'Championship'
 const getDivision = async ({ division }) => {
@@ -17,7 +15,7 @@ const getDivision = async ({ division }) => {
   const { getPlayers } = await connect();
   return (
     Promise.all([
-      fetchSpreadsheet({ spreadsheetId, worksheetName: formattedDivision }),
+      (fetchSpreadsheet.default || fetchSpreadsheet).draft(formattedDivision),
       getTransfers({ division: formattedDivision }),
       getGameWeeks(),
       getPlayers(), // needed for position of transfers checking

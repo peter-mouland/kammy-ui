@@ -31,6 +31,14 @@ export default function spreadSheetReducer(state = {}, action) {
     return pending(state, 'players');
   case `${actions.FETCH_SPREADSHEET_PLAYERS}_FULFILLED`:
     return fulfilled(state, 'players', data, errors);
+  case `${actions.FETCH_SPREADSHEET_DIVISIONS}_PENDING`:
+    return pending(state, 'divisions');
+  case `${actions.FETCH_SPREADSHEET_DIVISIONS}_FULFILLED`:
+    return fulfilled(state, 'divisions', data, errors);
+  case `${actions.FETCH_SPREADSHEET_GAMEWEEKS}_PENDING`:
+    return pending(state, 'gameWeeks');
+  case `${actions.FETCH_SPREADSHEET_GAMEWEEKS}_FULFILLED`:
+    return fulfilled(state, 'gameWeeks', data, errors);
   case `${actions.FETCH_SPREADSHEET_PLAYERS}_REJECTED`:
     return rejected(state, 'players', data, [action.payload]);
   case `${actions.FETCH_SPREADSHEET_PREMIERLEAGUE}_PENDING`:
