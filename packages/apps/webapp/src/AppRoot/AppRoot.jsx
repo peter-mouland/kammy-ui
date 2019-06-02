@@ -16,7 +16,6 @@ const navigator = global.navigator && global.navigator.userAgent;
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 export const Router = isBrowser ? BrowserRouter : StaticRouter;
 
-
 export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>

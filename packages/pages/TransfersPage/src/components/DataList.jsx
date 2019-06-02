@@ -3,48 +3,36 @@ import PropTypes from 'prop-types';
 
 import './data-list.scss';
 
-/**
- * default function for matching the current input value (needle) and the values of the items array
- * @param searchTerm
- * @param item
- * @returns {boolean}
- */
-const match = (searchTerm, item) => (
-  item.label.substr(0, searchTerm.length).toUpperCase() === searchTerm.toUpperCase()
-);
-
-/**
- * function for getting the index of the currentValue inside a value of the values array
- * @param searchTerm
- * @param item
- * @returns {number}
- */
 const indexOfMatch = (searchTerm, item) => item.label.toUpperCase().indexOf(searchTerm.toUpperCase());
+const match = (searchTerm, item) => (indexOfMatch(searchTerm, item) > -1);
 
-const labelWithBoldText = (item, searchTerm) => (
-  <span>
-    {item.label.substr(0, indexOfMatch(searchTerm, item))}
-    <strong>{item.label.substr(indexOfMatch(searchTerm, item), searchTerm.length)}</strong>
-    {item.label.substr(indexOfMatch(searchTerm, item) + searchTerm.length)}
-  </span>
-);
+const labelWithBoldText = (item, searchTerm) => {
+  const i = indexOfMatch(searchTerm, item);
+  return (
+    <span>
+      {item.label.substr(0, i)}
+      <strong>{item.label.substr(i, searchTerm.length)}</strong>
+      {item.label.substr(i + searchTerm.length)}
+    </span>
+  );
+};
 
 const Item = ({
   item, index, focusIndex, onSelect, searchTerm, selectedItem,
 }) => {
-  const itemClassName = 'datalist-item';
+  const buttonClassName = 'datalist-button';
   const isActive = focusIndex === index || (selectedItem && selectedItem.key === item.key);
-  const label = item.label.indexOf(searchTerm) < 0 ? item.label : labelWithBoldText(item, searchTerm);
+  const label = indexOfMatch(searchTerm, item) < 0 ? item.label : labelWithBoldText(item, searchTerm);
+  const buttonClass = isActive ? `${buttonClassName} ${buttonClassName}--active` : buttonClassName;
   return (
-    <div
-      onClick={() => onSelect(item)}
-      className={isActive ? `${itemClassName} ${itemClassName}--active` : itemClassName}
-      key={item.key}
-    >
+    <div className={'datalist-item'} key={item.key}>
       {/* {item.img && <img src={item.img} className='datalist-item__img' />} */}
       {label}
       <span className='datalist-item__additional'>
         {item.additional}
+      </span>
+      <span style={{ float: 'right' }}>
+        <button onClick={() => onSelect(item)} className={buttonClass}>select</button>
       </span>
     </div>
   );

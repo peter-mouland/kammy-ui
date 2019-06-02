@@ -50,6 +50,9 @@ export default [
       title: 'Kammy - Premier League Rankings',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      division: 'premierLeague',
+    },
     label: 'League Table',
     requiresAuthentication: false,
     component: 'PremierLeagueRankings',
@@ -62,6 +65,9 @@ export default [
     meta: {
       title: 'Kammy Admin - premier-league Players',
       description: 'Kammy : Fantasy Football',
+    },
+    props: {
+      division: 'premierLeague',
     },
     label: 'Players',
     requiresAuthentication: false,
@@ -136,7 +142,7 @@ export default [
       division: 'championship',
     },
     requiresAuthentication: false,
-    component: 'ManagerChooser',
+    component: 'TransfersPage',
     template: 'default',
   },
   {
@@ -146,6 +152,9 @@ export default [
     meta: {
       title: 'Kammy - League One Teams',
       description: 'Kammy : Fantasy Football',
+    },
+    props: {
+      division: 'leagueOne',
     },
     label: 'Teams',
     requiresAuthentication: false,
@@ -173,6 +182,9 @@ export default [
       title: 'Kammy Admin - league-one Players',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      division: 'leagueOne',
+    },
     label: 'Players',
     requiresAuthentication: false,
     component: 'LeagueOnePlayersPage',
@@ -191,7 +203,7 @@ export default [
       division: 'leagueOne',
     },
     requiresAuthentication: false,
-    component: 'ManagerChooser',
+    component: 'TransfersPage',
     template: 'default',
   },
   {
