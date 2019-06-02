@@ -13,7 +13,7 @@ const { fetchTransfers, saveTransfers } = transferActions;
 
 function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks, currentGameWeek } = gameWeekSelectors.getGameWeeks(state);
-  const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInCurrentGameWeek(state);
+  const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInGameWeekMinusx(state);
   const players = playerSelectors.getPlayers(state);
   const { allRequests: transfers } = transferSelectors.getTransfers(state, division);
   const {

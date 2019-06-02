@@ -47,3 +47,22 @@ export const dateIsInCurrentGameWeek = createSelector(
     }
   },
 );
+
+export const dateIsInGameWeekMinusx = createSelector(
+  getGameWeeks,
+  ({ gameWeeks, currentGameWeek, currentGameWeekDates }) => (comparisonDate, gwAdjust = 0) => {
+    try {
+      const adjustedGW = currentGameWeek - 1 - gwAdjust;
+      const dates = adjustedGW < 0
+        ? currentGameWeekDates
+        : { start: gameWeeks[adjustedGW].start, end: currentGameWeekDates.end };
+      return inDateRange(dates, comparisonDate);
+    } catch (e) {
+      console.log('ERROR');
+      console.log({
+        gameWeeks, gwAdjust, currentGameWeekDates, comparisonDate,
+      });
+      return false;
+    }
+  },
+);

@@ -180,7 +180,8 @@ class TransfersPage extends React.Component {
 
     const gameWeekTransfers = gameWeeksLoading
       ? []
-      : transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp));
+      : transfers.filter((transfer) => dateIsInCurrentGameWeek(transfer.timestamp, 2));
+
     // const { show: showDisplacementQuestions } = this.displacementQs();
     const buttonState = this.buttonState();
     const filteredPlayers = createFilteredPlayers({

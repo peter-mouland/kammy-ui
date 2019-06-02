@@ -1,11 +1,11 @@
 {
   "name": "@kammy-ui/webapp",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=10.15.0",
+    "node": ">=10.9.0",
     "npm": ">=6.0.0",
-    "yarn": ">=1.15.0"
+    "yarn": ">=1.9.0"
   },
   "scripts": {
     "build": "rm -rf compiled && npm run build:server && npm run build:app",
