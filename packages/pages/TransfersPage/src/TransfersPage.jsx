@@ -50,7 +50,7 @@ class TransfersPage extends React.Component {
     playerGapFiller: null,
     comment: null,
     initiateRequest: false,
-  }
+  };
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.transfersSaving && !this.props.transfersSaving) {
@@ -64,7 +64,20 @@ class TransfersPage extends React.Component {
   }
 
   initiateRequest = (initiateRequest) => {
-    this.setState({ initiateRequest });
+    if (initiateRequest) {
+      this.setState({ initiateRequest });
+    } else {
+      // closing modal so clear the old selections out
+      this.setState({
+        initiateRequest,
+        changeType: null,
+        playerIn: null,
+        playerOut: null,
+        playerDisplaced: null,
+        playerGapFiller: null,
+        comment: null,
+      });
+    }
   }
 
   updateComment = (e) => {
