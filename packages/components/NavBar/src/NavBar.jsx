@@ -33,7 +33,6 @@ AdminLinks.propTypes = {
 const NavBar = ({ cookies }, { appConfig }) => (
   <nav className={bem()}>
     <div className={bem('content')}>
-      <span className={bem('header')}>FF</span>
       <NavItem className={linkClass}><NamedLink to="rules" /></NavItem>
       {
         appConfig.divisionLabels.map((division) => (

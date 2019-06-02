@@ -72,18 +72,7 @@ class DivisionRankings extends React.Component {
         {
           showData && (
             <Fragment>
-              <ErrorBoundary>
-                <h2 data-b-layout="v-space">Overall Standings</h2>
-                <div data-b-layout="row vpad">
-                  <LoadableChart
-                    data={data}
-                    lines={Object.keys(managersSeason)}
-                    xAxis={'gameWeek'}
-                    highlightManager={highlightManager}
-                    lineType={lineType}
-                  />
-                </div>
-              </ErrorBoundary>
+              <h2 data-b-layout="v-space">Overall Standings</h2>
               <div data-b-layout="row vpad">
                 <Table
                   points={points}
@@ -100,6 +89,17 @@ class DivisionRankings extends React.Component {
                   type='gameWeek'
                 />
               </div>
+              <ErrorBoundary>
+                <div data-b-layout="row vpad">
+                  <LoadableChart
+                    data={data}
+                    lines={Object.keys(managersSeason)}
+                    xAxis={'gameWeek'}
+                    highlightManager={highlightManager}
+                    lineType={lineType}
+                  />
+                </div>
+              </ErrorBoundary>
             </Fragment>
           )
         }
