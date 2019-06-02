@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=9.0.0",
-    "npm": ">=5.0.0",
-    "yarn": ">=1.0.0"
+    "node": ">=10.15.0",
+    "npm": ">=6.0.0",
+    "yarn": ">=1.15.0"
   },
   "scripts": {
     "build": "rm -rf compiled && npm run build:server && npm run build:app",

@@ -23,7 +23,7 @@ export const Routes = ({ ...props }, { appConfig }) => (
         name, component, props: componentProps, ...routeProps
       }) => (
         <Route key={name} {...routeProps} render={(matchProps) => {
-          const Component = loadable(() => import(`../dynamic-pages/${component}.jsx`));
+          const Component = loadable(() => import(`../dynamic-pages/${component}`));
           return (
             <DefaultTemplate>
               <Component {...matchProps} {...componentProps} />
