@@ -19,6 +19,7 @@ const AdminLinks = ({ cookies }) => (
         <NavItem label='Admin' to='admin'>
           <NamedLink to="admin-players" className={linkClass}/>
           <NamedLink to="admin-cup" className={linkClass}/>
+          <NamedLink to="cup" className={linkClass} />
         </NavItem>
       </div>
     )
@@ -34,7 +35,6 @@ const NavBar = ({ cookies }, { appConfig }) => (
     <div className={bem('content')}>
       <span className={bem('header')}>FF</span>
       <NavItem className={linkClass}><NamedLink to="rules" /></NavItem>
-      <NavItem className={linkClass}><NamedLink to="cup" /></NavItem>
       {
         appConfig.divisionLabels.map((division) => (
           <div key={division} className={linkClass}>
