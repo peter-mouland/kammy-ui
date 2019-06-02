@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from '@kammy-ui/redux-store';
+import { loadableReady } from '@loadable/component';
 import Root from './AppRoot/AppRoot';
 
 const reducer = require('./config/reducers').default;
@@ -21,7 +22,9 @@ const App = (
 );
 
 try {
-  ReactDOM.hydrate(App, rootEl);
+  loadableReady(() => {
+    ReactDOM.hydrate(App, rootEl);
+  });
   if (module.hot) {
     module.hot.accept('./AppRoot/AppRoot', () => {
       const NextApp = require('./AppRoot/AppRoot').default; // eslint-disable-line

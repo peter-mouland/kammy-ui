@@ -51,9 +51,24 @@
   }
 }
 
+.datalist-button {
+  top: -10px;
+  position: relative;
+  padding: 8px;
+  margin: 2px;
+
+  &--active {
+    background-color: #163;
+    color: #fff;
+
+    &:hover {
+      background-color: #052;
+    }
+  }
+}
+
 .datalist-item {
   padding: 10px;
-  cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid #d4d4d4;
 

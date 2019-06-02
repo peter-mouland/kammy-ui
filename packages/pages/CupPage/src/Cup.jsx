@@ -278,6 +278,7 @@ Cup.propTypes = {
   cupGroups: PropTypes.object,
   label: PropTypes.string,
   fetchCup: PropTypes.func.isRequired,
+  saveCupTeam: PropTypes.func.isRequired,
   managers: PropTypes.arrayOf(PropTypes.string),
   groups: PropTypes.arrayOf(PropTypes.string),
   rounds: PropTypes.arrayOf(PropTypes.string),

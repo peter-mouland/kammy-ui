@@ -22,4 +22,4 @@ const bem = ({
   return (bemClasses + utilsClass).trim();
 };
 
-module.exports = bem;
+export default bem;

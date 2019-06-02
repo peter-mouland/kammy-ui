@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const { SRC, DIST } = require('./src/config/paths');
 
@@ -30,6 +31,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.GA_KEY': JSON.stringify(process.env.GA_KEY),
     }),
+    new LoadablePlugin(),
   ],
   resolve: {
     modules: ['node_modules', SRC],

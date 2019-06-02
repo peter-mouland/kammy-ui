@@ -1,0 +1,41 @@
+{
+  "name": "@kammy-ui/babel-preset",
+  "version": "1.0.0",
+  "description": "Babel presets",
+  "main": "web/index.js",
+  "author": "Neil Barton <neil.barton@roughcoder.com>",
+  "license": "UNLICENSED",
+  "src": "web/index.js",
+  "files": [
+    "web/",
+    "node/"
+  ],
+  "dependencies": {
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/node": "7.2.2",
+    "@babel/plugin-external-helpers": "7.2.0",
+    "@babel/plugin-proposal-class-properties": "7.4.0",
+    "@babel/plugin-proposal-export-default-from": "7.2.0",
+    "@babel/plugin-proposal-export-namespace-from": "7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.3",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/plugin-transform-arrow-functions": "7.2.0",
+    "@babel/plugin-transform-runtime": "7.4.3",
+    "@babel/plugin-transform-spread": "7.2.2",
+    "@babel/preset-env": "7.4.3",
+    "@babel/preset-flow": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/runtime": "7.4.3",
+    "@loadable/babel-plugin": "5.10.0",
+    "babel-loader": "8.0.5",
+    "babel-plugin-add-module-exports": "1.0.2",
+    "babel-plugin-dynamic-import-node": "2.2.0",
+    "babel-plugin-jsx-control-statements": "4.0.0",
+    "babel-plugin-macros": "2.5.1",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24"
+  },
+  "peerDependencies": {
+    "babel-core": "7.0.0-bridge.0"
+  }
+}

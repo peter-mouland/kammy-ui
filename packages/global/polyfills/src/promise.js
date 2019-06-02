@@ -2,5 +2,5 @@
 const Promise = require('promise-polyfill');
 
 if (!window.Promise) {
-  window.Promise = Promise;
+  window.Promise = Promise.default || Promise;
 }

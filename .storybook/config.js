@@ -1,11 +1,9 @@
-import { configure, addDecorator } from '@storybook/react';
-import {setOptions} from '@storybook/addon-options';
-import {setDefaults} from '@storybook/addon-info';
-import backgrounds from '@storybook/addon-backgrounds';
-import { withKnobs } from '@storybook/addon-knobs';
 import React from 'react';
+import { configure, addDecorator, addParameters } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
+import { create } from '@storybook/theming';
 
-require("babel-polyfill");
+// require("babel-polyfill");
 
 function addBrowserClassToDocument () {
   var ua = navigator.userAgent, tem,
@@ -23,13 +21,6 @@ function addBrowserClassToDocument () {
   document.documentElement.setAttribute('class', M[0].toLowerCase() + ' ' + M.join('-').toLowerCase())
 }
 
-
-setOptions({
-  name: 'Kammy UI',
-  url: 'https://github.com/peter-mouland/kammy-ui',
-  downPanelInRight: false
-});
-
 addDecorator((story) => {
   addBrowserClassToDocument();
     return (
@@ -40,19 +31,24 @@ addDecorator((story) => {
 });
 
 // addon-backgrounds
-addDecorator(backgrounds([
+const backgrounds = [
   { name: 'White', value: 'white', default: true },
   { name: 'twitter', value: '#00aced' },
   { name: 'facebook', value: '#3b5998' },
-]));
+];
 
 // addon-knobs
 addDecorator(withKnobs);
 
-setDefaults({
-    header: true,
-    inline: false,
-    source: true
+addParameters({
+  options: {
+    theme: create({
+      brandTitle: 'Components',
+      brandUrl: 'https://github.com/peter-mouland/kammy-ui',
+    }),
+    sortStoriesByKind: true,
+  },
+  backgrounds: backgrounds,
 });
 
 const req = require.context(

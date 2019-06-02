@@ -29,7 +29,7 @@ export const getCurrentTeams = createSelector(
   ({ players = [] }) => ({
     data: players.reduce((prev, player) => ({
       ...prev,
-      [player.manager]: [...prev[player.manager] || {}, player],
+      [player.manager]: prev[player.manager] ? [...prev[player.manager], player] : [player],
     }), {}),
     count: players.length,
   }),
@@ -41,7 +41,7 @@ export const getPendingTransfers = createSelector(
   (transfers = []) => ({
     data: transfers.reduce((prev, transfer) => ({
       ...prev,
-      [transfer.manager]: [...prev[transfer.manager] || {}, transfer],
+      [transfer.manager]: prev[transfer.manager] ? [...prev[transfer.manager], transfer] : [transfer],
     }), {}),
     count: transfers.length,
   }),

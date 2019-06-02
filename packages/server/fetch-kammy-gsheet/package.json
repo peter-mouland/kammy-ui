@@ -1,0 +1,24 @@
+{
+  "name": "@kammy-ui/fetch-kammy-sheets",
+  "version": "0.0.18",
+  "description": "Kammy Data Source: Fetch Kammy Spreadsheets",
+  "main": "dist/index.min.js",
+  "src": "src/index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5",
+    "yarn": ">=1"
+  },
+  "keywords": [
+    "kammy"
+  ],
+  "author": "Peter Mouland",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/helpers-to-date": "^0.0.18"
+  }
+}

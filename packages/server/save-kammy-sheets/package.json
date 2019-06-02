@@ -1,7 +1,7 @@
 {
-  "name": "@kammy-ui/fetch-google-sheets",
+  "name": "@kammy-ui/save-kammy-sheets",
   "version": "0.0.18",
-  "description": "Kammy Data Source: Fetch Google Spreadsheets",
+  "description": "Kammy Data Source: save Google Spreadsheets",
   "main": "dist/index.min.js",
   "src": "src/index.js",
   "engines": {

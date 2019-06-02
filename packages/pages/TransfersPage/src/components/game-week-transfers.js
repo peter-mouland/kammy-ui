@@ -15,7 +15,7 @@ const getEmoji = (status = '') => {
   }
 };
 
-const TransferBody = ({ transfers }) => transfers.length > 0 && (
+const TransferBody = ({ transfers, Action }) => transfers.length > 0 && (
   <tbody>
     {transfers
       .sort(sortBy(['status', 'timestamp']))
@@ -30,12 +30,13 @@ const TransferBody = ({ transfers }) => transfers.length > 0 && (
           <td data-col-label='transfer in' className={'cell cell--center'}>{transferIn}</td>
           <td data-col-label='transfer out' className={'cell cell--center'}>{transferOut}</td>
           <td data-col-label='comment' className={'cell cell--center cell--show-925 '}>{comment}</td>
+          {Action && <td data-col-label='action' className={'cell cell--center'}>{Action}</td>}
         </tr>
       ))}
   </tbody>
 );
 
-const GameWeekTransfers = ({ transfers, isLoading }) => (
+const GameWeekTransfers = ({ transfers, isLoading, Action }) => (
   <table className={'table'}>
     <thead>
       <tr className={'row'}>
@@ -46,9 +47,10 @@ const GameWeekTransfers = ({ transfers, isLoading }) => (
         <th className={'cell'}>In</th>
         <th className={'cell'}>Out</th>
         <th className={'cell cell--show-925'}>Comment</th>
+        {Action && <th className={'cell'} />}
       </tr>
     </thead>
-    <TransferBody transfers={transfers} />
+    <TransferBody transfers={transfers} Action={Action} />
     {transfers.length === 0 && !isLoading && (
       <tbody>
         <tr className={'row'}>
@@ -77,9 +79,11 @@ GameWeekTransfers.propTypes = {
     comment: PropTypes.string,
   })).isRequired,
   isLoading: PropTypes.bool,
+  Action: PropTypes.element,
 };
 
 GameWeekTransfers.defaultProps = {
+  Action: null,
   isLoading: false,
 };
 

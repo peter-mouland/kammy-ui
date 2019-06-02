@@ -17,8 +17,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "promise-polyfill": "^7.1.1",
-    "whatwg-fetch": "^2.0.4"
+  "dependencies": {
+    "promise-polyfill": "^8.1.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }

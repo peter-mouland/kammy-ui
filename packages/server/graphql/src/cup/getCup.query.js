@@ -1,10 +1,8 @@
-import fetchSpreadsheet from '@kammy-ui/fetch-google-sheets';
+import * as fetchSpreadsheet from '@kammy-ui/fetch-kammy-sheets';
 import { connect } from '@kammy-ui/database';
 
 import getDivision from '../division/getDivision.query';
 import Cup from './Cup';
-
-const spreadsheetId = '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI';
 
 const getCup = async () => {
   const { getPlayers } = await connect();
@@ -12,7 +10,7 @@ const getCup = async () => {
     getDivision({ division: 'LeagueOne' }),
     getDivision({ division: 'PremierLeague' }),
     getDivision({ division: 'Championship' }),
-    fetchSpreadsheet({ spreadsheetId, worksheetName: 'Cup' }),
+    (fetchSpreadsheet.default || fetchSpreadsheet).cup(),
     getPlayers(),
   ]);
   const divisions = {

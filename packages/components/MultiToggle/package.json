@@ -24,7 +24,7 @@
     "@kammy-ui/error-boundary": "^0.0.14"
   },
   "peerDependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.6.0"
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6"
   }
 }
