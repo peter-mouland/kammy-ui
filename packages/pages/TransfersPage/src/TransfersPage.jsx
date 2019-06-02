@@ -181,6 +181,8 @@ class TransfersPage extends React.Component {
     });
     const filterOptions = createFilterOptions(Object.keys(teams));
     const stillLoading = transfersSaving || transfersLoading || gameWeeksLoading;
+    const defaultLeavingFilter = null; // filterOptions[1].options.filter((option) => option.value === manager);
+
     return (
       <div className={bem(null, null, 'page-content')} data-b-layout="container">
         <h1>Transfers</h1>
@@ -203,7 +205,7 @@ class TransfersPage extends React.Component {
           >
             {!manager && (
               <React.Fragment>
-                <h4>Who are you?</h4>
+                <h4>1. Who are you?</h4>
                 <MultiToggle
                   id={'manager'}
                   loading={Object.keys(teams).length === 0}
@@ -216,7 +218,7 @@ class TransfersPage extends React.Component {
             )}
             {manager && !changeType && (
               <React.Fragment>
-                <h4>What type of request is it?</h4>
+                <h4>2. What type of request is it?</h4>
                 <MultiToggle
                   id={'change-type'}
                   options={Object.values(changeTypes)}
@@ -227,9 +229,16 @@ class TransfersPage extends React.Component {
             )}
             {manager && changeType && !playerOut && (
               <React.Fragment>
-                <h3>Who is Leaving the squad?</h3>
+                <h3>3. Who is Leaving the squad?</h3>
                 <div style={{ position: 'relative', zIndex: '2' }}>
-                  <Select placeholder="player filter..." options={filterOptions} isMulti name={'playersFiltersOut'} onChange={this.updatePlayerFilter}/>
+                  <Select
+                    defaultValue={defaultLeavingFilter}
+                    placeholder="player filter..."
+                    options={filterOptions}
+                    isMulti
+                    name={'playersFiltersOut'}
+                    onChange={this.updatePlayerFilter}
+                  />
                 </div>
                 <div style={{ position: 'relative', zIndex: '1' }}>
                   {playersArray.length > 0 && (
@@ -244,9 +253,15 @@ class TransfersPage extends React.Component {
             )}
             {manager && changeType && playerOut && !playerIn && (
               <React.Fragment>
-                <h3>Who is Joining the squad?</h3>
+                <h3>4. Who is Joining the squad?</h3>
                 <div style={{ position: 'relative', zIndex: '2' }}>
-                  <Select placeholder="player filter..." options={filterOptions} isMulti name={'playersFiltersIn'} onChange={this.updatePlayerFilter}/>
+                  <Select
+                    placeholder="player filter..."
+                    options={filterOptions}
+                    isMulti
+                    name={'playersFiltersIn'}
+                    onChange={this.updatePlayerFilter}
+                  />
                 </div>
                 <div style={{ position: 'relative', zIndex: '1' }}>
                   {playersArray.length > 0 && (
@@ -263,26 +278,26 @@ class TransfersPage extends React.Component {
               <React.Fragment>
                 <h3>Any Comments / Banter?</h3>
                 <textarea className='transfers-page__comment' onChange={this.updateComment} />
+                <h3>Confirm Request</h3>
+                <GameWeekTransfers
+                  transfers={[{
+                    manager,
+                    timestamp: new Date(),
+                    status: 'tbc',
+                    type: changeType,
+                    transferIn: playerIn ? playerIn.name : '',
+                    transferOut: playerOut ? playerOut.name : '',
+                    comment,
+                  }]}
+                  isLoading={false}
+                  Action={(
+                    <Button onClick={this.confirmTransfer} state={buttonState}>
+                      Confirm {changeType}
+                    </Button>
+                  )}
+                />
               </React.Fragment>
             )}
-            <h4>New Request</h4>
-            <GameWeekTransfers
-              transfers={[{
-                manager,
-                timestamp: new Date(),
-                status: 'tbc',
-                type: changeType,
-                transferIn: playerIn ? playerIn.name : '',
-                transferOut: playerOut ? playerOut.name : '',
-                comment,
-              }]}
-              isLoading={false}
-              Action={(
-                <Button onClick={this.confirmTransfer} state={buttonState}>
-                  Confirm {changeType}
-                </Button>
-              )}
-            />
           </Modal>
         )}
 
