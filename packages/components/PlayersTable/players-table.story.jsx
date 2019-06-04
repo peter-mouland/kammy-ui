@@ -10,7 +10,7 @@ import fixtures from './players-table.fixtures.json';
 import Players from './src/Players';
 import PlayersContainer from './src/Players.container';
 
-const visibleStats = ['apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'tb', 'sb', 'ycard', 'rcard', 'points'];
+const visibleStats = ['points', 'apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'tb', 'sb', 'ycard', 'rcard'];
 const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR', 'SUB'];
 
 /**

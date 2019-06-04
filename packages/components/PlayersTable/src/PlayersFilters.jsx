@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 import Toggle from '@kammy-ui/toggle';
-import MultiToggle from '@kammy-ui/multi-toggle';
-import Selector from '@kammy-ui/select';
+import Select from 'react-select';
 
 import './players-filters.scss';
 
@@ -20,16 +19,15 @@ const setClubs = ({ players = [], myTeam }) => {
 };
 
 const applyFilters = ({
-  nameFilter, posFilter, clubFilter, player, myTeam, showHidden, showNew, customFilter, customFilterChecked,
+  nameFilters, posFilters, clubFilters, player, showHidden, showNew, customFilter, customFilterChecked,
 }) => {
   const customFiltered = !customFilter || !customFilterChecked || customFilter.fn(player);
-  const nameFiltered = !nameFilter || player.name.toUpperCase().includes(nameFilter.toUpperCase());
-  const posFiltered = !posFilter || posFilter === 'all' || (player.pos || '').includes(posFilter);
+  const nameFiltered = !nameFilters.length || nameFilters.includes(player.name);
+  const posFiltered = !posFilters.length || (posFilters.includes(player.pos));
   const hiddenFiltered = !showHidden || player.isHidden === showHidden;
   const newFiltered = !showNew || player.new === showNew;
-  const clubFiltered = !clubFilter
-    || (clubFilter === MY_TEAM && myTeam && [player.code])
-    || ((player.club || '').includes(clubFilter));
+  const clubFiltered = !clubFilters.length || (clubFilters.includes(player.club));
+  // || (clubFilters === MY_TEAM && myTeam && [player.code])
   return nameFiltered && posFiltered && clubFiltered && hiddenFiltered && newFiltered && customFiltered;
 };
 
@@ -61,28 +59,25 @@ export default class PlayersFilters extends React.Component {
   constructor(props) {
     super(props);
     this.options.clubs = setClubs(props);
-    this.options.positions = ['all'].concat(props.positions);
+    this.options.positions = props.positions;
     this.state = {
       showHidden: false,
       showNew: false,
       isSaving: false,
-      nameFilter: '',
       customFilterChecked: false,
       showHiddenChecked: false,
-      posFilter: props.selectedPosition || 'all',
-      clubFilter: '',
+      posFilters: props.selectedPosition ? [props.selectedPosition] : [],
+      nameFilters: [],
+      clubFilters: [],
+      selectFilters: [],
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.options.clubs = setClubs(nextProps);
     if (nextProps.selectedPosition !== this.state.selectedPosition) {
-      this.setState({ posFilter: nextProps.selectedPosition || 'all' });
+      this.setState({ posFilter: nextProps.selectedPosition });
     }
-  }
-
-  posFilter = (posFilter) => {
-    this.setState({ posFilter });
   }
 
   showNew = (e) => {
@@ -97,12 +92,25 @@ export default class PlayersFilters extends React.Component {
     this.setState({ customFilterChecked: e.target.checked });
   }
 
-  clubFilter = (clubFilter) => {
-    this.setState({ clubFilter });
-  }
+  addFilter = (options) => {
+    const posFilters = [];
+    const clubFilters = [];
+    const nameFilters = [];
 
-  nameFilter = (e) => {
-    this.setState({ nameFilter: e.target.value.trim() });
+    options.forEach(({ group, value }) => {
+      if (group === 'position') {
+        posFilters.push(value);
+      }
+      if (group === 'club') {
+        clubFilters.push(value);
+      }
+      if (group === 'player') {
+        nameFilters.push(value);
+      }
+    });
+    this.setState({
+      selectedFilters: options, posFilters, nameFilters, clubFilters,
+    });
   }
 
   onFilter = () => {
@@ -110,7 +118,7 @@ export default class PlayersFilters extends React.Component {
       players, myTeam, customFilter,
     } = this.props;
     const {
-      posFilter, clubFilter, nameFilter, showHidden, showNew, customFilterChecked,
+      selectedFilters, posFilters, clubFilters, nameFilters, showHidden, showNew, customFilterChecked,
     } = this.state;
     const teamPlayers = myTeam
       ? (Object.keys(myTeam))
@@ -119,10 +127,11 @@ export default class PlayersFilters extends React.Component {
       : {};
 
     return players.filter((player) => applyFilters({
+      selectedFilters,
       player,
-      nameFilter,
-      posFilter,
-      clubFilter,
+      nameFilters,
+      posFilters,
+      clubFilters,
       customFilter,
       customFilterChecked,
       myTeam: teamPlayers,
@@ -132,9 +141,11 @@ export default class PlayersFilters extends React.Component {
   }
 
   render() {
-    const { customFilter, showHiddenToggle, showNewToggle } = this.props;
     const {
-      posFilter, clubFilter, customFilterChecked, showHidden, showNew,
+      customFilter, showHiddenToggle, showNewToggle, players,
+    } = this.props;
+    const {
+      customFilterChecked, showHidden, showNew,
     } = this.state;
     const { clubs, positions } = this.options;
 
@@ -173,32 +184,25 @@ export default class PlayersFilters extends React.Component {
               </div>
             )}
             <div>
-              <MultiToggle
-                label="Position:"
-                id={'position-filter'}
-                onChange={this.posFilter}
-                checked={posFilter}
-                options={positions}
-              />
-            </div>
-            <div>
-              <label htmlFor="name-filter">Player:</label>
-              <input
-                id="name-filter"
-                name="name-filter"
-                type="search"
-                onChange={this.nameFilter}
-                defaultValue=""
-              />
-            </div>
-            <div>
-              <label htmlFor="club-filter">Club:</label>
-              <Selector
-                id="club-filter"
-                name="club-filter"
-                onChange={this.clubFilter}
-                defaultValue={clubFilter}
-                options={clubs}
+              <Select
+                placeholder="filter..."
+                options={[
+                  {
+                    label: 'Positions',
+                    options: positions.map((position) => ({ value: position, label: position, group: 'position' })),
+                  },
+                  {
+                    label: 'Clubs',
+                    options: clubs.map((club) => ({ value: club, label: club, group: 'club' })),
+                  },
+                  {
+                    label: 'Players',
+                    options: players.map(({ name }) => ({ value: name, label: name, group: 'player' })),
+                  },
+                ]}
+                isMulti
+                name={'playersFiltersOut'}
+                onChange={this.addFilter}
               />
             </div>
           </div>
