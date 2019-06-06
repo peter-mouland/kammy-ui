@@ -60,7 +60,7 @@ class PlayerTable extends React.Component {
             { !hiddenColumns.includes('isHidden') && <th className='cell cell--hidden'>isHidden</th>}
             { !hiddenColumns.includes('new') && <th className='cell cell--new'>New</th>}
             { !hiddenColumns.includes('code') && <th className='cell cell--code'>Code</th>}
-            <SortableHeader id={'pos'} label={'Position'} sort={sort} handleSort={this.handleSort} />
+            <SortableHeader id={'pos'} label={'Pos'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'name'} label={'Player'} sort={sort} handleSort={this.handleSort} />
             <SortableHeader id={'club'} label={'Club'} sort={sort} handleSort={this.handleSort} />
             { !hiddenColumns.includes('value') && (
