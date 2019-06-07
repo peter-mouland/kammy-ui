@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
@@ -67,11 +67,11 @@ class DivisionRankings extends React.Component {
           !loaded && <Interstitial message='Data Gathering...' />
         }
         {
-          loaded && <GameWeekSwitcher />
+          loaded && <div style={{ position: 'relative', zIndex: 2 }}><GameWeekSwitcher /></div>
         }
         {
           showData && (
-            <Fragment>
+            <div style={{ position: 'relative', zIndex: 1 }}>
               <h2 data-b-layout="v-space">Overall Standings</h2>
               <div data-b-layout="row vpad">
                 <Table
@@ -100,7 +100,7 @@ class DivisionRankings extends React.Component {
                   />
                 </div>
               </ErrorBoundary>
-            </Fragment>
+            </div>
           )
         }
       </section>

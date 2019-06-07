@@ -2,7 +2,7 @@
 @import '~@kammy-ui/bootstrap/src/abstracts/variables';
 
 .multi-toggle {
-  display: block;
+  display: flex;
   align-items: center;
 
   @media only screen and (min-width: 650px) {
@@ -23,7 +23,6 @@
     position: relative;
     border: 1px solid currentcolor;
     color: $brand--dark;
-    min-width: 200px;
     border-radius: .4em;
     background: $sdarken;
     flex-wrap: wrap;
@@ -83,7 +82,7 @@
     text-align: center;
     transition: transform .3s  cubic-bezier(.175, .885, .32, 1.275), color .3s, background-color .3s;
     border-radius: .6em;
-    padding: 0 10px;
+    padding: 0 8px;
 
     &:hover {
       background: $sdarken;
