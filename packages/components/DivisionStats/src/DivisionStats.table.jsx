@@ -89,11 +89,10 @@ class TeamsPage extends React.Component {
     const selectedGameWeekIdx = selectedGameWeek - 1;
     const previousGameWeek = selectedGameWeekIdx - 1 > -1 ? selectedGameWeekIdx - 1 : 0;
     const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeekIdx) || [];
-    // const allClubWarnings = Object.keys(teams).sort().map((manager) => {
-    //   const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
-    //   return { club: clubWarnings, manager };
-    // });
-    // console.log(allClubWarnings);
+    const allClubWarnings = Object.keys(teams).sort().map((manager) => {
+      const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
+      return clubWarnings.length ? { clubWarnings, manager } : undefined;
+    }).filter(Boolean);
 
     return (
       <div className={bem(null, null, 'page-content')} data-b-layout="row vpad">
@@ -125,6 +124,12 @@ class TeamsPage extends React.Component {
           {isAdmin && duplicatePlayers.length > 0 && (
             <div className={'row row--warning'}>
               This division has the following player(s) in more than 2 team: {duplicatePlayers.join(', ')}
+            </div>
+          )}
+          {isAdmin && allClubWarnings.length > 0 && (
+            <div className={'row row--warning'}>
+              This division has teams with 3+ players from the same club:
+              {allClubWarnings.map(({ manager, clubWarnings }) => `${manager}: ${clubWarnings.join(', ')}`)}
             </div>
           )}
         </div>
