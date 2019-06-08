@@ -22,7 +22,7 @@ jobs:
       - image: circleci/node:10.9-jessie-browsers
     working_directory: ~/kammy-ui-workflow
     environment:
-      HEROKU_APP: kammy-ui
+      HEROKU_APP: draftff
     steps:
       - checkout
       - run: git config --global user.name "Peter Mouland"
