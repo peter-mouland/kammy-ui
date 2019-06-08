@@ -4,6 +4,7 @@ import { actions as playerActions, selectors as playerSelectors } from '@kammy-u
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 // import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { withCookies } from 'react-cookie';
 
 import DivisionStats from './DivisionStats';
 import calculateManagerSeason from './lib/manager-season';
@@ -71,4 +72,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDivision: (division) => dispatch(fetchDivision(division)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DivisionStats);
+export default withCookies(connect(mapStateToProps, mapDispatchToProps)(DivisionStats));

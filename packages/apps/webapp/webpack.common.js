@@ -3,7 +3,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
-const { SRC, DIST } = require('./src/config/paths');
+const { SRC, STATIC } = require('./src/config/paths');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -13,9 +13,9 @@ module.exports = {
   // always web. yup. This webpack is for compiling solely for the bwoser.
   target: 'web',
   output: {
-    path: DIST,
+    path: STATIC,
     filename: '[name]_[chunkhash].js',
-    publicPath: '/',
+    publicPath: '/static/',
   },
   plugins: [
     new ProgressBarPlugin(),

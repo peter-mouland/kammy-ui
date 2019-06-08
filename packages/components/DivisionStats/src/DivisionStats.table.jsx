@@ -79,7 +79,9 @@ class TeamsPage extends React.Component {
   }
 
   render() {
-    const { teams, managersSeason, selectedGameWeek } = this.props;
+    const {
+      teams, managersSeason, selectedGameWeek, isAdmin,
+    } = this.props;
     const {
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
@@ -87,6 +89,11 @@ class TeamsPage extends React.Component {
     const selectedGameWeekIdx = selectedGameWeek - 1;
     const previousGameWeek = selectedGameWeekIdx - 1 > -1 ? selectedGameWeekIdx - 1 : 0;
     const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeekIdx) || [];
+    // const allClubWarnings = Object.keys(teams).sort().map((manager) => {
+    //   const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
+    //   return { club: clubWarnings, manager };
+    // });
+    // console.log(allClubWarnings);
 
     return (
       <div className={bem(null, null, 'page-content')} data-b-layout="row vpad">
@@ -115,7 +122,7 @@ class TeamsPage extends React.Component {
               <PlayerTimeline { ...playerTimelineProps } />
             </Modal>
           )}
-          {duplicatePlayers.length > 0 && (
+          {isAdmin && duplicatePlayers.length > 0 && (
             <div className={'row row--warning'}>
               This division has the following player(s) in more than 2 team: {duplicatePlayers.join(', ')}
             </div>
@@ -149,8 +156,9 @@ class TeamsPage extends React.Component {
                         const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeekIdx];
                         const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
                         const className = playerLastGW.name !== player.name ? bem('transfer') : '';
-                        const warningClassName = clubWarnings.indexOf(player.club) > -1
-                          || duplicatePlayers.indexOf(player.name) > -1 ? 'row row--warning' : 'row';
+                        const warningClassName = isAdmin && (
+                          clubWarnings.indexOf(player.club) > -1 || duplicatePlayers.indexOf(player.name) > -1
+                        ) ? 'row row--warning' : 'row';
                         return (
                           <tr
                             key={player.name}
@@ -191,7 +199,7 @@ class TeamsPage extends React.Component {
                         );
                       })}
                     </tbody>
-                    {clubWarnings.length > 0 && (
+                    {isAdmin && clubWarnings.length > 0 && (
                       <tr className={'row row--warning'}>
                         <td colSpan={30}>
                           This team has more than 2 players within the following clubs: {clubWarnings.join(', ')}
@@ -212,9 +220,11 @@ TeamsPage.propTypes = {
   selectedGameWeek: PropTypes.number,
   teams: PropTypes.object,
   managersSeason: PropTypes.object,
+  isAdmin: PropTypes.bool,
 };
 
 TeamsPage.defaultProps = {
+  isAdmin: false,
   selectedGameWeek: 1,
   teams: {},
   managersSeason: {},

@@ -5,6 +5,7 @@ import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
+import { Cookies } from 'react-cookie';
 
 import Table from './DivisionStats.table';
 
@@ -28,7 +29,7 @@ class DivisionStats extends React.Component {
 
   render() {
     const {
-      loaded, label, division, managersSeason, selectedGameWeek,
+      loaded, label, division, managersSeason, selectedGameWeek, cookies,
     } = this.props;
 
     return (
@@ -51,6 +52,7 @@ class DivisionStats extends React.Component {
                 selectedGameWeek={selectedGameWeek}
                 managersSeason={managersSeason}
                 teams={division}
+                isAdmin={cookies.get('is-admin')}
               />
             )
           }
@@ -67,6 +69,7 @@ DivisionStats.propTypes = {
   players: PropTypes.object,
   transfers: PropTypes.array,
   division: PropTypes.object,
+  cookies: PropTypes.instanceOf(Cookies).isRequired,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   managersSeason: PropTypes.array,

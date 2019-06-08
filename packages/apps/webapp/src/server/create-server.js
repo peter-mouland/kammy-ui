@@ -20,9 +20,10 @@ import skySportsRouter from './routes/routes.skysports';
 import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';
 import { DIST } from '../config/paths';
 
+const YEAR = 100 * 60 * 60 * 24 * 7 * 52;
 const server = new Koa();
 const router = new Router();
-const staticRoute = koaStatic(DIST);
+const staticRoute = koaStatic(DIST, { immutable: true, maxage: YEAR });
 const graphQlRoutes = graphQlRouter();
 const skySportsRoutes = skySportsRouter();
 const googleSpreadsheetRoutes = googleSpreadsheetRouter();

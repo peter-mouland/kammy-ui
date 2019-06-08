@@ -23,7 +23,7 @@ const prodConfig = merge(defaultConfig, {
     new Visualizer({
       filename: '../webpack-stats.html',
     }),
-    new LoadablePlugin({ filename: '../loadable-stats.json', writeToDisk: true }),
+    new LoadablePlugin({ filename: '../../loadable-stats.json', writeToDisk: true }),
   ],
 });
 
