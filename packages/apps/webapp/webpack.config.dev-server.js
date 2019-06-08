@@ -15,11 +15,12 @@ module.exports = merge(baseConfig, {
     app: [
       `${SRC}/client-entry.jsx`,
     ],
+    polyfills: [`${SRC}/polyfills.js`],
   },
   output: {
     path: DIST,
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: '/static/',
   },
   devServer: {
     port: 3005,

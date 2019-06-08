@@ -91,6 +91,22 @@ export default [
     template: 'default',
   },
   {
+    name: 'premierLeague-draft',
+    exact: true,
+    path: '/premier-league/draft/',
+    meta: {
+      title: 'Kammy premier-league - Draft',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Draft',
+    props: {
+      division: 'premierLeague',
+    },
+    requiresAuthentication: false,
+    component: 'PremierLeagueDraftPage',
+    template: 'default',
+  },
+  {
     name: 'championship-teams',
     exact: true,
     path: '/championship/teams',
@@ -143,6 +159,22 @@ export default [
     },
     requiresAuthentication: false,
     component: 'TransfersPage',
+    template: 'default',
+  },
+  {
+    name: 'championship-draft',
+    exact: true,
+    path: '/championship/draft/',
+    meta: {
+      title: 'Kammy championship - Draft',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Draft',
+    props: {
+      division: 'championship',
+    },
+    requiresAuthentication: false,
+    component: 'ChampionshipDraftPage',
     template: 'default',
   },
   {
@@ -204,6 +236,22 @@ export default [
     },
     requiresAuthentication: false,
     component: 'TransfersPage',
+    template: 'default',
+  },
+  {
+    name: 'leagueOne-draft',
+    exact: true,
+    path: '/league-one/draft/',
+    meta: {
+      title: 'Kammy league-one - Draft',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'Draft',
+    props: {
+      division: 'leagueOne',
+    },
+    requiresAuthentication: false,
+    component: 'LeagueOneDraftPage',
     template: 'default',
   },
   {

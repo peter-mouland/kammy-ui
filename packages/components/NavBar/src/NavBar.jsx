@@ -42,6 +42,7 @@ const NavBar = ({ cookies }, { appConfig }) => (
               <NamedLink to={`${appConfig.divisionSheets[division]}-teams`} className={linkClass} />
               <NamedLink to={`${appConfig.divisionSheets[division]}-players`} className={linkClass} />
               <NamedLink to={`${appConfig.divisionSheets[division]}-transfers`} className={linkClass} />
+              <NamedLink to={`${appConfig.divisionSheets[division]}-draft`} className={linkClass} />
             </NavItem>
           </div>
         ))
