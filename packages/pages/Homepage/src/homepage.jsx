@@ -78,7 +78,7 @@ class Homepage extends React.Component {
         </div>
         <Modal
           id={'GameWeekFixtures'}
-          title={'Fixtures'}
+          title={`GW${gameWeekFixtures && gameWeekFixtures.gameWeek} Fixtures`}
           open={showTransfers}
           onClose={() => this.setState({ showTransfers: false })}
         >
