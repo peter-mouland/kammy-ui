@@ -8,6 +8,7 @@ import './game-week-fixtures.scss';
 const bem = bemHelper({ block: 'club-fixtures' });
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+// todo: put in selector
 const getGwFixtures = (data, { start, end }) => (
   jsonQuery('fixtures[*:date]', {
     data,
@@ -49,11 +50,11 @@ class GameWeekFixtures extends React.Component {
     const {
       fixtures, loading, start, end,
     } = this.props;
+
     const gwFixtures = fixtures ? getGwFixtures(fixtures, { start, end }) : null;
     let previousFullDate = '';
     return (
       <div>
-        <h3>Fixtures</h3>
         {loading && 'Loading...'}
         {
           gwFixtures && gwFixtures.value.map((fixture) => {

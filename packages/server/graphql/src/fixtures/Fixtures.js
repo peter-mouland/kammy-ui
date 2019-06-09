@@ -1,7 +1,7 @@
 /* eslint-disable prefer-spread */
 import toDate from '@kammy-ui/helpers-to-date';
 
-class GameWeeks {
+class Fixtures {
   // see packages/server/fetch-google-sheets/src/index.js for shapes
   // @gameWeeks: [{ start, end, gameWeek, cup, notes }]
   constructor({
@@ -17,4 +17,4 @@ class GameWeeks {
   }
 }
 
-export default GameWeeks;
+export default Fixtures;

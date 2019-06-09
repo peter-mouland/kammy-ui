@@ -9,6 +9,7 @@ import saveCupTeam from './cup/saveCupTeam.query';
 import getDivision from './division/getDivision.query';
 import getGameWeeks from './game-weeks/getGameWeeks.query';
 import getTransfers from './transfers/getTransfers.query';
+import getFixtures from './fixtures/getFixtures.query';
 import saveTransfers from './transfers/saveTransfers.query';
 
 export default async ({ query, variables }) => {
@@ -22,6 +23,7 @@ export default async ({ query, variables }) => {
     getDraftCup,
     saveCupTeam,
     getGameWeeks,
+    getFixtures,
     getTransfers,
     saveTransfers,
   };

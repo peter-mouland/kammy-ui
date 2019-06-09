@@ -6,7 +6,24 @@ export const FETCH_PLAYER_FIXTURES = 'FETCH_PLAYER_FIXTURES';
 export function fetchFixtures() {
   return {
     type: FETCH_FIXTURES,
-    payload: fetchGraphQL('getFixturesQuery'),
+    payload: fetchGraphQL(`
+query { 
+  getFixtures {
+    fixtures { 
+      status
+      week
+      event
+      date
+      hTname
+      aTname
+      hTcode
+      hScore
+      aTcode
+      aScore
+    }
+ }
+}
+`),
   };
 }
 

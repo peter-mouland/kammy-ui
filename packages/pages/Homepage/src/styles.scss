@@ -24,6 +24,10 @@
   opacity: .85;
   justify-self: end;
 
+  &:hover {
+    opacity: 1;
+  }
+
   @media only screen and (min-width: 600px) {
     width: 100px;
     font-size: .7em;

@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 
-const { default: fetchGoogleSpreadsheet } = require("../../packages/server/fetch-google-sheets/dist/index.min");
+const { default: fetchGoogleSpreadsheet } = require("../../packages/server/fetch-kammy-gsheet/dist/index.min");
 
 const jsonParser = bodyParser.json();
 

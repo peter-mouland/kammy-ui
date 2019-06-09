@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
+import FormattedGameWeekDate from '@kammy-ui/game-week-date';
 
 import './GameWeekSwitcher.scss';
-import FormattedGameWeekDate from './components/FormattedGameWeekDate';
 
 const bem = bemHelper({ block: 'game-week-switcher' });
 const INITIAL_GW_COUNT = 4;

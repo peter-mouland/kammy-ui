@@ -3,6 +3,7 @@ import { playersSchema, resolveFunctions as playerResolvers } from './players/pl
 import cupSchema from './cup/cup.schema';
 import divisionSchema from './division/division.schema';
 import transfersSchema from './transfers/transfers.schema';
+import fixturesSchema from './fixtures/fixtures.schema';
 import gameWeekSchema from './game-weeks/game-week.schema';
 
 const schemaString = `
@@ -11,6 +12,7 @@ const schemaString = `
   ${gameWeekSchema}
   ${playersSchema}
   ${transfersSchema}
+  ${fixturesSchema}
 
   type Query {
     getPlayers: [Player]
@@ -20,6 +22,7 @@ const schemaString = `
     getDraftCup: [CupTeam]
     getGameWeeks: GameWeeks
     getTransfers(division: String): [Transfer]
+    getFixtures: SeasonFixtures
   }
   
   type Mutation {
