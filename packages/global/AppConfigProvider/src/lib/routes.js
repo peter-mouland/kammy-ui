@@ -4,9 +4,22 @@
  */
 export default [
   {
-    name: 'rules',
+    name: 'homepage',
     exact: true,
     path: '/',
+    meta: {
+      title: 'Kammy: Fantasy Football',
+      description: 'Kammy : Fantasy Football',
+    },
+    label: 'DraftFF',
+    requiresAuthentication: false,
+    component: 'Homepage',
+    template: 'default',
+  },
+  {
+    name: 'rules',
+    exact: true,
+    path: '/rules',
     meta: {
       title: 'Draft: Fantasy Football',
       description: 'Kammy : Fantasy Football',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
@@ -34,6 +34,7 @@ class DivisionRankings extends React.Component {
   render() {
     const {
       loaded, lineChartData, label, managersSeason, managersPoints, managersRankChange, managersRank, lineType,
+      showStandings, showWeekly, showChart, showGameWeekSwitcher,
     } = this.props;
     const { highlightManager } = this.state;
     const showData = loaded && managersPoints && managersRank;
@@ -44,39 +45,49 @@ class DivisionRankings extends React.Component {
           !loaded && <Interstitial message='Data Gathering...' />
         }
         {
-          loaded && <div style={{ position: 'relative', zIndex: 2 }}><GameWeekSwitcher /></div>
+          loaded && showGameWeekSwitcher && <div style={{ position: 'relative', zIndex: 2 }}><GameWeekSwitcher /></div>
         }
         {
           showData && (
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <h2 data-b-layout="v-space">Overall Standings</h2>
-              <div data-b-layout="row vpad">
-                <Table
-                  points={managersPoints}
-                  rank={managersRank}
-                  type='season'
-                  handleRowHover={this.handleRowHover}
-                />
-              </div>
-              <div data-b-layout="row vpad">
-                <h2>Weekly Scores</h2>
-                <Table
-                  points={managersPoints}
-                  rank={managersRankChange}
-                  type='gameWeek'
-                />
-              </div>
-              <ErrorBoundary>
-                <div data-b-layout="row vpad">
-                  <LoadableChart
-                    data={lineChartData}
-                    lines={Object.keys(managersSeason)}
-                    xAxis={'gameWeek'}
-                    highlightManager={highlightManager}
-                    lineType={lineType}
-                  />
-                </div>
-              </ErrorBoundary>
+              {showStandings && (
+                <Fragment>
+                  <h2 data-b-layout="v-space">Overall Standings</h2>
+                  <div data-b-layout="row vpad">
+                    <Table
+                      points={managersPoints}
+                      rank={managersRank}
+                      type='season'
+                      handleRowHover={this.handleRowHover}
+                    />
+                  </div>
+                </Fragment>
+              )}
+              {showWeekly && (
+                <Fragment>
+                  <div data-b-layout="row vpad">
+                    <h2>Weekly Scores</h2>
+                    <Table
+                      points={managersPoints}
+                      rank={managersRankChange}
+                      type='gameWeek'
+                    />
+                  </div>
+                </Fragment>
+              )}
+              {showChart && (
+                <ErrorBoundary>
+                  <div data-b-layout="row vpad">
+                    <LoadableChart
+                      data={lineChartData}
+                      lines={Object.keys(managersSeason)}
+                      xAxis={'gameWeek'}
+                      highlightManager={highlightManager}
+                      lineType={lineType}
+                    />
+                  </div>
+                </ErrorBoundary>
+              )}
             </div>
           )
         }
@@ -105,6 +116,10 @@ DivisionRankings.propTypes = {
   gameWeeksLoaded: PropTypes.bool,
   transfersLoaded: PropTypes.bool,
   divisionLoaded: PropTypes.bool,
+  showGameWeekSwitcher: PropTypes.bool,
+  showWeekly: PropTypes.bool,
+  showChart: PropTypes.bool,
+  showStandings: PropTypes.bool,
 };
 
 DivisionRankings.defaultProps = {
@@ -114,6 +129,10 @@ DivisionRankings.defaultProps = {
   gameWeeksLoaded: false,
   transfersLoaded: false,
   divisionLoaded: false,
+  showGameWeekSwitcher: true,
+  showWeekly: true,
+  showChart: true,
+  showStandings: true,
   gameWeeksCount: null,
   transfersCount: null,
 };

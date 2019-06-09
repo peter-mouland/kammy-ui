@@ -19,6 +19,7 @@
     "@kammy-ui/admin-page": "0.0.17",
     "@kammy-ui/admin-players-page": "0.0.17",
     "@kammy-ui/app-config-provider": "0.0.17",
+    "@kammy-ui/homepage": "0.0.17",
     "@kammy-ui/division-stats": "0.0.17",
     "@kammy-ui/admin-cup-page": "0.0.17",
     "@kammy-ui/cup-page": "0.0.17",
