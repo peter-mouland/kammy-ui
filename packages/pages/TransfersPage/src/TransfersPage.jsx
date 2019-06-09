@@ -172,7 +172,7 @@ class TransfersPage extends React.Component {
   render() {
     const {
       teams, playersArray, transfers, dateIsInCurrentGameWeek, pendingTransfers,
-      transfersSaving, transfersLoading, gameWeeksLoading,
+      transfersSaving, transfersLoading, gameWeeksLoading, label,
     } = this.props;
     const {
       manager, changeType, playerOut, playerIn, selectedOptions, initiateRequest, comment,
@@ -199,7 +199,7 @@ class TransfersPage extends React.Component {
 
     return (
       <div className={bem(null, null, 'page-content')} data-b-layout="container">
-        <h1>Transfers</h1>
+        <h1>{label}</h1>
         <div data-b-layout="row negative v-space">
           <div data-b-layout='col pad'>
             <h2>Transfer Requests</h2>
@@ -344,6 +344,7 @@ class TransfersPage extends React.Component {
 
 TransfersPage.propTypes = {
   transfers: PropTypes.array,
+  label: PropTypes.string.isRequired,
   division: PropTypes.string.isRequired,
   gameWeeks: PropTypes.array,
   players: PropTypes.object,

@@ -21,12 +21,12 @@ class PlayersPage extends React.Component {
 
   render() {
     const {
-      playersByName, division, loaded, players,
+      playersByName, label, loaded, players,
     } = this.props;
 
     return (
-      <section id="players-page" className={bem(null, 'page-content')}>
-        <h1>{division} Players</h1>
+      <section id="players-page" className={bem(null, 'page-content')} data-b-layout="container">
+        <h1>{label}</h1>
         {!loaded && <Interstitial />}
         {loaded && (
           <PlayersPageTable disabledPlayers={playersByName} players={players} />
@@ -38,6 +38,7 @@ class PlayersPage extends React.Component {
 
 PlayersPage.propTypes = {
   division: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   fetchAllPlayerData: PropTypes.func.isRequired,
   fetchCurrentTeams: PropTypes.func.isRequired,
   loaded: PropTypes.bool,

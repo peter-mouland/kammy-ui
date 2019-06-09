@@ -76,6 +76,7 @@ export default [
     },
     props: {
       division: 'PremierLeague',
+      label: 'Premier League: Players',
     },
     label: 'Players',
     requiresAuthentication: false,
@@ -93,6 +94,7 @@ export default [
     label: 'Transfers',
     props: {
       division: 'premierLeague',
+      label: 'Premier League: Transfers',
     },
     requiresAuthentication: false,
     component: 'TransfersPage',
@@ -159,6 +161,7 @@ export default [
     },
     props: {
       division: 'Championship',
+      label: 'Championship: Players',
     },
     label: 'Players',
     requiresAuthentication: false,
@@ -176,6 +179,7 @@ export default [
     label: 'Transfers',
     props: {
       division: 'championship',
+      label: 'Championship: Transfers',
     },
     requiresAuthentication: false,
     component: 'TransfersPage',
@@ -242,6 +246,7 @@ export default [
     },
     props: {
       division: 'LeagueOne',
+      label: 'League One: Players',
     },
     label: 'Players',
     requiresAuthentication: false,
@@ -259,6 +264,7 @@ export default [
     label: 'Transfers',
     props: {
       division: 'leagueOne',
+      label: 'League One: Transfers',
     },
     requiresAuthentication: false,
     component: 'TransfersPage',
