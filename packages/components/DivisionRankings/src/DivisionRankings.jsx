@@ -52,7 +52,7 @@ class DivisionRankings extends React.Component {
             <div style={{ position: 'relative', zIndex: 1 }}>
               {showStandings && (
                 <Fragment>
-                  <h2 data-b-layout="v-space">Overall Standings</h2>
+                  {showWeekly && <h2 data-b-layout="v-space">Overall Standings</h2>}
                   <div data-b-layout="row vpad">
                     <Table
                       points={managersPoints}
@@ -66,7 +66,7 @@ class DivisionRankings extends React.Component {
               {showWeekly && (
                 <Fragment>
                   <div data-b-layout="row vpad">
-                    <h2>Weekly Scores</h2>
+                    {showStandings && <h2>Weekly Scores</h2>}
                     <Table
                       points={managersPoints}
                       rank={managersRankChange}
