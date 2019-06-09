@@ -8,7 +8,7 @@ export default [
     exact: true,
     path: '/',
     meta: {
-      title: 'Kammy: Fantasy Football',
+      title: 'Draft: Fantasy Football',
       description: 'Kammy : Fantasy Football',
     },
     props: {
@@ -24,8 +24,8 @@ export default [
     exact: true,
     path: '/cup',
     meta: {
-      title: 'Kammy: Fantasy Football',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft: Fantasy Football',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Cup',
     requiresAuthentication: false,
@@ -37,8 +37,8 @@ export default [
     exact: true,
     path: '/premier-league/teams',
     meta: {
-      title: 'Kammy - Premier League Teams',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - Premier League Teams',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       divisionId: 'premierLeague',
@@ -54,8 +54,8 @@ export default [
     exact: true,
     path: '/premier-league/rankings',
     meta: {
-      title: 'Kammy - Premier League Rankings',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - Premier League Rankings',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       label: 'Premier League: League Table',
@@ -71,8 +71,8 @@ export default [
     exact: true,
     path: '/premier-league/players/',
     meta: {
-      title: 'Kammy Admin - premier-league Players',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - premier-league Players',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       division: 'PremierLeague',
@@ -87,8 +87,8 @@ export default [
     exact: true,
     path: '/premier-league/transfers/',
     meta: {
-      title: 'Kammy premier-league - Transfers',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft premier-league - Transfers',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Transfers',
     props: {
@@ -103,8 +103,8 @@ export default [
     exact: true,
     path: '/premier-league/draft/',
     meta: {
-      title: 'Kammy premier-league - Draft',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft premier-league - Draft',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Draft',
     props: {
@@ -120,8 +120,8 @@ export default [
     exact: true,
     path: '/championship/teams',
     meta: {
-      title: 'Kammy - Championship Teams',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - Championship Teams',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       label: 'League One: Teams',
@@ -137,8 +137,8 @@ export default [
     exact: true,
     path: '/championship/rankings',
     meta: {
-      title: 'Kammy - Championship Rankings',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - Championship Rankings',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       label: 'Championship: League Table',
@@ -154,8 +154,8 @@ export default [
     exact: true,
     path: '/championship/players/',
     meta: {
-      title: 'Kammy Admin - championship Players',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - championship Players',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       division: 'Championship',
@@ -170,8 +170,8 @@ export default [
     exact: true,
     path: '/championship/transfers/',
     meta: {
-      title: 'Kammy Championship - Transfers',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Championship - Transfers',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Transfers',
     props: {
@@ -186,8 +186,8 @@ export default [
     exact: true,
     path: '/championship/draft/',
     meta: {
-      title: 'Kammy championship - Draft',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft championship - Draft',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Draft',
     props: {
@@ -203,8 +203,8 @@ export default [
     exact: true,
     path: '/league-one/teams',
     meta: {
-      title: 'Kammy - League One Teams',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - League One Teams',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       divisionId: 'leagueOne',
@@ -220,8 +220,8 @@ export default [
     exact: true,
     path: '/league-one/rankings',
     meta: {
-      title: 'Kammy - League One Rankings',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft - League One Rankings',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       label: 'League One: League Table',
@@ -237,8 +237,8 @@ export default [
     exact: true,
     path: '/league-one/players/',
     meta: {
-      title: 'Kammy Admin - league-one Players',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - league-one Players',
+      description: 'Draft : Fantasy Football',
     },
     props: {
       division: 'LeagueOne',
@@ -253,8 +253,8 @@ export default [
     exact: true,
     path: '/league-one/transfers/',
     meta: {
-      title: 'Kammy League One - Transfers',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft League One - Transfers',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Transfers',
     props: {
@@ -269,8 +269,8 @@ export default [
     exact: true,
     path: '/league-one/draft/',
     meta: {
-      title: 'Kammy league-one - Draft',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft league-one - Draft',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Draft',
     props: {
@@ -286,8 +286,8 @@ export default [
     exact: true,
     path: '/admin/players/',
     meta: {
-      title: 'Kammy Admin - Admin Players',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - Admin Players',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Players',
     requiresAuthentication: false,
@@ -299,8 +299,8 @@ export default [
     exact: true,
     path: '/admin/',
     meta: {
-      title: 'Kammy Admin - Admin Homepage',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - Admin Homepage',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Admin',
     requiresAuthentication: false,
@@ -312,8 +312,8 @@ export default [
     exact: true,
     path: '/admin/cup/',
     meta: {
-      title: 'Kammy Admin - Admin Cup',
-      description: 'Kammy : Fantasy Football',
+      title: 'Draft Admin - Admin Cup',
+      description: 'Draft : Fantasy Football',
     },
     label: 'Cup',
     requiresAuthentication: false,
