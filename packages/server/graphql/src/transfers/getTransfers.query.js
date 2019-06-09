@@ -8,7 +8,7 @@ export default async ({ division }) => {
     return transferRequests.map((transfer) => ({ ...transfer, division }));
   } catch (e) {
     console.error('ERROR: getTransfers.query.js');
-    console.log({ division });
+    console.error({ division });
     console.error(e);
     return [];
   }

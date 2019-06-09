@@ -41,8 +41,8 @@ class TeamSeason {
       return playerStats({ player: transfer, gameWeeks: [gameWeek] });
     } catch (e) {
       console.error(e);
-      console.log('gwPlayers.length: ', gwPlayers.length);
-      console.log('last Player: ', gwPlayers[gwPlayers.length - 1]);
+      console.error('gwPlayers.length: ', gwPlayers.length);
+      console.error('last Player: ', gwPlayers[gwPlayers.length - 1]);
       const transfer = UNKNOWN_PLAYER();
       return playerStats({ player: transfer, gameWeeks: [gameWeek] });
     }

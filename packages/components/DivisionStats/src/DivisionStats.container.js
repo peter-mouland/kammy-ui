@@ -3,11 +3,10 @@ import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
-// import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { selectors as divisionSelectors } from '@kammy-ui/redux.division';
 import { withCookies } from 'react-cookie';
 
 import DivisionStats from './DivisionStats';
-import calculateManagerSeason from './lib/manager-season';
 
 const { fetchDivision } = spreadsheetActions;
 const { fetchAllPlayerData } = playerActions;
@@ -16,9 +15,10 @@ const { fetchTransfers } = transferActions;
 
 function mapStateToProps(state, { divisionId }) {
   const players = playerSelectors.getAllPlayerData(state);
-  const { gameWeeks, selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
+  const { selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
-  const { transfers } = transferSelectors.getValidTransfers(state, divisionId);
+  const managersSeason = divisionSelectors[`${divisionId}Season`](state);
+  const { transfers } = transferSelectors[`${divisionId}Valid`](state);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
   } = transferSelectors.getStatus(state, divisionId);
@@ -47,13 +47,6 @@ function mapStateToProps(state, { divisionId }) {
     && gameWeeksLoaded
     && divisionLoaded
   );
-  const managersSeason = loaded ? calculateManagerSeason({
-    teams: division,
-    gameWeeks,
-    players: players.data,
-    transfers,
-    withStats: true,
-  }) : null;
 
   return {
     ...props,

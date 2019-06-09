@@ -52,7 +52,7 @@ class DivisionStats extends React.Component {
                 selectedGameWeek={selectedGameWeek}
                 managersSeason={managersSeason}
                 teams={division}
-                isAdmin={cookies.get('is-admin')}
+                isAdmin={cookies.get('is-admin') || false}
               />
             )
           }
@@ -72,7 +72,7 @@ DivisionStats.propTypes = {
   cookies: PropTypes.instanceOf(Cookies).isRequired,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  managersSeason: PropTypes.array,
+  managersSeason: PropTypes.object,
 
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchAllPlayerData: PropTypes.func.isRequired,
@@ -101,6 +101,7 @@ DivisionStats.defaultProps = {
   Players: {},
   PlayersCount: null,
   gameWeeksCount: null,
+  managersSeason: null,
   transfersCount: null,
   division: {},
 };

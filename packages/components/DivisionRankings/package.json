@@ -36,6 +36,7 @@
     "@kammy-ui/redux.players": "^0.0.17",
     "@kammy-ui/redux-skysports": "^0.0.17",
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
+    "@kammy-ui/redux.division": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/select": "^0.0.17",
     "json-query": "^2.2.2",

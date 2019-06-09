@@ -8,23 +8,9 @@ import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
 import ErrorBoundary from '@kammy-ui/error-boundary';
 
 import Table from './DivisionRankings.table';
-import getDivisionPoints from './lib/calculate-division-points';
-import getDivisionRank from './lib/calculate-division-rank';
-import getRankChange from './lib/calculate-rank-change';
 import LoadableChart from './components/LoadableChart';
 
 const bem = bemHelper({ block: 'division-stats' });
-
-const makeLineChartData = (teams, gameWeeks, managersSeason) => (
-  gameWeeks.map(({ gameWeek }, i) => {
-    const points = getDivisionPoints(teams, managersSeason, i);
-    const rank = getDivisionRank(points);
-    return {
-      gameWeek: `gw${gameWeek}`,
-      ...rank.total,
-    };
-  })
-);
 
 class DivisionRankings extends React.Component {
   state = { highlightManager: '' }
@@ -47,19 +33,10 @@ class DivisionRankings extends React.Component {
 
   render() {
     const {
-      loaded, gameWeeks, label, teams, managersSeason, selectedGameWeek, lineType,
+      loaded, lineChartData, label, managersSeason, managersPoints, managersRankChange, managersRank, lineType,
     } = this.props;
     const { highlightManager } = this.state;
-
-    const gameWeekIdx = selectedGameWeek - 1;
-    const points = loaded && teams && getDivisionPoints(teams, managersSeason, gameWeekIdx);
-    const pointsLastWeek = loaded
-      && selectedGameWeek > 0 && getDivisionPoints(teams, managersSeason, gameWeekIdx - 1);
-    const data = loaded && makeLineChartData(teams, gameWeeks.slice(0, selectedGameWeek), managersSeason);
-    const rank = points && getDivisionRank(points);
-    const rankLastWeek = pointsLastWeek && getDivisionRank(pointsLastWeek);
-    const rankChange = getRankChange(rankLastWeek, rank);
-    const showData = loaded && teams && points && rank;
+    const showData = loaded && managersPoints && managersRank;
     return (
       <section id="division-ranking-page" className={bem(null, null, 'page-content')} data-b-layout="container">
         <h1>{label}</h1>
@@ -75,8 +52,8 @@ class DivisionRankings extends React.Component {
               <h2 data-b-layout="v-space">Overall Standings</h2>
               <div data-b-layout="row vpad">
                 <Table
-                  points={points}
-                  rank={rank}
+                  points={managersPoints}
+                  rank={managersRank}
                   type='season'
                   handleRowHover={this.handleRowHover}
                 />
@@ -84,15 +61,15 @@ class DivisionRankings extends React.Component {
               <div data-b-layout="row vpad">
                 <h2>Weekly Scores</h2>
                 <Table
-                  points={points}
-                  rank={rankChange}
+                  points={managersPoints}
+                  rank={managersRankChange}
                   type='gameWeek'
                 />
               </div>
               <ErrorBoundary>
                 <div data-b-layout="row vpad">
                   <LoadableChart
-                    data={data}
+                    data={lineChartData}
                     lines={Object.keys(managersSeason)}
                     xAxis={'gameWeek'}
                     highlightManager={highlightManager}
@@ -110,14 +87,14 @@ class DivisionRankings extends React.Component {
 
 DivisionRankings.propTypes = {
   lineType: PropTypes.string,
-  selectedGameWeek: PropTypes.number,
   loaded: PropTypes.bool,
-  players: PropTypes.object,
-  gameWeeks: PropTypes.array,
-  teams: PropTypes.object,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   managersSeason: PropTypes.object,
+  managersPoints: PropTypes.object,
+  managersRank: PropTypes.object,
+  managersRankChange: PropTypes.object,
+  lineChartData: PropTypes.object,
 
   fetchAllPlayerData: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
@@ -132,18 +109,13 @@ DivisionRankings.propTypes = {
 
 DivisionRankings.defaultProps = {
   lineType: '0',
-  selectedGameWeek: 0,
   loaded: false,
   playersLoaded: false,
   gameWeeksLoaded: false,
   transfersLoaded: false,
   divisionLoaded: false,
-  Players: {},
-  PlayersCount: null,
-  gameWeeks: [],
   gameWeeksCount: null,
   transfersCount: null,
-  teams: {},
 };
 
 DivisionRankings.contextTypes = {

@@ -15,7 +15,7 @@ function mapStateToProps(state, { division }) {
   const { count: gameWeeksCount, gameWeeks, currentGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInGameWeekMinusx(state);
   const players = playerSelectors.getPlayers(state);
-  const { allRequests: transfers } = transferSelectors.getTransfers(state, division);
+  const { allRequests: transfers } = transferSelectors[`${division}Transfers`](state);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors, saving: transfersSaving,
   } = transferSelectors.getStatus(state, division);
