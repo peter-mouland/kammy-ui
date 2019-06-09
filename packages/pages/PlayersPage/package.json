@@ -29,6 +29,7 @@
     "@kammy-ui/redux-skysports": "^0.0.17",
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
+    "@kammy-ui/redux.division": "^0.0.17",
     "react-redux": "^5.0.7"
   },
   "peerDependencies": {

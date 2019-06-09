@@ -11,9 +11,12 @@ export default [
       title: 'Kammy: Fantasy Football',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      src: 'https://docs.google.com/document/d/e/2PACX-1vTFlrJtsgbHsNScMLEDyAy1KnSclQmghRXLMdZV7T3L0phP2gp4r71GCzaAGPs6Z4kyw8UvyhD3axmr/pub',
+    },
     label: 'Rules',
     requiresAuthentication: false,
-    component: 'RulesPage',
+    component: 'iFrame',
     template: 'default',
   },
   {
@@ -37,9 +40,13 @@ export default [
       title: 'Kammy - Premier League Teams',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      divisionId: 'premierLeague',
+      label: 'Premier League: Teams',
+    },
     label: 'Teams',
     requiresAuthentication: false,
-    component: 'PremierLeagueTeams',
+    component: 'TeamsPage',
     template: 'default',
   },
   {
@@ -51,11 +58,12 @@ export default [
       description: 'Kammy : Fantasy Football',
     },
     props: {
-      division: 'premierLeague',
+      label: 'Premier League: League Table',
+      divisionId: 'premierLeague',
     },
     label: 'League Table',
     requiresAuthentication: false,
-    component: 'PremierLeagueRankings',
+    component: 'DivisionRankings',
     template: 'default',
   },
   {
@@ -67,11 +75,11 @@ export default [
       description: 'Kammy : Fantasy Football',
     },
     props: {
-      division: 'premierLeague',
+      division: 'PremierLeague',
     },
     label: 'Players',
     requiresAuthentication: false,
-    component: 'PremierLeaguePlayersPage',
+    component: 'PlayersPage',
     template: 'default',
   },
   {
@@ -101,9 +109,10 @@ export default [
     label: 'Draft',
     props: {
       division: 'premierLeague',
+      src: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr3amNkTAxhpVu1Y1fBhEqDCV0r6J3PBLuNpHlhvmoaJQ7UIfgcOgSd9YKGsTsQfdXzZOLCsJwHnAk/pubhtml?gid=0&single=true',
     },
     requiresAuthentication: false,
-    component: 'PremierLeagueDraftPage',
+    component: 'iFrame',
     template: 'default',
   },
   {
@@ -114,9 +123,13 @@ export default [
       title: 'Kammy - Championship Teams',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      label: 'League One: Teams',
+      divisionId: 'leagueOne',
+    },
     label: 'Teams',
     requiresAuthentication: false,
-    component: 'ChampionshipTeams',
+    component: 'TeamsPage',
     template: 'default',
   },
   {
@@ -127,9 +140,13 @@ export default [
       title: 'Kammy - Championship Rankings',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      label: 'Championship: League Table',
+      divisionId: 'championship',
+    },
     label: 'League Table',
     requiresAuthentication: false,
-    component: 'ChampionshipRankings',
+    component: 'DivisionRankings',
     template: 'default',
   },
   {
@@ -140,9 +157,12 @@ export default [
       title: 'Kammy Admin - championship Players',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      division: 'Championship',
+    },
     label: 'Players',
     requiresAuthentication: false,
-    component: 'ChampionshipPlayersPage',
+    component: 'PlayersPage',
     template: 'default',
   },
   {
@@ -172,9 +192,10 @@ export default [
     label: 'Draft',
     props: {
       division: 'championship',
+      src: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLwqJA5bCMEeBr6N8IUQK-F2Cmx_-O-yBkp6JlnyKiuy08bPWyEEXSJa2ErJgS-OkcMkZgIZGntmB5/pubhtml?gid=0&single=true',
     },
     requiresAuthentication: false,
-    component: 'ChampionshipDraftPage',
+    component: 'iFrame',
     template: 'default',
   },
   {
@@ -186,11 +207,12 @@ export default [
       description: 'Kammy : Fantasy Football',
     },
     props: {
-      division: 'leagueOne',
+      divisionId: 'leagueOne',
+      label: 'League One: Teams',
     },
     label: 'Teams',
     requiresAuthentication: false,
-    component: 'LeagueOneTeams',
+    component: 'TeamsPage',
     template: 'default',
   },
   {
@@ -201,9 +223,13 @@ export default [
       title: 'Kammy - League One Rankings',
       description: 'Kammy : Fantasy Football',
     },
+    props: {
+      label: 'League One: League Table',
+      divisionId: 'leagueOne',
+    },
     label: 'League Table',
     requiresAuthentication: false,
-    component: 'LeagueOneRankings',
+    component: 'DivisionRankings',
     template: 'default',
   },
   {
@@ -215,11 +241,11 @@ export default [
       description: 'Kammy : Fantasy Football',
     },
     props: {
-      division: 'leagueOne',
+      division: 'LeagueOne',
     },
     label: 'Players',
     requiresAuthentication: false,
-    component: 'LeagueOnePlayersPage',
+    component: 'PlayersPage',
     template: 'default',
   },
   {
@@ -249,9 +275,10 @@ export default [
     label: 'Draft',
     props: {
       division: 'leagueOne',
+      src: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTd7NQ2Iu4P7zzjwpHtHwLFacDKTwpmLO08R90fFdYurxEh-LJlYFGjoNM79sPi6iBpV3owLf7mXwOm/pubhtml?gid=0&single=true',
     },
     requiresAuthentication: false,
-    component: 'LeagueOneDraftPage',
+    component: 'iFrame',
     template: 'default',
   },
   {

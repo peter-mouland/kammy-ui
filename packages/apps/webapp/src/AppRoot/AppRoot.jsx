@@ -11,6 +11,7 @@ import loadable from '@loadable/component';
 
 import DefaultTemplate from '@kammy-ui/default-template';
 import AppConfigProvider from '@kammy-ui/app-config-provider';
+import bemHelper from '@kammy-ui/bem';
 
 const navigator = global.navigator && global.navigator.userAgent;
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
@@ -20,13 +21,16 @@ export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>
       {appConfig.routes.map(({
-        name, component, props: componentProps, ...routeProps
+        name, component, props: componentProps, id, ...routeProps
       }) => (
         <Route key={name} {...routeProps} render={(matchProps) => {
           const Component = loadable(() => import(`../dynamic-pages/${component}`));
+          const bem = bemHelper({ block: id || name });
           return (
             <DefaultTemplate>
-              <Component {...matchProps} {...componentProps} />
+              <section id={id} className={bem()}>
+                <Component {...matchProps} {...componentProps} />
+              </section>
             </DefaultTemplate>
           );
         }}/>

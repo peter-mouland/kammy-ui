@@ -5,32 +5,31 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
-import ErrorBoundary from '@kammy-ui/error-boundary';
 
-import PlayersPageTable from './PlayersPage.table';
+import PlayersPageTable from './players-page.table';
 
 const bem = bemHelper({ block: 'players-page' });
 
 class PlayersPage extends React.Component {
   componentDidMount() {
-    const { fetchAllPlayerData, playersLoaded } = this.props;
+    const {
+      fetchCurrentTeams, fetchAllPlayerData, playersLoaded, divisionLoaded, division,
+    } = this.props;
+    if (!divisionLoaded) fetchCurrentTeams(division);
     if (!playersLoaded) fetchAllPlayerData();
   }
 
   render() {
-    const { playersLoaded, players, disabledPlayers } = this.props;
+    const {
+      playersByName, division, loaded, players,
+    } = this.props;
 
     return (
       <section id="players-page" className={bem(null, 'page-content')}>
-        <h1>Players</h1>
-        {!playersLoaded && <Interstitial />}
-        {playersLoaded && (
-          <ErrorBoundary>
-            <PlayersPageTable
-              players={players}
-              disabledPlayers={disabledPlayers}
-            />
-          </ErrorBoundary>
+        <h1>{division} Players</h1>
+        {!loaded && <Interstitial />}
+        {loaded && (
+          <PlayersPageTable disabledPlayers={playersByName} players={players} />
         )}
       </section>
     );
@@ -38,15 +37,22 @@ class PlayersPage extends React.Component {
 }
 
 PlayersPage.propTypes = {
-  playersLoaded: PropTypes.bool,
+  division: PropTypes.string.isRequired,
   fetchAllPlayerData: PropTypes.func.isRequired,
+  fetchCurrentTeams: PropTypes.func.isRequired,
+  loaded: PropTypes.bool,
+  divisionLoaded: PropTypes.bool,
+  playersLoaded: PropTypes.bool,
   players: PropTypes.object,
-  disabledPlayers: PropTypes.object,
+  playersByName: PropTypes.object,
 };
 
 PlayersPage.defaultProps = {
+  loaded: false,
   playersLoaded: false,
-  disabledPlayers: {},
+  divisionLoaded: false,
+  playersByName: {},
+  players: {},
 };
 
 export default PlayersPage;
