@@ -106,6 +106,8 @@ const formatTransfers = (data) => {
 
 /* GAMEWEEKS */
 const formatGameWeek = (item) => ({
+  notes: item.notes,
+  cup: ['cup', 'y', 'yes', 'Y'].includes(item.cup),
   gameWeek: item.gameweek,
   start: toDate(item.start),
   end: toDate(item.end),

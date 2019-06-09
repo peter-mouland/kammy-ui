@@ -29,7 +29,9 @@ export const getGameWeeks = createSelector(
       gameWeeks,
       selectedGameWeek: selectedGameWeek || currentGameWeek,
       currentGameWeek,
+      prevGameWeekDates: currentGameWeek > 1 ? gameWeeks[currentGameWeek - 2] : null,
       currentGameWeekDates: gameWeeks[currentGameWeek - 1],
+      nextGameWeekDates: gameWeeks[currentGameWeek],
       count: gameWeeks.length,
     };
   },

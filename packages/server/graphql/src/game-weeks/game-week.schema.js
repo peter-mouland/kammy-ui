@@ -3,6 +3,8 @@ const schemaString = `
     gameWeek: Int
     start: String
     end: String
+    cup: Boolean
+    notes: String
   }
   
   type GameWeeks {

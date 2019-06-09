@@ -10,7 +10,7 @@ export function fetchGameWeeks() {
       promise: fetchGraphQL(`
 query { 
   getGameWeeks {
-    count gameWeeks { gameWeek start end }
+    count gameWeeks { gameWeek start end cup notes }
  }
 }
 `),

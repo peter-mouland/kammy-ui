@@ -10,6 +10,7 @@ const { fetchAllPlayerData } = playerActions;
 function mapStateToProps(state) {
   const players = playerSelectors.getAllPlayerData(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
+  const gameWeeks = gameWeekSelectors.getGameWeeks(state);
 
   const loaded = (
     players.loaded
@@ -20,6 +21,7 @@ function mapStateToProps(state) {
     loaded,
     gameWeeksLoaded,
     playersLoaded: players.loaded,
+    gameWeeks,
   };
 }
 
