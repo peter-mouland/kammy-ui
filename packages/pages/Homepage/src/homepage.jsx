@@ -81,8 +81,9 @@ class Homepage extends React.Component {
           title={`GW${gameWeekFixtures && gameWeekFixtures.gameWeek} Fixtures`}
           open={showTransfers}
           onClose={() => this.setState({ showTransfers: false })}
+          style={{ maxWidth: '700px' }}
         >
-          <GameWeekFixtures {...gameWeekFixtures} />
+          <GameWeekFixtures {...gameWeekFixtures}/>
         </Modal>
         <DivisionRankings
           label={'Premier League'}

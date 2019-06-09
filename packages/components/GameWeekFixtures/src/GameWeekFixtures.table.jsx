@@ -65,10 +65,15 @@ class GameWeekFixtures extends React.Component {
             return (
               <div key={`${fixture.date}-${fixture.hTname}`}>
                 {dateStr}
-                <span className={bem('fixture')}>
+                <span className={bem('fixture', 'desktop')}>
                   <span className={bem('team', 'home')}>{fixture.hTname} {fixture.hScore}</span>
                   vs
                   <span className={bem('team', 'away')}>{fixture.aScore} {fixture.aTname}</span>
+                </span>
+                <span className={bem('fixture', 'mobile')}>
+                  <span className={bem('team', 'home')}>{fixture.hTcode} {fixture.hScore}</span>
+                  vs
+                  <span className={bem('team', 'away')}>{fixture.aScore} {fixture.aTcode}</span>
                 </span>
               </div>
             );

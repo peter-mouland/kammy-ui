@@ -9,13 +9,33 @@
 
   &__fixture {
     display: inline-block;
-    min-width: 600px;
+    width: 100%;
+    min-width: 300px;
+
+    &--desktop {
+      min-width: 500px;
+      display: none;
+    }
+
+    @media only screen and (min-width: 550px) {
+      &--desktop {
+        display: inline-block;
+      }
+
+      &--mobile {
+        display: none;
+      }
+    }
   }
 
   &__team {
     display: inline-block;
     width: 40%;
     margin: 2px 8px;
+
+    @media only screen and (min-width: 550px) {
+      width: 45%;
+    }
 
     &--home {
       text-align: right;

@@ -18,6 +18,7 @@ export default class Modal extends Component {
     focusElement: PropTypes.string,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    style: PropTypes.string,
   }
 
   static defaultProps = {
@@ -85,6 +86,7 @@ export default class Modal extends Component {
       title,
       wide,
       children,
+      style,
     } = this.props;
 
     const className = `modal modal--${open ? 'show' : 'hide'} font-standard modal--${wide ? 'wide' : 'default'}`;
@@ -93,8 +95,9 @@ export default class Modal extends Component {
         id={id}
         ref={(modal) => { this.modal = modal; }}
         onKeyPress={this.closeModalUsingKey}
-        className={className}>
-        <div className='modal__content modal__content--mobile-full'>
+        className={className}
+      >
+        <div className='modal__content modal__content--mobile-full' style={style}>
           <div className='modal__header'>
             <div className='modal__title'>
               <h2 className='h2 uppercase'>{title}</h2>
