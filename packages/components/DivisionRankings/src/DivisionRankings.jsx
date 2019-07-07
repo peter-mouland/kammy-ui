@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
-import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
 import ErrorBoundary from '@kammy-ui/error-boundary';
@@ -37,59 +36,54 @@ class DivisionRankings extends React.Component {
       showStandings, showWeekly, showChart, showGameWeekSwitcher,
     } = this.props;
     const { highlightManager } = this.state;
-    const showData = loaded && managersPoints && managersRank;
+
     return (
       <section id="division-ranking-page" className={bem(null, null, 'page-content')} data-b-layout="container">
         <h1>{label}</h1>
         {
-          !loaded && <Interstitial message='Data Gathering...' />
-        }
-        {
           loaded && showGameWeekSwitcher && <div style={{ position: 'relative', zIndex: 2 }}><GameWeekSwitcher /></div>
         }
         {
-          showData && (
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              {showStandings && (
-                <Fragment>
-                  {showWeekly && <h2 data-b-layout="v-space">Overall Standings</h2>}
-                  <div data-b-layout="row vpad">
-                    <Table
-                      points={managersPoints}
-                      rank={managersRank}
-                      type='season'
-                      handleRowHover={this.handleRowHover}
-                    />
-                  </div>
-                </Fragment>
-              )}
-              {showWeekly && (
-                <Fragment>
-                  <div data-b-layout="row vpad">
-                    {showStandings && <h2>Weekly Scores</h2>}
-                    <Table
-                      points={managersPoints}
-                      rank={managersRankChange}
-                      type='gameWeek'
-                    />
-                  </div>
-                </Fragment>
-              )}
-              {showChart && (
-                <ErrorBoundary>
-                  <div data-b-layout="row vpad">
-                    <LoadableChart
-                      data={lineChartData}
-                      lines={Object.keys(managersSeason)}
-                      xAxis={'gameWeek'}
-                      highlightManager={highlightManager}
-                      lineType={lineType}
-                    />
-                  </div>
-                </ErrorBoundary>
-              )}
-            </div>
-          )
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {showStandings && (
+              <Fragment>
+                {showWeekly && <h2 data-b-layout="v-space">Overall Standings</h2>}
+                <div data-b-layout="row vpad">
+                  <Table
+                    points={managersPoints}
+                    rank={managersRank}
+                    type='season'
+                    handleRowHover={this.handleRowHover}
+                  />
+                </div>
+              </Fragment>
+            )}
+            {showWeekly && (
+              <Fragment>
+                <div data-b-layout="row vpad">
+                  {showStandings && <h2>Weekly Scores</h2>}
+                  <Table
+                    points={managersPoints}
+                    rank={managersRankChange}
+                    type='gameWeek'
+                  />
+                </div>
+              </Fragment>
+            )}
+            {showChart && (
+              <ErrorBoundary>
+                <div data-b-layout="row vpad">
+                  <LoadableChart
+                    data={lineChartData}
+                    lines={Object.keys(managersSeason)}
+                    xAxis={'gameWeek'}
+                    highlightManager={highlightManager}
+                    lineType={lineType}
+                  />
+                </div>
+              </ErrorBoundary>
+            )}
+          </div>
         }
       </section>
     );

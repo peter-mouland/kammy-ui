@@ -5,13 +5,27 @@ import positions from './lib/positions';
 
 import './division-rankings.scss';
 
+const PlaceHolder = () => (
+  <tr className={'row'}>
+    <td className='cell cell--manager'><div className='ph--manager' /></td>
+    {positions.map((position) => (
+      <Fragment key={position.label}>
+        <td className={`cell cell--${position.key}`}><div className='ph--position-rank' /></td>
+        <td className={`cell cell--pair cell--${position.key}`}><div className='ph--position-score' /></td>
+      </Fragment>
+    ))}
+    <td className={'cell cell--total'} ><div className='ph--total-rank' /></td>
+    <td className={'cell cell--pair cell--total'} ><div className='ph--total-score' /></td>
+  </tr>
+);
+
 const DivisionRankingsTable = ({
   rank, points, type, handleRowHover,
 }) => (
-  <table className='table'>
+  <table className={`table ${points.length === 0 && 'table--placeholder'}`}>
     <thead>
       <tr className='row row--header'>
-        <th className={'cell cell--team-manager'}></th>
+        <th className={'cell cell--team-manager'} />
         {
           positions.map((position) => (
             <th
@@ -27,33 +41,45 @@ const DivisionRankingsTable = ({
           colSpan={2}
           className={'cell cell--team-season'}
         >
-          Total
+        Total
         </th>
       </tr>
     </thead>
     <tbody>
-      {points
-        .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
-        .map(({ manager, points: pos }) => (
-          <tr key={manager} className={'row'} onMouseEnter={() => handleRowHover(manager)} onMouseLeave={() => handleRowHover(manager)}>
-            <td className='cell cell--manager'>{manager}</td>
-            {positions.map((position) => {
-              const gradient = `gradient_${parseInt(rank[position.label][manager], 10).toString().replace('.', '-')}`;
-              return (
-                <Fragment key={position.label}>
-                  <td className={`cell cell--${position.key} ${gradient}`}>
-                    { rank[position.label][manager] }
-                  </td>
-                  <td className={`cell cell--pair cell--${position.key} ${gradient}`}>
-                    { pos[position.label][type] }
-                  </td>
-                </Fragment>
-              );
-            })}
-            <td className={'cell cell--total'}>{ rank.total[manager] }</td>
-            <td className={'cell cell--pair cell--total'}>{ pos.total[type] }</td>
-          </tr>
-        ))}
+      {points.length > 0
+        ? points
+          .sort((managerA, managerB) => rank.total[managerB.manager] - rank.total[managerA.manager])
+          .map(({ manager, points: pos }) => (
+            <tr key={manager} className={'row'} onMouseEnter={() => handleRowHover(manager)} onMouseLeave={() => handleRowHover(manager)}>
+              <td className='cell cell--manager'>{manager}</td>
+              {positions.map((position) => {
+                const gradient = `gradient_${parseInt(rank[position.label][manager], 10).toString().replace('.', '-')}`;
+                return (
+                  <Fragment key={position.label}>
+                    <td className={`cell cell--${position.key} ${gradient}`}>
+                      { rank[position.label][manager] }
+                    </td>
+                    <td className={`cell cell--pair cell--${position.key} ${gradient}`}>
+                      { pos[position.label][type] }
+                    </td>
+                  </Fragment>
+                );
+              })}
+              <td className={'cell cell--total'}>{ rank.total[manager] }</td>
+              <td className={'cell cell--pair cell--total'}>{ pos.total[type] }</td>
+            </tr>
+          ))
+        : (
+          <Fragment>
+            <PlaceHolder />
+            <PlaceHolder />
+            <PlaceHolder />
+            <PlaceHolder />
+            <PlaceHolder />
+            <PlaceHolder />
+          </Fragment>
+        )
+      }
     </tbody>
   </table>
 );
@@ -67,7 +93,7 @@ DivisionRankingsTable.propTypes = {
 
 DivisionRankingsTable.defaultProps = {
   handleRowHover: () => {},
-  rank: {},
+  rank: { total: {}, season: {} },
   points: [],
 };
 

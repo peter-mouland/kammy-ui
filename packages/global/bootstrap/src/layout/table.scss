@@ -4,6 +4,28 @@
   min-width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  position: relative;
+
+  &--placeholder {
+    &::before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      animation: phAnimation 1s linear infinite;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, 0) 54%) 50% 50%;
+    }
+
+    .cell {
+      border-bottom: 1px solid rgba(0, 0, 0, .5);
+      height: 1.6em;
+      background-color: lightgrey;
+    }
+  }
 
   &__transfer {
     background-color: lavender;
@@ -61,11 +83,8 @@
     top: 1.7em;
   }
 
-  td.cell {
-    border-bottom: 1px solid rgba(0, 0, 0, .2);
-  }
-
   .cell { /* stylelint-disable-line no-descending-specificity */
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
     text-align: right;
     padding: .3em .15em;
 
@@ -179,5 +198,15 @@
     &--selected {
       fill: #0c509f;
     }
+  }
+}
+
+@keyframes phAnimation {
+  0% {
+    transform: translate3d(-30%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(30%, 0, 0);
   }
 }
