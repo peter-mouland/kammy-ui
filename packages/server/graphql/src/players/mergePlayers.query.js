@@ -8,14 +8,19 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
     ...skySportsPlayers,
   };
   try {
+    // turn array into obj
+    const spreadsheetPlayersObj = spreadsheetPlayers.reduce((prev, player) => ({
+      ...prev,
+      ...player,
+    }), {});
     return Object.keys(allPlayers)
       .filter((key) => skySportsPlayers[key])
       .reduce((prev, key) => ({
         ...prev,
         [key]: {
-          isHidden: spreadsheetPlayers[key] ? spreadsheetPlayers[key].isHidden : false,
-          new: spreadsheetPlayers[key] ? spreadsheetPlayers[key].new : true,
-          pos: spreadsheetPlayers[key] ? spreadsheetPlayers[key].pos : '',
+          isHidden: spreadsheetPlayersObj[key] ? spreadsheetPlayersObj[key].isHidden : false,
+          new: spreadsheetPlayersObj[key] ? spreadsheetPlayersObj[key].new : true,
+          pos: spreadsheetPlayersObj[key] ? spreadsheetPlayersObj[key].pos : '',
           fixtures: skySportsPlayers[key].fixtures,
           value: skySportsPlayers[key].value,
           name: skySportsPlayers[key].name,

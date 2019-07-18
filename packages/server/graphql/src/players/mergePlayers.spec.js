@@ -16,14 +16,14 @@ const gameWeeks = [
 
 describe('mergePlayersData()', () => {
   it('merges skysports + spreadsheet with gameweek points', () => {
-    const spreadsheetPlayers = {
+    const spreadsheetPlayers = [{
       pete: {
         name: 'pete',
         pos: 'ssPos',
         isHidden: false,
         new: false,
       },
-    };
+    }];
     const skySportsPlayers = {
       pete: {
         name: 'pete',
@@ -89,14 +89,14 @@ describe('mergePlayersData()', () => {
   });
 
   it('ignores data that is not found within sky sports', () => {
-    const spreadsheetPlayers = {
+    const spreadsheetPlayers = [{
       peter: {
         name: 'peter',
         pos: 'ssPos',
         isHidden: true,
         new: false,
       },
-    };
+    }];
     const skySportsPlayers = {
       pete: {
         name: 'pete',
