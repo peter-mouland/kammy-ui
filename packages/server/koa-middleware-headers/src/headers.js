@@ -11,8 +11,6 @@ export default function headers() {
       if (typeof ctx.body === 'string') {
         ctx.set('Content-Length', ctx.body.length);
         ctx.set('etag', crypto.createHash('md5').update(ctx.body).digest('hex'));
-      } else if (typeof ctx.body === 'object') {
-        ctx.set('Content-Type', 'application/json');
       }
     }
   };
