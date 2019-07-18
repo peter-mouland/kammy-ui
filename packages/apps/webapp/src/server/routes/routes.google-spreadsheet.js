@@ -14,17 +14,17 @@ export default () => {
     ctx.response.body = { status: 'healthy' };
   });
 
-  router.get('/:type/:division', (ctx, next) => {
+  router.get('/:type/:division?', (ctx, next) => {
     const { type, division } = ctx.params;
     return (fetchSpreadsheet.default || fetchSpreadsheet)[type](division)
       .then((data) => {
         ctx.type = 'json';
         ctx.status = 200;
         ctx.response.body = { data };
-        // if (type.toLowerCase() === 'players') {
+        if (type.toLowerCase() === 'players') {
         // todo: fix this
-        // ctx.compress = false;
-        // }
+          ctx.compress = false;
+        }
         next();
       });
   });

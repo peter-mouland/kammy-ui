@@ -4,8 +4,8 @@ import { getJSON } from '@kammy-ui/fetchr';
 const ACCESS_KEY = 'AIzaSyDA7UXEi96G7qFNIdgMg6nVJW9OajORO-I';
 const spreadsheets = {
   DRAFTFF_TRANSFERS_ID: '10xathUydH-GDTLjngRXioaUVqBZoiZqfjfM6fhgUcYk',
-  DRAFTFF_DRAFT_ID: '1gVEHnzHPfSR7isLNfxJxq8DKKLY4mKeiffwUb7YfFlc',
-  DRAFTFF_SETUP_ID: '1HoInFwqCFLSl0yh8JBvQEFFjOg5ImiiT-BY_aDCy0AU',
+  DRAFTFF_DRAFT_ID: '1gVEHnzHPfSR7isLNfxJxq8DKKLY4mKeiffwUb7YfFlc', // teams + draft picks
+  DRAFTFF_SETUP_ID: '1HoInFwqCFLSl0yh8JBvQEFFjOg5ImiiT-BY_aDCy0AU', // game-weeks + players
   KAMMY_ID: '1kX5RFsMnnPknkTu4BzJmqJ-KojWfIkS2beg9RaAeSOI',
 };
 const DRAFT = 'DRAFTFF_DRAFT_ID';

@@ -56,7 +56,9 @@ export function forConceded(conceded, position) { // -1
 
 export function forTackleBonus(bonusPoints, position) { // 3
   let multiplier;
-  if ((position === 'FB' || position === 'CB') || position === 'MID') {
+  if (position === 'MID') {
+    multiplier = 4;
+  } else if (position === 'FB' || position === 'CB') {
     multiplier = 3;
   } else {
     multiplier = 0;
@@ -71,7 +73,7 @@ export function forPenaltiesSaved(ps) {
 export function forSaveBonus(bonusPoints, position) { // 3
   let multiplier;
   if (position === 'GK') {
-    multiplier = 3;
+    multiplier = 4;
   } else {
     multiplier = 0;
   }

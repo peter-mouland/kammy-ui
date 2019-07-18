@@ -438,7 +438,7 @@ describe('playerStats', () => {
       ...fixtures[0],
       stats: {
         ...extractFFStats(fixtures[0].stats),
-        points: 25,
+        points: 27,
       },
     });
     expect(playerWithStats.pos).toEqual(player.pos);
@@ -446,12 +446,12 @@ describe('playerStats', () => {
       {
         ...fixtures[0],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
     ]);
     expect(playerWithStats.gameWeekStats).toEqual({
-      apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+      apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
     });
   });
 
@@ -478,19 +478,19 @@ describe('playerStats', () => {
       {
         ...fixtures[0],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
       {
         ...fixtures[1],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
       {
         ...fixtures[2],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
     ]);
@@ -499,18 +499,18 @@ describe('playerStats', () => {
       {
         ...fixtures[0],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
       {
         ...fixtures[1],
         stats: {
-          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 25, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
+          apps: 1, asts: 1, con: 1, cs: 1, gls: 1, pensv: 1, points: 27, rcard: 1, sb: 2, subs: 1, tb: 2, ycard: 1,
         },
       },
     ]);
     expect(playerWithStats.gameWeekStats).toEqual({
-      apps: 2, asts: 2, con: 2, cs: 2, gls: 2, pensv: 2, points: 50, rcard: 2, sb: 4, subs: 2, tb: 4, ycard: 2,
+      apps: 2, asts: 2, con: 2, cs: 2, gls: 2, pensv: 2, points: 54, rcard: 2, sb: 4, subs: 2, tb: 4, ycard: 2,
     });
   });
 });

@@ -17,7 +17,7 @@ export default function reactMiddleWare({
   extractor,
   preDispatch = () => {}, // func to execute custom store.dispatch methods
 }) {
-  return (ctx, next) => {
+  return async (ctx, next) => {
     const context = {};
     const store = configureStore({}, reducers);
     const initialState = JSON.stringify(store.getState(), null, 2);
@@ -36,6 +36,6 @@ export default function reactMiddleWare({
     ctx.status = match ? 200 : 404;
     ctx.body = `<!doctype html>${renderToString(appHtml)}`;
 
-    next();
+    await next();
   };
 }

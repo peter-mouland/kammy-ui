@@ -48,10 +48,10 @@ describe('calculatePoints', () => {
     });
 
 
-    it('returns 3 points for save bonus', () => {
-      expect(calculatePoints.forSaveBonus(1, position)).toEqual(3);
+    it('returns 4 points for save bonus', () => {
+      expect(calculatePoints.forSaveBonus(1, position)).toEqual(4);
       expect(calculatePoints.forSaveBonus(0, position)).toEqual(0);
-      expect(calculatePoints.forSaveBonus(10, position)).toEqual(30);
+      expect(calculatePoints.forSaveBonus(10, position)).toEqual(40);
     });
 
     it('returns 5 points for each clean sheet', () => {
@@ -77,7 +77,7 @@ describe('calculatePoints', () => {
         apps: 1, subs: 1, mom: 1, gls: 1, tb: 1, sb: 1, asts: 1, cs: 1, con: 1, pensv: 1, ycard: 1, rcard: 1,
       };
       const points = calculatePoints.calculateTotalPoints({ stats, pos: position });
-      expect(points.total).toEqual(22);
+      expect(points.total).toEqual(23);
     });
   });
 
@@ -155,10 +155,10 @@ describe('calculatePoints', () => {
       expect(calculatePoints.forGoals(10, position)).toEqual(60);
     });
 
-    it('returns 3 points for Tackle Bonus', () => {
-      expect(calculatePoints.forTackleBonus(1, position)).toEqual(3);
+    it('returns 4 points for Tackle Bonus', () => {
+      expect(calculatePoints.forTackleBonus(1, position)).toEqual(4);
       expect(calculatePoints.forTackleBonus(0, position)).toEqual(0);
-      expect(calculatePoints.forTackleBonus(10, position)).toEqual(30);
+      expect(calculatePoints.forTackleBonus(10, position)).toEqual(40);
     });
 
     it('returns 0 points for each clean sheet', () => {
@@ -178,7 +178,7 @@ describe('calculatePoints', () => {
         apps: 1, subs: 1, mom: 1, gls: 1, tb: 1, sb: 1, asts: 1, cs: 1, con: 1, pensv: 1, ycard: 1, rcard: 1,
       };
       const points = calculatePoints.calculateTotalPoints({ stats, pos: position });
-      expect(points.total).toEqual(14);
+      expect(points.total).toEqual(15);
     });
   });
 
