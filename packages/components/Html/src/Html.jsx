@@ -12,6 +12,16 @@ const HTML = ({
       <meta name="viewport" content="width=device-width,initial-scale=1.0" />
       <div id="links" dangerouslySetInnerHTML={{ __html: links }} />
       <div id="stylesheets" dangerouslySetInnerHTML={{ __html: css }} />
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144222833-1" />
+      <script dangerouslySetInnerHTML={{
+        __html: `
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144222833-1');
+      `,
+      }} />
     </head>
     <body>
       <script dangerouslySetInnerHTML={{ __html: `window.__INITIAL_STATE__ = ${initialState}` }}/>
