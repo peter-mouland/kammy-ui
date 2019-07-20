@@ -149,7 +149,7 @@ export default class PlayersFilters extends React.Component {
     } = this.state;
     const { clubs, positions } = this.options;
     // if the user cant show hidden players,  don't show hidden players in the select box
-    const filteredPlayers = showHiddenToggle ? players : players.filter((player) => player.isHidden === showHidden)
+    const filteredPlayers = showHiddenToggle ? players : players.filter((player) => player.isHidden === showHidden);
 
     return (
       <div className={ bem() }>
@@ -209,7 +209,9 @@ export default class PlayersFilters extends React.Component {
             </div>
           </div>
         </div>
-        {this.props.children(this.onFilter())}
+        <div className={ bem('contents') }>
+          {this.props.children(this.onFilter())}
+        </div>
       </div>
     );
   }
