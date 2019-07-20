@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.9-jessie-browsers
+      - image: circleci/node:10.16.0-jessie-browsers
     working_directory: ~/kammy-ui-workflow
     environment:
       TZ: "/usr/share/zoneinfo/Europe/London"
@@ -11,7 +11,7 @@ jobs:
       - checkout
   test:
     docker:
-      - image: circleci/node:10.9-jessie-browsers
+      - image: circleci/node:10.16.0-jessie-browsers
     working_directory: ~/kammy-ui-workflow
     steps:
       - checkout
@@ -19,7 +19,7 @@ jobs:
       - run: yarn test
   deploy:
     docker:
-      - image: circleci/node:10.9-jessie-browsers
+      - image: circleci/node:10.16.0-jessie-browsers
     working_directory: ~/kammy-ui-workflow
     environment:
       HEROKU_APP: draftff

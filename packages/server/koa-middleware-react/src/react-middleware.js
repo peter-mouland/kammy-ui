@@ -28,6 +28,7 @@ export default function reactMiddleWare({
     const rootHtml = renderToString(<Root { ...{
       location: ctx.request.url, context, store,
     } } />);
+
     const appHtml = extractor.collectChunks(Html({
       body: rootHtml, initialState, js: scriptTags, css: styleTags, links: linkTags,
     }));

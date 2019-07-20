@@ -22,7 +22,7 @@
     "--------- DEVELOPMENT -------------": "",
     "start": "PORT=9001 start-storybook -s ./tests/fixtures -p 9001",
     "build:storybook": "build-storybook -o public",
-    "start:webapp:dev": "lerna exec --scope @kammy-ui/webapp -- yarn start:dev",
+    "start:webapp:dev": "lerna exec --scope @kammy-ui/webapp -- NODE_ENV=development yarn start:dev",
     "--------- PRODUCTION -------------": "",
     "mongo": "mongod  --dbpath mongodb",
     "mongo:kill": "mongod --shutdown",
