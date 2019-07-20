@@ -24,7 +24,7 @@ const applyFilters = ({
   const customFiltered = !customFilter || !customFilterChecked || customFilter.fn(player);
   const nameFiltered = !nameFilters.length || nameFilters.includes(player.name);
   const posFiltered = !posFilters.length || (posFilters.includes(player.pos));
-  const hiddenFiltered = !showHidden || player.isHidden === showHidden;
+  const hiddenFiltered = player.isHidden === showHidden;
   const newFiltered = !showNew || player.new === showNew;
   const clubFiltered = !clubFilters.length || (clubFilters.includes(player.club));
   // || (clubFilters === MY_TEAM && myTeam && [player.code])
@@ -148,6 +148,8 @@ export default class PlayersFilters extends React.Component {
       customFilterChecked, showHidden, showNew,
     } = this.state;
     const { clubs, positions } = this.options;
+    // if the user cant show hidden players,  don't show hidden players in the select box
+    const filteredPlayers = showHiddenToggle ? players : players.filter((player) => player.isHidden === showHidden)
 
     return (
       <div className={ bem() }>
@@ -197,7 +199,7 @@ export default class PlayersFilters extends React.Component {
                   },
                   {
                     label: 'Players',
-                    options: players.map(({ name }) => ({ value: name, label: name, group: 'player' })),
+                    options: filteredPlayers.map(({ name }) => ({ value: name, label: name, group: 'player' })),
                   },
                 ]}
                 isMulti
