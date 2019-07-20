@@ -18,10 +18,10 @@
     "access": "public"
   },
   "dependencies": {
-    "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5",
-    "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^5.1.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^4.0.0",
+    "redux-promise-middleware": "^6.1.1",
     "redux-thunk": "^2.3.0"
   }
 }

@@ -51,6 +51,7 @@ GameWeekDate.propTypes = {
   calStart: PropTypes.string,
   calEnd: PropTypes.string,
   gameWeek: PropTypes.shape({
+    cup: PropTypes.string,
     start: PropTypes.string,
     end: PropTypes.string,
   }).isRequired,

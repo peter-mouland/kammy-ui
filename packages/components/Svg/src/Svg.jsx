@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger, jsx-a11y/alt-text */
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 import SvgProvider from './Provider';

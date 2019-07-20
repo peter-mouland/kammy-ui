@@ -64,8 +64,8 @@
     "koa-qs": "2.0.0",
     "koa-router": "7.4.0",
     "prop-types": "15.7.2",
-    "redux": "4.0.1",
-    "redux-promise-middleware": "5.1.1",
+    "redux": "4.0.4",
+    "redux-promise-middleware": "6.1.1",
     "react-cookie": "^3.1.2",
     "react-router-redux": "4.0.8"
   },

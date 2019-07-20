@@ -27,7 +27,7 @@
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6" ,
-    "react-redux": "^5.0.7"
+    "react-redux": "^7.1.0"
   },
   "devDependencies": {
     "@kammy-ui/redux-store": "^0.0.17",

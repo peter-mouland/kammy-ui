@@ -6,7 +6,7 @@ import promiseMiddleware from 'redux-promise-middleware';
 const inBrowser = typeof window === 'object';
 const middleware = [
   thunk,
-  promiseMiddleware(),
+  promiseMiddleware,
   createLogger({
     predicate: () => inBrowser && process.env.NODE_ENV !== 'production',
     collapsed: true,

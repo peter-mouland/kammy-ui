@@ -30,7 +30,7 @@
     "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/redux.division": "^0.0.17",
-    "react-redux": "^5.0.7"
+    "react-redux": "^7.1.0"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

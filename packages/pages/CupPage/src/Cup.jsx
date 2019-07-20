@@ -94,6 +94,7 @@ const PlayerProps = {
 CupPlayers.propTypes = {
   handleClick: PropTypes.func.isRequired,
   cupTeam: PropTypes.shape({
+    manager: PropTypes.string.isRequired,
     player1: PropTypes.shape(PlayerProps),
     player2: PropTypes.shape(PlayerProps),
     player3: PropTypes.shape(PlayerProps),
