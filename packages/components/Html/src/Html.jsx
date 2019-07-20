@@ -2,18 +2,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GA_KEY = process.env.NODE_ENV === 'production' ? 'UA-144222833-1' : null;
-
 const GA = ({ gaKey }) => (
   <div id='google-analytics'>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144222833-1" />
     <script dangerouslySetInnerHTML={{
       __html: `
-      window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', '${gaKey}');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+        ga('create', '${gaKey}', 'auto');
+        ga('send', 'pageview');
       `,
     }} />
   </div>
@@ -24,7 +23,7 @@ GA.propTypes = {
 };
 
 const HTML = ({
-  initialState, body, js, css, links,
+  initialState, body, js, css, links, GA_KEY,
 }) => (
   <html lang="en">
     <head>
@@ -49,6 +48,7 @@ HTML.propTypes = {
   js: PropTypes.string.isRequired,
   css: PropTypes.string.isRequired,
   links: PropTypes.string.isRequired,
+  GA_KEY: PropTypes.string,
 };
 
 export default HTML;

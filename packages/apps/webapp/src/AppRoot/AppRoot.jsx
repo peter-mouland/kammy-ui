@@ -17,6 +17,12 @@ const navigator = global.navigator && global.navigator.userAgent;
 export const isBrowser = typeof navigator !== 'undefined' && navigator.indexOf('jsdom/') === -1 && navigator.indexOf('Node.js') === -1;
 export const Router = isBrowser ? BrowserRouter : StaticRouter;
 
+const track = ({ path }) => {
+  if (typeof window === 'undefined' || !window.ga) return;
+  window.ga('set', 'page', path);
+  window.ga('send', 'pageview');
+};
+
 export const Routes = ({ ...props }, { appConfig }) => (
   <Router {...props} >
     <Switch>
@@ -26,6 +32,7 @@ export const Routes = ({ ...props }, { appConfig }) => (
         <Route key={name} {...routeProps} render={(matchProps) => {
           const Component = loadable(() => import(`../dynamic-pages/${component}`));
           const bem = bemHelper({ block: id || name });
+          track(routeProps);
           return (
             <DefaultTemplate>
               <section id={id} className={bem()}>

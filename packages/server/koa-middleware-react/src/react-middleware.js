@@ -13,6 +13,7 @@ function getMatch(routesArray, url) {
 export default function reactMiddleWare({
   Root, // component
   Html, // Html Component
+  GA_KEY,
   reducers,
   extractor,
   preDispatch = () => {}, // func to execute custom store.dispatch methods
@@ -30,7 +31,7 @@ export default function reactMiddleWare({
     } } />);
 
     const appHtml = extractor.collectChunks(Html({
-      body: rootHtml, initialState, js: scriptTags, css: styleTags, links: linkTags,
+      body: rootHtml, initialState, js: scriptTags, css: styleTags, links: linkTags, GA_KEY,
     }));
 
     const match = getMatch(appConfig.routes, ctx.request.url);

@@ -3,5 +3,5 @@
   "ignore": ["compiled/", "mongodb", "node_modules"],
   "watch": ["src", "../../"],
   "ext": "svg js json",
-  "exec": "babel-node"
+  "exec": "NODE_ENV=development babel-node"
 }

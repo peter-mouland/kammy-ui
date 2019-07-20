@@ -20,6 +20,7 @@ import skySportsRouter from './routes/routes.skysports';
 import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';
 import { DIST } from '../config/paths';
 
+const GA_KEY = process.env.NODE_ENV === 'production' ? 'UA-144222833-1' : null;
 const YEAR = 100 * 60 * 60 * 24 * 7 * 52;
 const server = new Koa();
 const router = new Router();
@@ -60,7 +61,7 @@ export default ({
     .use(googleSpreadsheetRoutes.allowedMethods())
     .use(staticRoute)
     .get('/(.*)', react({
-      assetsConfig, preDispatch, reducers, Root, Html, extractor,
+      assetsConfig, preDispatch, reducers, Root, Html, extractor, GA_KEY,
     }));
   server.use(router.routes());
   return server;
