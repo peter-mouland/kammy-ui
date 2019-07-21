@@ -35,9 +35,12 @@ class TeamSeason {
     ]
   */
   findPlayerThisGw = ({ transferList, gameWeek }) => {
-    const gwPlayers = transferList.filter((transfer) => isBefore(transfer.start, gameWeek.start));
+    const gwPlayers = (gameWeek.gameWeek === 0)
+      ? transferList
+      : transferList.filter((transfer) => isBefore(transfer.start, gameWeek.start));
     try {
-      const transfer = gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
+      const item = gwPlayers[gwPlayers.length - 1] || {};
+      const transfer = item.player || UNKNOWN_PLAYER();
       return playerStats({ player: transfer, gameWeeks: [gameWeek] });
     } catch (e) {
       console.error(e);

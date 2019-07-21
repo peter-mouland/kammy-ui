@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-export const pairedKeysAsCells = (objA, objB) => (
+export const pairedKeysAsCells = (objA = {}, objB = {}) => (
   Object.keys(objA).map((key) => (
     <Fragment key={key}>
       <td className={`cell cell--${key}`}>{objA[key]}</td>

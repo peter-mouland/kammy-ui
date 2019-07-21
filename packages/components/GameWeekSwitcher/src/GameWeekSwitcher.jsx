@@ -55,7 +55,7 @@ class GameWeekSwitcher extends React.Component {
             gameWeeks[value] && <FormattedGameWeekDate gameWeek={gameWeeks[value]}/>
           )}
         />
-        <button onClick={this.showAll}>{buttonText}</button>
+        {options.length > maxGameWeeks && <button onClick={this.showAll}>{buttonText}</button>}
       </section>
     );
   }

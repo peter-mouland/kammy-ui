@@ -4,6 +4,8 @@ import { actions as playerActions, selectors as playerSelectors } from '@kammy-u
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 import { selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { selectors as draftSetupSelectors } from '@kammy-ui/redux.draft-setup';
+
 import { withCookies } from 'react-cookie';
 
 import DivisionStats from './DivisionStats';
@@ -22,10 +24,12 @@ function mapStateToProps(state, { divisionId }) {
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
   } = transferSelectors.getStatus(state, divisionId);
+  const { byDivision } = draftSetupSelectors.getDraftSetup(state);
 
   const props = {
     selectedGameWeek,
     gameWeeksLoaded,
+    managers: byDivision.managers[divisionId],
     players: players.data,
     playersCount: players.count,
     playersLoading: players.loading,

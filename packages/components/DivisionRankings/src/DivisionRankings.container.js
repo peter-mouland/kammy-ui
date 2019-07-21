@@ -24,7 +24,7 @@ function mapStateToProps(state, { divisionId }) {
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const divisionLoaded = state.spreadsheet[`${divisionId}Loaded`];
   const { loaded: draftSetupLoaded } = draftSetupSelectors.getStatus(state);
-  const { byDivisions } = draftSetupSelectors.getDraftSetup(state);
+  const { byDivision } = draftSetupSelectors.getDraftSetup(state);
 
   const loaded = (
     draftSetupLoaded
@@ -39,7 +39,7 @@ function mapStateToProps(state, { divisionId }) {
     gameWeeksLoaded,
     transfersLoaded,
     divisionLoaded,
-    managers: byDivisions.managers[divisionId],
+    managers: byDivision.managers[divisionId],
     managersSeason,
     managersPoints,
     managersRank,

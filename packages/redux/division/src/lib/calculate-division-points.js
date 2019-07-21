@@ -22,7 +22,7 @@ const getPoints = (team = [], gameWeekIdx) => {
       const { gameWeeks, seasonToGameWeek } = teamSheetItem;
       const player = gameWeeks[gameWeekIdx] || gameWeeks[gameWeeks.length - 1];
       const seasonToDate = seasonToGameWeek[gameWeekIdx] || seasonToGameWeek[seasonToGameWeek.length - 1];
-      const key = getPositionLabel(teamSheetItem.teamPos).label;
+      const key = (getPositionLabel(teamSheetItem.teamPos) || {}).label;
       const gameWeekPoints = player.gameWeekStats.points;
       const gameWeek = prev[key] ? prev[key].gameWeek + gameWeekPoints : gameWeekPoints;
       const season = prev[key] ? prev[key].season + seasonToDate.points : seasonToDate.points;

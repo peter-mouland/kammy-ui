@@ -14,23 +14,22 @@ const currentTeamSelector = (state, div) => get(state, `division.${formatDiv(div
 const pendingTransfersSelector = (state, div) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
 const statusSelector = (state, div) => get(state, `division.${formatDiv(div)}.status`) || {};
 
-const seasonCombiner = ({ data: players }, { gameWeeks }, { transfers }, teams) => (
-  players && gameWeeks.length && transfers.length && teams
+const seasonCombiner = ({ data: players }, { gameWeeks }, { transfers = [] }, teams) => (
+  players && gameWeeks.length && teams
     ? managerSeason({
       teams, gameWeeks, players, transfers, withStats: true,
     })
     : null
 );
 
-const pointsCombiner = (managersSeason, { selectedGameWeek }, teams) => {
-  const gameWeekIdx = selectedGameWeek - 1;
-  return teams && managersSeason && selectedGameWeek
-    ? getDivisionPoints(teams, managersSeason, gameWeekIdx)
-    : undefined;
-};
+const pointsCombiner = (managersSeason, { selectedGameWeek }, teams) => (
+  teams && managersSeason && selectedGameWeek
+    ? getDivisionPoints(teams, managersSeason, selectedGameWeek)
+    : undefined
+);
 
 const pointsLastWeekCombiner = (managersSeason, { selectedGameWeek }, teams) => {
-  const gameWeekIdx = selectedGameWeek - 2;
+  const gameWeekIdx = selectedGameWeek - 1;
   return gameWeekIdx > 0 && teams && managersSeason
     ? getDivisionPoints(teams, managersSeason, gameWeekIdx)
     : undefined;

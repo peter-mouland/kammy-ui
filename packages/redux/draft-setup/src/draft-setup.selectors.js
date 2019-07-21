@@ -48,7 +48,7 @@ export const getDraftSetup = createSelector(
       draftPremierLeague,
       draftChampionship,
       draftLeagueOne,
-      byDivisions: {
+      byDivision: {
         managers: managersByDivisions, // { Championship: ['managers'], ...}
         draft: playersByDivisions, // { Championship: ['players'], ...}
       },

@@ -16,19 +16,25 @@ const validatePlayer = (managersSeason, intGameWeek) => {
     ...managersSeason[manager].map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]),
   ]), []);
   const cache = {};
-  return players.reduce((acc, player) => {
-    const dupe = [...acc];
-    if (cache[player.name] && !dupe.includes(player.name)) {
-      dupe.push(player.name);
-    }
-    cache[player.name] = true;
-    return dupe;
-  }, []);
+  return players
+    .reduce((acc, player = {}) => {
+      const dupe = [...acc];
+      if (cache[player.name] && !dupe.includes(player.name)) {
+        dupe.push(player.name);
+      }
+      cache[player.name] = true;
+      return dupe;
+    }, [])
+    .filter(Boolean)
+    .filter(({ club }) => !!club);
 };
 
 const validateClub = (team = [], intGameWeek) => {
-  const players = team.map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]);
-  return players.reduce((acc, player) => {
+  const players = team
+    .map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek])
+    .filter(Boolean)
+    .filter(({ club }) => !!club);
+  return players.reduce((acc, player = {}) => {
     const count = (acc[player.club] || 0) + 1;
     const clubWarnings = count > 2 && acc.clubWarnings.indexOf(player.club) < 0
       ? [...acc.clubWarnings, player.club]
@@ -80,17 +86,16 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
-      teams, managersSeason, selectedGameWeek, isAdmin,
+      teams, managersSeason, selectedGameWeek, isAdmin, managers,
     } = this.props;
     const {
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
     } = this.state;
-    const selectedGameWeekIdx = selectedGameWeek - 1;
-    const previousGameWeek = selectedGameWeekIdx - 1 > -1 ? selectedGameWeekIdx - 1 : 0;
-    const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeekIdx) || [];
+    const previousGameWeek = selectedGameWeek > 0 ? selectedGameWeek : 0;
+    const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeek) || [];
     const allClubWarnings = Object.keys(teams).sort().map((manager) => {
-      const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
+      const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeek);
       return clubWarnings.length ? { clubWarnings, manager } : undefined;
     }).filter(Boolean);
 
@@ -123,7 +128,7 @@ class TeamsPage extends React.Component {
           )}
           {isAdmin && duplicatePlayers.length > 0 && (
             <div className={'row row--warning'}>
-              This division has the following player(s) in more than 2 team: {duplicatePlayers.join(', ')}
+              This division has the following player(s) in more than 2 teams: {duplicatePlayers.join(', ')}
             </div>
           )}
           {isAdmin && allClubWarnings.length > 0 && (
@@ -135,86 +140,83 @@ class TeamsPage extends React.Component {
         </div>
         <div data-b-layout="vpad">
           <table className={'table'}>
-            {Object
-              .keys(teams)
-              .sort()
-              .map((manager) => {
-                const thisManager = managersSeason[manager] || [];
-                const { clubWarnings } = validateClub(thisManager, selectedGameWeekIdx);
-                return (
-                  <Fragment key={manager}>
-                    <thead>
-                      <tr>
-                        <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
-                        <th colSpan={24} className={'cell cell--team-season'}>Season</th>
-                      </tr>
-                      <tr className={'row row--header'}>
-                        <th className={'cell cell--team-position'}>Team Position</th>
-                        <th className={'cell cell--player'}>Player</th>
-                        <th className={'cell cell--position'}>Position</th>
-                        <th className={'cell cell--club'}>Club</th>
-                        {keysAsCellHeaders((thisManager[0] || {}).seasonStats, { colSpan: 2 })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {thisManager.map((teamSheetItem) => {
-                        const player = teamSheetItem.gameWeeks[selectedGameWeekIdx];
-                        const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeekIdx];
-                        const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
-                        const className = playerLastGW.name !== player.name ? bem('transfer') : '';
-                        const warningClassName = isAdmin && (
-                          clubWarnings.indexOf(player.club) > -1 || duplicatePlayers.indexOf(player.name) > -1
-                        ) ? 'row row--warning' : 'row';
-                        return (
-                          <tr
-                            key={player.name}
-                            className={`${className} ${warningClassName}`}
-                          >
-                            <td className={'cell cell--team-position'}>
-                              <a
-                                href={'#'}
-                                onClick={(e) => this.showPositionTimeline(e, {
-                                  position: player.pos,
-                                  gameWeeks: teamSheetItem.gameWeeks,
-                                  season: teamSheetItem.seasonStats,
-                                })}
-                                title={`Show ${teamSheetItem.teamPos} timeline`}
-                              >
-                                {teamSheetItem.teamPos}
-                              </a>
-                            </td>
-                            <td className={'cell cell--player'}>
-                              <a
-                                href={'#'}
-                                onClick={(e) => this.showPlayerTimeline(e, { player })}
-                                title={`Show ${teamSheetItem.teamPos} timeline`}
-                              >
-                                {player.name}
-                              </a></td>
-                            <td className={'cell cell--position'}>{player.pos}</td>
-                            <td className={'cell cell--club'}>{player.club}</td>
-                            {
-                              player && (
-                                pairedKeysAsCells(
-                                  seasonToGameWeek,
-                                  player.gameWeekStats,
-                                )
+            {managers.map((manager) => {
+              const thisManager = managersSeason[manager] || [];
+              const { clubWarnings } = validateClub(thisManager, selectedGameWeek);
+              return (
+                <Fragment key={manager}>
+                  <thead>
+                    <tr>
+                      <th colSpan="4" className={'cell cell--team-manager'}>{manager}</th>
+                      <th colSpan={24} className={'cell cell--team-season'}>Season</th>
+                    </tr>
+                    <tr className={'row row--header'}>
+                      <th className={'cell cell--team-position'}>Team Position</th>
+                      <th className={'cell cell--player'}>Player</th>
+                      <th className={'cell cell--position'}>Position</th>
+                      <th className={'cell cell--club'}>Club</th>
+                      {keysAsCellHeaders((thisManager[0] || {}).seasonStats, { colSpan: 2 })}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {thisManager.map((teamSheetItem) => {
+                      const player = teamSheetItem.gameWeeks[selectedGameWeek] || {};
+                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeek];
+                      const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
+                      const className = playerLastGW.name !== player.name ? bem('transfer') : '';
+                      const warningClassName = isAdmin && (
+                        clubWarnings.indexOf(player.club) > -1 || duplicatePlayers.indexOf(player.name) > -1
+                      ) ? 'row row--warning' : 'row';
+                      return (
+                        <tr
+                          key={player.name}
+                          className={`${className} ${warningClassName}`}
+                        >
+                          <td className={'cell cell--team-position'}>
+                            <a
+                              href={'#'}
+                              onClick={(e) => this.showPositionTimeline(e, {
+                                position: player.pos,
+                                gameWeeks: teamSheetItem.gameWeeks,
+                                season: teamSheetItem.seasonStats,
+                              })}
+                              title={`Show ${teamSheetItem.teamPos} timeline`}
+                            >
+                              {teamSheetItem.teamPos}
+                            </a>
+                          </td>
+                          <td className={'cell cell--player'}>
+                            <a
+                              href={'#'}
+                              onClick={(e) => this.showPlayerTimeline(e, { player })}
+                              title={`Show ${teamSheetItem.teamPos} timeline`}
+                            >
+                              {player.name}
+                            </a></td>
+                          <td className={'cell cell--position'}>{player.pos}</td>
+                          <td className={'cell cell--club'}>{player.club}</td>
+                          {
+                            player && (
+                              pairedKeysAsCells(
+                                seasonToGameWeek,
+                                player.gameWeekStats,
                               )
-                            }
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                    {isAdmin && clubWarnings.length > 0 && (
-                      <tr className={'row row--warning'}>
-                        <td colSpan={30}>
-                          This team has more than 2 players within the following clubs: {clubWarnings.join(', ')}
-                        </td>
-                      </tr>
-                    )}
-                  </Fragment>
-                );
-              })}
+                            )
+                          }
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  {isAdmin && clubWarnings.length > 0 && (
+                    <tr className={'row row--warning'}>
+                      <td colSpan={30}>
+                        This team has more than 2 players within the following clubs: {clubWarnings.join(', ')}
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })}
           </table>
         </div>
       </div>
@@ -227,6 +229,7 @@ TeamsPage.propTypes = {
   teams: PropTypes.object,
   managersSeason: PropTypes.object,
   isAdmin: PropTypes.bool,
+  managers: PropTypes.array,
 };
 
 TeamsPage.defaultProps = {
@@ -234,6 +237,7 @@ TeamsPage.defaultProps = {
   selectedGameWeek: 1,
   teams: {},
   managersSeason: {},
+  managers: [],
 };
 
 export default TeamsPage;

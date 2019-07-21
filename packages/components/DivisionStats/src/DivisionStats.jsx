@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import '@kammy-ui/bootstrap';
-import Interstitial from '@kammy-ui/interstitial';
+// import Interstitial from '@kammy-ui/interstitial';
 import bemHelper from '@kammy-ui/bem';
 import GameWeekSwitcher from '@kammy-ui/game-week-switcher';
 import { Cookies } from 'react-cookie';
@@ -29,33 +29,22 @@ class DivisionStats extends React.Component {
 
   render() {
     const {
-      loaded, label, division, managersSeason, selectedGameWeek, cookies,
+      loaded, label, division, managersSeason, selectedGameWeek, cookies, managers,
     } = this.props;
-
     return (
       <section id="teams-page" className={bem()} data-b-layout="container">
         <h1>{label}</h1>
         <div data-b-layout="vpad">
-          {!loaded && (
-            <Fragment>
-              <Interstitial /> Data Gathering...
-            </Fragment>
-          )}
-          {
-            loaded && <GameWeekSwitcher />
-          }
+          {loaded && <GameWeekSwitcher />}
         </div>
         <div data-b-layout="vpad">
-          {
-            loaded && division && (
-              <Table
-                selectedGameWeek={selectedGameWeek}
-                managersSeason={managersSeason}
-                teams={division}
-                isAdmin={cookies.get('is-admin') || false}
-              />
-            )
-          }
+          <Table
+            managers={managers}
+            selectedGameWeek={selectedGameWeek}
+            managersSeason={managersSeason}
+            teams={division}
+            isAdmin={cookies.get('is-admin') === 'true' || false}
+          />
         </div>
       </section>
     );
@@ -85,6 +74,7 @@ DivisionStats.propTypes = {
   playersLoaded: PropTypes.bool,
   transfersLoaded: PropTypes.bool,
   divisionLoaded: PropTypes.bool,
+  managers: PropTypes.array,
 };
 
 DivisionStats.defaultProps = {
@@ -104,6 +94,7 @@ DivisionStats.defaultProps = {
   managersSeason: null,
   transfersCount: null,
   division: {},
+  managers: [],
 };
 
 DivisionStats.contextTypes = {

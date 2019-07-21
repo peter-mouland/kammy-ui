@@ -1,3 +1,4 @@
+/* eslint-env jest */
 import { getDraftSetup } from './draft-setup.selectors';
 import { FETCH_DRAFT_SETUP } from './draft-setup.actions';
 import reducer from './draft-setup.reducer';
@@ -60,12 +61,12 @@ describe('getDraftSetup', () => {
     };
     const state = { draftSetup: reducer({}, action) };
 
-    expect(getDraftSetup(state).byDivisions.managers).toEqual({
+    expect(getDraftSetup(state).byDivision.managers).toEqual({
       championship: ['pete', 'john'],
       leagueOne: ['paul'],
       premierLeague: [],
     });
-    expect(getDraftSetup(state).byDivisions.draft).toEqual({
+    expect(getDraftSetup(state).byDivision.draft).toEqual({
       championship: ['awesom', 'awesom2', 'shite'],
       leagueOne: ['wtf'],
       premierLeague: [],
