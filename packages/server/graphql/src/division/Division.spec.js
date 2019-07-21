@@ -78,11 +78,21 @@ describe('Division', () => {
       type: 'Transfer',
     };
     transfers = [transfer];
+    division = 'example-division';
     draft = {
-      Olly: team,
+      byDivision: {
+        managers: {
+          [division]: ['Olly'],
+        },
+      },
+      byManager: {
+        players: { Olly: team.map(({ name }) => name) },
+      },
+      drafts: {
+        [division]: team,
+      },
     };
     currentGameWeek = 1;
-    division = 'example-division';
   });
 
   it('returns division to help out client-side reducers', () => {

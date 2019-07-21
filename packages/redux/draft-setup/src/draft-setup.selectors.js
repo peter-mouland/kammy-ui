@@ -48,7 +48,8 @@ export const getDraftSetup = createSelector(
       ...prev,
       [division.id]: managers
         .filter((manager) => manager.division === division.id)
-        .reduce((prevList, { manager }) => ([...prevList, ...playerNamesByManager[manager] || []]), []),
+        .reduce((prevList, { manager }) => ([...prevList, ...playerNamesByManager[manager] || []]), [])
+        .sort(),
     }), {});
 
     const teamsByDivisions = divisions.reduce((prevDivisions, division) => ({
