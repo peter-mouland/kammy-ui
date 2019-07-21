@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import { actions as spreadsheetActions } from '@kammy-ui/redux-spreadsheet';
 import { actions as playerActions, selectors as playerSelectors } from '@kammy-ui/redux.players';
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
-import { selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 import { selectors as draftSetupSelectors } from '@kammy-ui/redux.draft-setup';
 
 import { withCookies } from 'react-cookie';
 
 import DivisionStats from './DivisionStats';
 
-const { fetchDivision } = spreadsheetActions;
+const { fetchDivision } = divisionActions;
 const { fetchAllPlayerData } = playerActions;
 const { fetchGameWeeks } = gameWeekActions;
 const { fetchTransfers } = transferActions;
@@ -19,7 +18,8 @@ function mapStateToProps(state, { divisionId }) {
   const players = playerSelectors.getAllPlayerData(state);
   const { selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
-  const managersSeason = divisionSelectors[`${divisionId}Season`](state) || {};
+  const { loaded: divisionLoaded } = divisionSelectors.getStatus(state, divisionId);
+  const managersSeason = divisionSelectors[divisionId].season(state) || {};
   const { transfers } = transferSelectors[`${divisionId}Valid`](state);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,
@@ -42,8 +42,6 @@ function mapStateToProps(state, { divisionId }) {
     transfersLoaded,
     transfersErrors,
   };
-  const division = state.spreadsheet[divisionId];
-  const divisionLoaded = state.spreadsheet[`${divisionId}Loaded`];
 
   const loaded = (
     players.loaded
@@ -54,7 +52,6 @@ function mapStateToProps(state, { divisionId }) {
 
   return {
     ...props,
-    division,
     divisionLoaded,
     managersSeason,
     loaded,

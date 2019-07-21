@@ -86,7 +86,7 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
-      teams, managersSeason, selectedGameWeek, isAdmin, managers,
+      managersSeason, selectedGameWeek, isAdmin, managers,
     } = this.props;
     const {
       showPositionTimeline, positionTimelineProps,
@@ -94,7 +94,7 @@ class TeamsPage extends React.Component {
     } = this.state;
     const previousGameWeek = selectedGameWeek > 0 ? selectedGameWeek : 0;
     const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeek) || [];
-    const allClubWarnings = Object.keys(teams).sort().map((manager) => {
+    const allClubWarnings = managers.map((manager) => {
       const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeek);
       return clubWarnings.length ? { clubWarnings, manager } : undefined;
     }).filter(Boolean);

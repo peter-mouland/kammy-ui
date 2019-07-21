@@ -39,14 +39,14 @@ const getPoints = (team = [], gameWeekIdx) => {
   };
 };
 
-const getTeamPoints = (teams = {}, managersSeason = {}, gameWeekIdx) => (
-  Object.keys(teams).map((manager) => ({
+const getDivisionPoints = (managers, managersSeason = {}, gameWeek) => (
+  (managers || []).map((manager) => ({
     manager,
     points: {
       ...INITIAL_POINTS,
-      ...getPoints(managersSeason[manager], gameWeekIdx),
+      ...getPoints(managersSeason[manager], gameWeek),
     },
   }))
 );
 
-export default getTeamPoints;
+export default getDivisionPoints;

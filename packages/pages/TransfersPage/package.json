@@ -27,7 +27,6 @@
     "@kammy-ui/multi-toggle": "^0.0.17",
     "@kammy-ui/redux.players": "^0.0.17",
     "@kammy-ui/redux-skysports": "^0.0.17",
-    "@kammy-ui/redux-spreadsheet": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
     "@kammy-ui/redux.game-weeks": "^0.0.17",
     "@kammy-ui/redux.division": "^0.0.17",

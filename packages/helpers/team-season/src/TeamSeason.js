@@ -24,7 +24,7 @@ class TeamSeason {
   }
 
   getPlayer = (player) => (
-    this.players[player.name] || UNKNOWN_PLAYER(player.name)
+    this.players[player.name || player.player] || UNKNOWN_PLAYER(player.name || player.player)
   );
 
   /*

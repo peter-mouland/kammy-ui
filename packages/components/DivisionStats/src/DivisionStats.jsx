@@ -29,7 +29,7 @@ class DivisionStats extends React.Component {
 
   render() {
     const {
-      loaded, label, division, managersSeason, selectedGameWeek, cookies, managers,
+      loaded, label, managersSeason, selectedGameWeek, cookies, managers,
     } = this.props;
     return (
       <section id="teams-page" className={bem()} data-b-layout="container">
@@ -42,7 +42,6 @@ class DivisionStats extends React.Component {
             managers={managers}
             selectedGameWeek={selectedGameWeek}
             managersSeason={managersSeason}
-            teams={division}
             isAdmin={cookies.get('is-admin') === 'true' || false}
           />
         </div>
@@ -83,7 +82,6 @@ DivisionStats.defaultProps = {
   gameWeeksLoaded: false,
   playersLoading: false,
   transfersLoading: false,
-  divisionLoading: false,
   playersLoaded: false,
   transfersLoaded: false,
   divisionLoaded: false,
@@ -93,7 +91,6 @@ DivisionStats.defaultProps = {
   gameWeeksCount: null,
   managersSeason: null,
   transfersCount: null,
-  division: {},
   managers: [],
 };
 

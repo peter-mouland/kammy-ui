@@ -14,34 +14,34 @@ class Division {
       ...prev,
       [player.name]: { ...player },
     }), {});
-    const drafts = Object.keys(draft).map((manager) => draft[manager]);
 
     // public api
     this.division = division;
-    this.managers = [...new Set(Object.keys(draft).map((manager) => manager))]; // [ manager ]
-    this.draft = [].concat.apply([], drafts); // [{ manager, code, pos, name }]
-    this.Transfers = new Transfers({ transfers }); // [].concat.apply([], transfers); // flatternArray
-    this.transfers = this.Transfers.validRequests; // [].concat.apply([], transfers); // flatternArray
+    this.managers = draft.byDivision.managers[division]; // [ manager ]
+    this.managersPlayers = draft.byManager.players; // { ManagerA: [ player ] }
+    this.draft = draft.drafts[division]; // [{ manager, code, pos, name }]
+    this.Transfers = new Transfers({ transfers });
+    this.transfers = this.Transfers.validRequests;
     this.pendingTransfers = this.Transfers.pendingRequests.map((request) => ({
       ...request,
       clubIn: playersByName[request.transferIn].club,
       clubOut: playersByName[request.transferOut].club,
       posIn: playersByName[request.transferIn].pos,
       posOut: playersByName[request.transferOut].pos,
-    })); // [].concat.apply([], transfers); // flatternArray
-    this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ draft, gameWeeks, playersByName });
+    }));
+    this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ gameWeeks, playersByName });
     this.currentTeams = this.teamsByGameWeek.find(({ gameWeek }) => (
       parseInt(gameWeek, 10) === currentGameWeek),
     );
   }
 
   calculateTeamsByGameWeeks = ({
-    draft, gameWeeks, playersByName,
+    gameWeeks, playersByName,
   }) => {
     const allTeams = this.managers.reduce((prev, manager) => {
       const managerTransfers = this.Transfers.validManagerRequests(manager);
       const team = new TeamByGameWeek({
-        draft: draft[manager], transfers: managerTransfers, gameWeeks, players: playersByName,
+        draft: this.managersPlayers[manager], transfers: managerTransfers, gameWeeks, players: playersByName,
       });
       return {
         ...prev,
