@@ -118,6 +118,7 @@ DivisionRankings.propTypes = {
 
 DivisionRankings.defaultProps = {
   lineType: '0',
+  managersSeason: {},
   loaded: false,
   playersLoaded: false,
   gameWeeksLoaded: false,

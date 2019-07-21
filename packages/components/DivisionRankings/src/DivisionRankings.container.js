@@ -14,7 +14,7 @@ const { fetchAllPlayerData } = playerActions;
 
 function mapStateToProps(state, { divisionId }) {
   const players = playerSelectors.getAllPlayerData(state);
-  const managersSeason = divisionSelectors[`${divisionId}Season`](state);
+  const managersSeason = divisionSelectors[`${divisionId}Season`](state) || {};
   const managersPoints = divisionSelectors[`${divisionId}Points`](state);
   const managersRank = divisionSelectors[`${divisionId}Rank`](state);
   const managersRankChange = divisionSelectors[`${divisionId}RankChange`](state);

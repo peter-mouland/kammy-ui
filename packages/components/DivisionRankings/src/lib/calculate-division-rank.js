@@ -9,7 +9,7 @@ const indexMap = (acc, item, index) => ({ ...acc, [item]: index });
 // sum from x to x2
 const sumRange = (min, max) => ((max - min + 1) * (min + max)) / 2;
 
-function getRanks(values) {
+function getRanks(values = []) {
   const rankIndex = values.slice().sort(compare).reduce(indexMap, {});
   const standardRanks = values.map((item, i, arr) => ({ rank: rankIndex[item], i: arr.length - i - 1 }));
   const rankCounts = standardRanks.reduce((acc, { rank }) => ({

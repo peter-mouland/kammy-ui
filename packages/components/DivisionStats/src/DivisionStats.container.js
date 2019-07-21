@@ -17,7 +17,7 @@ function mapStateToProps(state, { divisionId }) {
   const players = playerSelectors.getAllPlayerData(state);
   const { selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
-  const managersSeason = divisionSelectors[`${divisionId}Season`](state);
+  const managersSeason = divisionSelectors[`${divisionId}Season`](state) || {};
   const { transfers } = transferSelectors[`${divisionId}Valid`](state);
   const {
     loaded: transfersLoaded, loading: transfersLoading, errors: transfersErrors,

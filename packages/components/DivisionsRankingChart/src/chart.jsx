@@ -46,7 +46,7 @@ class Chart extends React.Component {
 
   render() {
     const {
-      data, xAxis, lines, highlightManager, lineType,
+      data = [], xAxis, lines, highlightManager, lineType,
     } = this.props;
     const { width, dataPoints } = this.state;
     return (
