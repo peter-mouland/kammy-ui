@@ -26,7 +26,7 @@ const validatePlayer = (managersSeason, intGameWeek) => {
   }, []);
 };
 
-const validateClub = (team, intGameWeek) => {
+const validateClub = (team = [], intGameWeek) => {
   const players = team.map((teamSheetItem) => teamSheetItem.gameWeeks[intGameWeek]);
   return players.reduce((acc, player) => {
     const count = (acc[player.club] || 0) + 1;
@@ -139,7 +139,8 @@ class TeamsPage extends React.Component {
               .keys(teams)
               .sort()
               .map((manager) => {
-                const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeekIdx);
+                const thisManager = managersSeason[manager] || [];
+                const { clubWarnings } = validateClub(thisManager, selectedGameWeekIdx);
                 return (
                   <Fragment key={manager}>
                     <thead>
@@ -152,11 +153,11 @@ class TeamsPage extends React.Component {
                         <th className={'cell cell--player'}>Player</th>
                         <th className={'cell cell--position'}>Position</th>
                         <th className={'cell cell--club'}>Club</th>
-                        {keysAsCellHeaders(managersSeason[manager][0].seasonStats, { colSpan: 2 })}
+                        {keysAsCellHeaders((thisManager[0] || {}).seasonStats, { colSpan: 2 })}
                       </tr>
                     </thead>
                     <tbody>
-                      {managersSeason[manager].map((teamSheetItem) => {
+                      {thisManager.map((teamSheetItem) => {
                         const player = teamSheetItem.gameWeeks[selectedGameWeekIdx];
                         const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeekIdx];
                         const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];

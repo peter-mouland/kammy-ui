@@ -9,10 +9,10 @@ export const pairedKeysAsCells = (objA, objB) => (
   ))
 );
 
-export const keysAsCells = (obj) => (
+export const keysAsCells = (obj = {}) => (
   Object.keys(obj).map((key) => <td key={key} className={`cell cell--${key}`}>{obj[key]}</td>)
 );
 
-export const keysAsCellHeaders = (obj, attrs) => (
+export const keysAsCellHeaders = (obj = {}, attrs = {}) => (
   Object.keys(obj).map((key) => <th key={key} className={`cell cell--${key}`} { ...attrs}>{key}</th>)
 );
