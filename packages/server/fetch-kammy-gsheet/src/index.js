@@ -27,7 +27,7 @@ const rowToObj = ({ values }) => {
 const formatPlayer = ({
   Player = '', isHidden = '', Code, Pos = '', ...item
 }) => ({
-  [Player.trim()]: {
+  [(Player || '').trim()]: {
     isHidden: ['hidden', 'y', 'Y'].includes(isHidden),
     new: ['new', 'y', 'Y'].includes(item.new),
     code: parseInt(Code, 10),
@@ -39,38 +39,43 @@ const formatPlayer = ({
 const formatPlayers = (data) => data.map(formatPlayer);
 
 /* TEAMS */
-const formatTeam = (item) => ({
-  manager: item.manager.trim(),
-  code: item.code,
-  pos: item.position,
-  name: item.player.trim(),
+const formatTeam = ({
+  manager = '', code, position, player = '',
+}) => ({
+  manager: manager.trim(),
+  code,
+  pos: position,
+  name: player.trim(),
 });
 const formatDivision = (data) => {
   const jsonData = {};
   data.forEach((player) => {
-    if (!jsonData[player.manager.trim()]) {
-      jsonData[player.manager.trim()] = [];
+    const manager = player.manager || '';
+    if (!jsonData[manager.trim()]) {
+      jsonData[manager.trim()] = [];
     }
-    jsonData[player.manager.trim()].push(formatTeam(player));
+    jsonData[manager.trim()].push(formatTeam(player));
   });
   return jsonData;
 };
 
 /* CUP */
-const formatCupPlayer = (item) => ({
-  group: item.group.trim(),
-  gameWeek: item.gameweek,
-  round: item.round.trim(),
-  manager: item.manager.trim(),
-  player1: item.player1.trim(),
-  player2: item.player2.trim(),
-  player3: item.player3.trim(),
-  player4: item.player4.trim(),
+const formatCupPlayer = ({
+  group = '', gameweek, round = '', manager = '', player1 = '', player2 = '', player3 = '', player4 = '',
+}) => ({
+  group: group.trim(),
+  gameWeek: gameweek,
+  round: round.trim(),
+  manager: manager.trim(),
+  player1: player1.trim(),
+  player2: player2.trim(),
+  player3: player3.trim(),
+  player4: player4.trim(),
 });
-const formatCup = (data) => data.map(formatCupPlayer);
+const formatCup = (data = []) => data.map(formatCupPlayer);
 
 /* TRANSFERS */
-const formatTimeStamp = (timestamp) => {
+const formatTimeStamp = (timestamp = '') => {
   const dateTimeArray = timestamp.split(' ');
   const dateArray = dateTimeArray[0].split('/');
   const year = dateArray[2];
@@ -94,7 +99,7 @@ const formatTransfer = ({
   type: item['Transfer Type'],
 });
 
-const formatTransfers = (data) => {
+const formatTransfers = (data = []) => {
   try {
     return data.map(formatTransfer);
   } catch (e) {
