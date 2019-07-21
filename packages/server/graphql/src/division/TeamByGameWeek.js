@@ -37,7 +37,7 @@ class TeamByGameWeek {
   */
   findPlayerThisGw = ({ transferList, gameWeek }) => {
     const gwPlayers = transferList.filter((transfer) => transfer.start < new Date(gameWeek.start));
-    return gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER();
+    return gwPlayers.length ? gwPlayers[gwPlayers.length - 1].player || UNKNOWN_PLAYER() : UNKNOWN_PLAYER();
   };
 
   /*

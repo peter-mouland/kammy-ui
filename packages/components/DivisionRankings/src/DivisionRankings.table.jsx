@@ -5,9 +5,9 @@ import positions from './lib/positions';
 
 import './division-rankings.scss';
 
-const PlaceHolder = () => (
+const PlaceHolder = ({ manager }) => (
   <tr className={'row'}>
-    <td className='cell cell--manager'><div className='ph--manager' /></td>
+    <td className='cell cell--manager'><div className='ph--manager'>{manager}</div></td>
     {positions.map((position) => (
       <Fragment key={position.label}>
         <td className={`cell cell--${position.key}`}><div className='ph--position-rank' /></td>
@@ -19,8 +19,12 @@ const PlaceHolder = () => (
   </tr>
 );
 
+PlaceHolder.propTypes = {
+  manager: PropTypes.string.isRequired,
+};
+
 const DivisionRankingsTable = ({
-  rank, points, type, handleRowHover,
+  rank, points, type, handleRowHover, managers,
 }) => (
   <table className={`table ${points.length === 0 && 'table--placeholder'}`}>
     <thead>
@@ -71,12 +75,7 @@ const DivisionRankingsTable = ({
           ))
         : (
           <Fragment>
-            <PlaceHolder />
-            <PlaceHolder />
-            <PlaceHolder />
-            <PlaceHolder />
-            <PlaceHolder />
-            <PlaceHolder />
+            {managers.map((manager) => <PlaceHolder key={manager} manager={manager}/>)}
           </Fragment>
         )
       }
@@ -88,6 +87,7 @@ DivisionRankingsTable.propTypes = {
   handleRowHover: PropTypes.func,
   rank: PropTypes.object,
   points: PropTypes.array,
+  managers: PropTypes.array,
   type: PropTypes.oneOf(['season', 'gameWeek']).isRequired,
 };
 
@@ -95,6 +95,7 @@ DivisionRankingsTable.defaultProps = {
   handleRowHover: () => {},
   rank: { total: {}, season: {} },
   points: [],
+  managers: [],
 };
 
 export default DivisionRankingsTable;

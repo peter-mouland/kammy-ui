@@ -88,7 +88,7 @@ export default [
       description: 'Draft : Fantasy Football',
     },
     props: {
-      division: 'PremierLeague',
+      division: 'premierLeague',
       label: 'Premier League: Players',
     },
     label: 'Players',
@@ -139,8 +139,8 @@ export default [
       description: 'Draft : Fantasy Football',
     },
     props: {
-      label: 'League One: Teams',
-      divisionId: 'leagueOne',
+      label: 'Championship: Teams',
+      divisionId: 'championship',
     },
     label: 'Teams',
     requiresAuthentication: false,
@@ -173,7 +173,7 @@ export default [
       description: 'Draft : Fantasy Football',
     },
     props: {
-      division: 'Championship',
+      division: 'championship',
       label: 'Championship: Players',
     },
     label: 'Players',
@@ -258,7 +258,7 @@ export default [
       description: 'Draft : Fantasy Football',
     },
     props: {
-      division: 'LeagueOne',
+      division: 'leagueOne',
       label: 'League One: Players',
     },
     label: 'Players',

@@ -15,9 +15,8 @@ const getGwFixtures = (data, { start, end }) => (
     locals: {
       date(item) {
         const fixtureDate = new Date(item.date);
-        // todo: test this start and end dates with hours!
-        const endDate = new Date(end).setHours(23, 59, 59, 999);
-        const startDate = new Date(start).setHours(0, 0, 0, 0);
+        const endDate = new Date(end);
+        const startDate = new Date(start);
         return fixtureDate <= endDate && fixtureDate >= startDate;
       },
     },

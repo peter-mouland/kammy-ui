@@ -13,7 +13,7 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
       ...prev,
       ...player,
     }), {});
-    // console.log(allPlayers['Hazard, Eden'])
+
     const mergedPlayers = Object.keys(allPlayers)
       .filter((key) => skySportsPlayers[key])
       .reduce((prev, key) => ({
@@ -30,8 +30,6 @@ export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
           skySportsPosition: skySportsPlayers[key].skySportsPosition,
         },
       }), {});
-    // console.log(mergedPlayers['Hazard, Eden'])
-
     return mergedPlayers;
   } catch (e) {
     console.error(e);

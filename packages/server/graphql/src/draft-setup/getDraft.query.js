@@ -6,9 +6,9 @@ const getDraft = () => (
   Promise.all([
     (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('Divisions'),
     (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('Managers'),
-    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('PremierLeague'),
-    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('Championship'),
-    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('LeagueOne'),
+    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('premierLeague'),
+    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('championship'),
+    (fetchSpreadsheet.default || fetchSpreadsheet).draftSetup('leagueOne'),
   ]).then(([divisions, managers, premierLeague, championship, leagueOne]) => (
     new DraftSetup({
       divisions, managers, premierLeague, championship, leagueOne,

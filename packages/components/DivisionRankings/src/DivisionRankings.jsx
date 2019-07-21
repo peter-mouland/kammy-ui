@@ -33,7 +33,7 @@ class DivisionRankings extends React.Component {
   render() {
     const {
       loaded, lineChartData, label, managersSeason, managersPoints, managersRankChange, managersRank, lineType,
-      showStandings, showWeekly, showChart, showGameWeekSwitcher,
+      showStandings, showWeekly, showChart, showGameWeekSwitcher, managers,
     } = this.props;
     const { highlightManager } = this.state;
 
@@ -50,6 +50,7 @@ class DivisionRankings extends React.Component {
                 {showWeekly && <h2 data-b-layout="v-space">Overall Standings</h2>}
                 <div data-b-layout="row vpad">
                   <Table
+                    managers={managers}
                     points={managersPoints}
                     rank={managersRank}
                     type='season'
@@ -63,6 +64,7 @@ class DivisionRankings extends React.Component {
                 <div data-b-layout="row vpad">
                   {showStandings && <h2>Weekly Scores</h2>}
                   <Table
+                    managers={managers}
                     points={managersPoints}
                     rank={managersRankChange}
                     type='gameWeek'
@@ -95,6 +97,7 @@ DivisionRankings.propTypes = {
   loaded: PropTypes.bool,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  managers: PropTypes.array,
   managersSeason: PropTypes.object,
   managersPoints: PropTypes.object,
   managersRank: PropTypes.object,
@@ -120,6 +123,7 @@ DivisionRankings.defaultProps = {
   lineType: '0',
   managersSeason: {},
   loaded: false,
+  managers: [],
   playersLoaded: false,
   gameWeeksLoaded: false,
   transfersLoaded: false,

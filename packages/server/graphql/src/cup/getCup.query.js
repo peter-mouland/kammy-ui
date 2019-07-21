@@ -7,9 +7,9 @@ import Cup from './Cup';
 const getCup = async () => {
   const { getPlayers } = await connect();
   const [leagueOne, premierLeague, championship, cup, players] = await Promise.all([
-    getDivision({ division: 'LeagueOne' }),
-    getDivision({ division: 'PremierLeague' }),
-    getDivision({ division: 'Championship' }),
+    getDivision({ division: 'leagueOne' }),
+    getDivision({ division: 'premierLeague' }),
+    getDivision({ division: 'championship' }),
     (fetchSpreadsheet.default || fetchSpreadsheet).cup(),
     getPlayers(),
   ]);

@@ -35,7 +35,11 @@ class GameWeekSwitcher extends React.Component {
     const { gameWeeks, currentGameWeek, selectedGameWeek } = this.props;
     const gameWeek = selectedGameWeek || currentGameWeek;
     const { maxGameWeeks } = this.state;
-    const limitedGameWeeks = [...gameWeeks].splice(gameWeeks.length - maxGameWeeks, gameWeeks.length);
+    const gwToInt = (gw) => parseInt(gw.gameWeek, 10);
+    const limitedGameWeeks = [...gameWeeks].slice(0, currentGameWeek + 1 + 1).map(gwToInt);
+    const options = limitedGameWeeks.length > maxGameWeeks
+      ? limitedGameWeeks.slice(limitedGameWeeks.length - maxGameWeeks, currentGameWeek + 1 + 1)
+      : limitedGameWeeks;
     const buttonText = maxGameWeeks === INITIAL_GW_COUNT ? 'Show all' : 'Hide';
 
     return (
@@ -44,11 +48,11 @@ class GameWeekSwitcher extends React.Component {
           label={'GameWeek'}
           id={'GameWeek'}
           checked={gameWeek}
-          options={limitedGameWeeks.slice(0, currentGameWeek + 1).map((gw) => parseInt(gw.gameWeek, 10))}
+          options={options}
           disabledOptions={[currentGameWeek + 1]}
           onChange={this.updateGameWeek}
           contextualHelp={(value) => (
-            gameWeeks[value - 1] && <FormattedGameWeekDate gameWeek={gameWeeks[value - 1]}/>
+            gameWeeks[value] && <FormattedGameWeekDate gameWeek={gameWeeks[value]}/>
           )}
         />
         <button onClick={this.showAll}>{buttonText}</button>

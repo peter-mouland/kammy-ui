@@ -38,17 +38,17 @@ storiesOf('Data Sources/fetch-google-sheets', module)
   ))
   .add('Premier League Teams', () => (
     <GetSheet
-      worksheetName={text('worksheetName', 'PremierLeague')}
+      worksheetName={text('worksheetName', 'premierLeague')}
     />
   ))
   .add('Championship Teams', () => (
     <GetSheet
-      worksheetName={text('worksheetName', 'Championship')}
+      worksheetName={text('worksheetName', 'championship')}
     />
   ))
   .add('League One Teams', () => (
     <GetSheet
-      worksheetName={text('worksheetName', 'LeagueOne')}
+      worksheetName={text('worksheetName', 'leagueOne')}
     />
   ))
   .add('Transfers', () => (

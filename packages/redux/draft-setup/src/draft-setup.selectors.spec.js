@@ -2,8 +2,8 @@ import { getDraftSetup } from './draft-setup.selectors';
 import { FETCH_DRAFT_SETUP } from './draft-setup.actions';
 import reducer from './draft-setup.reducer';
 
-const divisions = [{ id: 'Championship', label: 'cship' }, { id: 'LeagueOne', label: 'League1' }, { id: 'PremierLeague', label: 'Premier League' }];
-const managers = [{ manager: 'pete', division: 'Championship' }, { manager: 'john', division: 'Championship' }, { manager: 'paul', division: 'LeagueOne' }];
+const divisions = [{ id: 'championship', label: 'cship' }, { id: 'leagueOne', label: 'League1' }, { id: 'premierLeague', label: 'Premier League' }];
+const managers = [{ manager: 'pete', division: 'championship' }, { manager: 'john', division: 'championship' }, { manager: 'paul', division: 'leagueOne' }];
 const draftPremierLeague = [];
 const draftChampionship = [{ manager: 'pete', player: 'awesom' }, { manager: 'pete', player: 'awesom2' }, { manager: 'john', player: 'shite' }];
 const draftLeagueOne = [{ manager: 'paul', player: 'wtf' }];
@@ -61,14 +61,14 @@ describe('getDraftSetup', () => {
     const state = { draftSetup: reducer({}, action) };
 
     expect(getDraftSetup(state).byDivisions.managers).toEqual({
-      Championship: ['pete', 'john'],
-      LeagueOne: ['paul'],
-      PremierLeague: [],
+      championship: ['pete', 'john'],
+      leagueOne: ['paul'],
+      premierLeague: [],
     });
     expect(getDraftSetup(state).byDivisions.draft).toEqual({
-      Championship: ['awesom', 'awesom2', 'shite'],
-      LeagueOne: ['wtf'],
-      PremierLeague: [],
+      championship: ['awesom', 'awesom2', 'shite'],
+      leagueOne: ['wtf'],
+      premierLeague: [],
     });
   });
 });

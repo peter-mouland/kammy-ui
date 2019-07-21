@@ -54,36 +54,36 @@ storiesOf('Data Sources/fetch-kammy-sheets', module)
   .add('Draft: Premier League', () => (
     <GetSheet
       type={text('type', 'draft')}
-      division={text('division', 'PremierLeague')}
+      division={text('division', 'premierLeague')}
     />
   ))
   .add('Draft: Championship', () => (
     <GetSheet
       type={text('type', 'draft')}
-      division={text('division', 'Championship')}
+      division={text('division', 'championship')}
     />
   ))
   .add('Draft: League One', () => (
     <GetSheet
       type={text('type', 'draft')}
-      division={text('division', 'LeagueOne')}
+      division={text('division', 'leagueOne')}
     />
   ))
-  .add('Transfers: PremierLeague', () => (
+  .add('Transfers: premierLeague', () => (
     <GetSheet
       type={text('type', 'transfers')}
-      division={text('division', 'PremierLeague')}
+      division={text('division', 'premierLeague')}
     />
   ))
-  .add('Transfers: Championship', () => (
+  .add('Transfers: championship', () => (
     <GetSheet
       type={text('type', 'transfers')}
-      division={text('division', 'Championship')}
+      division={text('division', 'championship')}
     />
   ))
-  .add('Transfers: LeagueOne', () => (
+  .add('Transfers: leagueOne', () => (
     <GetSheet
       type={text('type', 'transfers')}
-      division={text('division', 'LeagueOne')}
+      division={text('division', 'leagueOne')}
     />
   ));

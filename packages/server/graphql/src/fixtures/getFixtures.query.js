@@ -4,7 +4,7 @@ const getFixtures = () => (
   Promise.all([
     (fetchFixtures.default || fetchFixtures)(),
   ]).then((fixtures) => (
-    console.log(fixtures) || fixtures[0].data
+    fixtures[0].data
   ))
 );
 

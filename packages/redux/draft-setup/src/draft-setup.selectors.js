@@ -43,8 +43,8 @@ export const getDraftSetup = createSelector(
     }), {});
 
     return {
-      managers,
-      divisions,
+      managers: managers.sort(),
+      divisions: divisions.sort((prev, curr) => (prev.order < curr.order ? -1 : 1)),
       draftPremierLeague,
       draftChampionship,
       draftLeagueOne,

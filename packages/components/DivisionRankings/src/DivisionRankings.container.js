@@ -4,6 +4,7 @@ import { actions as playerActions, selectors as playerSelectors } from '@kammy-u
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
 import { selectors as divisionSelectors } from '@kammy-ui/redux.division';
+import { selectors as draftSetupSelectors } from '@kammy-ui/redux.draft-setup';
 
 import DivisionStats from './DivisionRankings';
 
@@ -22,9 +23,12 @@ function mapStateToProps(state, { divisionId }) {
   const { loaded: transfersLoaded } = transferSelectors.getStatus(state, divisionId);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const divisionLoaded = state.spreadsheet[`${divisionId}Loaded`];
+  const { loaded: draftSetupLoaded } = draftSetupSelectors.getStatus(state);
+  const { byDivisions } = draftSetupSelectors.getDraftSetup(state);
 
   const loaded = (
-    players.loaded
+    draftSetupLoaded
+    && players.loaded
     && transfersLoaded
     && gameWeeksLoaded
     && divisionLoaded
@@ -35,6 +39,7 @@ function mapStateToProps(state, { divisionId }) {
     gameWeeksLoaded,
     transfersLoaded,
     divisionLoaded,
+    managers: byDivisions.managers[divisionId],
     managersSeason,
     managersPoints,
     managersRank,

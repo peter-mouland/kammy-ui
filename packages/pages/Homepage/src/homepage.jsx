@@ -30,7 +30,7 @@ class Homepage extends React.Component {
   }
 
   render() {
-    const { loaded, gameWeeks: { currentGameWeekDates, nextGameWeekDates, prevGameWeekDates } } = this.props;
+    const { divisions, loaded, gameWeeks: { currentGameWeekDates, nextGameWeekDates, prevGameWeekDates } } = this.props;
     const { showTransfers, gameWeekFixtures } = this.state;
     if (!loaded) return <Interstitial message='Data Gathering...'/>;
     return (
@@ -57,23 +57,26 @@ class Homepage extends React.Component {
               `}/>
             </a>
           </div>
-          <div className={'homepage__next-date'}>{
-            nextGameWeekDates ? (
-              <GameWeekDate
-                gameWeek={nextGameWeekDates}
-                calEnd={`GW${nextGameWeekDates.gameWeek}`}
-                showStart={false}
-                showEndTime={false}
-              />
-            )
-              : (
-                <GameWeekDate
-                  gameWeek={currentGameWeekDates}
-                  calEnd={'fin.'}
-                  showStart={false}
-                  showEndTime={false}
-                />
-              )}
+          <div className={'homepage__next-date'}>
+            <a onClick={() => this.showFixtures(nextGameWeekDates)}>
+              {
+                nextGameWeekDates ? (
+                  <GameWeekDate
+                    gameWeek={nextGameWeekDates}
+                    calEnd={`GW${nextGameWeekDates.gameWeek}`}
+                    showStart={false}
+                    showEndTime={false}
+                  />
+                )
+                  : (
+                    <GameWeekDate
+                      gameWeek={currentGameWeekDates}
+                      calEnd={'fin.'}
+                      showStart={false}
+                      showEndTime={false}
+                    />
+                  )}
+            </a>
           </div>
         </div>
         <Modal
@@ -85,31 +88,21 @@ class Homepage extends React.Component {
         >
           <GameWeekFixtures {...gameWeekFixtures}/>
         </Modal>
-        <DivisionRankings
-          label={'Premier League'}
-          divisionId={'premierLeague'}
-          showGameWeekSwitcher={false}
-          showChart={false}
-          showWeekly={false}
-        />
-        <DivisionRankings
-          label={'Championship'}
-          divisionId={'championship'}
-          showGameWeekSwitcher={false}
-          showChart={false}
-          showWeekly={false}
-        />
-        <DivisionRankings
-          label={'League One'}
-          divisionId={'leagueOne'}
-          showGameWeekSwitcher={false}
-          showChart={false}
-          showWeekly={false}
-        />
+        {divisions.map(({ label, id }) => (
+          <DivisionRankings
+            key={id}
+            label={label}
+            divisionId={id}
+            showGameWeekSwitcher={false}
+            showChart={false}
+            showWeekly={false}
+          />
+        ))}
       </section>
     );
   }
 }
+
 
 Homepage.propTypes = {
   fetchAllPlayerData: PropTypes.func,
@@ -117,7 +110,12 @@ Homepage.propTypes = {
   loaded: PropTypes.bool,
   playersLoaded: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
-  gameWeeks: PropTypes.obj,
+  gameWeeks: PropTypes.object,
+  divisions: PropTypes.array,
+};
+
+Homepage.defaultProps = {
+  divisions: [],
 };
 
 export default Homepage;
