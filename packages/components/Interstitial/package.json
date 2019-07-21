@@ -18,7 +18,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/svg": "^0.0.17"
   },
   "peerDependencies": {

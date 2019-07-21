@@ -10,7 +10,7 @@
     "src/"
   ],
   "dependencies": {
-    "stylelint": "10.0.1",
+    "stylelint": "10.1.0",
     "stylelint-config-standard": "18.3.0",
     "stylelint-declaration-use-variable": "1.7.0"
   }

@@ -18,17 +18,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
     "jwt-decode": "^2.2.0",
-    "universal-cookie": "^2.1.2",
-    "validator": "^9.4.1"
+    "react-router-dom": "^4.3.1",
+    "universal-cookie": "^2.1.2"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "@kammy-ui/app-config-provider": "^0.0.17"
+    "@kammy-ui/app-config-provider": "^0.0.17",
+    "chance": "^1.0.18"
   }
 }

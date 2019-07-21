@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "reselect": "^3.0.1",
+    "reselect": "^4.0.0",
     "@kammy-ui/fetchr": "^0.0.17",
     "@kammy-ui/helpers.get": "^0.0.17",
     "@kammy-ui/helpers.transfers": "^0.0.18"

@@ -19,8 +19,6 @@
   },
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/redux-fixtures": "^0.0.17",
     "json-query": "^2.2.2",
     "react-redux": "^7.1.0"

@@ -16,8 +16,5 @@
   "license": "ISC",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "crypto": "^1.0.1"
   }
 }

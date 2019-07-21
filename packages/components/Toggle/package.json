@@ -18,11 +18,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17"
+    "@kammy-ui/bem": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "chance": "^1.0.18"
   }
 }

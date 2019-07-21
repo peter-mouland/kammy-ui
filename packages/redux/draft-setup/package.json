@@ -19,8 +19,7 @@
   },
   "dependencies": {
     "@kammy-ui/fetchr": "^0.0.17",
-    "@kammy-ui/helpers-to-date": "0.0.18",
     "@kammy-ui/helpers.get": "^0.0.17",
-    "reselect": "^3.0.1"
+    "reselect": "^4.0.0"
   }
 }

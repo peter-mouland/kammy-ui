@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/modal": "^0.0.17",
     "@kammy-ui/redux.players": "^0.0.17"
@@ -31,6 +30,6 @@
   },
   "devDependencies": {
     "@kammy-ui/redux-store": "^0.0.17",
-    "redux": "^4.0.0"
+    "redux": "^4.0.4"
   }
 }

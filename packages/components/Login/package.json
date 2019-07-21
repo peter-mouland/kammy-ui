@@ -18,9 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^4.3.1",
     "validator": "^9.4.1"
   },
   "peerDependencies": {
@@ -30,6 +28,7 @@
   "devDependencies": {
     "@kammy-ui/app-config-provider": "^0.0.17",
     "@kammy-ui/auth-provider": "^0.0.17",
-    "@kammy-ui/node-local-storage": "^0.0.16"
+    "@kammy-ui/node-local-storage": "^0.0.16",
+    "chance": "^1.0.18"
   }
 }

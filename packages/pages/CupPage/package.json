@@ -21,11 +21,11 @@
     "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/error-boundary": "^0.0.14",
-    "@kammy-ui/fetchr": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
     "@kammy-ui/modal": "^0.0.17",
     "@kammy-ui/redux.cup": "^0.0.17",
+    "@kammy-ui/redux-store": "^0.0.17",
+    "@kammy-ui/multi-toggle": "^0.0.17",
     "react-redux": "^7.1.0"
   },
   "peerDependencies": {
@@ -33,6 +33,6 @@
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "redux": "^4.0.0"
+    "redux": "^4.0.4"
   }
 }

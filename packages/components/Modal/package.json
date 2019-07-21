@@ -17,9 +17,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@kammy-ui/bootstrap": "^0.0.17"
-  },
   "peerDependencies": {
     "@kammy-ui/bem": "^0.0.17",
     "prop-types": "^15.7.2",

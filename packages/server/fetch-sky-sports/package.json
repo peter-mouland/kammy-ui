@@ -19,5 +19,8 @@
   },
   "dependencies": {
     "@kammy-ui/fetchr": "^0.0.17"
+  },
+  "devDependencies": {
+    "react": "16.8.6"
   }
 }

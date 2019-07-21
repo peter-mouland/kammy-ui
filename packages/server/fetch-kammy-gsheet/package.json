@@ -20,5 +20,8 @@
   "dependencies": {
     "@kammy-ui/fetchr": "^0.0.17",
     "@kammy-ui/helpers-to-date": "^0.0.18"
+  },
+  "devDependencies": {
+    "react": "16.8.6"
   }
 }

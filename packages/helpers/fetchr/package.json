@@ -15,6 +15,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "devDependencies": {
+    "chance": "^1.0.18"
+  },
   "author": "Peter Mouland",
   "license": "ISC"
 }

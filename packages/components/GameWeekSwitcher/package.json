@@ -20,11 +20,10 @@
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
     "@kammy-ui/bootstrap": "^0.0.17",
-    "@kammy-ui/interstitial": "^0.0.17",
+    "@kammy-ui/game-week-date": "^0.0.17",
     "@kammy-ui/multi-toggle": "^0.0.17",
     "@kammy-ui/redux.game-weeks": "^0.0.17",
     "@kammy-ui/redux-store": "^0.0.17",
-    "date-fns": "^1.30.1",
     "react-redux": "^7.1.0"
   },
   "peerDependencies": {

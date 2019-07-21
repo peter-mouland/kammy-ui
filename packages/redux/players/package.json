@@ -18,6 +18,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@kammy-ui/fetchr": "^0.0.17"
+    "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/helpers.get": "^0.0.17",
+    "reselect": "^4.0.0"
   }
 }

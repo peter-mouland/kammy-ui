@@ -17,16 +17,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
-    "react-router-dom": "^4.2.2"
-  },
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "@kammy-ui/auth-provider": "^0.0.17"
+    "@kammy-ui/auth-provider": "^0.0.17",
+    "chance": "^1.0.18"
   }
 }

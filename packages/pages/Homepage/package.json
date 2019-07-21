@@ -19,7 +19,12 @@
   },
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
+    "@kammy-ui/redux.game-weeks": "^0.0.17",
+    "@kammy-ui/redux.draft-setup": "^0.0.17",
+    "@kammy-ui/interstitial": "^0.0.17",
+    "@kammy-ui/game-week-date": "^0.0.17",
+    "@kammy-ui/game-week-fixtures": "^0.0.17",
+    "@kammy-ui/modal": "^0.0.17",
     "@kammy-ui/division-rankings": "^0.0.17"
   },
   "peerDependencies": {
@@ -27,12 +32,7 @@
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "@kammy-ui/app-config-provider": "0.0.17",
     "@kammy-ui/redux.players": "^0.0.17",
-    "@kammy-ui/redux-skysports": "^0.0.17",
-    "@kammy-ui/redux-spreadsheet": "^0.0.17",
-    "@kammy-ui/redux-store": "^0.0.17",
-    "react-redux": "^7.1.0",
-    "redux": "^4.0.4"
+    "react-redux": "^7.1.0"
   }
 }

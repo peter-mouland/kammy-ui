@@ -19,16 +19,14 @@
   },
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/errors": "^0.0.17",
     "@kammy-ui/interstitial": "^0.0.17",
-    "@kammy-ui/multi-toggle": "^0.0.17",
     "@kammy-ui/redux.players": "^0.0.17",
-    "@kammy-ui/select": "^0.0.17",
     "@kammy-ui/sort-columns": "^0.0.17",
     "@kammy-ui/svg": "^0.0.17",
     "@kammy-ui/toggle": "^0.0.17",
-    "react-redux": "^7.1.0"
+    "react-redux": "^7.1.0",
+    "react-select": "^3.0.4"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

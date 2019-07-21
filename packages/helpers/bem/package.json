@@ -17,5 +17,8 @@
   "license": "ISC",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "chance": "^1.0.18"
   }
 }

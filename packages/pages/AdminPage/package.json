@@ -20,7 +20,7 @@
   "dependencies": {
     "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/named-link": "^0.0.17",
-    "react-cookie": "^3.0.8"
+    "react-cookie": "^3.1.2"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

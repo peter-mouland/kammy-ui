@@ -19,12 +19,14 @@
   },
   "dependencies": {
     "@kammy-ui/bem": "^0.0.17",
-    "@kammy-ui/bootstrap": "^0.0.17",
     "@kammy-ui/contextual-help": "^0.0.17",
-    "@kammy-ui/error-boundary": "^0.0.14"
+    "@kammy-ui/interstitial": "^0.0.17"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "chance": "^1.0.18"
   }
 }
