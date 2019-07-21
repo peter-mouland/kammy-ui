@@ -25,7 +25,8 @@ const jsonOpts = (method, data, options = {}) => ({
   data: data && JSON.stringify(data),
 });
 
-const graphQLOpts = (query, variables) => ({
+const graphQLOpts = (query, variables, opts) => ({
+  ...opts,
   method: 'POST',
   headers: {
     Accept: 'application/json',
@@ -63,7 +64,7 @@ export const getJSON = (url, options) => fetchUrl(url, jsonOpts('GET', null, opt
 
 export const postJSON = (url, data, options) => fetchUrl(url, jsonOpts('POST', data, options));
 
-export const fetchGraphQL = (data, variables) => fetchUrl('/graphql', graphQLOpts(data, variables)).then((response) => parseJson(data, response));
+export const fetchGraphQL = (data, variables, opts) => fetchUrl('/graphql', graphQLOpts(data, variables, opts)).then((response) => parseJson(data, response));
 
 export const fetchSpreadsheet = (doc, worksheet, opts) => getJSON(`/google-spreadsheet/${doc}/${worksheet}`, opts);
 

@@ -11,6 +11,7 @@ import getGameWeeks from './game-weeks/getGameWeeks.query';
 import getTransfers from './transfers/getTransfers.query';
 import getFixtures from './fixtures/getFixtures.query';
 import saveTransfers from './transfers/saveTransfers.query';
+import getDraftSetup from './draft-setup/getDraft.query';
 
 export default async ({ query, variables }) => {
   const { getPlayers, upsertPlayers } = await connect();
@@ -21,6 +22,7 @@ export default async ({ query, variables }) => {
     getDivision,
     getCup,
     getDraftCup,
+    getDraftSetup,
     saveCupTeam,
     getGameWeeks,
     getFixtures,

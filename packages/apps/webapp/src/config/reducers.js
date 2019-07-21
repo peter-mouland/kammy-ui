@@ -4,6 +4,7 @@ import { reducers as playersPageReducers } from '@kammy-ui/admin-players-page';
 import { reducer as skySportsReducer } from '@kammy-ui/redux-skysports';
 import { reducer as spreadsheetReducer } from '@kammy-ui/redux-spreadsheet';
 import { reducer as dbReducer } from '@kammy-ui/redux.players';
+import { reducer as draftSetupReducer } from '@kammy-ui/redux.draft-setup';
 import { reducer as gameWeeksReducer } from '@kammy-ui/redux.game-weeks';
 import { reducer as cupReducer } from '@kammy-ui/redux.cup';
 import { reducer as divisionReducer } from '@kammy-ui/redux.division';
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   cup: cupReducer,
   transfers: transfersReducer,
   fixtures: fixturesReducer,
+  draftSetup: draftSetupReducer,
   routing,
 });
 

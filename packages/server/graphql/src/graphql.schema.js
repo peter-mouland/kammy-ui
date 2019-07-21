@@ -5,8 +5,10 @@ import divisionSchema from './division/division.schema';
 import transfersSchema from './transfers/transfers.schema';
 import fixturesSchema from './fixtures/fixtures.schema';
 import gameWeekSchema from './game-weeks/game-week.schema';
+import draftSetupSchema from './draft-setup/draft.schema';
 
 const schemaString = `
+  ${draftSetupSchema}
   ${cupSchema}
   ${divisionSchema}
   ${gameWeekSchema}
@@ -15,6 +17,7 @@ const schemaString = `
   ${fixturesSchema}
 
   type Query {
+    getDraftSetup: DraftSetup
     getPlayers: [Player]
     getPlayer(code: Int): Player
     getDivision(division: String): Division

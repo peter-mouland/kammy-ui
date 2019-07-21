@@ -16,13 +16,13 @@ export default function reactMiddleWare({
   GA_KEY,
   reducers,
   extractor,
-  preDispatch = () => {}, // func to execute custom store.dispatch methods
+  prefetch = () => {}, // func to execute custom store.dispatch methods
 }) {
   return async (ctx, next) => {
     const context = {};
     const store = configureStore({}, reducers);
+    await prefetch(store); // e.g. store.dispatch(actions.setConfig(config));
     const initialState = JSON.stringify(store.getState(), null, 2);
-    preDispatch(store); // e.g. for import { actions } from '@redux/config'; store.dispatch(actions.setConfig(config));
     const scriptTags = extractor.getScriptTags();
     const linkTags = extractor.getLinkTags();
     const styleTags = extractor.getStyleTags();

@@ -50,7 +50,7 @@ server.use(compress());
 server.use(headers());
 
 export default ({
-  preDispatch, reducers, assetsConfig, extractor,
+  prefetch, reducers, assetsConfig, extractor,
 }) => {
   router
     .use(graphQlRoutes.routes())
@@ -61,7 +61,7 @@ export default ({
     .use(googleSpreadsheetRoutes.allowedMethods())
     .use(staticRoute)
     .get('/(.*)', react({
-      assetsConfig, preDispatch, reducers, Root, Html, extractor, GA_KEY,
+      assetsConfig, prefetch, reducers, Root, Html, extractor, GA_KEY,
     }));
   server.use(router.routes());
   return server;

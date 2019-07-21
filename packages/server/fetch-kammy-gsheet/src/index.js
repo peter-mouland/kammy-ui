@@ -125,6 +125,7 @@ const fetch = {
   divisionList: () => getJSON(GS_API(DRAFT, '/values/Divisions')).then(rowToObj),
   cup: () => getJSON(GS_API(DRAFT, '/values/cup')).then(rowToObj).then(formatCup),
   players: () => getJSON(GS_API(SETUP, '/values/Players')).then(rowToObj).then(formatPlayers),
+  draftSetup: (sheet) => getJSON(GS_API(DRAFT, `/values/${sheet}`)).then(rowToObj),
   draft: (division) => getJSON(GS_API(DRAFT, `/values/${division}`)).then(rowToObj).then(formatDivision),
   transfers: (division) => getJSON(GS_API(TRANSFERS, `/values/${division}`)).then(rowToObj).then(formatTransfers),
 };
