@@ -19,7 +19,7 @@ import './transferPage.scss';
 
 const bem = bemHelper({ block: 'transfers-page' });
 
-const createFilterOptions = (managers = []) => {
+const createFilterOptions = (managers = [], manager) => {
   const positions = [
     { value: 'GK', label: 'GK', group: 'position' },
     { value: 'CB', label: 'CB', group: 'position' },
@@ -30,12 +30,15 @@ const createFilterOptions = (managers = []) => {
   ];
   return [
     {
-      label: 'Positions',
-      options: positions,
+      label: 'Managers',
+      options: [
+        ...managers
+          .map((mngr) => ({ value: mngr, label: `${mngr}${mngr === manager ? '*' : ''}`, group: 'manager' })),
+      ],
     },
     {
-      label: 'Managers',
-      options: managers.map((manager) => ({ value: manager, label: manager, group: 'manager' })),
+      label: 'Positions',
+      options: positions,
     },
   ];
 };
@@ -193,7 +196,7 @@ class TransfersPage extends React.Component {
       playerIn,
       playerOut,
     });
-    const filterOptions = createFilterOptions(Object.keys(teams));
+    const filterOptions = createFilterOptions(Object.keys(teams), manager);
     const stillLoading = transfersSaving || transfersLoading || gameWeeksLoading;
     const defaultLeavingFilter = null; // filterOptions[1].options.filter((option) => option.value === manager);
 
@@ -259,7 +262,6 @@ class TransfersPage extends React.Component {
                     <Players
                       onSelect={this.updatePlayerOut}
                       playersArray={filteredPlayers.sortedPlayers}
-                      emptyStateMessage={'Let us know who you are first... and what type of change'}
                     />
                   )}
                 </div>
@@ -282,7 +284,6 @@ class TransfersPage extends React.Component {
                     <Players
                       onSelect={this.updatePlayerIn}
                       playersArray={filteredPlayers.sortedPlayers}
-                      emptyStateMessage={'Let us know who you are first... and what type of change'}
                     />
                   )}
                 </div>
