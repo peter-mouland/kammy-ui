@@ -17,9 +17,9 @@ class TeamByGameWeek {
   }
 
   getPlayer = (Player) => {
-    const player = { ...(this.players[Player.name] || UNKNOWN_PLAYER(Player.name)) };
+    const player = { ...(this.players[Player.player || Player.name] || UNKNOWN_PLAYER(Player.player || Player.name)) };
     return {
-      name: player.name,
+      name: Player.player || player.name,
       club: player.club,
       code: player.code,
       pos: player.pos,
