@@ -16,7 +16,6 @@ function mapStateToProps(state, { division }) { // premierLeague, championship, 
     divisionLoaded: divisionStatus.loaded,
     playersLoaded: players.loaded,
     players: players.data,
-    loaded: players.loaded && divisionStatus.loaded,
   };
 }
 

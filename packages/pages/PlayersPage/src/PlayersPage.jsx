@@ -21,14 +21,15 @@ class PlayersPage extends React.Component {
 
   render() {
     const {
-      playersByName, label, loaded, players,
+      playersByName, label, players, playersLoaded, divisionLoaded, division,
     } = this.props;
 
     return (
       <section id="players-page" className={bem(null, 'page-content')} data-b-layout="container">
         <h1>{label}</h1>
-        {!loaded && <Interstitial />}
-        {loaded && (
+        {!playersLoaded && <div><Interstitial message={'Loading players'} /></div>}
+        {!divisionLoaded && <div><Interstitial message={`Loading ${division} Teams`}/></div>}
+        {playersLoaded && (
           <PlayersPageTable disabledPlayers={playersByName} players={players} />
         )}
       </section>
