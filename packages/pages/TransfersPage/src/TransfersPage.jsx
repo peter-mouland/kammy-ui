@@ -32,7 +32,7 @@ const createFilterOptions = (managers = [], manager) => {
     {
       label: 'Managers',
       options: [
-        { value: 'available', label: 'No manager (Free agents)', group: 'manager' },
+        { value: 'available', label: 'No manager (free agents)', group: 'manager' },
         ...managers
           .map((mngr) => ({ value: mngr, label: `${mngr}${mngr === manager ? '*' : ''}`, group: 'manager' })),
       ],
