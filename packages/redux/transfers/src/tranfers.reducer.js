@@ -57,15 +57,18 @@ export default function transfersReducer(state = initialState, action = {}) {
     return {
       ...state,
       saving: true,
+      saved: false,
     };
   case `${actions.SAVE_TRANSFERS}_FULFILLED`:
     return {
       ...state,
+      saved: true,
       saving: false,
     };
   case `${actions.SAVE_TRANSFERS}_REJECTED`:
     return {
       ...state,
+      saved: false,
       saving: false,
     };
   default:

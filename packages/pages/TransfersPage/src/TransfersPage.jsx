@@ -145,6 +145,7 @@ class TransfersPage extends React.Component {
       });
     }
     saveTransfers(transfers);
+    this.initiateRequest(false);
   }
 
   displacementQs = () => {

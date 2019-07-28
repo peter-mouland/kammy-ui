@@ -8,6 +8,7 @@ const leagueOneSelector = (state) => get(state, 'transfers.leagueOne.transfers')
 const transfersSelector = (state, division) => get(state, `transfers.${division}.transfers`) || [];
 const statusSelector = (state, division) => get(state, `transfers.${division}.status`) || {};
 const savingSelector = (state) => get(state, 'transfers.saving') || false;
+const savedSelector = (state) => get(state, 'transfers.saved') || false;
 
 export const premierLeagueTransfers = createSelector(premierLeagueSelector, (ts) => new Transfers({ transfers: ts }));
 export const championshipTransfers = createSelector(championshipSelector, (ts) => new Transfers({ transfers: ts }));
@@ -21,5 +22,6 @@ export const leagueOneValid = createSelector(leagueOneTransfers, (ts) => ({ tran
 export const getStatus = createSelector(
   statusSelector,
   savingSelector,
-  (status, saving) => ({ ...status, saving }),
+  savedSelector,
+  (status, saving, saved) => ({ ...status, saving, saved }),
 );
