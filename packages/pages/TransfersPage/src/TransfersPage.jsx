@@ -73,6 +73,7 @@ class TransfersPage extends React.Component {
       // closing modal so clear the old selections out
       this.setState({
         initiateRequest,
+        selectedOptions: null,
         changeType: null,
         playerIn: null,
         playerOut: null,
