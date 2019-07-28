@@ -17,16 +17,23 @@ const createFilteredPlayers = ({
 }) => {
   const selectedPositions = selectedOptions.filter(({ group }) => group === 'position').map(({ value }) => value);
   const selectedManagers = selectedOptions.filter(({ group }) => group === 'manager').map(({ value }) => value);
+  const onlyAvailablePlayers = selectedManagers.includes('available');
+
   const managersPlayers = Object.values(teams)
     .flatMap((name) => name)
     .reduce((prev, curr) => ({ ...prev, [curr.name]: curr }), {});
-  const selectedManagersPlayers = selectedManagers
+  const selectedManagersPlayers = onlyAvailablePlayers ? [] : selectedManagers
     .map((manager) => teams[manager])
     .flatMap((name) => name)
     .map(({ name }) => name);
+  const pickedPlayers = Object.keys(teams)
+    .reduce((prev, curr) => ([...prev, ...teams[curr]]), [])
+    .map(({ name }) => name);
+
   const filteredPlayersArray = playersArray.filter(({ pos, name }) => (
     (selectedPositions.includes(pos) || !selectedPositions.length)
     && (selectedManagersPlayers.includes(name) || !selectedManagersPlayers.length)
+    && ((onlyAvailablePlayers && !pickedPlayers.includes(name)) || !onlyAvailablePlayers)
   ));
   const sortedPlayers = filteredPlayersArray
     .sort(sortBy(['pos', 'name'], { pos: positionsOrder }))

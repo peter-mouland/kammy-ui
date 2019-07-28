@@ -32,6 +32,7 @@ const createFilterOptions = (managers = [], manager) => {
     {
       label: 'Managers',
       options: [
+        { value: 'available', label: 'No manager (Free agents)', group: 'manager' },
         ...managers
           .map((mngr) => ({ value: mngr, label: `${mngr}${mngr === manager ? '*' : ''}`, group: 'manager' })),
       ],
@@ -293,7 +294,7 @@ class TransfersPage extends React.Component {
             )}
             {manager && changeType && playerOut && playerIn && (
               <React.Fragment>
-                <h3>Any Comments / Banter?</h3>
+                <h3>Any Comments for the banter box?</h3>
                 <textarea className='transfers-page__comment' onChange={this.updateComment} />
                 <h3>Confirm Request</h3>
                 <GameWeekTransfers
