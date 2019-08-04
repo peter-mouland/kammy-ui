@@ -14,7 +14,11 @@ const SETUP = 'DRAFTFF_SETUP_ID';
 const GS_API = (spreadsheet, endpoint) => (
   `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheets[spreadsheet]}${endpoint}?key=${ACCESS_KEY}`
 );
-const rowToObj = ({ values }) => {
+const rowToObj = ({ values } = {}) => {
+  if (!values) {
+    console.error('Spreadsheet has no values - at least add some headers. fml.');
+    return [];
+  }
   const headers = values.splice(0, 1)[0]; // remove and extract headers row
   const data = values.map((row) => row.reduce((prev, col, i) => ({
     ...prev,
@@ -123,7 +127,7 @@ const formatGameWeeks = (data) => data.map(formatGameWeek);
 const fetch = {
   gameWeeks: () => getJSON(GS_API(SETUP, '/values/GameWeeks')).then(rowToObj).then(formatGameWeeks),
   divisionList: () => getJSON(GS_API(DRAFT, '/values/Divisions')).then(rowToObj),
-  cup: () => getJSON(GS_API(DRAFT, '/values/cup')).then(rowToObj).then(formatCup),
+  cup: () => getJSON(GS_API(TRANSFERS, '/values/cup')).then(rowToObj).then(formatCup),
   players: () => getJSON(GS_API(SETUP, '/values/Players')).then(rowToObj).then(formatPlayers),
   draftSetup: (sheet) => getJSON(GS_API(DRAFT, `/values/${sheet}`)).then(rowToObj),
   draft: (division) => getJSON(GS_API(DRAFT, `/values/${division}`)).then(rowToObj).then(formatDivision),

@@ -76,11 +76,20 @@ export const teams = createSelector(
 
     return ({
       data: players.reduce((prev, player = {}) => {
-        const picked = pickedPlayers[player.manager].includes(player.name);
-        return ({
-          ...prev,
-          [player.manager]: [...prev[player.manager] || {}, { ...player, picked }],
-        });
+        const managerPlayers = pickedPlayers[player.manager] || [];
+        const picked = managerPlayers.includes(player.name);
+        const prevPlayer = prev[player.manager] || {};
+        try {
+          return ({
+            ...prev,
+            [player.manager]: [prevPlayer, { ...player, picked }].filter(Boolean),
+          });
+        } catch (e) {
+          console.error('errr')
+          console.error(e)
+          console.error({ prevPlayer });
+          return prev;
+        }
       }, {}),
     });
   },
