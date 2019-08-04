@@ -25,7 +25,10 @@ export const getDraftSetup = createSelector(
   draftChampionshipSelector,
   draftLeagueOneSelector,
   (unsortedManagers, unsortedDivisions, draftPremierLeague, draftChampionship, draftLeagueOne) => {
-    const draft = [...draftPremierLeague, ...draftChampionship, ...draftLeagueOne];
+    const draft = [...draftPremierLeague, ...draftChampionship, ...draftLeagueOne]
+      .map((pick) => ({
+        ...pick, teamPos: pick.position, pos: pick.position, name: pick.player, // [{ manager, code, pos, player }]
+      }));
     const divisions = unsortedDivisions.sort((prev, curr) => (prev.order < curr.order ? -1 : 1));
     const managers = unsortedManagers.sort((prev, curr) => (prev.manager < curr.manager ? -1 : 1));
 

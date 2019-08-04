@@ -41,7 +41,10 @@ class Division {
     const allTeams = this.managers.reduce((prev, manager) => {
       const managerTransfers = this.Transfers.validManagerRequests(manager);
       const team = new TeamByGameWeek({
-        draft: this.managersPlayers[manager], transfers: managerTransfers, gameWeeks, players: playersByName,
+        draft: this.managersPlayers[manager],
+        transfers: managerTransfers,
+        gameWeeks,
+        players: playersByName,
       });
       return {
         ...prev,

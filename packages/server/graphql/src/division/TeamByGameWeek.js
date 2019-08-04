@@ -99,10 +99,10 @@ class TeamByGameWeek {
         const player = this.findPlayerThisGw({ transferList, gameWeek });
         const Player = this.getPlayer(player);
         return {
-          teamPos: teamPlayer.pos,
+          teamPos: teamPlayer.position,
           pos: Player.pos,
           code: player.code,
-          name: player.name,
+          name: player.name || player.player || teamPlayer.player,
           club: player.club,
           manager: teamPlayer.manager,
         };

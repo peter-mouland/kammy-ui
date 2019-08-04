@@ -30,7 +30,7 @@ query ($division: String) {
       start
       end
       players {
-        manager code pos name club
+        manager code pos name club teamPos
       }
     }
     currentTeams {
@@ -38,7 +38,7 @@ query ($division: String) {
       start
       end
       players {
-        manager code pos name club
+        manager code pos name club teamPos
       }
     }
  }
