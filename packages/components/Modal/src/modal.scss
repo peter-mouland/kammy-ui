@@ -38,6 +38,7 @@ $modal-md: 725px;
   //-webkit-font-smoothing: antialiased;
   //-moz-osx-font-smoothing: grayscale;
   max-width: $modal-md;
+  padding: 15px;
 }
 
 .modal__inner {
@@ -45,7 +46,6 @@ $modal-md: 725px;
   max-height: 100%;
   overflow: auto;
   flex: 1 1 auto;
-  padding: 15px;
 }
 
 .modal__header {
@@ -70,17 +70,19 @@ $modal-md: 725px;
 
 .modal__title {
   flex: 1 1 0;
-  padding: 15px;
 }
 
 .modal__close {
-  padding: 12px;
+  padding: 0;
   line-height: 1;
   background-color: $white;
   border: 0;
   z-index: 1;
   font-size: 15px;
   cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .modal__close.modal__close--overlay {
@@ -95,7 +97,6 @@ $modal-md: 725px;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 15px;
 }
 
 // modal option - LARGE
