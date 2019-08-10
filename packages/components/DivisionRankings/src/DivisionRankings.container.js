@@ -17,6 +17,7 @@ function mapStateToProps(state, { divisionId }) {
   const managersSeason = divisionSelectors[divisionId].season(state) || {};
   const { points: managersPoints, lineChart: lineChartData } = divisionSelectors[divisionId].stats(state);
   const { current: managersRank, change: managersRankChange } = divisionSelectors[divisionId].rank(state);
+  const { selectedGameWeek, currentGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: transfersLoaded } = transferSelectors.getStatus(state, divisionId);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
   const { loaded: divisionLoaded } = divisionSelectors.getStatus(state, divisionId);
@@ -41,7 +42,7 @@ function mapStateToProps(state, { divisionId }) {
     managersPoints,
     managersRank,
     managersRankChange,
-    lineChartData,
+    lineChartData: lineChartData.splice(0, selectedGameWeek + 1),
     loaded,
   };
 }
