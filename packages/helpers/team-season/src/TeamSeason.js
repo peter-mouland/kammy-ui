@@ -129,6 +129,9 @@ class TeamSeason {
       const seasonToGameWeek = gameWeeks.map((__, i) => (
         calculateSeasonStats(playerGameWeeks.slice(0, i + 1))
       ));
+      // const seasonToGameWeek = gameWeeks.map(({ gameWeek }) => (
+      //   calculateSeasonStats(playerGameWeeks.slice(0, parseInt(gameWeek, 10)))
+      // ));
 
       return {
         teamPos: player.pos,

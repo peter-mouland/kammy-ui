@@ -6,7 +6,7 @@ export default (rankWeek1, rankWeek2 = {}) => {
       .reduce((prevWeek, pos) => ({
         ...prevWeek,
         [pos]: Object.keys(rankWeek2[pos]).reduce((prev, manager) => {
-          const change = rankWeek2[pos][manager] - (rankWeek1 || rankWeek2)[pos][manager];
+          const change = rankWeek2[pos][manager] - (rankWeek1 || { [pos]: { [manager]: 0 } })[pos][manager];
           changeTotal[manager] = changeTotal[manager] || 0;
           changeTotal[manager] += change;
           return ({
