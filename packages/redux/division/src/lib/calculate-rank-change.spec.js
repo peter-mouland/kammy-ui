@@ -2,7 +2,7 @@
 import calculateRankChange from './calculate-rank-change';
 
 describe('calculateRankChange()', () => {
-  it('should return zero on gameWeek one', () => {
+  it('should return current scores on gameWeek one', () => {
     const gameWeek2 = {
       'GK / SUB': { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
       AM: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
@@ -14,13 +14,13 @@ describe('calculateRankChange()', () => {
     };
     const change = calculateRankChange(undefined, gameWeek2);
     expect(change).toEqual({
-      'GK / SUB': { Olly: 0, Nick: 0, Pete: 0 },
-      AM: { Olly: 0, Nick: 0, Pete: 0 },
-      CB: { Olly: 0, Nick: 0, Pete: 0 },
-      FB: { Olly: 0, Nick: 0, Pete: 0 },
-      MID: { Olly: 0, Nick: 0, Pete: 0 },
-      STR: { Olly: 0, Nick: 0, Pete: 0 },
-      total: { Olly: 0, Nick: 0, Pete: 0 },
+      'GK / SUB': { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
+      AM: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
+      CB: { Olly: 0, Nick: 1.5, Pete: 1.5 },
+      FB: { Olly: 0.5, Nick: 2, Pete: 0.5 },
+      MID: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
+      STR: { Olly: 0.5, Nick: 0.5, Pete: 0.5 },
+      total: { Olly: 2.5, Nick: 5.5, Pete: 4 },
     });
   });
 

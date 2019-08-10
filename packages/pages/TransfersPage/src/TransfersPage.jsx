@@ -122,9 +122,8 @@ class TransfersPage extends React.Component {
       playerIn, playerOut, changeType, manager, playerDisplaced, playerGapFiller, comment,
     } = this.state;
     const { division, saveTransfers } = this.props;
-    const timestamp = format(new Date(), 'DD/MM/YYYY HH:mm:ss');
     const baseDetails = {
-      timestamp, division, manager, status: 'TBC', transferType: changeType,
+      division, manager, status: 'TBC', transferType: changeType,
     };
     const transfers = [];
     if (playerDisplaced && playerGapFiller) {
