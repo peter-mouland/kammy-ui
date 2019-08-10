@@ -97,7 +97,7 @@ export default class PlayersFilters extends React.Component {
     const clubFilters = [];
     const nameFilters = [];
 
-    options.forEach(({ group, value }) => {
+    (options || []).forEach(({ group, value }) => {
       if (group === 'position') {
         posFilters.push(value);
       }

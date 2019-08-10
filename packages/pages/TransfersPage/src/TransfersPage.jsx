@@ -8,7 +8,7 @@ import Button from '@kammy-ui/button';
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
 // import Interstitial from '@kammy-ui/interstitial';
-import format from 'date-fns/format';
+// import format from 'date-fns/format';
 
 import Players from './components/Players';
 import GameWeekTransfers from './components/game-week-transfers';
