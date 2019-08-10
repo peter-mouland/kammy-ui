@@ -37,10 +37,17 @@
     font-style: italic;
   }
 
-  th.cell {
-    text-align: center;
+  /* thead: style dup for safari bug fix */
+  thead {
     position: sticky;
     top: 0;
+    z-index: 1;
+  }
+
+  th.cell {
+    position: sticky;
+    top: 0;
+    text-align: center;
     background-color: rgb(220, 228, 245);
     z-index: 1;
     font-size: .8em;
