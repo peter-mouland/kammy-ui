@@ -9,7 +9,7 @@ import { PlayersFilters, PlayersTable } from '@kammy-ui/players-table';
 const bemTable = bemHelper({ block: 'players-page-table' });
 
 const positions = ['GK', 'CB', 'FB', 'MID', 'AM', 'STR'];
-const hiddenColumns = ['new', 'isHidden', 'value', 'code'];
+const hiddenColumns = ['isHidden', 'value', 'code'];
 const visibleStats = [
   'points', 'apps', 'subs', 'gls', 'asts', 'cs', 'con', 'pensv', 'sb', 'tb', 'ycard', 'rcard',
 ];
