@@ -22,13 +22,19 @@ class Division {
     this.draft = draft.drafts[division]; // [{ manager, code, pos, name }]
     this.Transfers = new Transfers({ transfers });
     this.transfers = this.Transfers.validRequests;
-    this.pendingTransfers = this.Transfers.pendingRequests.map((request) => ({
-      ...request,
-      clubIn: playersByName[request.transferIn].club,
-      clubOut: playersByName[request.transferOut].club,
-      posIn: playersByName[request.transferIn].pos,
-      posOut: playersByName[request.transferOut].pos,
-    }));
+    this.pendingTransfers = this.Transfers.pendingRequests.map((request) => {
+      const playerIn = playersByName[request.transferIn];
+      const playerOut = playersByName[request.transferOut];
+      if (!playerIn) console.log(`woah, who is transferIn : ${request.transferIn}`);
+      if (!playerOut) console.log(`woah, who is transferOut: ${request.transferOut}`);
+      return ({
+        ...request,
+        clubIn: playerIn.club,
+        clubOut: playerOut.club,
+        posIn: playerIn.pos,
+        posOut: playerOut.pos,
+      });
+    });
     this.teamsByGameWeek = this.calculateTeamsByGameWeeks({ gameWeeks, playersByName });
     this.currentTeams = this.teamsByGameWeek.find(({ gameWeek }) => (
       parseInt(gameWeek, 10) === currentGameWeek),

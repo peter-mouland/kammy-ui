@@ -55,7 +55,7 @@ export const dateIsInGameWeekMinusx = createSelector(
     try {
       const adjustedGW = currentGameWeek - gwAdjust;
       const dates = adjustedGW < 0
-        ? currentGameWeekDates
+        ? { start: gameWeeks[0].start, end: currentGameWeekDates.end }
         : { start: gameWeeks[adjustedGW].start, end: currentGameWeekDates.end };
       return inDateRange(dates, comparisonDate);
     } catch (e) {
