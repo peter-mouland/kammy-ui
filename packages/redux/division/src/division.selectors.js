@@ -15,11 +15,14 @@ const currentTeamSelector = (state, div) => get(state, `division.${formatDiv(div
 const pendingTransfersSelector = (state, div) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
 const statusSelector = (state, div) => get(state, `division.${formatDiv(div)}.status`) || {};
 const getLeagueRank = ({ points, pointsLastWeek }) => {
+  // console.log({ points, pointsLastWeek })
   const divisionRank = getDivisionRank(points);
+  const divisionRankLastWeek = getDivisionRank(pointsLastWeek);
+  // console.log({ divisionRank, divisionRankLastWeek })
   return {
     current: divisionRank,
-    lastWeek: getDivisionRank(pointsLastWeek),
-    change: getRankChange(pointsLastWeek, divisionRank),
+    lastWeek: divisionRankLastWeek,
+    change: getRankChange(divisionRankLastWeek, divisionRank),
   };
 };
 
