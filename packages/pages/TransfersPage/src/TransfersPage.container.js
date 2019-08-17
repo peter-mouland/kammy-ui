@@ -23,6 +23,7 @@ function mapStateToProps(state, { division }) {
     saved: transfersSaved,
     saving: transfersSaving,
   } = transferSelectors.getStatus(state, division);
+  const gwFromDate = gameWeekSelectors.getGameWeekFromDate(state);
 
   const { data: teams } = divisionSelectors.getCurrentTeams(state, division);
   const { data: pendingTransfers } = divisionSelectors.getPendingTransfers(state, division);
@@ -68,6 +69,7 @@ function mapStateToProps(state, { division }) {
 
   return {
     ...props,
+    gwFromDate,
     teams,
     loaded,
   };

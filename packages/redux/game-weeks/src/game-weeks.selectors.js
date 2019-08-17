@@ -19,6 +19,11 @@ export const getStatus = createSelector(
   }),
 );
 
+export const getGameWeekFromDate = createSelector(
+  gameWeeksSelector,
+  (gameWeeks) => (date) => gameWeeks.findIndex(({ start, end }) => inDateRange({ start, end }, date)),
+);
+
 export const getGameWeeks = createSelector(
   gameWeeksSelector,
   selectedGameWeekSelector,

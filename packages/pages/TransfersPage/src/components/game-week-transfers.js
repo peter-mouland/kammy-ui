@@ -14,13 +14,14 @@ const getEmoji = (status = '') => {
   }
 };
 
-const TransferBody = ({ transfers, Action }) => transfers.length > 0 && (
+const TransferBody = ({ getGameWeekFromDate, transfers, Action }) => transfers.length > 0 && (
   <tbody>
     {transfers.map(({
       timestamp, status = '', type, manager: mgr, transferIn, transferOut, comment,
     }) => (
       <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
         <td data-col-label='status' className={'cell cell--status cell--show-750 cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
+        <td data-col-label='gw' className={'cell cell--center'}>{getGameWeekFromDate(timestamp)}</td>
         <td data-col-label='timestamp' className={'cell cell--left cell--show-625'}>{formatTimestamp(timestamp)}</td>
         <td data-col-label='type' className={'cell cell--center'}>{type}</td>
         <td data-col-label='manager' className={'cell cell--center'}>{mgr}</td>
@@ -33,12 +34,15 @@ const TransferBody = ({ transfers, Action }) => transfers.length > 0 && (
   </tbody>
 );
 
-const GameWeekTransfers = ({ transfers, isLoading, Action }) => (
+const GameWeekTransfers = ({
+  transfers, isLoading, Action, getGameWeekFromDate,
+}) => (
   <table className={'table'}>
     <thead>
       <tr className={'row'}>
         <th className={'cell cell--show-750'}>Status</th>
-        <th className={'cell cell--show-625'}>Timestamp</th>
+        <th className={'cell'}>GW</th>
+        <th className={'cell cell--show-625'}>Date</th>
         <th className={'cell'}>Type</th>
         <th className={'cell'}>Manager</th>
         <th className={'cell'}>In</th>
@@ -47,7 +51,7 @@ const GameWeekTransfers = ({ transfers, isLoading, Action }) => (
         {Action && <th className={'cell'} />}
       </tr>
     </thead>
-    <TransferBody transfers={transfers} Action={Action} />
+    <TransferBody transfers={transfers} Action={Action} getGameWeekFromDate={getGameWeekFromDate} />
     {transfers.length === 0 && !isLoading && (
       <tbody>
         <tr className={'row'}>
@@ -77,6 +81,7 @@ GameWeekTransfers.propTypes = {
   })).isRequired,
   isLoading: PropTypes.bool,
   Action: PropTypes.element,
+  getGameWeekFromDate: PropTypes.func.isRequired,
 };
 
 GameWeekTransfers.defaultProps = {

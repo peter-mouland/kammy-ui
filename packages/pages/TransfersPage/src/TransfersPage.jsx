@@ -177,7 +177,7 @@ class TransfersPage extends React.Component {
   render() {
     const {
       teams, playersArray, transfers, dateIsInCurrentGameWeek, pendingTransfers,
-      transfersSaving, transfersLoading, gameWeeksLoading, label,
+      transfersSaving, transfersLoading, gameWeeksLoading, label, gwFromDate,
     } = this.props;
     const {
       manager, changeType, playerOut, playerIn, selectedOptions, initiateRequest, comment,
@@ -209,10 +209,14 @@ class TransfersPage extends React.Component {
           <div data-b-layout='col pad'>
             <h2>Transfer Requests</h2>
             <GameWeekTransfers
+              getGameWeekFromDate={gwFromDate}
               transfers={gameWeekTransfers}
               isLoading={transfersSaving || transfersLoading || gameWeeksLoading}
             />
-            <button onClick={() => this.initiateRequest(true)} disabled={stillLoading}>Create Request</button>
+            <p>
+              <button onClick={() => this.initiateRequest(true)} disabled={stillLoading}>Create Request</button>
+            </p>
+            <p><small>Current GameWeek: {gwFromDate(new Date())}</small></p>
           </div>
         </div>
         {initiateRequest && (
@@ -357,6 +361,7 @@ TransfersPage.propTypes = {
   dateIsInCurrentGameWeek: PropTypes.func.isRequired,
   saveTransfers: PropTypes.func.isRequired,
   fetchTransfers: PropTypes.func.isRequired,
+  gwFromDate: PropTypes.func.isRequired,
   transfersSaving: PropTypes.bool,
   playersLoaded: PropTypes.bool,
   transfersLoading: PropTypes.bool,
