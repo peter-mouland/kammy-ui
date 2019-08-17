@@ -25,6 +25,25 @@ export default function players(state = {}, action) {
       errors: [action.payload],
       loading: false,
     };
+  case `${actions.FETCH_SKYSPORTS_LIVE_SCORES}_PENDING`:
+    return {
+      ...state,
+      loading: true,
+      loaded: false,
+    };
+  case `${actions.FETCH_SKYSPORTS_LIVE_SCORES}_FULFILLED`:
+    return {
+      ...state,
+      liveScores: data,
+      errors: action.payload.errors,
+      liveScoresLoaded: true,
+      liveScoresLoading: false,
+    };
+  case `${actions.FETCH_SKYSPORTS_LIVE_SCORES}_REJECTED`:
+    return {
+      ...state,
+      loading: false,
+    };
   case `${actions.FETCH_SKYSPORTS_PLAYERS_FULL}_PENDING`:
     return {
       ...state,

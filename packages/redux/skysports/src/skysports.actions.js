@@ -4,6 +4,14 @@ export const FETCH_SKYSPORTS_PLAYER = 'FETCH_SKYSPORTS_PLAYER';
 export const FETCH_SKYSPORTS_PLAYERS = 'FETCH_SKYSPORTS_PLAYERS';
 export const FETCH_SKYSPORTS_FIXTURES = 'FETCH_SKYSPORTS_FIXTURES';
 export const FETCH_SKYSPORTS_PLAYERS_FULL = 'FETCH_SKYSPORTS_PLAYERS_FULL';
+export const FETCH_SKYSPORTS_LIVE_SCORES = 'FETCH_SKYSPORTS_LIVE_SCORES';
+
+export function fetchLiveScores() {
+  return {
+    type: FETCH_SKYSPORTS_LIVE_SCORES,
+    payload: fetchSkySports('live-scores'),
+  };
+}
 
 export function fetchPlayers() {
   return {

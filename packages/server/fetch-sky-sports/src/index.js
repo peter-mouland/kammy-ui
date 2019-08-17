@@ -28,6 +28,12 @@ export const fetchFixtures = () => (
     .catch(console.error)
 );
 
+export const fetchLiveScores = () => (
+  getJSON('https://fantasyfootball.skysports.com/scoring/scores.json')
+    .then((data) => ({ data }))
+    .catch(console.error)
+);
+
 export const fetchPlayersSummary = () => (
   getJSON('https://fantasyfootball.skysports.com/cache/json_players.json')
     .then((data) => ({ data: data.players.reduce(mapToFFDataStructure, {}) }))

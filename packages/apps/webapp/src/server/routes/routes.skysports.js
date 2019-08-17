@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import handleError from '@kammy-ui/koa-middleware-handler-error';
 import {
-  fetchFixtures, fetchPlayer, fetchPlayersFull, fetchPlayersSummary,
+  fetchFixtures, fetchPlayer, fetchPlayersFull, fetchPlayersSummary, fetchLiveScores,
 } from '@kammy-ui/fetch-sky-sports';
 
 const responder = (ctx, next) => (data) => {
@@ -22,6 +22,7 @@ export default () => {
   });
 
   router.get('/fixtures', (ctx, next) => fetchFixtures().then(responder(ctx, next)));
+  router.get('/live-scores', (ctx, next) => fetchLiveScores().then(responder(ctx, next)));
 
   router.get('/players', (ctx, next) => {
     // todo: fix this

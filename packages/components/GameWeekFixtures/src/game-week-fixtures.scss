@@ -73,4 +73,8 @@
       color: $text--light;
     }
   }
+
+  &__live {
+    color: $warning;
+  }
 }
