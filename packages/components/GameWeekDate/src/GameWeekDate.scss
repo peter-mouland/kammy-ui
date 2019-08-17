@@ -73,3 +73,17 @@
     padding: .2em 0;
   }
 }
+
+.homepage__gw-date {
+  .formatted-gameweek-date__calendar:nth-child(1) {
+    margin-right: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  .formatted-gameweek-date__calendar:nth-child(2) {
+    margin-left: 0;
+  }
+}

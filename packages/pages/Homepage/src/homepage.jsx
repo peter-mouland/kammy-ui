@@ -52,10 +52,7 @@ class Homepage extends React.Component {
           </div>
           <div className={'homepage__gw-date'}>
             <a onClick={() => this.showFixtures(currentGameWeekDates)}>
-              <GameWeekDate
-                gameWeek={currentGameWeekDates}
-                label={`Current: GW${currentGameWeekDates.gameWeek}`}
-              />
+              <GameWeekDate gameWeek={currentGameWeekDates} />
             </a>
           </div>
           <div className={'homepage__next-date'}>
