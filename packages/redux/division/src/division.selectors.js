@@ -4,21 +4,21 @@ import get from '@kammy-ui/helpers.get';
 import { selectors as draftSetupSelectors } from '@kammy-ui/redux.draft-setup';
 import { selectors as playerSelectors } from '@kammy-ui/redux.players';
 import { selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
-import { selectors as transferSelectors } from '@kammy-ui/redux.transfers';
+
 import formatDiv from './format-division';
 import getDivisionPoints from './lib/calculate-division-points';
 import getDivisionRank from './lib/calculate-division-rank';
 import getRankChange from './lib/calculate-rank-change';
 import managerSeason from './lib/manager-season';
 
+const teamsByGameWeekSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.teamsByGameWeek`) || [];
 const currentTeamSelector = (state, div) => get(state, `division.${formatDiv(div)}.currentTeams`) || {};
 const pendingTransfersSelector = (state, div) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
 const statusSelector = (state, div) => get(state, `division.${formatDiv(div)}.status`) || {};
+
 const getLeagueRank = ({ points, pointsLastWeek }) => {
-  // console.log({ points, pointsLastWeek })
   const divisionRank = getDivisionRank(points);
   const divisionRankLastWeek = getDivisionRank(pointsLastWeek);
-  // console.log({ divisionRank, divisionRankLastWeek })
   return {
     current: divisionRank,
     lastWeek: divisionRankLastWeek,
@@ -26,28 +26,26 @@ const getLeagueRank = ({ points, pointsLastWeek }) => {
   };
 };
 
-const seasonCombiner = ({ data: players }, { gameWeeks }, { transfers = [] }, managers, teams) => (
-  players && gameWeeks.length && teams
-    ? managerSeason({
-      managers, teams, gameWeeks, players, transfers, withStats: true,
-    })
+const seasonCombiner = (gameWeeks, managers, { data }) => (
+  gameWeeks.length
+    ? managerSeason({ managers, gameWeeks, players: data })
     : null
 );
 
-const pointsCombiner = (managersSeason, { selectedGameWeek }, managers) => (
-  managers && managersSeason && selectedGameWeek
+const pointsCombiner = (managersSeason, selectedGameWeek = 1, managers) => (
+  managers && managersSeason
     ? getDivisionPoints(managers, managersSeason, selectedGameWeek)
     : undefined
 );
 
-const pointsLastWeekCombiner = (managersSeason, { selectedGameWeek }, managers) => {
+const pointsLastWeekCombiner = (managersSeason, selectedGameWeek = 1, managers) => {
   const gameWeekIdx = selectedGameWeek - 1;
   return gameWeekIdx > 0 && managers && managersSeason
     ? getDivisionPoints(managers, managersSeason, gameWeekIdx)
     : undefined;
 };
 
-const makeLineChartData = (managersSeason, { gameWeeks }, managers) => (
+const makeLineChartData = (managersSeason, gameWeeks, managers) => (
   gameWeeks.map(({ gameWeek }, i) => {
     if (!managers || !managersSeason) return { gameWeek: `gw${gameWeek}` };
     const points = getDivisionPoints(managers, managersSeason, i);
@@ -59,28 +57,28 @@ const makeLineChartData = (managersSeason, { gameWeeks }, managers) => (
   })
 );
 
-const getLeagueStats = (season, gameWeeks, managers) => ({
-  points: pointsCombiner(season, gameWeeks, managers),
-  pointsLastWeek: pointsLastWeekCombiner(season, gameWeeks, managers),
+const getLeagueStats = (season, gameWeeks, managers, selectedGameWeek) => ({
+  points: pointsCombiner(season, selectedGameWeek, managers),
+  pointsLastWeek: pointsLastWeekCombiner(season, selectedGameWeek, managers),
   lineChart: makeLineChartData(season, gameWeeks, managers),
 });
 
 const selectorFactory = (division) => {
   const leagueSeason = createSelector(
-    playerSelectors.getAllPlayerData,
-    gameWeekSelectors.getGameWeeks,
-    transferSelectors[`${division}Valid`],
+    teamsByGameWeekSelector(division),
     draftSetupSelectors.getDraftSetup,
-    (players, gameWeeks, league, { byDivision }) => (
-      seasonCombiner(players, gameWeeks, league, byDivision.managers[division], byDivision.teams[division])
+    playerSelectors.getAllPlayerData,
+    (gameWeeks, { byDivision }, players) => (
+      seasonCombiner(gameWeeks, byDivision.managers[division], players)
     ),
   );
   const stats = createSelector(
     leagueSeason,
-    gameWeekSelectors.getGameWeeks,
+    teamsByGameWeekSelector(division),
     draftSetupSelectors.getDraftSetup,
-    (season, gameWeeks, { byDivision }) => (
-      getLeagueStats(season, gameWeeks, byDivision.managers[division])
+    gameWeekSelectors.getGameWeeks,
+    (season, gameWeeks, { byDivision }, { selectedGameWeek }) => (
+      getLeagueStats(season, gameWeeks, byDivision.managers[division], selectedGameWeek)
     ),
   );
   return ({

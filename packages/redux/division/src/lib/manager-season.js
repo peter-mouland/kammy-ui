@@ -1,16 +1,13 @@
-import TeamSeason from '@kammy-ui/data-team-season';
+import TeamSeason from './team-season';
 
 const managerTeamSeason = ({
-  managers, teams, gameWeeks, transfers, players, withStats,
+  managers, gameWeeks, players,
 }) => (
   managers.reduce((prev, manager) => {
-    const managerTransfers = transfers.filter((transfer) => transfer.manager === manager);
-    const team = new TeamSeason({
-      team: teams[manager], transfers: managerTransfers, gameWeeks, players,
-    });
+    const team = new TeamSeason({ manager, gameWeeks, players });
     return ({
       ...prev,
-      [manager]: team.getSeason({ withStats }),
+      [manager]: team.getSeason(),
     });
   }, {})
 );

@@ -17,12 +17,11 @@ class DivisionRankings extends React.Component {
   componentDidMount() {
     const {
       divisionId,
-      fetchAllPlayerData, fetchDivision, fetchTransfers, fetchGameWeeks,
-      playersLoaded, divisionLoaded, transfersLoaded, gameWeeksLoaded,
+      fetchAllPlayerData, fetchDivision, fetchGameWeeks,
+      playersLoaded, divisionLoaded, gameWeeksLoaded,
     } = this.props;
     if (!playersLoaded) fetchAllPlayerData();
     if (!divisionLoaded) fetchDivision(divisionId);
-    if (!transfersLoaded) fetchTransfers(divisionId);
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
@@ -106,12 +105,10 @@ DivisionRankings.propTypes = {
 
   fetchAllPlayerData: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
-  fetchTransfers: PropTypes.func.isRequired,
   fetchDivision: PropTypes.func.isRequired,
 
   playersLoaded: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
-  transfersLoaded: PropTypes.bool,
   divisionLoaded: PropTypes.bool,
   showGameWeekSwitcher: PropTypes.bool,
   showWeekly: PropTypes.bool,
@@ -126,14 +123,12 @@ DivisionRankings.defaultProps = {
   managers: [],
   playersLoaded: false,
   gameWeeksLoaded: false,
-  transfersLoaded: false,
   divisionLoaded: false,
   showGameWeekSwitcher: true,
   showWeekly: true,
   showChart: true,
   showStandings: true,
   gameWeeksCount: null,
-  transfersCount: null,
 };
 
 DivisionRankings.contextTypes = {

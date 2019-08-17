@@ -17,13 +17,12 @@ class DivisionStats extends React.Component {
   componentDidMount() {
     const {
       divisionId, gameWeeksLoaded, fetchGameWeeks,
-      fetchAllPlayerData, fetchDivision, fetchTransfers,
-      playersLoaded, divisionLoaded, transfersLoaded,
+      fetchAllPlayerData, fetchDivision,
+      playersLoaded, divisionLoaded,
     } = this.props;
 
     if (!playersLoaded) fetchAllPlayerData();
     if (!divisionLoaded) fetchDivision(divisionId);
-    if (!transfersLoaded) fetchTransfers(divisionId);
     if (!gameWeeksLoaded) fetchGameWeeks();
   }
 
@@ -55,7 +54,6 @@ DivisionStats.propTypes = {
   loaded: PropTypes.bool,
   gameWeeksLoaded: PropTypes.bool,
   players: PropTypes.object,
-  transfers: PropTypes.array,
   division: PropTypes.object,
   cookies: PropTypes.instanceOf(Cookies).isRequired,
   divisionId: PropTypes.string.isRequired,
@@ -64,14 +62,11 @@ DivisionStats.propTypes = {
 
   fetchGameWeeks: PropTypes.func.isRequired,
   fetchAllPlayerData: PropTypes.func.isRequired,
-  fetchTransfers: PropTypes.func.isRequired,
   fetchDivision: PropTypes.func.isRequired,
 
   playersLoading: PropTypes.bool,
-  transfersLoading: PropTypes.bool,
 
   playersLoaded: PropTypes.bool,
-  transfersLoaded: PropTypes.bool,
   divisionLoaded: PropTypes.bool,
   managers: PropTypes.array,
 };

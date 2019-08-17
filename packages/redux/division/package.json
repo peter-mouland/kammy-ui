@@ -18,13 +18,13 @@
     "access": "public"
   },
   "dependencies": {
-    "reselect": "^4.0.0",
-    "@kammy-ui/data-team-season": "^0.0.18",
+    "@kammy-ui/data-player-stats": "^0.0.18",
     "@kammy-ui/fetchr": "^0.0.17",
+    "@kammy-ui/helpers.get": "^0.0.17",
+    "@kammy-ui/helpers-to-date": "^0.0.18",
     "@kammy-ui/redux.draft-setup": "^0.0.17",
-    "@kammy-ui/redux.game-weeks": "^0.0.17",
     "@kammy-ui/redux.players": "^0.0.17",
-    "@kammy-ui/redux.transfers": "^0.0.17",
-    "@kammy-ui/helpers.get": "^0.0.17"
+    "date-fns": "1.30.1",
+    "reselect": "^4.0.0"
   }
 }

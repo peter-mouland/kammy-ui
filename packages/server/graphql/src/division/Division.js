@@ -1,6 +1,6 @@
 /* eslint-disable prefer-spread */
 import Transfers from '@kammy-ui/helpers.transfers';
-import TeamByGameWeek from './TeamByGameWeek';
+import TeamByGameWeek from './lib/TeamByGameWeek';
 
 class Division {
   // see packages/server/fetch-google-sheets/src/index.js for shapes
@@ -19,7 +19,10 @@ class Division {
     this.division = division;
     this.managers = draft.byDivision.managers[division]; // [ manager ]
     this.managersPlayers = draft.byManager.players; // { ManagerA: [ player ] }
-    this.draft = draft.drafts[division]; // [{ manager, code, pos, name }]
+    this.draft = draft.drafts[division]
+      .map(({
+        position, player, name, pos, ...rest
+      }) => ({ ...rest, name: player || name, pos: position || pos }));
     this.Transfers = new Transfers({ transfers });
     this.transfers = this.Transfers.validRequests;
     this.pendingTransfers = this.Transfers.pendingRequests.map((request) => {

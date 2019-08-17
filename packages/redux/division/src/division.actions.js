@@ -21,6 +21,14 @@ query ($division: String) {
       transferOut
       type
     }
+    pendingTransfers {
+      status
+      timestamp
+      manager
+      transferIn
+      transferOut
+      type
+    }
     managers
     draft {
       manager code pos name

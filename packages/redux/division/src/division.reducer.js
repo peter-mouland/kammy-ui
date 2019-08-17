@@ -19,6 +19,7 @@ const rejected = (errors) => ({
 
 export default function divisionReducer(state = {}, action) {
   const { payload } = action;
+  const variables = payload && payload.variables;
   const data = payload && payload.data;
   const errors = payload && payload.errors;
   switch (action.type) {
@@ -44,6 +45,31 @@ export default function divisionReducer(state = {}, action) {
     return {
       ...state,
       status: rejected([action.payload]),
+    };
+  case `${actions.FETCH_DIVISION}_PENDING`:
+    return {
+      ...state,
+      [data.division]: {
+        ...state[data.division],
+        status: pending(),
+      },
+    };
+  case `${actions.FETCH_DIVISION}_FULFILLED`:
+    return {
+      ...state,
+      [variables.division]: {
+        ...state[variables.division],
+        ...data.getDivision,
+        status: fulfilled(errors),
+      },
+    };
+  case `${actions.FETCH_DIVISION}_REJECTED`:
+    return {
+      ...state,
+      [variables.division]: {
+        ...state[variables.division],
+        status: rejected([action.payload]),
+      },
     };
   default:
     return state;

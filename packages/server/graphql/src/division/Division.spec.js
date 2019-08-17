@@ -11,7 +11,6 @@ let transfer;
 let players;
 let draft;
 let divisionByGameWeek;
-let currentGameWeek;
 let division;
 
 describe('Division', () => {
@@ -92,40 +91,39 @@ describe('Division', () => {
         [division]: team,
       },
     };
-    currentGameWeek = 1;
   });
 
   it('returns division to help out client-side reducers', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('division', division);
   });
 
   it('returns transfers to help out client-side reducers', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('transfers');
   });
 
   it('returns a list of managers', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('managers', ['Olly']);
   });
 
   it('returns a list of drafted players', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('draft', team);
   });
 
   it('returns a list of currentTeams', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('currentTeams');
     expect(divisionByGameWeek.currentTeams).toHaveProperty('gameWeek');
@@ -135,7 +133,7 @@ describe('Division', () => {
 
   it('returns a list of teamsByGameWeek', () => {
     divisionByGameWeek = new Division({
-      division, gameWeeks, draft, transfers, players, currentGameWeek,
+      division, gameWeeks, draft, transfers, players,
     });
     expect(divisionByGameWeek).toHaveProperty('teamsByGameWeek');
     expect(divisionByGameWeek.teamsByGameWeek).toHaveLength(gameWeeks.gameWeeks.length);

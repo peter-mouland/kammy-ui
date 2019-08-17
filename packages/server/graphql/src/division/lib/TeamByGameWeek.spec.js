@@ -9,9 +9,9 @@ let teamSeason;
 let startOfSeason;
 let endOfSeason;
 
-const mockPlayer = require('../../fixtures/player.json');
-const teamFixture = require('../../fixtures/team.json');
-const gameWeeksFixture = require('../../fixtures/gameweeks.json');
+const mockPlayer = require('../../../fixtures/player.json');
+const teamFixture = require('../../../fixtures/team.json');
+const gameWeeksFixture = require('../../../fixtures/gameweeks.json');
 
 describe('TeamByGameWeek', () => {
   beforeEach(() => {
