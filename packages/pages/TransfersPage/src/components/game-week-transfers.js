@@ -22,7 +22,7 @@ const TransferBody = ({ getGameWeekFromDate, transfers, Action }) => transfers.l
       <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
         <td data-col-label='status' className={'cell cell--status cell--show-750 cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
         <td data-col-label='gw' className={'cell cell--center'}>{getGameWeekFromDate(timestamp)}</td>
-        <td data-col-label='timestamp' className={'cell cell--left cell--show-625'}>{formatTimestamp(timestamp)}</td>
+        <td data-col-label='timestamp' className={'cell cell--center cell--show-625'}>{formatTimestamp(timestamp)}</td>
         <td data-col-label='type' className={'cell cell--center'}>{type}</td>
         <td data-col-label='manager' className={'cell cell--center'}>{mgr}</td>
         <td data-col-label='transfer in' className={'cell cell--center'}>{transferIn}</td>
