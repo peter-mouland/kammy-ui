@@ -192,7 +192,9 @@ class TeamsPage extends React.Component {
                               title={`Show ${teamSheetItem.teamPos} timeline`}
                             >
                               {player.pos}
-                              {player.pos !== teamSheetItem.teamPos && <small> ({teamSheetItem.teamPos})</small>}
+                              {player.pos !== teamSheetItem.teamPos && (
+                                <small> ({teamSheetItem.teamPos.toLowerCase()})</small>
+                              )}
                             </a>
                           </td>
                           <td className={'cell cell--player'}>
@@ -201,7 +203,8 @@ class TeamsPage extends React.Component {
                               onClick={(e) => this.showPlayerTimeline(e, { player })}
                               title={`Show ${teamSheetItem.teamPos} timeline`}
                             >
-                              {player.name}
+                              <span className='show-550'>{player.name}</span>
+                              <span className='hide-550'>{player.name.split(' ')[0]}</span>
                             </a>
                             <small className={'hide-850'}>{player.club}</small>
                           </td>
