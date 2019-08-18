@@ -206,7 +206,10 @@ class TeamsPage extends React.Component {
                               <span className='show-550'>{player.name}</span>
                               <span className='hide-550'>{player.name.split(' ')[0]}</span>
                             </a>
-                            <small className={'hide-850'}>{player.club}</small>
+                            <small className={'hide-850'}>
+                              <span className='show-550'>{player.club}</span>
+                              <span className='hide-550'>{player.club.split(' ')[0]} {(player.club.split(' ')[1] || '').charAt(0)}</span>
+                            </small>
                           </td>
                           <td className={'cell cell--club show-850'}>{player.club}</td>
                           <StatsCells seasonToGameWeek={seasonToGameWeek} gameWeekStats={player.gameWeekStats} />
