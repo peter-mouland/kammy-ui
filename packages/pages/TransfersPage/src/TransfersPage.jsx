@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import '@kammy-ui/bootstrap';
 import Select from 'react-select';
 import Modal from '@kammy-ui/modal';
-
 import Button from '@kammy-ui/button';
 import bemHelper from '@kammy-ui/bem';
 import MultiToggle from '@kammy-ui/multi-toggle';
-// import Interstitial from '@kammy-ui/interstitial';
-// import format from 'date-fns/format';
 
 import Players from './components/Players';
 import GameWeekTransfers from './components/game-week-transfers';
@@ -177,7 +174,7 @@ class TransfersPage extends React.Component {
   render() {
     const {
       teams, playersArray, transfers, dateIsInCurrentGameWeek, pendingTransfers,
-      transfersSaving, transfersLoading, gameWeeksLoading, label, gwFromDate,
+      transfersSaving, transfersLoading, gameWeeksLoading, label, gwFromDate, managers,
     } = this.props;
     const {
       manager, changeType, playerOut, playerIn, selectedOptions, initiateRequest, comment,
@@ -231,9 +228,8 @@ class TransfersPage extends React.Component {
                 <h4>1. Who are you?</h4>
                 <MultiToggle
                   id={'manager'}
-                  loading={Object.keys(teams).length === 0}
                   loadingMessage={'loading teams...'}
-                  options={Object.keys(teams)}
+                  options={managers}
                   checked={manager}
                   onChange={this.updateDisplayManager}
                 />
@@ -354,6 +350,7 @@ TransfersPage.propTypes = {
   label: PropTypes.string.isRequired,
   division: PropTypes.string.isRequired,
   gameWeeks: PropTypes.array,
+  managers: PropTypes.array,
   players: PropTypes.object,
   playersArray: PropTypes.array,
   teams: PropTypes.object,

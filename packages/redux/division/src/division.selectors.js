@@ -12,9 +12,10 @@ import getRankChange from './lib/calculate-rank-change';
 import managerSeason from './lib/manager-season';
 
 const teamsByGameWeekSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.teamsByGameWeek`) || [];
-const currentTeamSelector = (state, div) => get(state, `division.${formatDiv(div)}.currentTeams`) || {};
-const pendingTransfersSelector = (state, div) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
-const statusSelector = (state, div) => get(state, `division.${formatDiv(div)}.status`) || {};
+const currentTeamSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.currentTeams`) || {};
+const pendingTransfersSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.pendingTransfers`) || [];
+const transfersSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.transfers`) || [];
+const statusSelector = (div) => (state) => get(state, `division.${formatDiv(div)}.status`) || {};
 
 const getLeagueRank = ({ points, pointsLastWeek }) => {
   const divisionRank = getDivisionRank(points);
@@ -88,8 +89,8 @@ const selectorFactory = (division) => {
   });
 };
 
-export const getCurrentPlayers = createSelector(
-  currentTeamSelector,
+export const getCurrentPlayers = (division) => createSelector(
+  currentTeamSelector(division),
   ({ players = [] }) => ({
     data: players,
     byName: players.reduce((prev, player) => ({
@@ -100,8 +101,8 @@ export const getCurrentPlayers = createSelector(
   }),
 );
 
-export const getCurrentTeams = createSelector(
-  currentTeamSelector,
+export const getCurrentTeams = (division) => createSelector(
+  currentTeamSelector(division),
   ({ players = [] }) => ({
     data: players.reduce((prev, player) => ({
       ...prev,
@@ -111,8 +112,8 @@ export const getCurrentTeams = createSelector(
   }),
 );
 
-export const getPendingTransfers = createSelector(
-  pendingTransfersSelector,
+export const getPendingTransfers = (division) => createSelector(
+  pendingTransfersSelector(division),
   (transfers = []) => ({
     data: transfers.reduce((prev, transfer) => ({
       ...prev,
@@ -122,7 +123,18 @@ export const getPendingTransfers = createSelector(
   }),
 );
 
-export const getStatus = createSelector(statusSelector, (status) => status);
+export const getTransfers = (division) => createSelector(
+  transfersSelector(division),
+  (transfers = []) => ({
+    data: transfers.reduce((prev, transfer) => ({
+      ...prev,
+      [transfer.manager]: prev[transfer.manager] ? [...prev[transfer.manager], transfer] : [transfer],
+    }), {}),
+    count: transfers.length,
+  }),
+);
+
+export const getStatus = (div) => createSelector(statusSelector(div), (status) => status);
 export const premierLeague = selectorFactory('premierLeague');
 export const championship = selectorFactory('championship');
 export const leagueOne = selectorFactory('leagueOne');

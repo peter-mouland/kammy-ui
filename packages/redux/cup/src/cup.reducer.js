@@ -46,7 +46,6 @@ export default function divisionReducer(state = initialState, action) {
       groups: data.getCup.groups,
       rounds: data.getCup.rounds,
       managers: data.getCup.managers,
-      divisionsPlayers: data.getCup.divisionsPlayers,
       status: fulfilled(errors),
     };
   case actions.FETCH_DRAFT_CUP:

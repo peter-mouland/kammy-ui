@@ -61,8 +61,10 @@ const formatDivision = (data) => {
 
 /* CUP */
 const formatCupPlayer = ({
-  group = '', gameweek, round = '', manager = '', player1 = '', player2 = '', player3 = '', player4 = '',
+  status = '', timestamp = '', group = '', gameweek, round = '', manager = '', player1 = '', player2 = '', player3 = '', player4 = '',
 }) => ({
+  status,
+  timestamp,
   group: group.trim(),
   gameWeek: gameweek,
   round: round.trim(),
@@ -123,7 +125,7 @@ const formatGameWeeks = (data) => data.map(formatGameWeek);
 const fetch = {
   gameWeeks: () => getJSON(GS_API(SETUP, '/values/GameWeeks')).then(rowToObj).then(formatGameWeeks),
   divisionList: () => getJSON(GS_API(DRAFT, '/values/Divisions')).then(rowToObj),
-  cup: () => getJSON(GS_API(DRAFT, '/values/cup')).then(rowToObj).then(formatCup),
+  cup: () => getJSON(GS_API(TRANSFERS, '/values/cup')).then(rowToObj).then(formatCup),
   players: () => getJSON(GS_API(SETUP, '/values/Players')).then(rowToObj).then(formatPlayers),
   draftSetup: (sheet) => getJSON(GS_API(DRAFT, `/values/${sheet}`)).then(rowToObj),
   draft: (division) => getJSON(GS_API(DRAFT, `/values/${division}`)).then(rowToObj).then(formatDivision),

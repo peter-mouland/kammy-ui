@@ -8,8 +8,8 @@ const { fetchCurrentTeams } = divisionActions;
 const { fetchAllPlayerData } = playerActions;
 
 function mapStateToProps(state, { division }) { // premierLeague, championship, leagueOne
-  const { byName: playersByName } = divisionSelectors.getCurrentPlayers(state, division);
-  const divisionStatus = divisionSelectors.getStatus(state, division);
+  const { byName: playersByName } = divisionSelectors.getCurrentPlayers(division)(state);
+  const divisionStatus = divisionSelectors.getStatus(division)(state);
   const players = playerSelectors.getAllPlayerData(state);
   return {
     playersByName,

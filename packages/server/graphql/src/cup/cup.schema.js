@@ -61,7 +61,6 @@ const schemaString = `
   }
   
   type Cup {
-    divisionsPlayers: DivisionsPlayers
     teams: [Team]
     managers: [String]
     groups: [String]

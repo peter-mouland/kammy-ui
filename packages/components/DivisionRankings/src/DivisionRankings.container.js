@@ -17,7 +17,7 @@ function mapStateToProps(state, { divisionId }) {
   const { current: managersRank, change: managersRankChange } = divisionSelectors[divisionId].rank(state);
   const { selectedGameWeek } = gameWeekSelectors.getGameWeeks(state);
   const { loaded: gameWeeksLoaded } = gameWeekSelectors.getStatus(state);
-  const { loaded: divisionLoaded } = divisionSelectors.getStatus(state, divisionId);
+  const { loaded: divisionLoaded } = divisionSelectors.getStatus(divisionId)(state);
   const { loaded: draftSetupLoaded } = draftSetupSelectors.getStatus(state);
   const { byDivision } = draftSetupSelectors.getDraftSetup(state);
 

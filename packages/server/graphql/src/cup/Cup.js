@@ -7,7 +7,7 @@ class Cup {
   // @players: [Player]
   // @currentGameWeek: String
   constructor({
-    cup, players, divisions,
+    cup, players,
   }) {
     this.playersByName = players.reduce((prev, player) => ({
       ...prev,
@@ -18,7 +18,6 @@ class Cup {
     this.managers = [...new Set(cup.map((team) => team.manager))]; // [ manager ]
     this.groups = [...new Set(cup.map((team) => team.group))]; // [ groups ]
     this.rounds = [...new Set(cup.map((team) => team.round))]; // [ rounds ]
-    this.divisionsPlayers = divisions;
 
     this.teams = cup.map((team) => {
       const teamWithPlayers = ({

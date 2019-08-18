@@ -3,6 +3,7 @@ import { actions as playerActions, selectors as playerSelectors } from '@kammy-u
 import { actions as gameWeekActions, selectors as gameWeekSelectors } from '@kammy-ui/redux.game-weeks';
 import { actions as divisionActions, selectors as divisionSelectors } from '@kammy-ui/redux.division';
 import { actions as transferActions, selectors as transferSelectors } from '@kammy-ui/redux.transfers';
+import { selectors as draftSetupSelectors } from '@kammy-ui/redux.draft-setup';
 
 import TransfersPageLoader from './TransfersPage.loader';
 
@@ -16,6 +17,8 @@ function mapStateToProps(state, { division }) {
   const dateIsInCurrentGameWeek = gameWeekSelectors.dateIsInGameWeekMinusx(state);
   const players = playerSelectors.getPlayers(state);
   const { allRequests: transfers } = transferSelectors[`${division}Transfers`](state);
+  const { byDivision } = draftSetupSelectors.getDraftSetup(state);
+
   const {
     loaded: transfersLoaded,
     loading: transfersLoading,
@@ -25,15 +28,16 @@ function mapStateToProps(state, { division }) {
   } = transferSelectors.getStatus(state, division);
   const gwFromDate = gameWeekSelectors.getGameWeekFromDate(state);
 
-  const { data: teams } = divisionSelectors.getCurrentTeams(state, division);
-  const { data: pendingTransfers } = divisionSelectors.getPendingTransfers(state, division);
-  const { loaded: teamsLoaded } = divisionSelectors.getStatus(state, division);
+  const { data: teams } = divisionSelectors.getCurrentTeams(division)(state);
+  const { data: pendingTransfers } = divisionSelectors.getPendingTransfers(division)(state);
+  const { loaded: teamsLoaded } = divisionSelectors.getStatus(division)(state);
 
   const {
     loading: gameWeeksLoading, loaded: gameWeeksLoaded, errors: gameWeeksErrors,
   } = gameWeekSelectors.getStatus(state);
 
   const props = {
+    managers: byDivision.managers[division],
     pendingTransfers,
     dateIsInCurrentGameWeek,
     currentGameWeek,

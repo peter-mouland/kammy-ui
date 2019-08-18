@@ -1,4 +1,4 @@
-import Cup from './Cup.container';
+import Cup from './Cup';
 
 import reducer from './lib/reducer';
 

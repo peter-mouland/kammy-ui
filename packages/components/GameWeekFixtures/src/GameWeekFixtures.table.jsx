@@ -25,6 +25,7 @@ const teamAlias = {
   'Tottenham Hotspur': 'Spurs',
   'Manchester City': 'Man City',
   'Crystal Palace': 'Palace',
+  'Leicester City': 'Leicester',
 };
 
 const getTeamName = (team) => teamAlias[team] || team;
