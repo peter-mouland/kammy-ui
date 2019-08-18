@@ -203,8 +203,8 @@ class TeamsPage extends React.Component {
                               onClick={(e) => this.showPlayerTimeline(e, { player })}
                               title={`Show ${teamSheetItem.teamPos} timeline`}
                             >
-                              <span className='show-550'>{player.name}</span>
-                              <span className='hide-550'>{player.name.split(' ')[0]}</span>
+                              <span className='show-625'>{player.name}</span>
+                              <span className='hide-625'>{player.name.split(',')[0]}</span>
                             </a>
                             <small className={'hide-850'}>
                               <span className='show-550'>{player.club}</span>
