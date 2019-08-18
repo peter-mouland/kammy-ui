@@ -102,7 +102,7 @@ class TeamsPage extends React.Component {
       showPositionTimeline, positionTimelineProps,
       showPlayerTimeline, playerTimelineProps,
     } = this.state;
-    const previousGameWeek = selectedGameWeek > 0 ? selectedGameWeek : 0;
+    const previousGameWeek = selectedGameWeek > 0 ? selectedGameWeek - 1 : 0;
     const duplicatePlayers = validatePlayer(managersSeason, selectedGameWeek) || [];
     const allClubWarnings = managers.map((manager) => {
       const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeek);
