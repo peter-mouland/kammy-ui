@@ -297,6 +297,7 @@ class TransfersPage extends React.Component {
                 <textarea className='transfers-page__comment' onChange={this.updateComment} />
                 <h3>Confirm Request</h3>
                 <GameWeekTransfers
+                  getGameWeekFromDate={gwFromDate}
                   transfers={[{
                     manager,
                     timestamp: new Date(),

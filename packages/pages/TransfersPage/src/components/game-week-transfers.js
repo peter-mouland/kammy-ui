@@ -14,25 +14,37 @@ const getEmoji = (status = '') => {
   }
 };
 
-const TransferBody = ({ getGameWeekFromDate, transfers, Action }) => transfers.length > 0 && (
-  <tbody>
-    {transfers.map(({
-      timestamp, status = '', type, manager: mgr, transferIn, transferOut, comment,
-    }) => (
-      <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
-        <td data-col-label='status' className={'cell cell--status cell--show-750 cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
-        <td data-col-label='gw' className={'cell cell--center'}>{getGameWeekFromDate(timestamp)}</td>
-        <td data-col-label='timestamp' className={'cell cell--center cell--show-625'}>{formatTimestamp(timestamp)}</td>
-        <td data-col-label='type' className={'cell cell--center'}>{type}</td>
-        <td data-col-label='manager' className={'cell cell--center'}>{mgr}</td>
-        <td data-col-label='transfer in' className={'cell cell--center'}>{transferIn}</td>
-        <td data-col-label='transfer out' className={'cell cell--center'}>{transferOut}</td>
-        <td data-col-label='comment' className={'cell cell--center cell--show-925 '}>{comment}</td>
-        {Action && <td data-col-label='action' className={'cell cell--center'}>{Action}</td>}
-      </tr>
-    ))}
-  </tbody>
-);
+const TransferBody = ({ getGameWeekFromDate, transfers, Action }) => {
+  if (transfers.length < 1) return null;
+  return (
+    <tbody>
+      {transfers.map(({
+        timestamp, status = '', type, manager: mgr, transferIn, transferOut, comment,
+      }) => {
+        const gw = timestamp && typeof getGameWeekFromDate === 'function' ? getGameWeekFromDate(timestamp) : '';
+        return (
+          <tr className={`row row--${status.toLowerCase()}`} key={timestamp}>
+            <td data-col-label='status' className={'cell cell--status cell--show-750 cell--center'} dangerouslySetInnerHTML={{ __html: `${status} ${getEmoji(status)}` }} />
+            <td data-col-label='gw' className={'cell cell--center'}>{gw}</td>
+            <td data-col-label='timestamp' className={'cell cell--center cell--show-625'}>{formatTimestamp(timestamp)}</td>
+            <td data-col-label='type' className={'cell cell--center'}>{type}</td>
+            <td data-col-label='manager' className={'cell cell--center'}>{mgr}</td>
+            <td data-col-label='transfer in' className={'cell cell--center'}>{transferIn}</td>
+            <td data-col-label='transfer out' className={'cell cell--center'}>{transferOut}</td>
+            <td data-col-label='comment' className={'cell cell--center cell--show-925 '}>{comment}</td>
+            {Action && <td data-col-label='action' className={'cell cell--center'}>{Action}</td>}
+          </tr>
+        );
+      })}
+    </tbody>
+  );
+};
+
+TransferBody.propTypes = {
+  getGameWeekFromDate: PropTypes.func.isRequired,
+  transfers: PropTypes.array.isRequired,
+  Action: PropTypes.element,
+};
 
 const GameWeekTransfers = ({
   transfers, isLoading, Action, getGameWeekFromDate,
