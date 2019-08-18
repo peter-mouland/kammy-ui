@@ -58,7 +58,7 @@ export const teams = createSelector(
       .concat(divisionsPlayers.championship)
       .concat(divisionsPlayers.premierLeague);
 
-    const pickedPlayers = !managers.length ? [] : managers.reduce((prev, manager) => {
+    const pickedPlayers = !managers.length ? {} : managers.reduce((prev, manager) => {
       const groupTeams = cupTeams
         .filter((teamPlayer) => teamPlayer.manager === manager)
         .reduce((arr, team) => ([
@@ -76,10 +76,10 @@ export const teams = createSelector(
 
     return ({
       data: players.reduce((prev, player = {}) => {
-        const picked = pickedPlayers[player.manager].includes(player.name);
+        const picked = (pickedPlayers[player.manager] || []).includes(player.name);
         return ({
           ...prev,
-          [player.manager]: [...prev[player.manager] || {}, { ...player, picked }],
+          [player.manager]: [{ ...prev[player.manager] || {} }, { ...player, picked }],
         });
       }, {}),
     });

@@ -14,7 +14,7 @@ const SETUP = 'DRAFTFF_SETUP_ID';
 const GS_API = (spreadsheet, endpoint) => (
   `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheets[spreadsheet]}${endpoint}?key=${ACCESS_KEY}`
 );
-const rowToObj = ({ values }) => {
+const rowToObj = ({ values = [] }) => {
   const headers = values.splice(0, 1)[0]; // remove and extract headers row
   const data = values.map((row) => row.reduce((prev, col, i) => ({
     ...prev,
