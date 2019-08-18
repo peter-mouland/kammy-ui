@@ -159,7 +159,8 @@
 .show-850,
 .show-750,
 .show-625,
-.show-550 {
+.show-550,
+.show-450 {
   display: none;
 }
 
@@ -168,7 +169,8 @@
 .hide-850,
 .hide-750,
 .hide-625,
-.hide-550 {
+.hide-550,
+.hide-450 {
   display: block;
 }
 
@@ -179,8 +181,20 @@ th {
   &.hide-850,
   &.hide-750,
   &.hide-625,
-  &.hide-550 {
+  &.hide-550,
+  &.hide-450 {
     display: table-cell;
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .show-450 { display: block; }
+  .hide-450 { display: none; }
+
+  td,
+  th {
+    &.hide-450 { display: none; }
+    &.show-450 { display: table-cell; }
   }
 }
 
