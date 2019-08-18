@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 
-import { keysAsCellHeaders, keysAsCells } from './tableHelpers';
+import { StatsHeaders, StatsCells } from './tableHelpers';
 import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
@@ -12,7 +12,7 @@ const PositionTimelineTable = ({ gameWeeks, season }) => (
     <thead>
       <tr>
         <th className={'cell'} colSpan={5} />
-        {keysAsCellHeaders(season)}
+        <StatsHeaders colspan={1} />
       </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@ const PositionTimelineTable = ({ gameWeeks, season }) => (
         gameWeeks.map((gameWeek, gw) => (
           gameWeek.gameWeekFixtures.map((fixture, i) => (
             <tr key={`${fixture.event}`}>
-              <th>{i === 0 && (gw + 1)}</th>
+              <th>{i === 0 && gw}</th>
               <td>{gameWeek.name}</td>
               <td className={bem('team', {
                 home: true,
@@ -31,7 +31,7 @@ const PositionTimelineTable = ({ gameWeeks, season }) => (
                 away: true,
                 'my-team': gameWeek.club === fixture.aTname,
               })}>{fixture.aScore} {fixture.aTname}</td>
-              {keysAsCells(fixture.stats)}
+              <StatsCells seasonToGameWeek={fixture.stats} />
             </tr>
           ))
         ))
@@ -41,7 +41,7 @@ const PositionTimelineTable = ({ gameWeeks, season }) => (
       <tfoot>
         <tr>
           <th colSpan={5} />
-          {keysAsCells(season)}
+          <StatsCells seasonToGameWeek={season} />
         </tr>
       </tfoot>
     )}

@@ -31,9 +31,13 @@ export const getAllPlayerData = createSelector(
   allDataSelector,
   ({
     data, count, errors, loaded, loading,
-  }) => ({
-    data, playersArray: Object.values(data || {}), count, errors, loaded, loading,
-  }),
+  }) => {
+    const playersArray = Object.values(data || {});
+    const byCode = playersArray.reduce((prev, curr) => ({ ...prev, [curr.code]: curr }), {});
+    return {
+      data, byCode, playersArray, count, errors, loaded, loading,
+    };
+  },
 );
 
 export const getImporting = createSelector(

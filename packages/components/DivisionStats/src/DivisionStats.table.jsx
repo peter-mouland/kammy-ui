@@ -6,9 +6,19 @@ import Modal from '@kammy-ui/modal';
 
 import PlayerTimeline from './components/PlayerTimeline.table';
 import PositionTimeline from './components/PositionTimeline.table';
-import { keysAsCellHeaders, pairedKeysAsCells } from './components/tableHelpers';
+import { StatsHeaders, StatsCells } from './components/tableHelpers';
 
 const bem = bemHelper({ block: 'table' });
+
+// const getLiveScores = (livePlayers = [], playersByCode) => livePlayers.reduce((prev, curr) => {
+//   const [code, skyPoints, START, tba3, CONCEDED, tba5, YELLOWS, GOALS, ASSISTS] = curr;
+//   return {
+//     ...prev,
+//     [playersByCode[code].name]: {
+//       name: playersByCode[code].name, code, skyPoints, START, tba3, CONCEDED, tba5, YELLOWS, GOALS, ASSISTS,
+//     },
+//   };
+// }, {});
 
 const validatePlayer = (managersSeason, intGameWeek) => {
   const players = Object.keys(managersSeason).reduce((acc, manager) => ([
@@ -86,7 +96,7 @@ class TeamsPage extends React.Component {
 
   render() {
     const {
-      managersSeason, selectedGameWeek, isAdmin, managers,
+      managersSeason, selectedGameWeek, isAdmin, managers, // liveScores, playersByCode,
     } = this.props;
     const {
       showPositionTimeline, positionTimelineProps,
@@ -98,7 +108,7 @@ class TeamsPage extends React.Component {
       const { clubWarnings } = validateClub(managersSeason[manager], selectedGameWeek);
       return clubWarnings.length ? { clubWarnings, manager } : undefined;
     }).filter(Boolean);
-
+    // const livePlayers = getLiveScores(liveScores.players, playersByCode);
     return (
       <div className={bem(null, null, 'page-content')} data-b-layout="row vpad">
         <div>
@@ -138,7 +148,7 @@ class TeamsPage extends React.Component {
             </div>
           )}
         </div>
-        <div data-b-layout="vpad">
+        <div data-b-layout="vpad" style={{ margin: '0 auto', width: '100%' }}>
           <table className={'table'}>
             {managers.map((manager) => {
               const thisManager = managersSeason[manager] || [];
@@ -151,17 +161,16 @@ class TeamsPage extends React.Component {
                       <th colSpan={24} className={'cell cell--team-season'}>Season</th>
                     </tr>
                     <tr className={'row row--header'}>
-                      <th className={'cell cell--team-position'}>Team Position</th>
+                      <th className={'cell cell--team-position'}>Position</th>
                       <th className={'cell cell--player'}>Player</th>
-                      <th className={'cell cell--position'}>Position</th>
-                      <th className={'cell cell--club'}>Club</th>
-                      {keysAsCellHeaders((thisManager[0] || {}).seasonStats, { colSpan: 2 })}
+                      <th className={'cell cell--club show-850'}>Club</th>
+                      <StatsHeaders />
                     </tr>
                   </thead>
                   <tbody>
                     {thisManager.map((teamSheetItem) => {
-                      const player = teamSheetItem.gameWeeks[selectedGameWeek] || {};
-                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeek];
+                      const player = teamSheetItem.gameWeeks[selectedGameWeek] || { gameWeekStats: {} };
+                      const seasonToGameWeek = teamSheetItem.seasonToGameWeek[selectedGameWeek] || {};
                       const playerLastGW = teamSheetItem.gameWeeks[previousGameWeek];
                       const className = playerLastGW.name !== player.name ? bem('transfer') : '';
                       const warningClassName = isAdmin && (
@@ -182,7 +191,8 @@ class TeamsPage extends React.Component {
                               })}
                               title={`Show ${teamSheetItem.teamPos} timeline`}
                             >
-                              {teamSheetItem.teamPos}
+                              {player.pos}
+                              {player.pos !== teamSheetItem.teamPos && <small> ({teamSheetItem.teamPos})</small>}
                             </a>
                           </td>
                           <td className={'cell cell--player'}>
@@ -192,17 +202,11 @@ class TeamsPage extends React.Component {
                               title={`Show ${teamSheetItem.teamPos} timeline`}
                             >
                               {player.name}
-                            </a></td>
-                          <td className={'cell cell--position'}>{player.pos}</td>
-                          <td className={'cell cell--club'}>{player.club}</td>
-                          {
-                            player && (
-                              pairedKeysAsCells(
-                                seasonToGameWeek,
-                                player.gameWeekStats,
-                              )
-                            )
-                          }
+                            </a>
+                            <small className={'hide-850'}>{player.club}</small>
+                          </td>
+                          <td className={'cell cell--club show-850'}>{player.club}</td>
+                          <StatsCells seasonToGameWeek={seasonToGameWeek} gameWeekStats={player.gameWeekStats} />
                         </tr>
                       );
                     })}

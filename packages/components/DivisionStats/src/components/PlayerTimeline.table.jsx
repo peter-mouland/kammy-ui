@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import bemHelper from '@kammy-ui/bem';
 
-import { keysAsCellHeaders, keysAsCells } from './tableHelpers';
+import { StatsHeaders, StatsCells } from './tableHelpers';
 import './positionTimeline.scss';
 
 const bem = bemHelper({ block: 'position-timeline' });
@@ -21,7 +21,7 @@ const PlayerTimelineTable = ({ player }) => {
       <thead>
         <tr>
           <th className={'cell'} colSpan={3} />
-          {keysAsCellHeaders(player.gameWeekStats)}
+          <StatsHeaders colspan={1} />
         </tr>
       </thead>
       <tbody>
@@ -37,7 +37,7 @@ const PlayerTimelineTable = ({ player }) => {
                 away: true,
                 'my-team': player.club === fixture.aTname,
               })}>{fixture.aScore} {fixture.aTname}</td>
-              {keysAsCells(fixture.stats)}
+              <StatsCells seasonToGameWeek={fixture.stats} />
               {sum(totals, fixture.stats)}
             </tr>
           ))
@@ -46,7 +46,7 @@ const PlayerTimelineTable = ({ player }) => {
       <tfoot>
         <tr>
           <th colSpan={3} />
-          {keysAsCells(totals)}
+          <StatsCells seasonToGameWeek={totals} />
         </tr>
       </tfoot>
     </table>

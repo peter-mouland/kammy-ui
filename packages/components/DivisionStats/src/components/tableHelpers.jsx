@@ -1,18 +1,72 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-export const pairedKeysAsCells = (objA = {}, objB = {}) => (
-  Object.keys(objA).map((key) => (
-    <Fragment key={key}>
-      <td className={`cell cell--${key}`}>{objA[key]}</td>
-      <td className={`cell cell--pair cell--${key}`}>{objB[key]}</td>
-    </Fragment>
-  ))
+export const StatsHeaders = ({ colspan }) => (
+  <Fragment>
+    <th className={'cell cell--points'} colSpan={colspan}>Points</th>
+    <th className={'cell cell--apps'} colSpan={colspan}>Apps</th>
+    <th className={'cell cell--subs'} colSpan={colspan}>Subs</th>
+    <th className={'cell cell--gls'} colSpan={colspan}>Gls</th>
+    <th className={'cell cell--asts'} colSpan={colspan}>Asts</th>
+    <th className={'cell cell--cs'} colSpan={colspan}>Cs</th>
+    <th className={'cell cell--con'} colSpan={colspan}>Con</th>
+    <th className={'cell cell--pensv'} colSpan={colspan}>Pen-svd</th>
+    <th className={'cell cell--ycard show-625'} colSpan={colspan}>Y card</th>
+    <th className={'cell cell--rcard show-625'} colSpan={colspan}>R card</th>
+    <th className={'cell cell--rcard hide-625'} colSpan={colspan}>Cards</th>
+    <th className={'cell cell--tb show-625'} colSpan={colspan}>Tb</th>
+    <th className={'cell cell--sb show-625'} colSpan={colspan}>Sb</th>
+    <th className={'cell cell--sb hide-625'} colSpan={colspan}>b</th>
+  </Fragment>
 );
 
-export const keysAsCells = (obj = {}) => (
-  Object.keys(obj).map((key) => <td key={key} className={`cell cell--${key}`}>{obj[key]}</td>)
+StatsHeaders.propTypes = {
+  colspan: PropTypes.number,
+};
+
+StatsHeaders.defaultProps = {
+  colspan: 2,
+};
+
+export const StatsCells = ({ seasonToGameWeek, gameWeekStats }) => (
+  <Fragment>
+    {seasonToGameWeek && <td className={'cell cell--points'}>{seasonToGameWeek.points}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--points'}>{gameWeekStats.points}</td>}
+    {seasonToGameWeek && <td className={'cell cell--apps'}>{seasonToGameWeek.apps}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--apps'}>{gameWeekStats.apps}</td>}
+    {seasonToGameWeek && <td className={'cell cell--subs'}>{seasonToGameWeek.subs}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--subs'}>{gameWeekStats.subs}</td>}
+    {seasonToGameWeek && <td className={'cell cell--gls'}>{seasonToGameWeek.gls}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--gls'}>{gameWeekStats.gls}</td>}
+    {seasonToGameWeek && <td className={'cell cell--asts'}>{seasonToGameWeek.asts}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--asts'}>{gameWeekStats.asts}</td>}
+    {seasonToGameWeek && <td className={'cell cell--cs'}>{seasonToGameWeek.cs}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--cs'}>{gameWeekStats.cs}</td>}
+    {seasonToGameWeek && <td className={'cell cell--con'}>{seasonToGameWeek.con}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--con'}>{gameWeekStats.con}</td>}
+    {seasonToGameWeek && <td className={'cell cell--pensv'}>{seasonToGameWeek.pensv}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--pensv'}>{gameWeekStats.pensv}</td>}
+    {seasonToGameWeek && <td className={'cell cell--ycard show-625'}>{seasonToGameWeek.ycard}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--ycard show-625'}>{gameWeekStats.ycard}</td>}
+    {seasonToGameWeek && <td className={'cell cell--rcard show-625'}>{seasonToGameWeek.rcard}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--rcard show-625'}>{gameWeekStats.rcard}</td>}
+    {seasonToGameWeek && <td className={'cell cell--card hide-625'}>{seasonToGameWeek.ycard + seasonToGameWeek.rcard}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--card hide-625'}>{gameWeekStats.ycard + gameWeekStats.rcard}</td>}
+    {seasonToGameWeek && <td className={'cell cell--tb show-625'}>{seasonToGameWeek.tb}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--tb show-625'}>{gameWeekStats.tb}</td>}
+    {seasonToGameWeek && <td className={'cell cell--sb show-625'}>{seasonToGameWeek.sb}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--sb show-625'}>{gameWeekStats.sb}</td>}
+    {seasonToGameWeek && <td className={'cell cell--sb hide-625'}>{seasonToGameWeek.sb + seasonToGameWeek.tb}</td>}
+    {gameWeekStats && <td className={'cell cell--pair cell--sb hide-625'}>{gameWeekStats.sb + gameWeekStats.tb}</td>}
+  </Fragment>
 );
 
-export const keysAsCellHeaders = (obj = {}, attrs = {}) => (
-  Object.keys(obj).map((key) => <th key={key} className={`cell cell--${key}`} { ...attrs}>{key}</th>)
-);
+StatsCells.propTypes = {
+  seasonToGameWeek: PropTypes.object,
+  gameWeekStats: PropTypes.object,
+};
+
+StatsCells.defaultProps = {
+  seasonToGameWeek: null,
+  gameWeekStats: null,
+};

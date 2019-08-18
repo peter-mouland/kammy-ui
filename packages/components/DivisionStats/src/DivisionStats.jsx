@@ -19,8 +19,10 @@ class DivisionStats extends React.Component {
       divisionId, gameWeeksLoaded, fetchGameWeeks,
       fetchAllPlayerData, fetchDivision,
       playersLoaded, divisionLoaded,
+      fetchLiveScores, liveScoresLoaded,
     } = this.props;
 
+    if (!liveScoresLoaded) fetchLiveScores();
     if (!playersLoaded) fetchAllPlayerData();
     if (!divisionLoaded) fetchDivision(divisionId);
     if (!gameWeeksLoaded) fetchGameWeeks();
@@ -28,7 +30,7 @@ class DivisionStats extends React.Component {
 
   render() {
     const {
-      loaded, label, managersSeason, selectedGameWeek, cookies, managers,
+      loaded, label, managersSeason, selectedGameWeek, cookies, managers, liveScores, playersByCode,
     } = this.props;
     return (
       <section id="teams-page" className={bem()} data-b-layout="container">
@@ -38,6 +40,8 @@ class DivisionStats extends React.Component {
         </div>
         <div data-b-layout="vpad">
           <Table
+            playersByCode={playersByCode}
+            liveScores={liveScores}
             managers={managers}
             selectedGameWeek={selectedGameWeek}
             managersSeason={managersSeason}
@@ -55,6 +59,8 @@ DivisionStats.propTypes = {
   gameWeeksLoaded: PropTypes.bool,
   players: PropTypes.object,
   division: PropTypes.object,
+  playersByCode: PropTypes.object,
+  liveScores: PropTypes.object,
   cookies: PropTypes.instanceOf(Cookies).isRequired,
   divisionId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -64,8 +70,10 @@ DivisionStats.propTypes = {
   fetchAllPlayerData: PropTypes.func.isRequired,
   fetchDivision: PropTypes.func.isRequired,
 
-  playersLoading: PropTypes.bool,
+  fetchLiveScores: PropTypes.func.isRequired,
+  liveScoresLoaded: PropTypes.bool.isRequired,
 
+  playersLoading: PropTypes.bool,
   playersLoaded: PropTypes.bool,
   divisionLoaded: PropTypes.bool,
   managers: PropTypes.array,

@@ -1,3 +1,4 @@
+
 @import '~@kammy-ui/bootstrap/src/abstracts/variables';
 
 .table {
@@ -118,64 +119,9 @@
       width: 75px;
     }
 
-    &--show-1000,
-    &--show-925,
-    &--show-850,
-    &--show-750,
-    &--show-625,
-    &--show-550 {
-      display: none;
-    }
-
-    @media only screen and (min-width: 550px) {
-      &--show-550,
-      &--subs,
-      &--apps {
-        display: table-cell;
-      }
-    }
-
     @media only screen and (min-width: 625px) {
-      &--show-625,
-      &--gls,
-      &--asts {
-        display: table-cell;
-      }
-
       .cell {
         min-width: 25px;
-      }
-    }
-
-    @media only screen and (min-width: 750px) {
-      &--show-750,
-      &--cs,
-      &--con,
-      &--pensv {
-        display: table-cell;
-      }
-    }
-
-    @media only screen and (min-width: 850px) {
-      &--show-850,
-      &--ycard,
-      &--rcard {
-        display: table-cell;
-      }
-    }
-
-    @media only screen and (min-width: 925px) {
-      &--show-925,
-      &--tb,
-      &--sb {
-        display: table-cell;
-      }
-    }
-
-    @media only screen and (min-width: 1000px) {
-      &--show-1000,
-      &--position {
-        display: table-cell;
       }
     }
   }
@@ -205,6 +151,102 @@
     &--selected {
       fill: #0c509f;
     }
+  }
+}
+
+.show-1000,
+.show-925,
+.show-850,
+.show-750,
+.show-625,
+.show-550 {
+  display: none;
+}
+
+.hide-1000,
+.hide-925,
+.hide-850,
+.hide-750,
+.hide-625,
+.hide-550 {
+  display: block;
+}
+
+td,
+th {
+  &.hide-1000,
+  &.hide-925,
+  &.hide-850,
+  &.hide-750,
+  &.hide-625,
+  &.hide-550 {
+    display: table-cell;
+  }
+}
+
+@media only screen and (min-width: 550px) {
+  .show-550 { display: block; }
+  .hide-550 { display: none; }
+
+  td,
+  th {
+    &.hide-550 { display: none; }
+    &.show-550 { display: table-cell; }
+  }
+}
+
+@media only screen and (min-width: 625px) {
+  .show-625 { display: block; }
+  .hide-625 { display: none; }
+
+  td,
+  th {
+    &.hide-625 { display: none; }
+    &.show-625 { display: table-cell; }
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  .show-750 { display: block; }
+  .hide-750 { display: none; }
+
+  td,
+  th {
+    &.hide-750 { display: none; }
+    &.show-750 { display: table-cell; }
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .show-850 { display: block; }
+  .hide-850 { display: none; }
+
+  td,
+  th {
+    &.hide-850 { display: none; }
+    &.show-850 { display: table-cell; }
+  }
+}
+
+@media only screen and (min-width: 925px) {
+  .show-925 { display: block; }
+  .hide-925 { display: none; }
+
+  td,
+  th {
+    &.hide-925 { display: none; }
+    &.show-925 { display: table-cell; }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .show-1000 { display: block; }
+  .hide-1000 { display: none; }
+
+  td,
+  th {
+    &.hide-1000 { display: none; }
+    &.show-1000 { display: table-cell; }
   }
 }
 
