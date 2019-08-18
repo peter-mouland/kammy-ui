@@ -26,9 +26,9 @@ const getLeagueRank = ({ points, pointsLastWeek }) => {
   };
 };
 
-const seasonCombiner = (gameWeeks, managers, { data }) => (
-  gameWeeks.length
-    ? managerSeason({ managers, gameWeeks, players: data })
+const seasonCombiner = (gameWeeks, managers, players) => (
+  gameWeeks.length && players && Object.keys(players).length > 0
+    ? managerSeason({ managers, gameWeeks, players })
     : null
 );
 
@@ -68,7 +68,7 @@ const selectorFactory = (division) => {
     teamsByGameWeekSelector(division),
     draftSetupSelectors.getDraftSetup,
     playerSelectors.getAllPlayerData,
-    (gameWeeks, { byDivision }, players) => (
+    (gameWeeks, { byDivision }, { data: players }) => (
       seasonCombiner(gameWeeks, byDivision.managers[division], players)
     ),
   );
