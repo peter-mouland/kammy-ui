@@ -24,6 +24,7 @@ const PickCupTeam = ({
           <label htmlFor={id}>
             <span>Player {index}: </span>
             <PlayerPicker
+              playerNumber={index - 1}
               pendingTransfers={pendingTransfers}
               picked={picked}
               id={id}
@@ -63,126 +64,13 @@ PickCupTeam.defaulProps = {
   picked: [],
 };
 
-//
-// class Cup extends React.Component {
-//   state = {
-//     showModal: false, pickCup: {}, pickedCup: {}, selectedRound: ALL, selectedGroup: ALL,
-//   };
-//
-//   pickCupTeam = ({
-//     team, manager, group, round,
-//   }) => {
-//     this.setState({
-//       showModal: true,
-//       pickCup: {
-//         team, manager, group, round,
-//       },
-//     });
-//   };
-//
-//   pickPlayer = (e, playerNumber) => {
-//     const player = e.target.value;
-//     this.setState((currState) => ({
-//       pickedCup: {
-//         ...currState.pickedCup,
-//         manager: currState.pickCup.manager,
-//         group: currState.pickCup.group,
-//         round: currState.pickCup.round,
-//         [`player${playerNumber}`]: player,
-//       },
-//     }));
-//   };
-//
-//   saveCupTeam = () => {
-//     const { pickedCup } = this.state;
-//     this.props.saveCupTeam(pickedCup)
-//       .then(() => {
-//         this.setState({
-//           showModal: false, pickCup: {}, pickedCup: {},
-//         });
-//       }).catch((e) => {
-//         console.error(e);
-//         this.setState({
-//           showModal: false, pickCup: {}, pickedCup: {},
-//         });
-//       });
-//   };
-//
-//   render() {
-//     const {
-//       cupLoaded, cupGroups, label = 'Cup', groups, rounds, teams,
-//     } = this.props;
-//     const {
-//       showModal, pickCup, selectedRound, selectedGroup,
-//     } = this.state;
-//     const [progress, setProgress] = useSet(0);
-//
-//     return (
-//       <section id="cup-page" className={bem()} data-b-layout="container">
-//         <div data-b-layout="row vpad">
-//           <h1 data-b-layout="full">{label}</h1>
-//           {!cupLoaded && (
-//             <div data-b-layout="full">
-//               <Interstitial/> Data Gathering...
-//             </div>
-//           )}
-//           <p>
-//             <button onClick={() => setProgress(1)}>Pick a Cup Team</button>
-//           </p>
-//           <Modal
-//             key={'whoAreYou'}
-//             id={'whoAreYou'}
-//             title={`Who Are You`}
-//             open={progress === 1}
-//             onClose={this.closeModal}
-//           >
-//             <h4>1. Who are you?</h4>
-//             <MultiToggle
-//               id={'manager'}
-//               loadingMessage={'loading teams...'}
-//               options={managers}
-//               checked={manager}
-//               onChange={this.updateDisplayManager}
-//             />
-//           </Modal>
-//           {showModal && (
-//             <div data-b-layout="full">
-//               <Modal
-//                 key={'teamPicker'}
-//                 id={'teamPicker'}
-//                 title={`${pickCup.manager} Pick your cup team`}
-//                 open={showModal}
-//                 onClose={this.closeModal}
-//               >
-//                 <PickCupTeam
-//                   {...pickCup}
-//                   handleChange={this.pickPlayer}
-//                   handleSubmit={this.saveCupTeam}
-//                 />
-//               </Modal>
-//             </div>
-//           )}
-//         </div>
-//         {/*<div data-b-layout="row vpad">*/}
-//         {/*    <CupPlayers*/}
-//         {/*      cupTeam={team}*/}
-//         {/*      handleClick={() => this.pickCupTeam({*/}
-//         {/*        team: teams[team.manager], manager: team.manager, group, round,*/}
-//         {/*      })}*/}
-//         {/*    />*/}
-//         {/*</div>*/}
-//       </section>
-//     );
-//   }
-// }
-
 const Cup = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
   const [manager, setManager] = useState('');
   const [round, setRound] = useState('');
   const [picked, setPicked] = useState([]);
-  // const { data: cupGroups } = useSelector(cupSelectors.cupGroups);
+  const { data: cupTeams } = useSelector(cupSelectors.getTeams);
   const { managers, rounds } = useSelector(cupSelectors.getCupMetaData);
   const { loaded: cupLoaded, loading: cupLoading } = useSelector(cupSelectors.getStatus);
   const { loaded: premierLeagueLoaded, loading: premierLeagueLoading } = useSelector(divisionSelectors.getStatus('premierLeague'));
@@ -213,18 +101,34 @@ const Cup = () => {
     ...leagueOneTransfers.data,
   };
 
-  useSelector((state) => console.log(state) || state);
-  // const teams = useSelector(cupSelectors.teams);
   // const saveCupTeam = (cupTeamInput) => dispatch(cupActions.saveCupTeam(cupTeamInput));
+  const saveCupTeam = () => {
+    const [player1, player2, player3, player4] = picked;
+    const team = cupTeams.find(({ manager: cupManager }) => manager === cupManager) || {};
+    const cupTeamInput = {
+      player1, player2, player3, player4, manager, round, group: team.group,
+    };
+    dispatch(cupActions.saveCupTeam(cupTeamInput));
+  };
   const hasFetchCup = cupLoaded || cupLoading;
   const hasFetchPremierLeague = premierLeagueLoaded || premierLeagueLoading;
   const hasFetchChampionship = championshipLoaded || championshipLoading;
   const hasFetchLeagueOne = leagueOneLoaded || leagueOneLoading;
 
 
+  const closeModal = () => {
+    batch(() => {
+      setManager('');
+      setPicked([]);
+      setRound('');
+      setProgress(0);
+    });
+  };
+
   const finishStep1 = (selection) => {
     batch(() => {
       setManager(selection);
+      setPicked([]);
       setRound('');
       setProgress(2);
     });
@@ -232,12 +136,15 @@ const Cup = () => {
   const finishStep2 = (selection) => {
     batch(() => {
       setRound(selection);
+      setPicked([]);
       setProgress(3);
     });
   };
 
-  const pickPlayer = (player) => {
-    setPicked([...picked, player]);
+  const pickPlayer = (player, index) => {
+    const newPicked = [...picked];
+    newPicked[index] = player;
+    setPicked(newPicked);
   };
 
   if (!hasFetchCup) {
@@ -269,11 +176,11 @@ const Cup = () => {
           id={'whoAreYou'}
           title={'Who Are You?'}
           open={progress === 1}
-          onClose={() => setProgress(0)}
+          onClose={closeModal}
         >
           <MultiToggle
             id={'manager'}
-            options={managers}
+            options={managers.sort()}
             checked={manager}
             onChange={finishStep1}
           />
@@ -283,7 +190,7 @@ const Cup = () => {
           id={'whatRound'}
           title={'Who Round Are You Picking For?'}
           open={progress === 2}
-          onClose={() => setProgress(0)}
+          onClose={closeModal}
         >
           <MultiToggle
             id={'manager'}
@@ -297,7 +204,7 @@ const Cup = () => {
           id={'pickTeam'}
           title={'Who do you want to pick?'}
           open={progress === 3}
-          onClose={() => setProgress(0)}
+          onClose={closeModal}
         >
           <PickCupTeam
             team={allManagerTeams[manager]}
@@ -306,7 +213,7 @@ const Cup = () => {
             manager={manager}
             picked={picked}
             handleChange={pickPlayer}
-            handleSubmit={console.log}
+            handleSubmit={saveCupTeam}
           />
         </Modal>
       </div>

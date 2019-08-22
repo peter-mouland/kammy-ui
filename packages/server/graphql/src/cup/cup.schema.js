@@ -28,6 +28,7 @@ const schemaString = `
   }
 
   type Team {
+    row: Int
     group: String
     round: String
     gameWeek: Int

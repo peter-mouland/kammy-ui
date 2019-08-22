@@ -13,7 +13,7 @@ query {
   getCup {
     rounds groups managers
     teams {
-      group round manager rank points
+      row group round manager rank points
       player1 { code pos name points rank }
       player2 { code pos name points rank }
       player3 { code pos name points rank }

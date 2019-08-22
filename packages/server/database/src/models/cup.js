@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import format from 'date-fns/format';
 
 const Cup = mongoose.model('Cup');
 
@@ -8,10 +9,11 @@ const getCupTeam = (cupTeamDetails = {}) => Cup.aggregate([{ $match: cupTeamDeta
 // findOneAndUpdate
 const saveCupTeam = async ({ cupTeamInput: team } = {}) => {
   try {
+    const teamWithTime = { ...team, timestamp: format(new Date(), 'DD/MM/YYYY HH:mm:ss') };
     const dbCupTeam = await getCupTeam({ manager: team.manager, group: team.group, round: team.round });
     return (!dbCupTeam.length)
       ? new Cup(team).save()
-      : Cup.findOneAndUpdate(dbCupTeam._id, team).exec().catch(console.error);
+      : Cup.findOneAndUpdate(dbCupTeam[0]._id, { ...dbCupTeam, ...teamWithTime }).exec().catch(console.error);
   } catch (e) {
     console.error(e);
     return {};

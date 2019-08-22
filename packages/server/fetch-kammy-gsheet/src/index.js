@@ -11,14 +11,23 @@ const spreadsheets = {
 const DRAFT = 'DRAFTFF_DRAFT_ID';
 const TRANSFERS = 'DRAFTFF_TRANSFERS_ID';
 const SETUP = 'DRAFTFF_SETUP_ID';
-const GS_API = (spreadsheet, endpoint) => (
-  `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheets[spreadsheet]}${endpoint}?key=${ACCESS_KEY}`
-);
+const GS_API = (spreadsheet, endpoint, opts = {}) => {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheets[spreadsheet]}${endpoint}`;
+  const fullUrl = Object.keys(opts).reduce((prev, opt) => (
+    `${prev}${opts[opt] === true ? `&${opt}=true` : ''}`
+  ), `${url}?key=${ACCESS_KEY}`);
+  // console.log({ fullUrl });
+  return fullUrl;
+};
+
 const rowToObj = ({ values = [] }) => {
+  const sheetCols = 'abcdefghijklmnopqrstuvwxyz';
   const headers = values.splice(0, 1)[0]; // remove and extract headers row
-  const data = values.map((row) => row.reduce((prev, col, i) => ({
+  const data = values.map((row, rowIndex) => row.reduce((prev, col, colIndex) => ({
     ...prev,
-    [headers[i]]: col,
+    __row: rowIndex + 2,
+    [headers[colIndex]]: col,
+    [`${headers[colIndex]}__range`]: `${sheetCols.charAt(colIndex)}${rowIndex + 2}`,
   }), {}));
   return data;
 };
@@ -62,9 +71,11 @@ const formatDivision = (data) => {
 /* CUP */
 const formatCupPlayer = ({
   status = '', timestamp = '', group = '', gameweek, round = '', manager = '', player1 = '', player2 = '', player3 = '', player4 = '',
+  __row,
 }) => ({
   status,
   timestamp,
+  row: __row,
   group: group.trim(),
   gameWeek: gameweek,
   round: round.trim(),
