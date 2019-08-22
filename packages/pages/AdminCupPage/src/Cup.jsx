@@ -26,6 +26,7 @@ class Cup extends React.Component {
         <table className={'table'}>
           <thead>
             <tr className={'row'}>
+              <th className={'cell'}>Time</th>
               <th className={'cell'}>Round</th>
               <th className={'cell'}>Group</th>
               <th className={'cell'}>Manager</th>
@@ -39,6 +40,7 @@ class Cup extends React.Component {
             {
               draftCup.map((team) => (
                 <tr key={`${team.group}-${team.round}-${team.manager}`} className={'row'}>
+                  <td className={'cell'}>{team.dateCreated}</td>
                   <td className={'cell'}>{team.round}</td>
                   <td className={'cell'}>{team.group}</td>
                   <td className={'cell'}>{team.manager}</td>

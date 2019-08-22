@@ -7,6 +7,7 @@ const schemaString = `
     manager: String
     group: String
     round: Int
+    dateCreated: String
   }
 
   input CupTeamInput {

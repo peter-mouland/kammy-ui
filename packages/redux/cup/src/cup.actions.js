@@ -33,7 +33,7 @@ export function fetchDraftCup() {
       promise: fetchGraphQL(`
 query { 
   getDraftCup {
-    round group manager player1 player2 player3 player4 
+    dateCreated round group manager player1 player2 player3 player4 
  }
 } 
 `),
