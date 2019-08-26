@@ -71,7 +71,7 @@ DivisionStats.propTypes = {
   fetchDivision: PropTypes.func.isRequired,
 
   fetchLiveScores: PropTypes.func.isRequired,
-  liveScoresLoaded: PropTypes.bool.isRequired,
+  liveScoresLoaded: PropTypes.bool,
 
   playersLoading: PropTypes.bool,
   playersLoaded: PropTypes.bool,
@@ -86,6 +86,7 @@ DivisionStats.defaultProps = {
   playersLoading: false,
   transfersLoading: false,
   playersLoaded: false,
+  liveScoresLoaded: false,
   transfersLoaded: false,
   divisionLoaded: false,
   transfers: {},

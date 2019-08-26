@@ -46,11 +46,13 @@ class Chart extends React.Component {
 
   render() {
     const {
-      data = [], xAxis, lines, highlightManager, lineType,
+      data, xAxis, lines, highlightManager, lineType,
     } = this.props;
     const { width, dataPoints } = this.state;
+    const lineChartData = data.slice(Math.max(0, data.length - dataPoints), data.length);
+
     return (
-      <LineChart width={width} height={width / 2} data={data.slice(Math.max(0, data.length - dataPoints), data.length)} style={{ margin: '0 auto' }}>
+      <LineChart width={width} height={width / 2} data={lineChartData} style={{ margin: '0 auto' }}>
         <Legend verticalAlign="bottom" width={width} height={30} />
         {lines
           .map((line, i) => (
@@ -76,13 +78,14 @@ Chart.lineTypes = ['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed'
 
 Chart.propTypes = {
   xAxis: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
   lines: PropTypes.array.isRequired,
+  data: PropTypes.array,
   highlightManager: PropTypes.string,
   lineType: PropTypes.oneOf(Chart.lineTypes),
 };
 
-Chart.propTypes = {
+Chart.defaultProps = {
+  data: [],
   highlightManager: '',
   lineType: 'basis',
 };

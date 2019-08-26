@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import jsonQuery from 'json-query';
 import bemHelper from '@kammy-ui/bem';
+import toDate from '@kammy-ui/helpers-to-date';
 
 import './game-week-fixtures.scss';
 
@@ -36,9 +37,9 @@ const getGwFixtures = (data, { start, end }) => (
     data,
     locals: {
       date(item) {
-        const fixtureDate = new Date(item.date);
-        const endDate = new Date(end);
-        const startDate = new Date(start);
+        const fixtureDate = toDate(item.date);
+        const endDate = toDate(end);
+        const startDate = toDate(start);
         return fixtureDate <= endDate && fixtureDate >= startDate;
       },
     },
@@ -83,13 +84,14 @@ class GameWeekFixtures extends React.Component {
     const liveState = liveScores.gamestatus && liveScores.gamestatus[0].state;
     const isLive = liveState === 'ON';
     let previousFullDate = '';
+
     return (
       <div>
         {loading && 'Loading...'}
         {isLive && <p className={bem('live')}>live Scores (may change)</p>}
         {
           gwFixtures && gwFixtures.value.map((fixture) => {
-            const date = new Date(fixture.date);
+            const date = toDate(fixture.date);
             const fullDate = `${date.getFullYear()} ${months[date.getMonth()]} ${date.getDate()}`;
             const dateStr = fullDate === previousFullDate ? null : <h2>{fullDate}</h2>;
             const aTeamLiveScore = liveMatches[getTeamName(fixture.aTname)];

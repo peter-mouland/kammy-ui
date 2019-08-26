@@ -98,10 +98,10 @@ DivisionRankings.propTypes = {
   label: PropTypes.string.isRequired,
   managers: PropTypes.array,
   managersSeason: PropTypes.object,
-  managersPoints: PropTypes.object,
+  managersPoints: PropTypes.array,
   managersRank: PropTypes.object,
   managersRankChange: PropTypes.object,
-  lineChartData: PropTypes.object,
+  lineChartData: PropTypes.array,
 
   fetchAllPlayerData: PropTypes.func.isRequired,
   fetchGameWeeks: PropTypes.func.isRequired,
@@ -117,10 +117,11 @@ DivisionRankings.propTypes = {
 };
 
 DivisionRankings.defaultProps = {
-  lineType: '0',
+  lineType: undefined,
   managersSeason: {},
   loaded: false,
   managers: [],
+  managersPoints: [],
   playersLoaded: false,
   gameWeeksLoaded: false,
   divisionLoaded: false,

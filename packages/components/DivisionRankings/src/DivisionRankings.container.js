@@ -28,6 +28,8 @@ function mapStateToProps(state, { divisionId }) {
     && divisionLoaded
   );
 
+  const lineChartUpToCurrent = [...lineChartData].splice(0, selectedGameWeek + 1);
+
   return {
     playersLoaded: players.loaded,
     gameWeeksLoaded,
@@ -37,7 +39,7 @@ function mapStateToProps(state, { divisionId }) {
     managersPoints,
     managersRank,
     managersRankChange,
-    lineChartData: lineChartData.splice(0, selectedGameWeek + 1),
+    lineChartData: lineChartUpToCurrent,
     loaded,
   };
 }

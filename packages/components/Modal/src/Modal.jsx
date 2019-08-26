@@ -18,7 +18,7 @@ export default class Modal extends Component {
     focusElement: PropTypes.string,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
-    style: PropTypes.string,
+    style: PropTypes.object,
   }
 
   static defaultProps = {
