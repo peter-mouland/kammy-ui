@@ -18,6 +18,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@kammy-ui/cache": "^0.0.17",
     "@kammy-ui/database": "^0.0.17",
     "@kammy-ui/redux.draft-setup": "^0.0.17",
     "@kammy-ui/fetch-kammy-sheets": "^0.0.18",

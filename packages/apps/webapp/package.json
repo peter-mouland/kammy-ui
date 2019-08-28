@@ -22,6 +22,7 @@
     "@kammy-ui/homepage": "0.0.17",
     "@kammy-ui/division-stats": "0.0.17",
     "@kammy-ui/admin-cup-page": "0.0.17",
+    "@kammy-ui/cache": "0.0.17",
     "@kammy-ui/cup-page": "0.0.17",
     "@kammy-ui/default-template": "0.0.17",
     "@kammy-ui/fetch-kammy-sheets": "0.0.18",

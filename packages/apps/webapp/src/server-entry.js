@@ -1,7 +1,6 @@
 import { ChunkExtractor } from '@loadable/server';
 import path from 'path';
 
-import prefetch from './server/prefetch';
 import './server/polyfills';
 import './config/config';
 import createServer from './server/create-server';
@@ -15,7 +14,7 @@ const assetsConfig = (process.env.NODE_ENV === 'production')
 const extractor = new ChunkExtractor({ statsFile, entrypoints: ['app', 'polyfills'] });
 
 createServer({
-  prefetch, assetsConfig, reducers, extractor,
+  assetsConfig, reducers, extractor,
 }).listen(process.env.DEV_PORT || process.env.PORT, () => {
   console.log(`listening at http://localhost:${process.env.PORT}`); // eslint-disable-line no-console
 });

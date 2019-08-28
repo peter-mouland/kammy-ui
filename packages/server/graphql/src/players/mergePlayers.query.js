@@ -1,6 +1,7 @@
 import { fetchPlayersFull } from '@kammy-ui/fetch-sky-sports';
 import * as fetchSpreadsheet from '@kammy-ui/fetch-kammy-sheets';
 import { connect } from '@kammy-ui/database';
+import { resetCache } from '@kammy-ui/cache';
 
 export const mergePlayersData = ({ spreadsheetPlayers, skySportsPlayers }) => {
   const allPlayers = {
@@ -52,10 +53,14 @@ const mergePlayers = async () => {
         }),
         gameWeeks,
       }))
-      .then(({ players, gameWeeks }) => upsertPlayers({
-        players: Object.values(players),
-        gameWeeks,
-      }))
+      .then(({ players, gameWeeks }) => {
+        const updatedPlayers = upsertPlayers({
+          players: Object.values(players),
+          gameWeeks,
+        });
+        resetCache(); // reset prefetch cache
+        return updatedPlayers();
+      })
   );
 };
 

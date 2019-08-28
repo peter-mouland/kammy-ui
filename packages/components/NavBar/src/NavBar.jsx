@@ -19,6 +19,7 @@ const AdminLinks = ({ cookies }) => (
         <NavItem label='Admin' to='admin'>
           <NamedLink to="admin-players" className={linkClass}/>
           <NamedLink to="admin-cup" className={linkClass}/>
+          <a href="/google-spreadsheet/cache/reset" className={linkClass}>Reset Spreadsheet Cache</a>
         </NavItem>
       </div>
     )

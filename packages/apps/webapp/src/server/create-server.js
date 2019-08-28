@@ -19,6 +19,7 @@ import graphQlRouter from './routes/routes.graphql';
 import skySportsRouter from './routes/routes.skysports';
 import googleSpreadsheetRouter from './routes/routes.google-spreadsheet';
 import { DIST } from '../config/paths';
+import prefetch from './prefetch';
 
 const GA_KEY = process.env.NODE_ENV === 'production' ? 'UA-144222833-1' : null;
 const YEAR = 100 * 60 * 60 * 24 * 7 * 52;
@@ -50,7 +51,7 @@ server.use(compress());
 server.use(headers());
 
 export default ({
-  prefetch, reducers, assetsConfig, extractor,
+  reducers, assetsConfig, extractor,
 }) => {
   router
     .use(graphQlRoutes.routes())

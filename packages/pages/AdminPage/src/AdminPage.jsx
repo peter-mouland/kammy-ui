@@ -13,6 +13,7 @@ const AdminPage = ({ cookies }) => {
       <ul>
         <li><NamedLink to="admin-players"/></li>
         <li><NamedLink to="admin-cup" /></li>
+        <li><a href="/google-spreadsheet/cache/reset">Reset Spreadsheet Cache</a></li>
       </ul>
     </section>
   );
