@@ -6,6 +6,7 @@ const cupTeamSelector = (state) => get(state, 'cup.teams');
 const cupDraftSelector = (state) => get(state, 'cup.draftCup');
 const cupDraftLoadedSelector = (state) => get(state, 'cup.draftCupLoaded');
 const statusSelector = (state) => get(state, 'cup.status');
+const saveStatusSelector = (state) => get(state, 'cup.saveStatus');
 const divisionsPlayersSelector = (state) => get(state, 'cup.divisionsPlayers');
 
 export const getDraftCup = createSelector(
@@ -15,6 +16,10 @@ export const getDraftCup = createSelector(
 
 export const getStatus = createSelector(
   statusSelector,
+  (status) => status,
+);
+export const getSaveStatus = createSelector(
+  saveStatusSelector,
   (status) => status,
 );
 

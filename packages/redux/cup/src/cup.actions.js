@@ -41,6 +41,12 @@ query {
   };
 }
 
+export function resetCupSave() {
+  return {
+    type: `${SAVE_CUP}_RESET`,
+  };
+}
+
 export function saveCupTeam(cupTeamInput) {
   return {
     type: SAVE_CUP,

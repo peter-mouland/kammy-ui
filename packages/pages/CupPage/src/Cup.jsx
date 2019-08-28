@@ -14,7 +14,7 @@ import PlayerPicker from './components/player-picker';
 const bem = bemHelper({ block: 'division-stats' });
 
 const PickCupTeam = ({
-  team, pendingTransfers, manager, handleChange, handleSubmit, picked,
+  team, pendingTransfers, manager, handleChange, handleSubmit, picked, saving,
 }) => (
   <section>
     {([1, 2, 3, 4]).map((index) => {
@@ -44,12 +44,18 @@ const PickCupTeam = ({
         If that fails to separate teams, Player 2&apos;s score will be
         used... and so on until there is a clear winner.
       </p>
-      <button onClick={handleSubmit}>Save Cup Team</button>
+      { saving && (
+        <Interstitial message={'Saving'} />
+      )}
+      {!saving && (
+        <button onClick={handleSubmit}>Save Cup Team</button>
+      )}
     </div>
   </section>
 );
 
 PickCupTeam.propTypes = {
+  saving: PropTypes.bool,
   picked: PropTypes.array,
   pendingTransfers: PropTypes.array,
   team: PropTypes.arrayOf(PropTypes.shape({
@@ -62,6 +68,7 @@ PickCupTeam.propTypes = {
 
 PickCupTeam.defaulProps = {
   picked: [],
+  saving: false,
 };
 
 const Cup = () => {
@@ -72,6 +79,7 @@ const Cup = () => {
   const [picked, setPicked] = useState([]);
   const { data: cupTeams } = useSelector(cupSelectors.getTeams);
   const { managers, rounds } = useSelector(cupSelectors.getCupMetaData);
+  const { saved, saving } = useSelector(cupSelectors.getSaveStatus);
   const { loaded: cupLoaded, loading: cupLoading } = useSelector(cupSelectors.getStatus);
   const { loaded: premierLeagueLoaded, loading: premierLeagueLoading } = useSelector(divisionSelectors.getStatus('premierLeague'));
   const { loaded: championshipLoaded, loading: championshipLoading } = useSelector(divisionSelectors.getStatus('championship'));
@@ -159,6 +167,11 @@ const Cup = () => {
     });
   }
 
+  if (saved && progress === 3) {
+    dispatch(cupActions.resetCupSave());
+    closeModal();
+  }
+
   return (
     <section id="cup-page" className={bem()} data-b-layout="container">
       <div data-b-layout="row vpad">
@@ -168,9 +181,11 @@ const Cup = () => {
             <Interstitial/>
           </div>
         )}
-        <p>
-          <button onClick={() => setProgress(1)}>Pick a Cup Team</button>
-        </p>
+        {progress === 0 && (
+          <p>
+            <button onClick={() => setProgress(1)}>Pick a Cup Team</button>
+          </p>
+        )}
         <Modal
           key={'whoAreYou'}
           id={'whoAreYou'}
@@ -214,6 +229,7 @@ const Cup = () => {
             picked={picked}
             handleChange={pickPlayer}
             handleSubmit={saveCupTeam}
+            saving={saving}
           />
         </Modal>
       </div>

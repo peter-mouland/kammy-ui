@@ -17,10 +17,28 @@ const rejected = (errors) => ({
   loaded: false,
 });
 
+const savePending = () => ({
+  saving: true,
+  saved: false,
+});
+
+const saveFulfilled = (errors) => ({
+  errors,
+  saving: false,
+  saved: true,
+});
+
+const saveReset = (errors) => ({
+  errors,
+  saving: false,
+  saved: false,
+});
+
 const initialState = {
   managers: [],
   teams: [],
   status: {},
+  saveStatus: {},
   draftCupLoaded: false,
   divisionsPlayers: {
     leagueOne: [],
@@ -48,6 +66,31 @@ export default function divisionReducer(state = initialState, action) {
       managers: data.getCup.managers,
       status: fulfilled(errors),
     };
+  case `${actions.FETCH_CUP}_REJECTED`:
+    return {
+      ...state,
+      status: rejected([action.payload]),
+    };
+  case `${actions.SAVE_CUP}_RESET`:
+    return {
+      ...state,
+      saveStatus: saveReset(),
+    };
+  case `${actions.SAVE_CUP}_PENDING`:
+    return {
+      ...state,
+      saveStatus: savePending(),
+    };
+  case `${actions.SAVE_CUP}_FULFILLED`:
+    return {
+      ...state,
+      saveStatus: saveFulfilled(errors),
+    };
+  case `${actions.SAVE_CUP}_REJECTED`:
+    return {
+      ...state,
+      saveStatus: saveReset([action.payload]),
+    };
   case actions.FETCH_DRAFT_CUP:
     return {
       ...state,
@@ -58,11 +101,6 @@ export default function divisionReducer(state = initialState, action) {
       ...state,
       draftCup: data.getDraftCup,
       draftCupLoaded: true,
-    };
-  case `${actions.FETCH_CUP}_REJECTED`:
-    return {
-      ...state,
-      status: rejected([action.payload]),
     };
   default:
     return state;
