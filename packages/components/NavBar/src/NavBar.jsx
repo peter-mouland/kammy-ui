@@ -38,7 +38,10 @@ const NavBar = ({ cookies }, { appConfig }) => (
         <NamedLink to="rules" />
         <NamedLink to="prize-money" />
       </NavItem>
-      <NamedLink to="cup" className={linkClass} />
+      <NavItem label='Cup' className={linkClass}>
+        <NamedLink to="cup" className={linkClass} />
+        <NamedLink to="cup-scores" className={linkClass} />
+      </NavItem>
       {
         appConfig.divisionLabels.map((division) => (
           <div key={division} className={linkClass}>

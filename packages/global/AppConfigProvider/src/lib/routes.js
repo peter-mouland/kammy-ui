@@ -62,6 +62,22 @@ export default [
     template: 'default',
   },
   {
+    name: 'cup-scores',
+    exact: true,
+    path: '/cup-scores',
+    meta: {
+      title: 'Draft: Fantasy Football',
+      description: 'Draft : Fantasy Football',
+    },
+    props: {
+      src: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWyi5ZU1jMBPmpLMJzKlZ0aA71HJk7h3Fh4p-rS6e9rw_4lymyetJsYwlaB4iMTlLQPiUYiWwfgt1n/pubhtml',
+    },
+    label: 'Cup Scores',
+    requiresAuthentication: false,
+    component: 'iFrame',
+    template: 'default',
+  },
+  {
     name: 'premierLeague-teams',
     exact: true,
     path: '/premier-league/teams',
