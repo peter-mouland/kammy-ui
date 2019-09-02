@@ -96,8 +96,8 @@ class GameWeekFixtures extends React.Component {
             const dateStr = fullDate === previousFullDate ? null : <h2>{fullDate}</h2>;
             const aTeamLiveScore = liveMatches[getTeamName(fixture.aTname)];
             const hTeamLiveScore = liveMatches[getTeamName(fixture.hTname)];
-            const aScore = isLive && aTeamLiveScore ? aTeamLiveScore.aScore : fixture.hScore;
-            const hScore = isLive && hTeamLiveScore ? hTeamLiveScore.hScore : fixture.aScore;
+            const aScore = isLive && aTeamLiveScore ? aTeamLiveScore.aScore : fixture.aScore;
+            const hScore = isLive && hTeamLiveScore ? hTeamLiveScore.hScore : fixture.hScore;
             const aScoreClass = bem({ live: isLive && aTeamLiveScore });
             const hScoreClass = bem({ live: isLive && hTeamLiveScore });
             previousFullDate = fullDate;
