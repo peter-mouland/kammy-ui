@@ -78,7 +78,7 @@ const Cup = () => {
   const [round, setRound] = useState('');
   const [picked, setPicked] = useState([]);
   const { data: cupTeams } = useSelector(cupSelectors.getTeams);
-  const { managers, rounds } = useSelector(cupSelectors.getCupMetaData);
+  const { managers } = useSelector(cupSelectors.getCupMetaData);
   const { saved, saving } = useSelector(cupSelectors.getSaveStatus);
   const { loaded: cupLoaded, loading: cupLoading } = useSelector(cupSelectors.getStatus);
   const { loaded: premierLeagueLoaded, loading: premierLeagueLoading } = useSelector(divisionSelectors.getStatus('premierLeague'));
@@ -141,13 +141,6 @@ const Cup = () => {
       setProgress(2);
     });
   };
-  const finishStep2 = (selection) => {
-    batch(() => {
-      setRound(selection);
-      setPicked([]);
-      setProgress(3);
-    });
-  };
 
   const pickPlayer = (player, index) => {
     const newPicked = [...picked];
@@ -201,24 +194,10 @@ const Cup = () => {
           />
         </Modal>
         <Modal
-          key={'whatRound'}
-          id={'whatRound'}
-          title={'Who Round Are You Picking For?'}
-          open={progress === 2}
-          onClose={closeModal}
-        >
-          <MultiToggle
-            id={'manager'}
-            options={rounds}
-            checked={round}
-            onChange={finishStep2}
-          />
-        </Modal>
-        <Modal
           key={'pickTeam'}
           id={'pickTeam'}
           title={'Who do you want to pick?'}
-          open={progress === 3}
+          open={progress === 2}
           onClose={closeModal}
         >
           <PickCupTeam
