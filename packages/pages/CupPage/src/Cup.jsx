@@ -75,7 +75,7 @@ const Cup = () => {
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
   const [manager, setManager] = useState('');
-  const [round, setRound] = useState('');
+  const [round] = useState(0);
   const [picked, setPicked] = useState([]);
   const { data: cupTeams } = useSelector(cupSelectors.getTeams);
   const { managers } = useSelector(cupSelectors.getCupMetaData);
@@ -128,7 +128,7 @@ const Cup = () => {
     batch(() => {
       setManager('');
       setPicked([]);
-      setRound('');
+      // setRound('');
       setProgress(0);
     });
   };
@@ -137,7 +137,7 @@ const Cup = () => {
     batch(() => {
       setManager(selection);
       setPicked([]);
-      setRound('');
+      // setRound('');
       setProgress(2);
     });
   };
