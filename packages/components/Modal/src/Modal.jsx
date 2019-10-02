@@ -13,6 +13,7 @@ export default class Modal extends Component {
     ]).isRequired,
     open: PropTypes.bool.isRequired,
     wide: PropTypes.bool,
+    center: PropTypes.bool,
     disableClose: PropTypes.bool,
     disableOverlay: PropTypes.bool,
     focusElement: PropTypes.string,
@@ -23,6 +24,7 @@ export default class Modal extends Component {
 
   static defaultProps = {
     open: false,
+    center: false,
     wide: false,
     disableClose: false,
     disableOverlay: false,
@@ -87,6 +89,7 @@ export default class Modal extends Component {
       wide,
       children,
       style,
+      center,
     } = this.props;
 
     const className = `modal modal--${open ? 'show' : 'hide'} font-standard modal--${wide ? 'wide' : 'default'}`;
@@ -97,7 +100,7 @@ export default class Modal extends Component {
         onKeyPress={this.closeModalUsingKey}
         className={className}
       >
-        <div className='modal__content modal__content--mobile-full' style={style}>
+        <div className={`modal__content ${center ? 'modal__content--center' : 'modal__content--mobile-full'}`} style={style}>
           <div className='modal__header'>
             <div className='modal__title'>
               <h2 className='h2 uppercase'>{title}</h2>

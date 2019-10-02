@@ -117,6 +117,7 @@ const Cup = () => {
       player1, player2, player3, player4, manager, round, group: team.group,
     };
     dispatch(cupActions.saveCupTeam(cupTeamInput));
+    setProgress(3);
   };
   const hasFetchCup = cupLoaded || cupLoading;
   const hasFetchPremierLeague = premierLeagueLoaded || premierLeagueLoading;
@@ -160,10 +161,10 @@ const Cup = () => {
     });
   }
 
-  if (saved && progress === 3) {
+  const startAgain = () => {
     dispatch(cupActions.resetCupSave());
     closeModal();
-  }
+  };
 
   return (
     <section id="cup-page" className={bem()} data-b-layout="container">
@@ -197,7 +198,7 @@ const Cup = () => {
           key={'pickTeam'}
           id={'pickTeam'}
           title={'Who do you want to pick?'}
-          open={progress === 2}
+          open={progress === 2 || saving}
           onClose={closeModal}
         >
           <PickCupTeam
@@ -210,6 +211,16 @@ const Cup = () => {
             handleSubmit={saveCupTeam}
             saving={saving}
           />
+        </Modal>
+        <Modal
+          key={'done'}
+          id={'done'}
+          title={'Team Saved'}
+          open={progress === 3 && saved}
+          onClose={startAgain}
+          center
+        >
+          <span style={{ 'font-size': '3em' }}>🎖</span>
         </Modal>
       </div>
     </section>

@@ -39,6 +39,11 @@ $modal-md: 725px;
   //-moz-osx-font-smoothing: grayscale;
   max-width: $modal-md;
   padding: 15px;
+
+  &--center {
+    max-width: 450px;
+    text-align: center;
+  }
 }
 
 .modal__inner {
@@ -73,16 +78,17 @@ $modal-md: 725px;
 }
 
 .modal__close {
-  padding: 0;
   line-height: 1;
   background-color: $white;
   border: 0;
   z-index: 1;
-  font-size: 15px;
   cursor: pointer;
   position: absolute;
   right: 0;
   top: 0;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .modal__close.modal__close--overlay {
@@ -137,6 +143,11 @@ $modal-md: 725px;
 
     &--default {
       max-width: $modal-md;
+    }
+
+    &--center {
+      max-width: 450px;
+      text-align: center;
     }
   }
 
