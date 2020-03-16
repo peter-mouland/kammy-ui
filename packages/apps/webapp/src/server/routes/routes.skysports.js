@@ -3,6 +3,7 @@ import handleError from '@kammy-ui/koa-middleware-handler-error';
 import {
   fetchFixtures, fetchPlayer, fetchPlayersFull, fetchPlayersSummary, fetchLiveScores,
 } from '@kammy-ui/fetch-sky-sports';
+import { getJSON } from '@kammy-ui/fetchr';
 
 const responder = (ctx, next) => (data) => {
   ctx.type = 'json';
@@ -19,6 +20,11 @@ export default () => {
     ctx.type = 'json';
     ctx.status = 200;
     ctx.response.body = { status: 'healthy' };
+  });
+
+  router.get('/proxy/:url', (ctx, next) => {
+    const { url } = ctx.request.params;
+    return getJSON(`https://fantasyfootball.skysports.com/${url}`).then(responder(ctx, next));
   });
 
   router.get('/fixtures', (ctx, next) => fetchFixtures().then(responder(ctx, next)));
