@@ -105,7 +105,7 @@
     "husky": "^0.14.3",
     "jest": "^24.8.0",
     "jest-enzyme": "^7.0.2",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lerna": "^3.16.1",
     "mini-css-extract-plugin": "0.8.0",
     "node-sass": "^4.12.0",
