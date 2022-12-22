@@ -68,7 +68,7 @@
     "@kammy-ui/redux.cup":  "0.0.17",
     "@kammy-ui/redux.transfers":  "0.0.17",
     "node-fetch": "2.6.0",
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.0",
     "@kammy-ui/database":  "0.0.17",
     "mini-css-extract-plugin": "0.8.0",
     "react-cookie": "^3.1.2",
